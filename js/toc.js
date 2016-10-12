@@ -29,7 +29,7 @@ define(function (){
 
     var $itemHasChild = $("#toc .toc-item:has(> .toc-child)");
     var $titleHasChild = $itemHasChild.children(".toc-link");
-    $itemHasChild.prepend("<i class="fa fa-caret-down"></i><i class="fa fa-caret-right"></i>");
+    $itemHasChild.prepend("<i class='fa fa-caret-down'></i><i class='fa fa-caret-right'></i>");
 
     var clickIcon = function(){
         $("#toc .toc-item > i").click(function(){

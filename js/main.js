@@ -68,7 +68,15 @@ require([], function (){
             var isFancy = $(".isFancy");
             if(isFancy.length != 0){
                 var imgArr = $(".article-inner img");
-                for(var i=0,len=imgArr.length;i<len;i++){ var="" src="imgArr.eq(i).attr("src");" title="imgArr.eq(i).attr("alt");" if(typeof(title)="=" "undefined"){="" }="" width="imgArr.eq(i).attr("width");" height="imgArr.eq(i).attr("height");" imgarr.eq(i).replacewith("<a="" href=""+src+"" rel="fancy-group" class="fancy-ctn fancybox"><img src=""+src+"" width="+width+" height="+height+" title=""+title+"" alt=""+title+"">");
+                for(var i=0,len=imgArr.length;i<len;i++){
+                    var src = imgArr.eq(i).attr("src");
+                    var title = imgArr.eq(i).attr("alt");
+                    if(typeof(title) == "undefined"){
+                        var title = imgArr.eq(i).attr("title");
+                    }
+                    var width = imgArr.eq(i).attr("width");
+                    var height = imgArr.eq(i).attr("height");
+                    imgArr.eq(i).replaceWith("<a href='"+src+"' title='"+title+"' rel='fancy-group' class='fancy-ctn fancybox'><img src='"+src+"' width="+width+" height="+height+" title='"+title+"' alt='"+title+"'></a>");
                 }
                 $(".article-inner .fancy-ctn").fancybox({ type: "image" });
             }
@@ -91,7 +99,26 @@ require([], function (){
                     if (navigator.userAgent.match(/Safari/i)) {
                         function showArticle(){
                             $(".article").each(function(){
-                                if( $(this).offset().top <= $(window).scrolltop()+$(window).height()="" &&="" !($(this).hasclass('show'))="" )="" {="" $(this).removeclass("hidden").addclass("show");="" $(this).addclass("is-hiddened");="" }="" else="" if(!$(this).hasclass("is-hiddened"))="" $(this).addclass("hidden");="" })="" $(window).on('scroll',="" function(){="" showarticle();="" });="" return;="" var="" animatescope=".body-wrap > article" ;="" $firstarticle="$(".body-wrap"> article:first-child");
+                                if( $(this).offset().top <= $(window).scrollTop()+$(window).height() && !($(this).hasClass('show')) ) {
+                                    $(this).removeClass("hidden").addClass("show");
+                                    $(this).addClass("is-hiddened");
+                                } else {
+                                    if(!$(this).hasClass("is-hiddened")) {
+                                        $(this).addClass("hidden");
+                                    }
+                                }
+                            })
+                        }
+                        $(window).on('scroll', function(){
+                            showArticle();
+                        });
+                        showArticle();
+                    }
+                    return;
+                }
+
+                var animateScope = ".body-wrap > article";
+                var $firstArticle = $(".body-wrap > article:first-child");
                 if ($firstArticle.height() > $(window).height()) {
                     var animateScope = ".body-wrap > article:not(:first-child)";
                     $firstArticle.css({opacity: 1});
@@ -122,7 +149,7 @@ require([], function (){
     $("#container #mobile-nav .overlay").css({"background-color": colorList[id],"opacity": .7});
 
     // Table
-    $("table").wrap("<div class="table-area"></div>");
+    $("table").wrap("<div class='table-area'></div>");
 
     // Hide Comment Button
     $(document).ready(function() {
@@ -134,7 +161,7 @@ require([], function (){
     // Hide Labels
     if(yiliaConfig.isArchive || yiliaConfig.isTag || yiliaConfig.isCategory) {
         $(document).ready(function() {
-            $("#footer").after("<button class="hide-labels">TAGS</button>");
+            $("#footer").after("<button class='hide-labels'>TAGS</button>");
             $(".hide-labels").click(function() {
                 $(".article-info").toggle(200);
             })
@@ -159,7 +186,7 @@ require([], function (){
         function update(str, check) {
             var click = ["disabled", ""];
             $current.html($current.html().replace(
-              str, "<input type="checkbox" "="" +="" check="" click[1]="">")
+              str, "<input type='checkbox' " + check + " " + click[1] + " >")
             )
         }
 
@@ -174,4 +201,4 @@ require([], function (){
         }
     })
 
-})</=></len;i++){>
+})
