@@ -21,7 +21,7 @@
 <meta property="og:url" content="http://zhutao.github.io/2016/10/02/二分法/index.html">
 <meta property="og:site_name" content="zhutaorun's Blog">
 <meta property="og:description" content="二分查找又称折半查找，优点是比较次数少，查找速度快，平均性能好；其缺点是要求待查表为有序表，且插入删除困难。因此，折半查找方法适用于不经常变动而查找频繁的有序列表。首先，假设表中元素是按升序排列，将表中间位置记录的关键字与查找关键字比较，如果两者相等，则查找成功；否则利用中间位置记录将表分成前、后两个子表，如果中间位置记录的关键字大于查找关键字，则进一步查找前一子表，否则进一步查找后一子表。重复以">
-<meta property="og:updated_time" content="2016-10-24T13:28:37.542Z">
+<meta property="og:updated_time" content="2016-10-24T13:39:06.933Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="二分法">
 <meta name="twitter:description" content="二分查找又称折半查找，优点是比较次数少，查找速度快，平均性能好；其缺点是要求待查表为有序表，且插入删除困难。因此，折半查找方法适用于不经常变动而查找频繁的有序列表。首先，假设表中元素是按升序排列，将表中间位置记录的关键字与查找关键字比较，如果两者相等，则查找成功；否则利用中间位置记录将表分成前、后两个子表，如果中间位置记录的关键字大于查找关键字，则进一步查找前一子表，否则进一步查找后一子表。重复以">
@@ -325,7 +325,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><a href="http://baike.baidu.com/link?url=jIRT4_ThqsC4dG2yTw5JKjEnk8wvbRi3danyU8KxfT01Vd20A6A02Xnn5XSw-30NFauqMjt9hvwIaM9WzMstla" target="_blank" rel="external">二分查找</a>又称折半查找，优点是比较次数少，查找速度快，平均性能好；其缺点是要求待查表为有序表，且插入删除困难。因此，折半查找方法适用于不经常变动而查找频繁的有序列表。首先，假设表中元素是按升序排列，将表中间位置记录的关键字与查找关键字比较，如果两者相等，则查找成功；否则利用中间位置记录将表分成前、后两个子表，如果中间位置记录的关键字大于查找关键字，则进一步查找前一子表，否则进一步查找后一子表。重复以上过程，直到找到满足条件的记录，使查找成功，或直到子表不存在为止，此时查找不成功。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line">using UnityEngine;</div><div class="line"></div><div class="line">/// &lt;summary&gt;</div><div class="line">/// 二分查找算法（在有序数组中快速寻找一个指定数值）</div><div class="line">/// &lt;/summary&gt;</div><div class="line">public class BinarySearchSort : MonoBehaviour</div><div class="line">&#123;</div><div class="line">    //有序数组</div><div class="line">    int[] array = new[] &#123;5, 6, 7, 8, 9, 12, 45, 55&#125;;</div><div class="line"></div><div class="line">    void Start()</div><div class="line">    &#123;</div><div class="line">        //调用查找方法，输出 bool值</div><div class="line">        Debug.Log(BinarySearch(array, 45));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /// &lt;summary&gt;</div><div class="line">    /// 二分查找方法</div><div class="line">    /// &lt;/summary&gt;</div><div class="line">    /// &lt;param name=&quot;array&quot;&gt;数组&lt;/param&gt;</div><div class="line">    /// &lt;param name=&quot;targetNum&quot;&gt;目标数值&lt;/param&gt;</div><div class="line">    /// &lt;returns&gt;是否找到目标数值&lt;/returns&gt;</div><div class="line">    bool BinarySearch(int[] array, int targetNum)</div><div class="line">    &#123;</div><div class="line">        //起始点</div><div class="line">        int start = 0;</div><div class="line">        //结束点</div><div class="line">        int end = array.Length - 1;</div><div class="line">        //中界点</div><div class="line">        int mid;</div><div class="line"></div><div class="line">        //循环遍历（起始点&lt;=终止点）</div><div class="line">        while (start &lt;= end)</div><div class="line">        &#123;</div><div class="line">            //计算中界点</div><div class="line">            mid = (start + end)/2;</div><div class="line">            //第一种情况</div><div class="line">            if (array[mid] &gt; targetNum)</div><div class="line">            &#123;</div><div class="line">                //终止点=中界点-1</div><div class="line">                end = mid - 1;</div><div class="line">            &#125;</div><div class="line">            //第二种情况</div><div class="line">            else if (array[mid] &lt; targetNum)</div><div class="line">            &#123;</div><div class="line">                //起始点=中界点+1</div><div class="line">                start = mid + 1;</div><div class="line">            &#125;</div><div class="line">            //找到</div><div class="line">            else</div><div class="line">            &#123;</div><div class="line">                Debug.Log(&quot;所在下标：&quot; + mid);</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        //未找到</div><div class="line">        Debug.Log(&quot;不存在该数值！&quot;);</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+        <p><a href="http://baike.baidu.com/link?url=jIRT4_ThqsC4dG2yTw5JKjEnk8wvbRi3danyU8KxfT01Vd20A6A02Xnn5XSw-30NFauqMjt9hvwIaM9WzMstla" target="_blank" rel="external">二分查找</a>又称折半查找，优点是比较次数少，查找速度快，平均性能好；其缺点是要求待查表为有序表，且插入删除困难。因此，折半查找方法适用于不经常变动而查找频繁的有序列表。首先，假设表中元素是按升序排列，将表中间位置记录的关键字与查找关键字比较，如果两者相等，则查找成功；否则利用中间位置记录将表分成前、后两个子表，如果中间位置记录的关键字大于查找关键字，则进一步查找前一子表，否则进一步查找后一子表。重复以上过程，直到找到满足条件的记录，使查找成功，或直到子表不存在为止，此时查找不成功。<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line">using UnityEngine;</div><div class="line"></div><div class="line">/// &lt;summary&gt;</div><div class="line">/// 二分查找算法（在有序数组中快速寻找一个指定数值）</div><div class="line">/// &lt;/summary&gt;</div><div class="line">public class BinarySearchSort : MonoBehaviour</div><div class="line">&#123;</div><div class="line">    //有序数组</div><div class="line">    int[] array = new[] &#123;5, 6, 7, 8, 9, 12, 45, 55&#125;;</div><div class="line"></div><div class="line">    void Start()</div><div class="line">    &#123;</div><div class="line">        //调用查找方法，输出 bool值</div><div class="line">        Debug.Log(BinarySearch(array, 45));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /// &lt;summary&gt;</div><div class="line">    /// 二分查找方法</div><div class="line">    /// &lt;/summary&gt;</div><div class="line">    /// &lt;param name=&quot;array&quot;&gt;数组&lt;/param&gt;</div><div class="line">    /// &lt;param name=&quot;targetNum&quot;&gt;目标数值&lt;/param&gt;</div><div class="line">    /// &lt;returns&gt;是否找到目标数值&lt;/returns&gt;</div><div class="line">    bool BinarySearch(int[] array, int targetNum)</div><div class="line">    &#123;</div><div class="line">        //起始点</div><div class="line">        int start = 0;</div><div class="line">        //结束点</div><div class="line">        int end = array.Length - 1;</div><div class="line">        //中界点</div><div class="line">        int mid;</div><div class="line"></div><div class="line">        //循环遍历（起始点&lt;=终止点）</div><div class="line">        while (start &lt;= end)</div><div class="line">        &#123;</div><div class="line">            //计算中界点</div><div class="line">            mid = (start + end)/2;</div><div class="line">            //第一种情况</div><div class="line">            if (array[mid] &gt; targetNum)</div><div class="line">            &#123;</div><div class="line">                //终止点=中界点-1</div><div class="line">                end = mid - 1;</div><div class="line">            &#125;</div><div class="line">            //第二种情况</div><div class="line">            else if (array[mid] &lt; targetNum)</div><div class="line">            &#123;</div><div class="line">                //起始点=中界点+1</div><div class="line">                start = mid + 1;</div><div class="line">            &#125;</div><div class="line">            //找到</div><div class="line">            else</div><div class="line">            &#123;</div><div class="line">                Debug.Log(&quot;所在下标：&quot; + mid);</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        //未找到</div><div class="line">        Debug.Log(&quot;不存在该数值！&quot;);</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -337,7 +337,7 @@
         <p><span>本文标题:</span><a href="/2016/10/02/二分法/">二分法</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
         <p><span>发布时间:</span>2016-10-02, 21:03:57</p>
-        <p><span>最后更新:</span>2016-10-24, 21:28:37</p>
+        <p><span>最后更新:</span>2016-10-24, 21:39:06</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/10/02/二分法/" title="二分法">http://zhutao.github.io/2016/10/02/二分法/</a>
             <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2016/10/02/二分法/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -352,16 +352,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/10/02/适配器模式/">
-                    适配器模式
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/09/24/我是谁/">
-                    我是谁
+                <a href="/2016/10/02/适配器模式/">
+                    适配器模式
                 </a>
             </div>
         
@@ -448,21 +442,19 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/10/02/适配器模式/" title="上一篇: 适配器模式">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/09/24/我是谁/" title="下一篇: 我是谁">
+            <a href="/2016/10/02/适配器模式/" title="下一篇: 适配器模式">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
 
 
 

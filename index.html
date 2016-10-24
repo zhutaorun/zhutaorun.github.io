@@ -284,70 +284,6 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-适配器模式" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/02/适配器模式/" class="article-date">
-      <time datetime="2016-10-02T13:03:57.000Z" itemprop="datePublished">2016-10-02</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/02/适配器模式/">适配器模式</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h4 id="定义：创建一个适配器组件作为“中间人”，它将提供接口的转换功能，使两个不相关或者不兼容的组件可以一起工作。"><a href="#定义：创建一个适配器组件作为“中间人”，它将提供接口的转换功能，使两个不相关或者不兼容的组件可以一起工作。" class="headerlink" title="定义：创建一个适配器组件作为“中间人”，它将提供接口的转换功能，使两个不相关或者不兼容的组件可以一起工作。"></a>定义：创建一个适配器组件作为“中间人”，它将提供接口的转换功能，使两个不相关或者不兼容的组件可以一起工作。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">st=&gt;start: Start</div><div class="line">op=&gt;operation: Your Operation</div><div class="line">cond=&gt;condition: Yes or No?</div><div class="line">e=&gt;end</div><div class="line"></div><div class="line">st-&gt;op-&gt;cond</div><div class="line">cond(yes)-&gt;e</div><div class="line">cond(no)-&gt;op</div></pre></td></tr></table></figure>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/设计模式/">设计模式</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-二分法" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -377,8 +313,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><a href="http://baike.baidu.com/link?url=jIRT4_ThqsC4dG2yTw5JKjEnk8wvbRi3danyU8KxfT01Vd20A6A02Xnn5XSw-30NFauqMjt9hvwIaM9WzMstla" target="_blank" rel="external">二分查找</a>又称折半查找，优点是比较次数少，查找速度快，平均性能好；其缺点是要求待查表为有序表，且插入删除困难。因此，折半查找方法适用于不经常变动而查找频繁的有序列表。首先，假设表中元素是按升序排列，将表中间位置记录的关键字与查找关键字比较，如果两者相等，则查找成功；否则利用中间位置记录将表分成前、后两个子表，如果中间位置记录的关键字大于查找关键字，则进一步查找前一子表，否则进一步查找后一子表。重复以上过程，直到找到满足条件的记录，使查找成功，或直到子表不存在为止，此时查找不成功。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line">using UnityEngine;</div><div class="line"></div><div class="line">/// &lt;summary&gt;</div><div class="line">/// 二分查找算法（在有序数组中快速寻找一个指定数值）</div><div class="line">/// &lt;/summary&gt;</div><div class="line">public class BinarySearchSort : MonoBehaviour</div><div class="line">&#123;</div><div class="line">    //有序数组</div><div class="line">    int[] array = new[] &#123;5, 6, 7, 8, 9, 12, 45, 55&#125;;</div><div class="line"></div><div class="line">    void Start()</div><div class="line">    &#123;</div><div class="line">        //调用查找方法，输出 bool值</div><div class="line">        Debug.Log(BinarySearch(array, 45));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /// &lt;summary&gt;</div><div class="line">    /// 二分查找方法</div><div class="line">    /// &lt;/summary&gt;</div><div class="line">    /// &lt;param name=&quot;array&quot;&gt;数组&lt;/param&gt;</div><div class="line">    /// &lt;param name=&quot;targetNum&quot;&gt;目标数值&lt;/param&gt;</div><div class="line">    /// &lt;returns&gt;是否找到目标数值&lt;/returns&gt;</div><div class="line">    bool BinarySearch(int[] array, int targetNum)</div><div class="line">    &#123;</div><div class="line">        //起始点</div><div class="line">        int start = 0;</div><div class="line">        //结束点</div><div class="line">        int end = array.Length - 1;</div><div class="line">        //中界点</div><div class="line">        int mid;</div><div class="line"></div><div class="line">        //循环遍历（起始点&lt;=终止点）</div><div class="line">        while (start &lt;= end)</div><div class="line">        &#123;</div><div class="line">            //计算中界点</div><div class="line">            mid = (start + end)/2;</div><div class="line">            //第一种情况</div><div class="line">            if (array[mid] &gt; targetNum)</div><div class="line">            &#123;</div><div class="line">                //终止点=中界点-1</div><div class="line">                end = mid - 1;</div><div class="line">            &#125;</div><div class="line">            //第二种情况</div><div class="line">            else if (array[mid] &lt; targetNum)</div><div class="line">            &#123;</div><div class="line">                //起始点=中界点+1</div><div class="line">                start = mid + 1;</div><div class="line">            &#125;</div><div class="line">            //找到</div><div class="line">            else</div><div class="line">            &#123;</div><div class="line">                Debug.Log(&quot;所在下标：&quot; + mid);</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        //未找到</div><div class="line">        Debug.Log(&quot;不存在该数值！&quot;);</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
+              <p><a href="http://baike.baidu.com/link?url=jIRT4_ThqsC4dG2yTw5JKjEnk8wvbRi3danyU8KxfT01Vd20A6A02Xnn5XSw-30NFauqMjt9hvwIaM9WzMstla">二分查找</a>又称折半查找，优点是比较次数少，查找速度快，平均性能好；其缺点是要求待查表为有序表，且插入删除困难。因此，折半查找方法适用于不经常变动而查找频繁的有序列表。首先，假设表中元素是按升序排列，将表中间位置记录的关键字与查找关键字比较，如果两者相等，则查找成功；否则利用中间位置记录将表分成前、后两个子表，如果中间位置记录的关键字大于查找关键字，则进一步查找前一子表，否则进一步查找后一子表。重复以上过程，直到找到满足条件的记录，使查找成功，或直到子表不存在为止，此时查找不成功。<br>
+          
       
     </div>
     
@@ -395,6 +331,78 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a href="/2016/10/02/二分法/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-适配器模式" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/02/适配器模式/" class="article-date">
+      <time datetime="2016-10-02T13:03:57.000Z" itemprop="datePublished">2016-10-02</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/02/适配器模式/">适配器模式</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h4 id="定义：创建一个适配器组件作为“中间人”，它将提供接口的转换功能，使两个不相关或者不兼容的组件可以一起工作。"><a href="#定义：创建一个适配器组件作为“中间人”，它将提供接口的转换功能，使两个不相关或者不兼容的组件可以一起工作。" class="headerlink" title="定义：创建一个适配器组件作为“中间人”，它将提供接口的转换功能，使两个不相关或者不兼容的组件可以一起工作。"></a>定义：创建一个适配器组件作为“中间人”，它将提供接口的转换功能，使两个不相关或者不兼容的组件可以一起工作。</h4>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/设计模式/">设计模式</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2016/10/02/适配器模式/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
