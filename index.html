@@ -313,7 +313,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h4 id="为什么要学习C"><a href="#为什么要学习C" class="headerlink" title="为什么要学习C++"></a>为什么要学习C++</h4><ul>
+              <h4 id="为什么要学习C"><a href="#为什么要学习C" class="headerlink" title="为什么要学习C++"></a>为什么要学习C++</h4><ul>
 <li>因为大学没C++</li>
 <li>面试上要求精通C++</li>
 <li>shader学习也是要求有C++，图形渲染</li>
@@ -326,96 +326,18 @@
 <li>看一些学习的免费课程</li>
 </ul>
 <h4 id="C-知识点（不定期更新）"><a href="#C-知识点（不定期更新）" class="headerlink" title="C++知识点（不定期更新）"></a>C++知识点（不定期更新）</h4><blockquote>
-<p>一 对象实例化</p>
-<ul>
+<h2 id="一-对象实例化"><a href="#一-对象实例化" class="headerlink" title="一 对象实例化"></a>一 对象实例化</h2><ul>
 <li>从栈实例化对象</li>
 </ul>
 </blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> TV</div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">  <span class="keyword">char</span> name[<span class="number">20</span>];</div><div class="line">  <span class="keyword">int</span> type;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">changeVol</span><span class="params">()</span></span>;</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">power</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">  TV tv;</div><div class="line">  TV tv[<span class="number">20</span>];</div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> TV</div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">  <span class="keyword">char</span> name[<span class="number">20</span>];</div><div class="line">  <span class="keyword">int</span> type;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">changeVol</span><span class="params">()</span></span>;</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">power</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></div><div class="line"></span>&#123;</div><div class="line">  TV tv;</div><div class="line">  TV tv[<span class="number">20</span>];</div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
 <ul>
 <li>从堆实例化对象</li>
 </ul>
 </blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> TV</div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">  <span class="keyword">char</span> name[<span class="number">20</span>];</div><div class="line">  <span class="keyword">int</span> type;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">changeVol</span><span class="params">()</span></span>;</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">power</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">  TV *p = <span class="keyword">new</span> TV();</div><div class="line">  TV *q = <span class="keyword">new</span> TV[<span class="number">20</span>];</div><div class="line">  <span class="comment">//todo</span></div><div class="line">  <span class="keyword">delete</span> p;</div><div class="line">  <span class="keyword">delete</span> []q;</div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>二 初始化string对象的方式</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>初始化string对象的方式</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>string s1;</td>
-<td>s1为空串</td>
-</tr>
-<tr>
-<td>string s2(“ABC”);</td>
-<td>用字符串字面值初始化S2</td>
-</tr>
-<tr>
-<td>string s3(s2);</td>
-<td>将s3初始化为s2的一个副本</td>
-</tr>
-<tr>
-<td>string s4(n,’c’);</td>
-<td>将s4初始化为字符’c’的n个副本</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>string的常用操作</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>s.empty()</td>
-<td>若s为空串，则返回true，否则返回false</td>
-</tr>
-<tr>
-<td>s.size()</td>
-<td>返回s的字符个数</td>
-</tr>
-<tr>
-<td>s[n]</td>
-<td>返回s中的位置为n的字符，位置从0开始</td>
-</tr>
-<tr>
-<td>s1+s2</td>
-<td>将两个串连接成新串，返回新生成的串</td>
-</tr>
-<tr>
-<td>s1=s2</td>
-<td>将s1的内容替换为s2的副本</td>
-</tr>
-<tr>
-<td>v1==v2</td>
-<td>判断相等，相等返回true,否则返回false</td>
-</tr>
-<tr>
-<td>v1!=v2</td>
-<td>判断不等。不等返回true,否则返回false</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>三 类内定义与内联函数</p>
-<ul>
-<li>内联函数 关键字：inline<br>类内定义的函数计算机首先作为内联函数去编译，类内定义的函数复杂时才作为普通函数去编译</li>
-<li>类外定义<br>同文件类外定义：函数名写在类内，具体实现写在类外，并且在一个文件中。（游击队）<br>分文件类外定义：需要定义一个头文件，头文件名和类名建议一致。在其他文件中使用此类时，需要加上头文件。（正规军）</li>
-</ul>
-<p>四 对象结构</p>
-<ul>
-<li>内存分区<h5 id="栈区：int-x-0-int-p-null"><a href="#栈区：int-x-0-int-p-null" class="headerlink" title="栈区：int x=0;int *p= null;"></a>栈区：int x=0;int *p= null;</h5><h5 id="堆区：int-p-new-int-20"><a href="#堆区：int-p-new-int-20" class="headerlink" title="堆区：int *p = new int[20];"></a>堆区：int *p = new int[20];</h5><h5 id="全局区：存储全局变量及静态变量"><a href="#全局区：存储全局变量及静态变量" class="headerlink" title="全局区：存储全局变量及静态变量"></a>全局区：存储全局变量及静态变量</h5><h5 id="常量区：string-str-“hello”"><a href="#常量区：string-str-“hello”" class="headerlink" title="常量区：string str = “hello”;"></a>常量区：string str = “hello”;</h5><h5 id="代码区：存储逻辑代码的二进制"><a href="#代码区：存储逻辑代码的二进制" class="headerlink" title="代码区：存储逻辑代码的二进制"></a>代码区：存储逻辑代码的二进制</h5></li>
-</ul>
-</blockquote>
-
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> TV</div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">  <span class="keyword">char</span> name[<span class="number">20</span>];</div><div class="line">  <span class="keyword">int</span> type;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">changeVol</span><span class="params">()</span></span>;</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">power</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></div><div class="line"></span>&#123;</div><div class="line">  TV *p = <span class="keyword">new</span> TV();</div><div class="line">  TV *q = <span class="keyword">new</span> TV[<span class="number">20</span>];</div><div class="line">  <span class="comment">//todo</span></div><div class="line">  <span class="keyword">delete</span> p;</div><div class="line">  <span class="keyword">delete</span> []q;</div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          
       
     </div>
     
@@ -432,6 +354,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a href="/2016/10/25/C++学习记录/#more">阅读全文 >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
