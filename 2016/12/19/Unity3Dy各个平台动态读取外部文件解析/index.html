@@ -15,13 +15,19 @@
 
 
 
+<meta name="description" content="前言
+临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Unity3Dy各个平台动态读取外部文件解析">
 <meta property="og:url" content="http://zhutao.github.io/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/index.html">
 <meta property="og:site_name" content="zhutaorun's Blog">
-<meta property="og:updated_time" content="2016-12-19T14:48:31.973Z">
+<meta property="og:description" content="前言
+临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新。">
+<meta property="og:updated_time" content="2016-12-19T15:32:27.539Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Unity3Dy各个平台动态读取外部文件解析">
+<meta name="twitter:description" content="前言
+临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -199,7 +205,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/介绍/">介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拆书帮/">拆书帮</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3Dy/">Unity3Dy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/介绍/">介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拆书帮/">拆书帮</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li></ul>
                     </div>
                 </section>
                 
@@ -305,8 +311,16 @@
       
       <div class="article-info article-info-post">
         
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3Dy/">Unity3Dy</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -314,7 +328,98 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><ul>
+<li>临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新。<a id="more"></a>
+<h3 id="各个平台的资源路路径"><a href="#各个平台的资源路路径" class="headerlink" title="各个平台的资源路路径"></a>各个平台的资源路路径</h3></li>
+<li>Window或者Mac</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>路径</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Application.dataPath</td>
+<td>返回程序的数据文件所在文件夹的路径</td>
+</tr>
+<tr>
+<td>Application.streamingAssetsPath</td>
+<td>返回流数据的缓存目录，适合设置一些外部数据文件的路径</td>
+</tr>
+<tr>
+<td>Application.persistentData</td>
+<td>返回一个持久化数据存储目录的路径，可以在次路径下存储一些持久化的数据文件</td>
+</tr>
+<tr>
+<td>Application.temporaryCachePath</td>
+<td>返回一个临时数据的缓存目录</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Android平台</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>路径</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Application.dataPath</td>
+<td>/data/app/xxx.xxx.xxx.apk</td>
+</tr>
+<tr>
+<td>Application.streamingAssetsPath</td>
+<td>jar:file:///data/app/xxx.xxx.xxx.apk/!/assets</td>
+</tr>
+<tr>
+<td>Application.persistentData</td>
+<td>/data/data/xxx.xxx.xxx/files</td>
+</tr>
+<tr>
+<td>Application.temporaryCachePath</td>
+<td>/data/data/xxx.xxx.xxx/cache</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>iOS平台</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>路径</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Application.dataPath</td>
+<td>Application/XXXXX-xxx-xxxx-xxxx-xxxxxxx/xxx.app/Data</td>
+</tr>
+<tr>
+<td>Application.streamingAssetsPath</td>
+<td>Application/XXXXX-xxx-xxxx-xxxx-xxxxxxx/xxx.app/Data/Raw</td>
+</tr>
+<tr>
+<td>Application.persistentData</td>
+<td>Application/XXXXX-xxx-xxxx-xxxx-xxxxxxx/Documents</td>
+</tr>
+<tr>
+<td>Application.temporaryCachePath</td>
+<td>Application/XXXXX-xxx-xxxx-xxxx-xxxxxxx/Library/Caches</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>参考<br><a href="http://www.cnblogs.com/murongxiaopifu/p/4199541.html#_labelTop" target="_blank" rel="external">Unity3D移动平台动态读取外部文件全解析</a></p>
+
       
     </div>
     
@@ -325,7 +430,7 @@
         <p><span>本文标题:</span><a href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
         <p><span>发布时间:</span>2016-12-19, 22:48:31</p>
-        <p><span>最后更新:</span>2016-12-19, 22:48:31</p>
+        <p><span>最后更新:</span>2016-12-19, 23:32:27</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/" title="Unity3Dy各个平台动态读取外部文件解析">http://zhutao.github.io/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/</a>
             <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -355,7 +460,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#各个平台的资源路路径"><span class="toc-number">2.</span> <span class="toc-text">各个平台的资源路路径</span></a></li></ol>
         
     </div>
     <style>
@@ -442,7 +547,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/搞定GTD/">搞定GTD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/11/拖延心理学/">拖延心理学</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/游戏改变世界读后感/">《游戏改变世界》读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/04/关于Markdown/">关于Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/25/C++学习记录/">C++学习记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/搞定GTD/">搞定GTD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/11/拖延心理学/">拖延心理学</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/游戏改变世界读后感/">《游戏改变世界》读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/04/关于Markdown/">关于Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/25/C++学习记录/">C++学习记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
 
 
 
