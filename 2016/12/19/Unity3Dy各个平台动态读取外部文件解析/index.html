@@ -16,18 +16,18 @@
 
 
 <meta name="description" content="前言
-临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新。">
+临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新，lua和xml通过bundle的方式来更新。对于遇到的内容重新去看。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Unity3Dy各个平台动态读取外部文件解析">
 <meta property="og:url" content="http://zhutao.github.io/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/index.html">
 <meta property="og:site_name" content="zhutaorun's Blog">
 <meta property="og:description" content="前言
-临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新。">
-<meta property="og:updated_time" content="2016-12-19T15:32:27.539Z">
+临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新，lua和xml通过bundle的方式来更新。对于遇到的内容重新去看。">
+<meta property="og:updated_time" content="2016-12-24T08:19:55.523Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Unity3Dy各个平台动态读取外部文件解析">
 <meta name="twitter:description" content="前言
-临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新。">
+临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新，lua和xml通过bundle的方式来更新。对于遇到的内容重新去看。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -329,9 +329,8 @@
       
           
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><ul>
-<li>临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新。<a id="more"></a>
-<h3 id="各个平台的资源路路径"><a href="#各个平台的资源路路径" class="headerlink" title="各个平台的资源路路径"></a>各个平台的资源路路径</h3></li>
-<li>Window或者Mac</li>
+<li>临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新，lua和xml通过bundle的方式来更新。对于遇到的内容重新去看。<a id="more"></a>
+<h3 id="一各个平台的资源路路径"><a href="#一各个平台的资源路路径" class="headerlink" title="一各个平台的资源路路径"></a>一各个平台的资源路路径</h3><h4 id="Window或者Mac"><a href="#Window或者Mac" class="headerlink" title="Window或者Mac"></a>Window或者Mac</h4></li>
 </ul>
 <table>
 <thead>
@@ -359,10 +358,7 @@
 </tr>
 </tbody>
 </table>
-<ul>
-<li>Android平台</li>
-</ul>
-<table>
+<h4 id="Android平台"><a href="#Android平台" class="headerlink" title="Android平台"></a>Android平台</h4><table>
 <thead>
 <tr>
 <th>路径</th>
@@ -388,10 +384,7 @@
 </tr>
 </tbody>
 </table>
-<ul>
-<li>iOS平台</li>
-</ul>
-<table>
+<h4 id="iOS平台"><a href="#iOS平台" class="headerlink" title="iOS平台"></a>iOS平台</h4><table>
 <thead>
 <tr>
 <th>路径</th>
@@ -417,7 +410,28 @@
 </tr>
 </tbody>
 </table>
+<p>dataPath和streamingAssetsPath的路径位置一般是相对程序的安装目录位置，而persistentDataPath和temporaryCachePath的路径位置一般是相对所在系统的固定位置。那么现在明确了unity3d中各个地址在不同平台上的含义，下一个问题就来了，也就是我打包之后的资源要怎么和这些地址对应上呢？要知道在pc的editor里默认的资源文件存放的路径就是Assets啊，为何又会派生出那么多路径呢？</p>
+<h3 id="二Unity3d中资源的处理"><a href="#二Unity3d中资源的处理" class="headerlink" title="二Unity3d中资源的处理"></a>二Unity3d中资源的处理</h3><h4 id="Resources"><a href="#Resources" class="headerlink" title="Resources:"></a>Resources:</h4><blockquote>
+<p>是作为一个Unity3D的保留文件夹出现的，也就是如果你新建的文件夹的名字叫Resources，那么里面的内容在打包时都会被无条件的打到发布包中。它的特点简单总结一下就是：<br>1.只读，即不能动态修改。所以想要动态更新的资源不要放在这里。</p>
+<p>2.会将文件夹内的资源打包集成到.asset文件里面。因此建议可以放一些Prefab，因为Prefab在打包时会自动过滤掉不需要的资源，有利于减小资源包的大小。</p>
+<p>3.主线程加载。</p>
+<p>4.资源读取使用Resources.Load()。</p>
+</blockquote>
+<h4 id="StreamingAssets："><a href="#StreamingAssets：" class="headerlink" title="StreamingAssets："></a>StreamingAssets：</h4><blockquote>
+<p>简而言之就是把prefab或者二进制文件封装成AssetBundle文件（也是一种二进制）。但是也有硬伤，就是在移动端无法更新脚本。</p>
+<p>1.是Unity3D定义的一种二进制类型。</p>
+<p>2.最好将prefab封装成AseetBundle，不过上面不是才说了在移动端无法更新脚本吗？那从Assetbundle中拿到的Prefab上挂的脚本是不是就无法运行了？也不一定，只要这个prefab上挂的是本地脚本，就可以。</p>
+<p>3.使用WWW类来下载。</p>
+</blockquote>
+<p><strong>很多项目使用Ulua来解决热更新代码，android下可以通过热更新Dll的来热更新代码，苹果因为政策原因不允许，ulua成为适用苹果和android合适的选择</strong></p>
+<h3 id="PersistentDataPath"><a href="#PersistentDataPath" class="headerlink" title="PersistentDataPath:"></a>PersistentDataPath:</h3><blockquote>
+<p>看上去它只是个路径呀，可为什么要把它从路径里面单独拿出来介绍呢？因为它的确蛮特殊的，这个路径下是可读写。而且在IOS上就是应用程序的沙盒，但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write Access，可以设置它的路径是沙盒还是sdcard。下面同样简单的总结一下：</p>
+<p>1.内容可读写,不过只能运行时才能写入或者读取。<strong>提前将数据存入这个路径是不可行的。</strong></p>
 <hr>
+<p>2.无内容限制.你可以从StreamingAssets中读取二进制文件或者从<strong>AssetBundle</strong>读取文件来写入<strong>PersistentDataPath</strong>中。</p>
+<p>3.写下的文件，可以在电脑上查看。同样也可以清掉</p>
+</blockquote>
+<h3 id="三补充"><a href="#三补充" class="headerlink" title="三补充"></a>三补充</h3><h5 id="但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write-Access，可以设置它的路径是（Internal）沙盒还是-External（SDCard）-sdcard。"><a href="#但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write-Access，可以设置它的路径是（Internal）沙盒还是-External（SDCard）-sdcard。" class="headerlink" title="但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write Access，可以设置它的路径是（Internal）沙盒还是(External（SDCard）)sdcard。"></a>但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write Access，可以设置它的路径是（Internal）沙盒还是(External（SDCard）)sdcard。</h5><hr>
 <p>参考<br><a href="http://www.cnblogs.com/murongxiaopifu/p/4199541.html#_labelTop" target="_blank" rel="external">Unity3D移动平台动态读取外部文件全解析</a></p>
 
       
@@ -430,7 +444,7 @@
         <p><span>本文标题:</span><a href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
         <p><span>发布时间:</span>2016-12-19, 22:48:31</p>
-        <p><span>最后更新:</span>2016-12-19, 23:32:27</p>
+        <p><span>最后更新:</span>2016-12-24, 16:19:55</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/" title="Unity3Dy各个平台动态读取外部文件解析">http://zhutao.github.io/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/</a>
             <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -460,7 +474,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#各个平台的资源路路径"><span class="toc-number">2.</span> <span class="toc-text">各个平台的资源路路径</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一各个平台的资源路路径"><span class="toc-number">2.</span> <span class="toc-text">一各个平台的资源路路径</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Window或者Mac"><span class="toc-number">2.1.</span> <span class="toc-text">Window或者Mac</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Android平台"><span class="toc-number">2.2.</span> <span class="toc-text">Android平台</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#iOS平台"><span class="toc-number">2.3.</span> <span class="toc-text">iOS平台</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二Unity3d中资源的处理"><span class="toc-number">3.</span> <span class="toc-text">二Unity3d中资源的处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Resources"><span class="toc-number">3.1.</span> <span class="toc-text">Resources:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#StreamingAssets："><span class="toc-number">3.2.</span> <span class="toc-text">StreamingAssets：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PersistentDataPath"><span class="toc-number">4.</span> <span class="toc-text">PersistentDataPath:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三补充"><span class="toc-number">5.</span> <span class="toc-text">三补充</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write-Access，可以设置它的路径是（Internal）沙盒还是-External（SDCard）-sdcard。"><span class="toc-number">5.0.1.</span> <span class="toc-text">但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write Access，可以设置它的路径是（Internal）沙盒还是(External（SDCard）)sdcard。</span></a></li></ol></li></ol></li></ol>
         
     </div>
     <style>
