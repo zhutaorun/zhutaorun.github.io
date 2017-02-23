@@ -25,7 +25,7 @@
 <meta property="og:description" content="UI策划问我，是否要勾选上GENERATE MIP MAPS，勾选上后Loading图清晰多了。对此重新去看，以及整理在这里
 
 工作小知识在UITexture的格式上 是否勾选上GENERATE MIP MAPS。之前问过其他人，说是影响不大。确实在安卓手机上，图片清晰度没有差别，但是 PC端上的海马模拟器上UITexture 图片就显得有差别了。勾选了后，图片显得模糊。一张图勾选上Genera">
-<meta property="og:updated_time" content="2017-01-24T15:11:23.802Z">
+<meta property="og:updated_time" content="2017-02-23T16:45:22.875Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="U3D贴图格式 GENERATE MIP MAPS">
 <meta name="twitter:description" content="UI策划问我，是否要勾选上GENERATE MIP MAPS，勾选上后Loading图清晰多了。对此重新去看，以及整理在这里
@@ -208,7 +208,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3Dy/">Unity3Dy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/习惯养成/">习惯养成</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/介绍/">介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拆书帮/">拆书帮</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D/">Unity3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/习惯养成/">习惯养成</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/介绍/">介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拆书帮/">拆书帮</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li></ul>
                     </div>
                 </section>
                 
@@ -321,7 +321,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3Dy/">Unity3Dy</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -335,6 +335,7 @@
 <p>UI策划问我，是否要勾选上GENERATE MIP MAPS，勾选上后Loading图清晰多了。对此重新去看，以及整理在这里</p>
 </blockquote>
 <h3 id="工作小知识"><a href="#工作小知识" class="headerlink" title="工作小知识"></a>工作小知识</h3><p>在UITexture的格式上 是否勾选上GENERATE MIP MAPS。<br>之前问过其他人，说是影响不大。确实在安卓手机上，图片清晰度没有差别，但是 PC端上的海马模拟器上UITexture 图片就显得有差别了。勾选了后，图片显得模糊。<br>一张图勾选上Generate mip maps,会由0.5M到0.7M，资源会增大四分之一。<br>2D游戏的话，所有都不需要勾选多重采样，具有3D性质的贴图，我们都需要勾选上GENERATE MIP MAPS，这样会使贴图大小增加25%这样。<br>Loading图不需要勾选，人物模型和场景的贴图都要够勾选。<br><strong><a href="http://docs.unity3d.com/Manual/class-TextureImporter.html" target="_blank" rel="external">http://docs.unity3d.com/Manual/class-TextureImporter.html</a></strong></p>
+<a id="more"></a>
 <h3 id="贴图基本知识点："><a href="#贴图基本知识点：" class="headerlink" title="贴图基本知识点："></a>贴图基本知识点：</h3><p>DXT格式是Nvidia Tegra提供的，ETC是安卓原生支持的，OPNEGL2.0都支持。ETC2只有OPENGL3.0支持，PVRTC是Imagination PowerVR提供的，ATC是Qualcomm Snapdragon提供的。一般来说，IOS只支持PVRTC的压缩格式。一旦相应的贴图格式不兼容的时候，U3D会自动将其转换成RGB(A)格式。最好的兼容是针对GPU进行打包，例如针对小米的都用ATC格式，但一般开发做不到太细化的选择。所有设备对RGB 16BITS/ARGB 16BITS/RGB A16BITS/RGB 24BITS/ARGB 32BITS等支持都很好，只是这些格式算是非压缩格式，对内存消耗和渲染消耗非常不友好。<br>关于压缩后的在储存上的大小，假设高清(ARGB32)大小为1，那么大概数据如下：</p>
 <p>RGB PVRTC 4BITS:0.25</p>
 <p>ARGB PVRTC 4BITS:0.25</p>
@@ -392,7 +393,7 @@
         <p><span>本文标题:</span><a href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/">U3D贴图格式 GENERATE MIP MAPS</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
         <p><span>发布时间:</span>2017-01-24, 23:05:19</p>
-        <p><span>最后更新:</span>2017-01-24, 23:11:23</p>
+        <p><span>最后更新:</span>2017-02-24, 00:45:22</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/" title="U3D贴图格式 GENERATE MIP MAPS">http://zhutao.github.io/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/</a>
             <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -406,6 +407,12 @@
 
 
     <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/02/24/Unity3D图片大小设置/">
+                    Unity3D图片大小设置
+                </a>
+            </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
@@ -497,7 +504,9 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2017/02/24/Unity3D图片大小设置/" title="上一篇: Unity3D图片大小设置">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
@@ -509,7 +518,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/">U3D贴图格式 GENERATE MIP MAPS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/20/Android真机调试/">Android真机调试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/25/《从行动开始》读书笔记/">《从行动开始》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/搞定GTD/">搞定GTD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/11/拖延心理学/">拖延心理学</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/游戏改变世界读后感/">《游戏改变世界》读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/04/关于Markdown/">关于Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/25/C++学习记录/">C++学习记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity3D图片大小设置/">Unity3D图片大小设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/">U3D贴图格式 GENERATE MIP MAPS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/20/Android真机调试/">Android真机调试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/25/《从行动开始》读书笔记/">《从行动开始》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/搞定GTD/">搞定GTD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/11/拖延心理学/">拖延心理学</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/游戏改变世界读后感/">《游戏改变世界》读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/04/关于Markdown/">关于Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/25/C++学习记录/">C++学习记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
 
 
 
