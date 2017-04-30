@@ -17,6 +17,7 @@
 
 <meta name="description" content="最近做了福星转盘的功能，做完后发现当记录次数很多了以后会有性能问题，历史记录很多的时候，打开会卡。
 
+
 第一反应现象：当我看到优化需求的时候，“对历史记录做限制”，我第一反应，看下Profiler是什么，造成性能问题。看到是协程的调用。有出现高峰值，有高达200多M。在多次UI操作中，内存还是稳定增长。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="功能错误小结">
@@ -24,13 +25,17 @@
 <meta property="og:site_name" content="zhutaorun's Blog">
 <meta property="og:description" content="最近做了福星转盘的功能，做完后发现当记录次数很多了以后会有性能问题，历史记录很多的时候，打开会卡。
 
+
 第一反应现象：当我看到优化需求的时候，“对历史记录做限制”，我第一反应，看下Profiler是什么，造成性能问题。看到是协程的调用。有出现高峰值，有高达200多M。在多次UI操作中，内存还是稳定增长。">
-<meta property="og:updated_time" content="2017-04-30T05:48:32.992Z">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/7.PNG?raw=true">
+<meta property="og:updated_time" content="2017-04-30T10:42:57.689Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="功能错误小结">
 <meta name="twitter:description" content="最近做了福星转盘的功能，做完后发现当记录次数很多了以后会有性能问题，历史记录很多的时候，打开会卡。
 
+
 第一反应现象：当我看到优化需求的时候，“对历史记录做限制”，我第一反应，看下Profiler是什么，造成性能问题。看到是协程的调用。有出现高峰值，有高达200多M。在多次UI操作中，内存还是稳定增长。">
+<meta name="twitter:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/7.PNG?raw=true">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -334,6 +339,7 @@
         <blockquote>
 <p>最近做了福星转盘的功能，做完后发现当记录次数很多了以后会有性能问题，历史记录很多的时候，打开会卡。</p>
 </blockquote>
+<p><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/7.PNG?raw=true" alt=""></p>
 <h3 id="第一反应"><a href="#第一反应" class="headerlink" title="第一反应"></a>第一反应</h3><p><strong>现象</strong>：当我看到优化需求的时候，“对历史记录做限制”，我第一反应，看下Profiler是什么，造成性能问题。看到是协程的调用。有出现高峰值，有高达200多M。在多次UI操作中，内存还是稳定增长。<br><a id="more"></a><br><strong>处理</strong>：我估计是协程调用产生的，就在每个协程调用前加了StopCoroutine()方法。</p>
 <p><strong>问题</strong>：高峰值虽然降下来了，但是每次执行高峰值稳定增加20多M。而且最奇怪的是在于每次重启Unity后，还是会稳定出现这样的情况。</p>
 <h3 id="寻求主程指导（1）"><a href="#寻求主程指导（1）" class="headerlink" title="寻求主程指导（1）"></a>寻求主程指导（1）</h3><p><strong>现象</strong>:主程同样在看了Profiler后，给出建议是，用协程播放动画的效果改成用update执行。在处理以后，任然有内存高峰值出现。而且还是大于允许值6M。高峰值会有60多M，而且还会稳定增加。在关闭界面重新打开页面的时候，还是会特别卡。会有高达3.5G的GC。<br><strong>指导建议</strong>：用协程播放动画的效果改成用update执行<br><strong>处理</strong>：两次动画播放使用Update()处理。</p>
@@ -354,7 +360,7 @@
         <p><span>本文标题:</span><a href="/2017/04/30/功能错误小结/">功能错误小结</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
         <p><span>发布时间:</span>2017-04-30, 09:34:47</p>
-        <p><span>最后更新:</span>2017-04-30, 13:48:32</p>
+        <p><span>最后更新:</span>2017-04-30, 18:42:57</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/04/30/功能错误小结/" title="功能错误小结">http://zhutao.github.io/2017/04/30/功能错误小结/</a>
             <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2017/04/30/功能错误小结/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -479,7 +485,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/查找代码的中文插件/">查找代码的中文插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/功能错误小结/">功能错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/24/《重构-改善既有代码的设计》读书笔记/">《重构-改善既有代码的设计》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/18/C-教程的实践小结/">C++教程的实践小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity-声音资源优化/">Unity 声音资源优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity3D图片大小设置/">Unity3D图片大小设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/">U3D贴图格式 GENERATE MIP MAPS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/20/Android真机调试/">Android真机调试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/25/《从行动开始》读书笔记/">《从行动开始》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/搞定GTD/">搞定GTD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/11/拖延心理学/">拖延心理学</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/游戏改变世界读后感/">《游戏改变世界》读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/04/关于Markdown/">关于Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/25/C++学习记录/">C++学习记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/查找代码的中文插件/">查找代码的中文插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/功能错误小结/">功能错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/24/《重构-改善既有代码的设计》读书笔记/">《重构-改善既有代码的设计》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/18/C-教程的实践小结/">C++教程的实践小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity-声音资源优化/">Unity 声音资源优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity3D图片大小设置/">Unity3D图片大小设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/">U3D贴图格式 GENERATE MIP MAPS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/20/Android真机调试/">Android真机调试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/25/《从行动开始》读书笔记/">《从行动开始》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/搞定GTD/">搞定GTD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/11/拖延心理学/">拖延心理学</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/游戏改变世界读后感/">《游戏改变世界》读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/04/关于Markdown/">关于Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/25/C++学习记录/">C++学习记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
 
 
 
