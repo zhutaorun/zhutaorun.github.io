@@ -313,15 +313,29 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        
+        <h2 id="Unityd的android和ios的本地推送"><a href="#Unityd的android和ios的本地推送" class="headerlink" title="Unityd的android和ios的本地推送"></a>Unityd的android和ios的本地推送</h2><p>这个方式是固定时间，无需和服务器通信。内容不可更改。还有就是如果应用本身不在运行状态，其实没办法收到的。<br><a href="http://blog.csdn.net/azhou_hui/article/details/50790870" target="_blank" rel="external">详细内容</a>。自己出个APK运行下，其实也很好理解的。效果最简单的DOME,在github上下载打包就可以实现。</p>
+<h2 id="接入第三SDK"><a href="#接入第三SDK" class="headerlink" title="接入第三SDK"></a>接入第三SDK</h2><ul>
+<li>哪些第三方提供推送接口：云巴，百度，蝴蝶，极光，个推，腾讯的信鸽推送</li>
+<li>这里研究的是，<a href="https://www.jiguang.cn/" target="_blank" rel="external">极光推送</a>。问过做过原生应用开发的朋友推荐，极光推送。当然有把工程项目生成jar包，在导入到Unity项目中。<br>这两天在看官方文档的时候，发现有作为Unity插件的版本，这非常方便开发者。官方维护的Unity版本，看到<a href="https://github.com/jpush/jpush-unity3d-plugin/blob/master/README.md" target="_blank" rel="external">android和ios接入文档</a>,以及<a href="https://github.com/jpush/jpush-phonegap-plugin/blob/master/doc/Common_detail_api.md" target="_blank" rel="external">通用API说明</a>。</li>
+</ul>
+<h2 id="实践测试"><a href="#实践测试" class="headerlink" title="实践测试"></a>实践测试</h2><p>安装手机上如下jspush是本地推送，JPUSH-dome是极光推送的<img src="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/9.png" alt=""><br>jspush案例打开界面如下<img src="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/10.png" alt=""><br>按下5 seconds出现这样的推送<img src="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/11.png" alt=""><br>JPUSH-dome打开界面如下<img src="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/12.png" alt=""><br><a href="https://github.com/jpush/jpush-unity3d-plugin/blob/master/Doc/AndroidAPI.md" target="_blank" rel="external">按钮的作用以及代码范例</a><br>点击initJPush注册成功，在极光推送输入推送内容，平台以及时间等信息，看到内容如下<img src="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/13.png" alt=""><br><img src="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/14.png" alt=""><br>同样在极光的后台可以看到输出的内容<img src="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/15.PNG" alt=""></p>
+
       
     </div>
     
     <div class="article-info article-info-index">
       
       
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
 
       
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
+    </div>
+
       
       <div class="clearfix"></div>
     </div>
