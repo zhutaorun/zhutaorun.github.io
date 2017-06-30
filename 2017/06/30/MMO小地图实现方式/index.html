@@ -15,19 +15,30 @@
 
 
 
-<meta name="description" content="前言
-临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新，lua和xml通过bundle的方式来更新。对于遇到的内容重新去看。">
+<meta name="description" content="面试遇到关于小地图的制作问题
+实现方式如下
+NGUI minimap的插件
+根据场景，制作一张俯视截图，做坐标的相对运算。
+在主角的头顶挂一个摄像机，用renderTexture，实时渲染。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unity3Dy各个平台动态读取外部文件解析">
-<meta property="og:url" content="http://zhutao.github.io/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/index.html">
+<meta property="og:title" content="MMO小地图实现方式">
+<meta property="og:url" content="http://zhutao.github.io/2017/06/30/MMO小地图实现方式/index.html">
 <meta property="og:site_name" content="zhutaorun's Blog">
-<meta property="og:description" content="前言
-临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新，lua和xml通过bundle的方式来更新。对于遇到的内容重新去看。">
-<meta property="og:updated_time" content="2017-02-23T16:45:26.503Z">
+<meta property="og:description" content="面试遇到关于小地图的制作问题
+实现方式如下
+NGUI minimap的插件
+根据场景，制作一张俯视截图，做坐标的相对运算。
+在主角的头顶挂一个摄像机，用renderTexture，实时渲染。">
+<meta property="og:image" content="http://img.blog.csdn.net/20140707183056281?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd3VtaW5nMjIyMjI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-06-30T16:01:46.086Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Unity3Dy各个平台动态读取外部文件解析">
-<meta name="twitter:description" content="前言
-临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新，lua和xml通过bundle的方式来更新。对于遇到的内容重新去看。">
+<meta name="twitter:title" content="MMO小地图实现方式">
+<meta name="twitter:description" content="面试遇到关于小地图的制作问题
+实现方式如下
+NGUI minimap的插件
+根据场景，制作一张俯视截图，做坐标的相对运算。
+在主角的头顶挂一个摄像机，用renderTexture，实时渲染。">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20140707183056281?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd3VtaW5nMjIyMjI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -59,7 +70,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Unity3Dy各个平台动态读取外部文件解析 | zhutaorun&#39;s Blog</title>
+<title>MMO小地图实现方式 | zhutaorun&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -284,11 +295,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Unity3Dy各个平台动态读取外部文件解析" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-MMO小地图实现方式" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/" class="article-date">
-      <time datetime="2016-12-19T14:48:31.000Z" itemprop="datePublished">2016-12-19</time>
+      <a href="/2017/06/30/MMO小地图实现方式/" class="article-date">
+      <time datetime="2017-06-30T15:03:42.000Z" itemprop="datePublished">2017-06-30</time>
 </a>
 
 
@@ -303,7 +314,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Unity3Dy各个平台动态读取外部文件解析
+      MMO小地图实现方式
     </h1>
   
 
@@ -328,111 +339,29 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><ul>
-<li>临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新，lua和xml通过bundle的方式来更新。对于遇到的内容重新去看。<a id="more"></a>
-<h3 id="一各个平台的资源路路径"><a href="#一各个平台的资源路路径" class="headerlink" title="一各个平台的资源路路径"></a>一各个平台的资源路路径</h3><h4 id="Window或者Mac"><a href="#Window或者Mac" class="headerlink" title="Window或者Mac"></a>Window或者Mac</h4></li>
+        <blockquote>
+<p>面试遇到关于小地图的制作问题</p>
+<h2 id="实现方式如下"><a href="#实现方式如下" class="headerlink" title="实现方式如下"></a>实现方式如下</h2><ul>
+<li>NGUI minimap的插件</li>
+<li>根据场景，制作一张俯视截图，做坐标的相对运算。</li>
+<li>在主角的头顶挂一个摄像机，用renderTexture，实时渲染。<a id="more"></a>
+<h2 id="一-NGUI-minimap的插件"><a href="#一-NGUI-minimap的插件" class="headerlink" title="一 NGUI minimap的插件"></a>一 NGUI minimap的插件</h2>1.导入该插件后，在Mesh Version-&gt;Prefabs中，将NJG MiniMap(2D)拖入到场景中；<br>2.在Hierarchy中点击MiniMap(位于NJG MiniMap(2D) -&gt; UI Root -&gt; Camera -&gt; Anchor -&gt; MiniMap)，在Inspector中不勾选UIMini Map On GUI -&gt; Zoom Settings -&gt; MouseWheel ，将Zoom值调为最小；<br>3.给游戏主角和NPC各添加脚本NJGMap Item(Script),设置Marker Type属性：主角设为2DMe，NPC设为OtherPlayer;<br>4.此时运行游戏看到小地图有毛边；若想去掉毛边，重新设置Mask为一个矩形的Texture；<br>5.运行游戏可得到基本样式的小地图了；<br>6.注意：小地图这个窗口会自动刚好俯视到场景中所有物体所以应该让所有物体在地图的范围中，这样窗口范围和地图范围刚好吻合；<br>如图：(上方为小地图，下方为场景地图；小地图中靛色圆点为主角，绿色箭头为NPC，圆点和绿色箭头来自插件中)<br><img src="http://img.blog.csdn.net/20140707183056281?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd3VtaW5nMjIyMjI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><h2 id="二-通过角色在原地图中的位置比例来确定角色在小地图中的位置"><a href="#二-通过角色在原地图中的位置比例来确定角色在小地图中的位置" class="headerlink" title="二 通过角色在原地图中的位置比例来确定角色在小地图中的位置"></a>二 通过角色在原地图中的位置比例来确定角色在小地图中的位置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">[csharp] view plain copy print?</div><div class="line">public class Map : MonoBehaviour &#123;  </div><div class="line">    public Texture map  ;//小地图图片、地图的俯视图；  </div><div class="line">    public Texture playerTexture ;//在小地图中代表角色的标识  </div><div class="line"> </div><div class="line">    float cubePosX=0 ;//角色在小地图中的位置x  </div><div class="line">    float cubePosY=0 ;//角色在小地图中的位置y  </div><div class="line"> </div><div class="line">    public GameObject player;  </div><div class="line">    public GameObject plane;//场景中的地图  </div><div class="line">    float planeWidth;  </div><div class="line">    float planeHeight;  </div><div class="line">    float scale = 1.0f;//缩放比  </div><div class="line"> </div><div class="line">    void Start()  </div><div class="line">    &#123;  </div><div class="line">        planeWidth = plane.GetComponent&lt;MeshFilter&gt;().mesh.bounds.size.x * (plane.transform.localScale.x );  </div><div class="line">        planeHeight = plane.GetComponent&lt;MeshFilter&gt;().mesh.bounds.size.z * (plane.transform.localScale.z);  </div><div class="line">    &#125;  </div><div class="line"> </div><div class="line">    void Update()  </div><div class="line">    &#123;  </div><div class="line">        //通过场景地图中的位置比例(player.transform.position.x/planeWidth)来确定角色在小地图中的位置  </div><div class="line">        cubePosX = map.width*player.transform.position.x/planeWidth;  </div><div class="line">        cubePosY = 159-map.height*player.transform.position.z/planeHeight;  </div><div class="line">    &#125;  </div><div class="line"> </div><div class="line">    void OnGUI ()  </div><div class="line">    &#123;  </div><div class="line">        GUI.DrawTexture(new Rect( 0, 0, map.width*scale, map.height*scale), map);  </div><div class="line">        GUI.DrawTexture(new Rect((cubePosX+6) * scale, (cubePosY-34) * scale, 5, 5), playerTexture);  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th>路径</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Application.dataPath</td>
-<td>返回程序的数据文件所在文件夹的路径</td>
-</tr>
-<tr>
-<td>Application.streamingAssetsPath</td>
-<td>返回流数据的缓存目录，适合设置一些外部数据文件的路径</td>
-</tr>
-<tr>
-<td>Application.persistentData</td>
-<td>返回一个持久化数据存储目录的路径，可以在次路径下存储一些持久化的数据文件</td>
-</tr>
-<tr>
-<td>Application.temporaryCachePath</td>
-<td>返回一个临时数据的缓存目录</td>
-</tr>
-</tbody>
-</table>
-<h4 id="Android平台"><a href="#Android平台" class="headerlink" title="Android平台"></a>Android平台</h4><table>
-<thead>
-<tr>
-<th>路径</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Application.dataPath</td>
-<td>/data/app/xxx.xxx.xxx.apk</td>
-</tr>
-<tr>
-<td>Application.streamingAssetsPath</td>
-<td>jar:file:///data/app/xxx.xxx.xxx.apk/!/assets</td>
-</tr>
-<tr>
-<td>Application.persistentData</td>
-<td>/data/data/xxx.xxx.xxx/files</td>
-</tr>
-<tr>
-<td>Application.temporaryCachePath</td>
-<td>/data/data/xxx.xxx.xxx/cache</td>
-</tr>
-</tbody>
-</table>
-<h4 id="iOS平台"><a href="#iOS平台" class="headerlink" title="iOS平台"></a>iOS平台</h4><table>
-<thead>
-<tr>
-<th>路径</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Application.dataPath</td>
-<td>Application/XXXXX-xxx-xxxx-xxxx-xxxxxxx/xxx.app/Data</td>
-</tr>
-<tr>
-<td>Application.streamingAssetsPath</td>
-<td>Application/XXXXX-xxx-xxxx-xxxx-xxxxxxx/xxx.app/Data/Raw</td>
-</tr>
-<tr>
-<td>Application.persistentData</td>
-<td>Application/XXXXX-xxx-xxxx-xxxx-xxxxxxx/Documents</td>
-</tr>
-<tr>
-<td>Application.temporaryCachePath</td>
-<td>Application/XXXXX-xxx-xxxx-xxxx-xxxxxxx/Library/Caches</td>
-</tr>
-</tbody>
-</table>
-<p>dataPath和streamingAssetsPath的路径位置一般是相对程序的安装目录位置，而persistentDataPath和temporaryCachePath的路径位置一般是相对所在系统的固定位置。那么现在明确了unity3d中各个地址在不同平台上的含义，下一个问题就来了，也就是我打包之后的资源要怎么和这些地址对应上呢？要知道在pc的editor里默认的资源文件存放的路径就是Assets啊，为何又会派生出那么多路径呢？</p>
-<h3 id="二Unity3d中资源的处理"><a href="#二Unity3d中资源的处理" class="headerlink" title="二Unity3d中资源的处理"></a>二Unity3d中资源的处理</h3><h4 id="Resources"><a href="#Resources" class="headerlink" title="Resources:"></a>Resources:</h4><blockquote>
-<p>是作为一个Unity3D的保留文件夹出现的，也就是如果你新建的文件夹的名字叫Resources，那么里面的内容在打包时都会被无条件的打到发布包中。它的特点简单总结一下就是：<br>1.只读，即不能动态修改。所以想要动态更新的资源不要放在这里。</p>
-<p>2.会将文件夹内的资源打包集成到.asset文件里面。因此建议可以放一些Prefab，因为Prefab在打包时会自动过滤掉不需要的资源，有利于减小资源包的大小。</p>
-<p>3.主线程加载。</p>
-<p>4.资源读取使用Resources.Load()。</p>
 </blockquote>
-<h4 id="StreamingAssets："><a href="#StreamingAssets：" class="headerlink" title="StreamingAssets："></a>StreamingAssets：</h4><blockquote>
-<p>简而言之就是把prefab或者二进制文件封装成AssetBundle文件（也是一种二进制）。但是也有硬伤，就是在移动端无法更新脚本。</p>
-<p>1.是Unity3D定义的一种二进制类型。</p>
-<p>2.最好将prefab封装成AseetBundle，不过上面不是才说了在移动端无法更新脚本吗？那从Assetbundle中拿到的Prefab上挂的脚本是不是就无法运行了？也不一定，只要这个prefab上挂的是本地脚本，就可以。</p>
-<p>3.使用WWW类来下载。</p>
-</blockquote>
-<p><strong>很多项目使用Ulua来解决热更新代码，android下可以通过热更新Dll的来热更新代码，苹果因为政策原因不允许，ulua成为适用苹果和android合适的选择</strong></p>
-<h3 id="PersistentDataPath"><a href="#PersistentDataPath" class="headerlink" title="PersistentDataPath:"></a>PersistentDataPath:</h3><blockquote>
-<p>看上去它只是个路径呀，可为什么要把它从路径里面单独拿出来介绍呢？因为它的确蛮特殊的，这个路径下是可读写。而且在IOS上就是应用程序的沙盒，但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write Access，可以设置它的路径是沙盒还是sdcard。下面同样简单的总结一下：</p>
-<p>1.内容可读写,不过只能运行时才能写入或者读取。<strong>提前将数据存入这个路径是不可行的。</strong></p>
+<h3 id="三-场景投射型小地图"><a href="#三-场景投射型小地图" class="headerlink" title="三 场景投射型小地图"></a>三 场景投射型小地图</h3><ul>
+<li>在主角的头顶挂一个摄像机相机保持和角色在同一XZ坐标（写个很简单的同步位置的脚本）</li>
+<li>设置Camera渲染在单独的Layer上，同时主Camera渲染取消该层</li>
+<li>创建材质球，使用一个带遮罩的shader。</li>
+<li>创建RenderTexture,并设置到camera以及添加到材质球里。</li>
+<li>在UI界面里，为小地图UITexure中添加该材质球。</li>
+<li>调整合适的位置和大小</li>
+<li>使用quad为角色添加在小地图的显示图标</li>
+</ul>
 <hr>
-<p>2.无内容限制.你可以从StreamingAssets中读取二进制文件或者从<strong>AssetBundle</strong>读取文件来写入<strong>PersistentDataPath</strong>中。</p>
-<p>3.写下的文件，可以在电脑上查看。同样也可以清掉</p>
-</blockquote>
-<h3 id="三补充"><a href="#三补充" class="headerlink" title="三补充"></a>三补充</h3><h5 id="但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write-Access，可以设置它的路径是（Internal）沙盒还是-External（SDCard）-sdcard。"><a href="#但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write-Access，可以设置它的路径是（Internal）沙盒还是-External（SDCard）-sdcard。" class="headerlink" title="但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write Access，可以设置它的路径是（Internal）沙盒还是(External（SDCard）)sdcard。"></a>但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write Access，可以设置它的路径是（Internal）沙盒还是(External（SDCard）)sdcard。</h5><hr>
-<p>参考<br><a href="http://www.cnblogs.com/murongxiaopifu/p/4199541.html#_labelTop" target="_blank" rel="external">Unity3D移动平台动态读取外部文件全解析</a></p>
+<p><strong> 面试有遇到说可以使用mesh的小地图制作方式，有知道的朋友请留下大概的解决思路。</strong></p>
+<hr>
+<p>参考内容：<a href="http://blog.csdn.net/wuming22222/article/details/37526659" target="_blank" rel="external">Unity3d-游戏中的小地图制作</a></p>
 
       
     </div>
@@ -441,13 +370,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></p>
+        <p><span>本文标题:</span><a href="/2017/06/30/MMO小地图实现方式/">MMO小地图实现方式</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
-        <p><span>发布时间:</span>2016-12-19, 22:48:31</p>
-        <p><span>最后更新:</span>2017-02-24, 00:45:26</p>
+        <p><span>发布时间:</span>2017-06-30, 23:03:42</p>
+        <p><span>最后更新:</span>2017-07-01, 00:01:46</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/" title="Unity3Dy各个平台动态读取外部文件解析">http://zhutao.github.io/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/06/30/MMO小地图实现方式/" title="MMO小地图实现方式">http://zhutao.github.io/2017/06/30/MMO小地图实现方式/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2017/06/30/MMO小地图实现方式/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -460,15 +389,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/12/25/《从行动开始》读书笔记/">
-                    《从行动开始》读书笔记
+                <a href="/2017/06/30/Unity资源制作要求/">
+                    Unity资源制作要求
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/12/16/搞定GTD/">
-                    搞定GTD
+                <a href="/2017/05/31/Android端外推送到底有多烦/">
+                    Android端外推送到底有多烦
                 </a>
             </div>
         
@@ -480,7 +409,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一各个平台的资源路路径"><span class="toc-number">2.</span> <span class="toc-text">一各个平台的资源路路径</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Window或者Mac"><span class="toc-number">2.1.</span> <span class="toc-text">Window或者Mac</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Android平台"><span class="toc-number">2.2.</span> <span class="toc-text">Android平台</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#iOS平台"><span class="toc-number">2.3.</span> <span class="toc-text">iOS平台</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二Unity3d中资源的处理"><span class="toc-number">3.</span> <span class="toc-text">二Unity3d中资源的处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Resources"><span class="toc-number">3.1.</span> <span class="toc-text">Resources:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#StreamingAssets："><span class="toc-number">3.2.</span> <span class="toc-text">StreamingAssets：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PersistentDataPath"><span class="toc-number">4.</span> <span class="toc-text">PersistentDataPath:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三补充"><span class="toc-number">5.</span> <span class="toc-text">三补充</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write-Access，可以设置它的路径是（Internal）沙盒还是-External（SDCard）-sdcard。"><span class="toc-number">5.0.1.</span> <span class="toc-text">但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write Access，可以设置它的路径是（Internal）沙盒还是(External（SDCard）)sdcard。</span></a></li></ol></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#实现方式如下"><span class="toc-number">1.</span> <span class="toc-text">实现方式如下</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一-NGUI-minimap的插件"><span class="toc-number">2.</span> <span class="toc-text">一 NGUI minimap的插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-通过角色在原地图中的位置比例来确定角色在小地图中的位置"><span class="toc-number">3.</span> <span class="toc-text">二 通过角色在原地图中的位置比例来确定角色在小地图中的位置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#三-场景投射型小地图"><span class="toc-number">3.1.</span> <span class="toc-text">三 场景投射型小地图</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -516,7 +445,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Unity3Dy各个平台动态读取外部文件解析　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"MMO小地图实现方式　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -532,7 +461,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2016/12/19/Unity3Dy各个平台动态读取外部文件解析/" data-title="Unity3Dy各个平台动态读取外部文件解析" data-url="http://zhutao.github.io/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/06/30/MMO小地图实现方式/" data-title="MMO小地图实现方式" data-url="http://zhutao.github.io/2017/06/30/MMO小地图实现方式/"></div>
     <script>
         var duoshuoQuery = {short_name:"zhutaorun"};
         var loadComment = function(){
@@ -555,7 +484,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/12/25/《从行动开始》读书笔记/" title="上一篇: 《从行动开始》读书笔记">
+            <a href="/2017/06/30/Unity资源制作要求/" title="上一篇: Unity资源制作要求">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -563,7 +492,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/12/16/搞定GTD/" title="下一篇: 搞定GTD">
+            <a href="/2017/05/31/Android端外推送到底有多烦/" title="下一篇: Android端外推送到底有多烦">
                 <i class="fa fa-angle-right"></i>
             </a>
         

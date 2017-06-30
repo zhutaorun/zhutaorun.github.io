@@ -15,19 +15,28 @@
 
 
 
-<meta name="description" content="前言
-临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新，lua和xml通过bundle的方式来更新。对于遇到的内容重新去看。">
+<meta name="description" content="模型面数要求
+武器面数：武器模型控制在150个三角面，187个顶点以内。贴图控制在1张，最大256256，最好128128。
+场景面数 场景（地形、建筑、其他装饰物）面数控制在10000面左右，贴图控制在最多2张512*512。
+主角面数 主角模型控制在900-1300个三角面（以最终导入unity3d中的三角面数量为准）。贴图控制在1张，最好256×256，最多512×512。
+小怪面数 小怪模">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unity3Dy各个平台动态读取外部文件解析">
-<meta property="og:url" content="http://zhutao.github.io/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/index.html">
+<meta property="og:title" content="Unity资源制作要求">
+<meta property="og:url" content="http://zhutao.github.io/2017/06/30/Unity资源制作要求/index.html">
 <meta property="og:site_name" content="zhutaorun's Blog">
-<meta property="og:description" content="前言
-临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新，lua和xml通过bundle的方式来更新。对于遇到的内容重新去看。">
-<meta property="og:updated_time" content="2017-02-23T16:45:26.503Z">
+<meta property="og:description" content="模型面数要求
+武器面数：武器模型控制在150个三角面，187个顶点以内。贴图控制在1张，最大256256，最好128128。
+场景面数 场景（地形、建筑、其他装饰物）面数控制在10000面左右，贴图控制在最多2张512*512。
+主角面数 主角模型控制在900-1300个三角面（以最终导入unity3d中的三角面数量为准）。贴图控制在1张，最好256×256，最多512×512。
+小怪面数 小怪模">
+<meta property="og:updated_time" content="2017-06-30T16:01:44.331Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Unity3Dy各个平台动态读取外部文件解析">
-<meta name="twitter:description" content="前言
-临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新，lua和xml通过bundle的方式来更新。对于遇到的内容重新去看。">
+<meta name="twitter:title" content="Unity资源制作要求">
+<meta name="twitter:description" content="模型面数要求
+武器面数：武器模型控制在150个三角面，187个顶点以内。贴图控制在1张，最大256256，最好128128。
+场景面数 场景（地形、建筑、其他装饰物）面数控制在10000面左右，贴图控制在最多2张512*512。
+主角面数 主角模型控制在900-1300个三角面（以最终导入unity3d中的三角面数量为准）。贴图控制在1张，最好256×256，最多512×512。
+小怪面数 小怪模">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -59,7 +68,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Unity3Dy各个平台动态读取外部文件解析 | zhutaorun&#39;s Blog</title>
+<title>Unity资源制作要求 | zhutaorun&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -284,11 +293,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Unity3Dy各个平台动态读取外部文件解析" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Unity资源制作要求" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/" class="article-date">
-      <time datetime="2016-12-19T14:48:31.000Z" itemprop="datePublished">2016-12-19</time>
+      <a href="/2017/06/30/Unity资源制作要求/" class="article-date">
+      <time datetime="2017-06-30T15:59:40.000Z" itemprop="datePublished">2017-06-30</time>
 </a>
 
 
@@ -303,7 +312,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Unity3Dy各个平台动态读取外部文件解析
+      Unity资源制作要求
     </h1>
   
 
@@ -328,111 +337,27 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><ul>
-<li>临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新，lua和xml通过bundle的方式来更新。对于遇到的内容重新去看。<a id="more"></a>
-<h3 id="一各个平台的资源路路径"><a href="#一各个平台的资源路路径" class="headerlink" title="一各个平台的资源路路径"></a>一各个平台的资源路路径</h3><h4 id="Window或者Mac"><a href="#Window或者Mac" class="headerlink" title="Window或者Mac"></a>Window或者Mac</h4></li>
+        <h3 id="模型面数要求"><a href="#模型面数要求" class="headerlink" title="模型面数要求"></a>模型面数要求</h3><ul>
+<li>武器面数：武器模型控制在150个三角面，187个顶点以内。贴图控制在1张，最大256<em>256，最好128</em>128。</li>
+<li>场景面数 场景（地形、建筑、其他装饰物）面数控制在10000面左右，贴图控制在最多2张512*512。</li>
+<li>主角面数 主角模型控制在900-1300个三角面（以最终导入unity3d中的三角面数量为准）。贴图控制在1张，最好256×256，最多512×512。</li>
+<li>小怪面数 小怪模型控制在600-900个三角面（以最终导入unity3d中的三角面数量为准）。贴图控制在1张，最大256×256。<br><strong>注意：所有单个模型不准出现超过20000三角面的情况，否则导出时可能会出错。</strong><a id="more"></a>
+</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th>路径</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Application.dataPath</td>
-<td>返回程序的数据文件所在文件夹的路径</td>
-</tr>
-<tr>
-<td>Application.streamingAssetsPath</td>
-<td>返回流数据的缓存目录，适合设置一些外部数据文件的路径</td>
-</tr>
-<tr>
-<td>Application.persistentData</td>
-<td>返回一个持久化数据存储目录的路径，可以在次路径下存储一些持久化的数据文件</td>
-</tr>
-<tr>
-<td>Application.temporaryCachePath</td>
-<td>返回一个临时数据的缓存目录</td>
-</tr>
-</tbody>
-</table>
-<h4 id="Android平台"><a href="#Android平台" class="headerlink" title="Android平台"></a>Android平台</h4><table>
-<thead>
-<tr>
-<th>路径</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Application.dataPath</td>
-<td>/data/app/xxx.xxx.xxx.apk</td>
-</tr>
-<tr>
-<td>Application.streamingAssetsPath</td>
-<td>jar:file:///data/app/xxx.xxx.xxx.apk/!/assets</td>
-</tr>
-<tr>
-<td>Application.persistentData</td>
-<td>/data/data/xxx.xxx.xxx/files</td>
-</tr>
-<tr>
-<td>Application.temporaryCachePath</td>
-<td>/data/data/xxx.xxx.xxx/cache</td>
-</tr>
-</tbody>
-</table>
-<h4 id="iOS平台"><a href="#iOS平台" class="headerlink" title="iOS平台"></a>iOS平台</h4><table>
-<thead>
-<tr>
-<th>路径</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Application.dataPath</td>
-<td>Application/XXXXX-xxx-xxxx-xxxx-xxxxxxx/xxx.app/Data</td>
-</tr>
-<tr>
-<td>Application.streamingAssetsPath</td>
-<td>Application/XXXXX-xxx-xxxx-xxxx-xxxxxxx/xxx.app/Data/Raw</td>
-</tr>
-<tr>
-<td>Application.persistentData</td>
-<td>Application/XXXXX-xxx-xxxx-xxxx-xxxxxxx/Documents</td>
-</tr>
-<tr>
-<td>Application.temporaryCachePath</td>
-<td>Application/XXXXX-xxx-xxxx-xxxx-xxxxxxx/Library/Caches</td>
-</tr>
-</tbody>
-</table>
-<p>dataPath和streamingAssetsPath的路径位置一般是相对程序的安装目录位置，而persistentDataPath和temporaryCachePath的路径位置一般是相对所在系统的固定位置。那么现在明确了unity3d中各个地址在不同平台上的含义，下一个问题就来了，也就是我打包之后的资源要怎么和这些地址对应上呢？要知道在pc的editor里默认的资源文件存放的路径就是Assets啊，为何又会派生出那么多路径呢？</p>
-<h3 id="二Unity3d中资源的处理"><a href="#二Unity3d中资源的处理" class="headerlink" title="二Unity3d中资源的处理"></a>二Unity3d中资源的处理</h3><h4 id="Resources"><a href="#Resources" class="headerlink" title="Resources:"></a>Resources:</h4><blockquote>
-<p>是作为一个Unity3D的保留文件夹出现的，也就是如果你新建的文件夹的名字叫Resources，那么里面的内容在打包时都会被无条件的打到发布包中。它的特点简单总结一下就是：<br>1.只读，即不能动态修改。所以想要动态更新的资源不要放在这里。</p>
-<p>2.会将文件夹内的资源打包集成到.asset文件里面。因此建议可以放一些Prefab，因为Prefab在打包时会自动过滤掉不需要的资源，有利于减小资源包的大小。</p>
-<p>3.主线程加载。</p>
-<p>4.资源读取使用Resources.Load()。</p>
-</blockquote>
-<h4 id="StreamingAssets："><a href="#StreamingAssets：" class="headerlink" title="StreamingAssets："></a>StreamingAssets：</h4><blockquote>
-<p>简而言之就是把prefab或者二进制文件封装成AssetBundle文件（也是一种二进制）。但是也有硬伤，就是在移动端无法更新脚本。</p>
-<p>1.是Unity3D定义的一种二进制类型。</p>
-<p>2.最好将prefab封装成AseetBundle，不过上面不是才说了在移动端无法更新脚本吗？那从Assetbundle中拿到的Prefab上挂的脚本是不是就无法运行了？也不一定，只要这个prefab上挂的是本地脚本，就可以。</p>
-<p>3.使用WWW类来下载。</p>
-</blockquote>
-<p><strong>很多项目使用Ulua来解决热更新代码，android下可以通过热更新Dll的来热更新代码，苹果因为政策原因不允许，ulua成为适用苹果和android合适的选择</strong></p>
-<h3 id="PersistentDataPath"><a href="#PersistentDataPath" class="headerlink" title="PersistentDataPath:"></a>PersistentDataPath:</h3><blockquote>
-<p>看上去它只是个路径呀，可为什么要把它从路径里面单独拿出来介绍呢？因为它的确蛮特殊的，这个路径下是可读写。而且在IOS上就是应用程序的沙盒，但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write Access，可以设置它的路径是沙盒还是sdcard。下面同样简单的总结一下：</p>
-<p>1.内容可读写,不过只能运行时才能写入或者读取。<strong>提前将数据存入这个路径是不可行的。</strong></p>
-<hr>
-<p>2.无内容限制.你可以从StreamingAssets中读取二进制文件或者从<strong>AssetBundle</strong>读取文件来写入<strong>PersistentDataPath</strong>中。</p>
-<p>3.写下的文件，可以在电脑上查看。同样也可以清掉</p>
-</blockquote>
-<h3 id="三补充"><a href="#三补充" class="headerlink" title="三补充"></a>三补充</h3><h5 id="但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write-Access，可以设置它的路径是（Internal）沙盒还是-External（SDCard）-sdcard。"><a href="#但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write-Access，可以设置它的路径是（Internal）沙盒还是-External（SDCard）-sdcard。" class="headerlink" title="但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write Access，可以设置它的路径是（Internal）沙盒还是(External（SDCard）)sdcard。"></a>但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write Access，可以设置它的路径是（Internal）沙盒还是(External（SDCard）)sdcard。</h5><hr>
-<p>参考<br><a href="http://www.cnblogs.com/murongxiaopifu/p/4199541.html#_labelTop" target="_blank" rel="external">Unity3D移动平台动态读取外部文件全解析</a></p>
+<h3 id="贴图材质应用规则"><a href="#贴图材质应用规则" class="headerlink" title="贴图材质应用规则"></a>贴图材质应用规则</h3><ul>
+<li>1.贴图不能为中文命名，不能有重名；</li>
+<li>2.材质球命名与物体名称一致，材质球的父子层级的命名必须一致；</li>
+<li>3.同种贴图必须使用一个材质球；</li>
+<li>4.除需要用双面材质表现的物体之外，其他物体不能使用双面材质；</li>
+<li>5.材质的ID和物体的ID号必须一致；</li>
+<li>6.若使用completemap烘焙，烘焙完毕后会自动产生一个shell材质，必须将shell材质变为standard标准材质，并且通道要一致，否则不能正确导出贴图；</li>
+<li>7.带Alpha通道的贴图存储为tga或者png格式，在命名是必须加_al以区分</li>
+<li>8.模型需要通过通道处理时需要制作带有通道的纹理，在制作树的通道纹理是，最好将透明部分改为树的主色，这样在渲染是可以使有效边缘部分的颜色正确，通道纹理在程序渲染时占用的资源币同尺寸的普通纹理要多.通道纹理命名时应以_al结尾。</li>
+<li>9.制作的贴图大小的长宽是2的幂次方，及时有空白部分，同事适用在Android和ios的制作要求</li>
+<li>10.场景使用lightMap，而不是实时光照</li>
+<li>11.UI图片不需要使用MipMap;</li>
+<li>12.和美术人员约定非常大的图片尽可能采用九宫格</li>
+</ul>
 
       
     </div>
@@ -441,13 +366,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></p>
+        <p><span>本文标题:</span><a href="/2017/06/30/Unity资源制作要求/">Unity资源制作要求</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
-        <p><span>发布时间:</span>2016-12-19, 22:48:31</p>
-        <p><span>最后更新:</span>2017-02-24, 00:45:26</p>
+        <p><span>发布时间:</span>2017-06-30, 23:59:40</p>
+        <p><span>最后更新:</span>2017-07-01, 00:01:44</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/" title="Unity3Dy各个平台动态读取外部文件解析">http://zhutao.github.io/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/06/30/Unity资源制作要求/" title="Unity资源制作要求">http://zhutao.github.io/2017/06/30/Unity资源制作要求/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2017/06/30/Unity资源制作要求/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -459,16 +384,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/12/25/《从行动开始》读书笔记/">
-                    《从行动开始》读书笔记
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/12/16/搞定GTD/">
-                    搞定GTD
+                <a href="/2017/06/30/MMO小地图实现方式/">
+                    MMO小地图实现方式
                 </a>
             </div>
         
@@ -480,7 +399,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一各个平台的资源路路径"><span class="toc-number">2.</span> <span class="toc-text">一各个平台的资源路路径</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Window或者Mac"><span class="toc-number">2.1.</span> <span class="toc-text">Window或者Mac</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Android平台"><span class="toc-number">2.2.</span> <span class="toc-text">Android平台</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#iOS平台"><span class="toc-number">2.3.</span> <span class="toc-text">iOS平台</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二Unity3d中资源的处理"><span class="toc-number">3.</span> <span class="toc-text">二Unity3d中资源的处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Resources"><span class="toc-number">3.1.</span> <span class="toc-text">Resources:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#StreamingAssets："><span class="toc-number">3.2.</span> <span class="toc-text">StreamingAssets：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PersistentDataPath"><span class="toc-number">4.</span> <span class="toc-text">PersistentDataPath:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三补充"><span class="toc-number">5.</span> <span class="toc-text">三补充</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write-Access，可以设置它的路径是（Internal）沙盒还是-External（SDCard）-sdcard。"><span class="toc-number">5.0.1.</span> <span class="toc-text">但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write Access，可以设置它的路径是（Internal）沙盒还是(External（SDCard）)sdcard。</span></a></li></ol></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#模型面数要求"><span class="toc-number">1.</span> <span class="toc-text">模型面数要求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#贴图材质应用规则"><span class="toc-number">2.</span> <span class="toc-text">贴图材质应用规则</span></a></li></ol>
         
     </div>
     <style>
@@ -516,7 +435,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Unity3Dy各个平台动态读取外部文件解析　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Unity资源制作要求　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -532,7 +451,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2016/12/19/Unity3Dy各个平台动态读取外部文件解析/" data-title="Unity3Dy各个平台动态读取外部文件解析" data-url="http://zhutao.github.io/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/06/30/Unity资源制作要求/" data-title="Unity资源制作要求" data-url="http://zhutao.github.io/2017/06/30/Unity资源制作要求/"></div>
     <script>
         var duoshuoQuery = {short_name:"zhutaorun"};
         var loadComment = function(){
@@ -555,15 +474,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/12/25/《从行动开始》读书笔记/" title="上一篇: 《从行动开始》读书笔记">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/12/16/搞定GTD/" title="下一篇: 搞定GTD">
+            <a href="/2017/06/30/MMO小地图实现方式/" title="下一篇: MMO小地图实现方式">
                 <i class="fa fa-angle-right"></i>
             </a>
         
