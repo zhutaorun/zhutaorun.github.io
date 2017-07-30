@@ -15,46 +15,16 @@
 
 
 
-<meta name="description" content="Unity3D里声音分为，游戏音效和游戏音乐，游戏音乐，时间长度较长，音效很短。
-
-一.Unity3D游戏引擎一共支持4个音乐格式的文件
-.AIFF  适用于较短的音乐文件可用作游戏打斗音效
-
-.WAV  适用于较短的音乐文件可用作游戏打斗音效
-
-.MP3  适用于较长的音乐文件可用作游戏背景音乐
-
-.OGG  适用于较长的音乐文件可用作游戏背景音乐">
+<meta name="description" content="###前言从6月16日起，被通知项目解散，（说好的半个月的薪水，已经拖了半个月了，第二次遇到了拖薪，真的很心烦）。17日去苏州见我妈，没吱声，自己失业了。回来休息一周。然后更新求职状态，准备去面试了。主程看着项目情况不好，还有之前认识的老板找他，准备成立一家公司。算是有个保底的offer，后来这个机会有没了。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unity 声音资源优化">
-<meta property="og:url" content="http://zhutao.github.io/2017/02/24/Unity-声音资源优化/index.html">
+<meta property="og:title" content="准备入职，写点东西">
+<meta property="og:url" content="http://zhutao.github.io/2017/07/30/准备入职，写点东西/index.html">
 <meta property="og:site_name" content="zhutaorun's Blog">
-<meta property="og:description" content="Unity3D里声音分为，游戏音效和游戏音乐，游戏音乐，时间长度较长，音效很短。
-
-一.Unity3D游戏引擎一共支持4个音乐格式的文件
-.AIFF  适用于较短的音乐文件可用作游戏打斗音效
-
-.WAV  适用于较短的音乐文件可用作游戏打斗音效
-
-.MP3  适用于较长的音乐文件可用作游戏背景音乐
-
-.OGG  适用于较长的音乐文件可用作游戏背景音乐">
-<meta property="og:image" content="http://img.blog.csdn.net/20170224190331342?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTYxMTkwMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170224190345826?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTYxMTkwMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-03-18T08:40:18.675Z">
+<meta property="og:description" content="###前言从6月16日起，被通知项目解散，（说好的半个月的薪水，已经拖了半个月了，第二次遇到了拖薪，真的很心烦）。17日去苏州见我妈，没吱声，自己失业了。回来休息一周。然后更新求职状态，准备去面试了。主程看着项目情况不好，还有之前认识的老板找他，准备成立一家公司。算是有个保底的offer，后来这个机会有没了。">
+<meta property="og:updated_time" content="2017-07-30T08:00:59.805Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Unity 声音资源优化">
-<meta name="twitter:description" content="Unity3D里声音分为，游戏音效和游戏音乐，游戏音乐，时间长度较长，音效很短。
-
-一.Unity3D游戏引擎一共支持4个音乐格式的文件
-.AIFF  适用于较短的音乐文件可用作游戏打斗音效
-
-.WAV  适用于较短的音乐文件可用作游戏打斗音效
-
-.MP3  适用于较长的音乐文件可用作游戏背景音乐
-
-.OGG  适用于较长的音乐文件可用作游戏背景音乐">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20170224190331342?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTYxMTkwMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta name="twitter:title" content="准备入职，写点东西">
+<meta name="twitter:description" content="###前言从6月16日起，被通知项目解散，（说好的半个月的薪水，已经拖了半个月了，第二次遇到了拖薪，真的很心烦）。17日去苏州见我妈，没吱声，自己失业了。回来休息一周。然后更新求职状态，准备去面试了。主程看着项目情况不好，还有之前认识的老板找他，准备成立一家公司。算是有个保底的offer，后来这个机会有没了。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -86,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Unity 声音资源优化 | zhutaorun&#39;s Blog</title>
+<title>准备入职，写点东西 | zhutaorun&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -311,11 +281,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Unity-声音资源优化" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-准备入职，写点东西" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/02/24/Unity-声音资源优化/" class="article-date">
-      <time datetime="2017-02-24T08:37:39.000Z" itemprop="datePublished">2017-02-24</time>
+      <a href="/2017/07/30/准备入职，写点东西/" class="article-date">
+      <time datetime="2017-07-30T07:58:45.000Z" itemprop="datePublished">2017-07-30</time>
 </a>
 
 
@@ -330,7 +300,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Unity 声音资源优化
+      准备入职，写点东西
     </h1>
   
 
@@ -339,13 +309,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    <a class="article-category-link" href="/categories/随笔/">随笔</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -355,29 +325,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <blockquote>
-<p>Unity3D里声音分为，游戏音效和游戏音乐，游戏音乐，时间长度较长，音效很短。</p>
-</blockquote>
-<h3 id="一-Unity3D游戏引擎一共支持4个音乐格式的文件"><a href="#一-Unity3D游戏引擎一共支持4个音乐格式的文件" class="headerlink" title="一.Unity3D游戏引擎一共支持4个音乐格式的文件"></a>一.Unity3D游戏引擎一共支持4个音乐格式的文件</h3><ul>
-<li><p>.AIFF  适用于较短的音乐文件可用作游戏打斗音效</p>
-</li>
-<li><p>.WAV  适用于较短的音乐文件可用作游戏打斗音效</p>
-</li>
-<li><p>.MP3  适用于较长的音乐文件可用作游戏背景音乐</p>
-</li>
-<li><p>.OGG  适用于较长的音乐文件可用作游戏背景音乐</p>
-</li>
-</ul>
-<a id="more"></a>
-<h3 id="二-资源加载选择"><a href="#二-资源加载选择" class="headerlink" title="二.资源加载选择"></a>二.资源加载选择</h3><ul>
-<li>选择中需要的背景音频，在audioclip修改一些设置：取消勾选preload audio data选项，勾选安卓环境下的override for andriod选项，并设置load type为streaming。</li>
-</ul>
-<p>具体原因，查看上述连接所述。<a href="http://docs.unity3d.com/Manual/class-AudioClip.html" target="_blank" rel="external">audionClip设置</a>,打包发布。修改之后，加载时间大大缩短，5s左右也在可接受范围。</p>
-<ul>
-<li>这里禁用的预加载音频preload audio data，减少加载时间。设置load type为streaming，音频剪辑将放入缓冲区，从缓冲区中播放，播放完成后，被卸载，释放内存。<br>也可以将使用频繁的音频设置load type为decompress on load，在加载时解压，这样会更流畅一些，当然只是用于频繁使用的音频即可。<h3 id="三-资源压缩格式"><a href="#三-资源压缩格式" class="headerlink" title="三.资源压缩格式"></a>三.资源压缩格式</h3></li>
-<li>Audio Format选择是Compressed(OGGVORBIS),Compression为99；图片大小由0.6m-&gt;0.2m;<br><img src="http://img.blog.csdn.net/20170224190331342?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTYxMTkwMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"><br><img src="http://img.blog.csdn.net/20170224190345826?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMTYxMTkwMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></li>
-<li>很多音效资源的压缩，可以带来包体的减少</li>
-</ul>
+        <p>###前言<br>从6月16日起，被通知项目解散，（说好的半个月的薪水，已经拖了半个月了，第二次遇到了拖薪，真的很心烦）。17日去苏州见我妈，没吱声，自己失业了。回来休息一周。然后更新求职状态，准备去面试了。主程看着项目情况不好，还有之前认识的老板找他，准备成立一家公司。算是有个保底的offer，后来这个机会有没了。<br><a id="more"></a></p>
+<h3 id="初期"><a href="#初期" class="headerlink" title="初期"></a>初期</h3><p>刚开始面试，心态不对。觉得有保底的offer，在希望薪水上和面试准备上完全没准备。这个时候期望薪水过高了。HR是不愿意有个和你谈薪的过程的，因为这个时候是招聘方市场。除非你很牛，技术面试很好，HR觉得你性价比很高。关于面试准备，想法是看下自己这一年多有什么长进，除了网上可以找的面试题，之外关于项目的优化部分做了准备，其他都没有准备。</p>
+<h3 id="调整"><a href="#调整" class="headerlink" title="调整"></a>调整</h3><p>在不断的面试过程中调整，请朋友内推。去面试。在面试当中，自己觉得看过应该记得内容，反而有时一问不敢说出来，我不敢确信，准确是很重要的。面试也是越面试越没有自信了。<br>突然明白，是自己偷懒了。好记性不如烂笔头。自己手写了一边后，真的是记住了。<br>之前在写简历上了，学习了下。简历的通过率还算挺高的。面试的时候是，是被会问到过的内容，如我项目中写了，做过聊天功能，会被问到做个图文混排。写过插件，会被问到，具体插件怎么用的。参与过性能优化，具体做了哪些内容。<br>关于NGUI的部分，是怎么样的渲染顺序。在面试了很多家后，我觉得这个问题很棒。这是在使用基础上，看有没有去深入了解过的。关于NGUI的部分，自己有写过一篇文章，在看写网上的博客，重新梳理了下。这个问题也是可以回答。<br>这么多面试下来，关于C#和基础部分，是我薄弱的部分，也是没办法在很短时间里提高的。还有算法的部分。当问到这一部分也是心慌的。关于static的变量的生命周期也是慌乱中说错了。<br>在学校学习的是JS,进入公司开始用C#。关于C#看了《构建高质量的C#代码》，这本是关于设计模式的。<br>还有有个要求，能不能写Shader，真的一本书看了一半。尴尬了。没可以用来展示的内容。<br>我觉得有个问题，“你擅长了什么”，比较难答了。其实面试官想你说，ai或者战斗或者别的内容。我的回答就比较没自信了，自己也没单独负责这些功能模块了。不敢打包票了。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>总的来说，发现自己还是比较固执的，觉得要懂的，就会去了解的学习。需要学习的方向，现在也是很明确的。想要自己的知识体系，还是要去不断积累的。<br>这么多面试，清晰了现在公司的招聘在3年这个时间上的要求。当然面试聊的过程，知道现在公司开始的是什么类型的项目，什么IP。<br>也许是自己一直用云笔记，觉得大脑是应该用来思考的。参加面试，该背的还是要背的，这个懒不能偷的。<br>还有关于薪资上，不要被招聘网站上骗了。其实通过猎头是一个非常要的渠道了解一个合理的薪水范围。有些职位在内部有定级的，有对应的薪水范围。<br>对于自己的技术能力认识不明确，面试有让自己看清楚了。<br>对我来说，很简单，就是想看到项目可以上线了，但是无法如愿。</p>
 
       
     </div>
@@ -386,13 +337,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/02/24/Unity-声音资源优化/">Unity 声音资源优化</a></p>
+        <p><span>本文标题:</span><a href="/2017/07/30/准备入职，写点东西/">准备入职，写点东西</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
-        <p><span>发布时间:</span>2017-02-24, 16:37:39</p>
-        <p><span>最后更新:</span>2017-03-18, 16:40:18</p>
+        <p><span>发布时间:</span>2017-07-30, 15:58:45</p>
+        <p><span>最后更新:</span>2017-07-30, 16:00:59</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/02/24/Unity-声音资源优化/" title="Unity 声音资源优化">http://zhutao.github.io/2017/02/24/Unity-声音资源优化/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2017/02/24/Unity-声音资源优化/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/07/30/准备入职，写点东西/" title="准备入职，写点东西">http://zhutao.github.io/2017/07/30/准备入职，写点东西/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2017/07/30/准备入职，写点东西/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -404,16 +355,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/03/18/C-教程的实践小结/">
-                    C++教程的实践小结
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/02/24/Unity3D图片大小设置/">
-                    Unity3D图片大小设置
+                <a href="/2017/06/30/Unity资源制作要求/">
+                    Unity资源制作要求
                 </a>
             </div>
         
@@ -425,7 +370,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-Unity3D游戏引擎一共支持4个音乐格式的文件"><span class="toc-number">1.</span> <span class="toc-text">一.Unity3D游戏引擎一共支持4个音乐格式的文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-资源加载选择"><span class="toc-number">2.</span> <span class="toc-text">二.资源加载选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三-资源压缩格式"><span class="toc-number">3.</span> <span class="toc-text">三.资源压缩格式</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#初期"><span class="toc-number">1.</span> <span class="toc-text">初期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调整"><span class="toc-number">2.</span> <span class="toc-text">调整</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
         
     </div>
     <style>
@@ -461,7 +406,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Unity 声音资源优化　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"准备入职，写点东西　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -477,7 +422,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2017/02/24/Unity-声音资源优化/" data-title="Unity 声音资源优化" data-url="http://zhutao.github.io/2017/02/24/Unity-声音资源优化/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/07/30/准备入职，写点东西/" data-title="准备入职，写点东西" data-url="http://zhutao.github.io/2017/07/30/准备入职，写点东西/"></div>
     <script>
         var duoshuoQuery = {short_name:"zhutaorun"};
         var loadComment = function(){
@@ -500,15 +445,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/03/18/C-教程的实践小结/" title="上一篇: C++教程的实践小结">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/02/24/Unity3D图片大小设置/" title="下一篇: Unity3D图片大小设置">
+            <a href="/2017/06/30/Unity资源制作要求/" title="下一篇: Unity资源制作要求">
                 <i class="fa fa-angle-right"></i>
             </a>
         
