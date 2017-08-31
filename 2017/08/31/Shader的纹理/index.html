@@ -15,12 +15,30 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="zhutaorun's Blog">
-<meta property="og:url" content="http://zhutao.github.io/archives/page/3/index.html">
+<meta name="description" content="一直在看《Unity shader入门精要》，纹理这章的划线重点部分笔记，关于纹理采样的内容。
+
+
+纹理是使用一张图片来控制模型的外观。纹理映射技术，把一张图“黏”在模型表面，逐纹素地控制模型的颜色。
+在OpenGL中纹理空间的原点位在左下角，在DirectX中，原点位于左上角。Unity做了在DirectX平台上翻转屏幕图像纹理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shader的纹理">
+<meta property="og:url" content="http://zhutao.github.io/2017/08/31/Shader的纹理/index.html">
 <meta property="og:site_name" content="zhutaorun's Blog">
+<meta property="og:description" content="一直在看《Unity shader入门精要》，纹理这章的划线重点部分笔记，关于纹理采样的内容。
+
+
+纹理是使用一张图片来控制模型的外观。纹理映射技术，把一张图“黏”在模型表面，逐纹素地控制模型的颜色。
+在OpenGL中纹理空间的原点位在左下角，在DirectX中，原点位于左上角。Unity做了在DirectX平台上翻转屏幕图像纹理">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/16.png?raw=true">
+<meta property="og:updated_time" content="2017-08-31T16:09:19.208Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zhutaorun's Blog">
+<meta name="twitter:title" content="Shader的纹理">
+<meta name="twitter:description" content="一直在看《Unity shader入门精要》，纹理这章的划线重点部分笔记，关于纹理采样的内容。
+
+
+纹理是使用一张图片来控制模型的外观。纹理映射技术，把一张图“黏”在模型表面，逐纹素地控制模型的颜色。
+在OpenGL中纹理空间的原点位在左下角，在DirectX中，原点位于左上角。Unity做了在DirectX平台上翻转屏幕图像纹理">
+<meta name="twitter:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/16.png?raw=true">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -52,7 +70,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Archives | zhutaorun&#39;s Blog</title>
+<title>Shader的纹理 | zhutaorun&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -62,8 +80,8 @@
         fancybox: true,
         animate: true,
         isHome: false,
-        isPost: false,
-        isArchive: true,
+        isPost: true,
+        isArchive: false,
         isTag: false,
         isCategory: false,
         fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
@@ -277,249 +295,212 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-Shader的纹理" class="article article-type-post" itemscope itemprop="blogPost">
   
+    <div class="article-meta">
+      <a href="/2017/08/31/Shader的纹理/" class="article-date">
+      <time datetime="2017-08-31T15:58:53.000Z" itemprop="datePublished">2017-08-31</time>
+</a>
+
+
+    </div>
   
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Shader的纹理
+    </h1>
+  
+
+      </header>
       
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Shader/">Shader</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/12/08/游戏改变世界读后感/" class="archive-article-date">
-      <time datetime="2016-12-07T16:28:59.000Z" itemprop="datePublished">12-08</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/12/08/游戏改变世界读后感/">《游戏改变世界》读后感</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
+    <div class="article-entry" itemprop="articleBody">
+      
           
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/阅读/">阅读</a>
+        <blockquote>
+<p>一直在看《Unity shader入门精要》，纹理这章的划线重点部分笔记，关于纹理采样的内容。</p>
+</blockquote>
+<ul>
+<li>纹理是使用一张图片来控制模型的外观。纹理映射技术，把一张图“黏”在模型表面，逐纹素地控制模型的颜色。</li>
+<li>在OpenGL中纹理空间的原点位在左下角，在DirectX中，原点位于左上角。Unity做了在DirectX平台上翻转屏幕图像纹理<a id="more"></a>
+<img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/16.png?raw=true" alt=""></li>
+<li>第一个属性是纹理类型，选择合适的类型，让Unity知道我们的意图</li>
+<li>texture Shape可以选择2d或者cube，cube是高级纹理类型</li>
+<li>Alpha Source 可以选择Alpha from Grayscale，透明通道的值将会由每个像素的灰度值生成</li>
+<li>Wrop Mode.决定当纹理坐标超过[0,1]范围后将会如何被平铺。<br>  ​<em> Repeat,整数部分被舍弃，用小数部分进行采样，纹理不断重复<br>  ​</em> Clamp,纹理坐标大于1，截取到1。小于0，截取到0.</li>
+<li><p>Filter Model有3种模式：Point,Bilinear以及Trilinear。图片滤波效果依次提升，消耗性能依次增大。<br>  ​* 纹理滤波会影响放大或者缩小纹理时得到的图片质量。</p>
+</li>
+<li><p>抗锯齿问题，是用多级渐远纹理（mipmapping）。原理是提前用滤波处理来得到很多更小的图像，形成一个图像金字塔，每一层都是对上一层图像采样的结果。在实时运行时候，就可以快速得到结果像素。</p>
+</li>
+<li>当物体远离摄像机时，可以直接使用较小的纹理。缺点是需要使用一点空间存储这些多级渐远纹理。多占用33%内存空间<br><strong>用空间换取时间的方法</strong></li>
+<li><p>在Advanced中，在勾选Generate Mip Maps,即可开启多级渐远纹理技术。</p>
+</li>
+<li><p>Point模式使用近邻滤波，在放大或者缩小时，它的采样像素数目通常只有一个，有像素风格的效果</p>
+</li>
+<li>Bilinear 滤波使用线性滤波，每个像素点，找到4个邻近像素，进行线性差值混合得到最终的像素，图像看起来被模糊了。</li>
+<li><p>Trilinear 在Bilinear的基础上做了和多级渐远纹理之间的混合。</p>
+</li>
+<li><p>Non Power of Two，非2的幂大小纹理，这些纹理往往会占用更多的内存空间，GPU的读取纹理的速度也会下降。iOS平台会把图缩成最近的2的幂次大小</p>
+</li>
+</ul>
+
+      
     </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/读书笔记/">读书笔记</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+    
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/12/04/关于Markdown/" class="archive-article-date">
-      <time datetime="2016-12-03T16:47:36.000Z" itemprop="datePublished">12-04</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/12/04/关于Markdown/">关于Markdown</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/写作/">写作</a>
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/08/31/Shader的纹理/">Shader的纹理</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
+        <p><span>发布时间:</span>2017-08-31, 23:58:53</p>
+        <p><span>最后更新:</span>2017-09-01, 00:09:19</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/08/31/Shader的纹理/" title="Shader的纹理">http://zhutao.github.io/2017/08/31/Shader的纹理/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2017/08/31/Shader的纹理/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
     </div>
 
 
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工具/">工具</a></li></ul>
-    </div>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/10/25/C++学习记录/" class="archive-article-date">
-      <time datetime="2016-10-25T12:43:36.000Z" itemprop="datePublished">10-25</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/10/25/C++学习记录/">C++学习记录</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/新知识学习/">新知识学习</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/10/02/二分法/" class="archive-article-date">
-      <time datetime="2016-10-02T13:03:57.000Z" itemprop="datePublished">10-02</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/10/02/二分法/">二分法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/面试与应用/">面试与应用</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/10/02/适配器模式/" class="archive-article-date">
-      <time datetime="2016-10-02T13:03:57.000Z" itemprop="datePublished">10-02</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/10/02/适配器模式/">适配器模式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/设计模式/">设计模式</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-          <div class="article-meta">
-              <a href="/2016/09/24/我是谁/" class="archive-article-date">
-      <time datetime="2016-09-24T13:03:57.000Z" itemprop="datePublished">09-24</time>
-</a>
-
-
-        </div>
-         
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/09/24/我是谁/">我是谁</a>
-    </h1>
-  
-
-        <div class="article-info info-on-archive">
-          
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/关于我/">关于我</a>
-    </div>
-
-
-          
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/介绍/">介绍</a></li></ul>
-    </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span>
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/08/31/如何熟悉一个老项目/">
+                    如何快速熟悉一个老项目
+                </a>
+            </div>
+        
     </nav>
-  
 
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Shader的纹理　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/08/31/Shader的纹理/" data-title="Shader的纹理" data-url="http://zhutao.github.io/2017/08/31/Shader的纹理/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"zhutaorun"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/08/31/如何熟悉一个老项目/" title="下一篇: 如何快速熟悉一个老项目">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/Shader的纹理/">Shader的纹理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/如何熟悉一个老项目/">如何快速熟悉一个老项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/Unity的内存优化以及在移动平台上的优化/">Unity的内存优化以及在移动平台上的优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/准备入职，写点东西/">准备入职，写点东西</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/Unity资源制作要求/">Unity资源制作要求</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/MMO小地图实现方式/">MMO小地图实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/31/Android端外推送到底有多烦/">Android端外推送到底有多烦</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/Unity推送SDk/">Unity推送SDk</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/查找代码的中文插件/">查找代码的中文插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/功能错误小结/">功能错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/24/《重构-改善既有代码的设计》读书笔记/">《重构-改善既有代码的设计》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/18/C-教程的实践小结/">C++教程的实践小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity-声音资源优化/">Unity 声音资源优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity3D图片大小设置/">Unity3D图片大小设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/">U3D贴图格式 GENERATE MIP MAPS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/20/Android真机调试/">Android真机调试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/25/《从行动开始》读书笔记/">《从行动开始》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/搞定GTD/">搞定GTD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/11/拖延心理学/">拖延心理学</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/游戏改变世界读后感/">《游戏改变世界》读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/04/关于Markdown/">关于Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/25/C++学习记录/">C++学习记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">
