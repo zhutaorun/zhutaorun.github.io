@@ -27,7 +27,7 @@
 
 先玩游戏本身
 正常情况下，玩到一定级大部分的功能就熟悉了，对关键模块的内容就了解了。">
-<meta property="og:updated_time" content="2017-08-31T15:04:11.185Z">
+<meta property="og:updated_time" content="2017-09-23T14:08:28.512Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何快速熟悉一个老项目">
 <meta name="twitter:description" content="加入新的项目快一个月了。写了两个简单功能，做了一个比较复杂的功能。基本上也熟悉了一些内容了。作为思考怎么让自己更快的熟悉项目。
@@ -368,6 +368,12 @@
 </ul>
 <hr>
 <p>项目一些内容有些老和杂乱。但是优点是稳定。</p>
+<h3 id="Update-一些坑要小心-2017-9-23"><a href="#Update-一些坑要小心-2017-9-23" class="headerlink" title="Update:一些坑要小心-2017-9-23"></a>Update:一些坑要小心-2017-9-23</h3><ul>
+<li>关于一些的数值的初始值，有些是0，有些是-1。一定要搞清楚</li>
+<li>还有数据上，1级是读取的数据是升到当前等级还是升到下一等级要用的</li>
+<li>UI界面是否有复用，修改会有哪些模块受影响</li>
+<li>UI界面改动，最好使用是最小化改动。原来不是动态创建那还是保持原来的做法</li>
+</ul>
 
       
     </div>
@@ -379,7 +385,7 @@
         <p><span>本文标题:</span><a href="/2017/08/31/如何熟悉一个老项目/">如何快速熟悉一个老项目</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
         <p><span>发布时间:</span>2017-08-31, 22:46:50</p>
-        <p><span>最后更新:</span>2017-08-31, 23:04:11</p>
+        <p><span>最后更新:</span>2017-09-23, 22:08:28</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/08/31/如何熟悉一个老项目/" title="如何快速熟悉一个老项目">http://zhutao.github.io/2017/08/31/如何熟悉一个老项目/</a>
             <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2017/08/31/如何熟悉一个老项目/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -415,7 +421,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#先玩游戏本身"><span class="toc-number">1.</span> <span class="toc-text">先玩游戏本身</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#根据产品组成部分熟悉"><span class="toc-number">2.</span> <span class="toc-text">根据产品组成部分熟悉</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#功能策划案"><span class="toc-number">3.</span> <span class="toc-text">功能策划案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码本身"><span class="toc-number">4.</span> <span class="toc-text">代码本身</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#看项目内部的文件目录"><span class="toc-number">5.</span> <span class="toc-text">看项目内部的文件目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#人"><span class="toc-number">6.</span> <span class="toc-text">人</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#先玩游戏本身"><span class="toc-number">1.</span> <span class="toc-text">先玩游戏本身</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#根据产品组成部分熟悉"><span class="toc-number">2.</span> <span class="toc-text">根据产品组成部分熟悉</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#功能策划案"><span class="toc-number">3.</span> <span class="toc-text">功能策划案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码本身"><span class="toc-number">4.</span> <span class="toc-text">代码本身</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#看项目内部的文件目录"><span class="toc-number">5.</span> <span class="toc-text">看项目内部的文件目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#人"><span class="toc-number">6.</span> <span class="toc-text">人</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Update-一些坑要小心-2017-9-23"><span class="toc-number">7.</span> <span class="toc-text">Update:一些坑要小心-2017-9-23</span></a></li></ol>
         
     </div>
     <style>
@@ -504,7 +510,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/Shader的纹理/">Shader的纹理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/如何熟悉一个老项目/">如何快速熟悉一个老项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/Unity的内存优化以及在移动平台上的优化/">Unity的内存优化以及在移动平台上的优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/准备入职，写点东西/">准备入职，写点东西</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/Unity资源制作要求/">Unity资源制作要求</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/MMO小地图实现方式/">MMO小地图实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/31/Android端外推送到底有多烦/">Android端外推送到底有多烦</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/Unity推送SDk/">Unity推送SDk</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/查找代码的中文插件/">查找代码的中文插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/功能错误小结/">功能错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/24/《重构-改善既有代码的设计》读书笔记/">《重构-改善既有代码的设计》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/18/C-教程的实践小结/">C++教程的实践小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity-声音资源优化/">Unity 声音资源优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity3D图片大小设置/">Unity3D图片大小设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/">U3D贴图格式 GENERATE MIP MAPS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/20/Android真机调试/">Android真机调试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/25/《从行动开始》读书笔记/">《从行动开始》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/搞定GTD/">搞定GTD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/11/拖延心理学/">拖延心理学</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/游戏改变世界读后感/">《游戏改变世界》读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/04/关于Markdown/">关于Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/25/C++学习记录/">C++学习记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/Shader的纹理/">Shader的纹理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/如何熟悉一个老项目/">如何快速熟悉一个老项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/Unity的内存优化以及在移动平台上的优化/">Unity的内存优化以及在移动平台上的优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/准备入职，写点东西/">准备入职，写点东西</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/Unity资源制作要求/">Unity资源制作要求</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/MMO小地图实现方式/">MMO小地图实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/31/Android端外推送到底有多烦/">Android端外推送到底有多烦</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/Unity推送SDk/">Unity推送SDk</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/查找代码的中文插件/">查找代码的中文插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/功能错误小结/">功能错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/24/《重构-改善既有代码的设计》读书笔记/">《重构-改善既有代码的设计》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/18/C-教程的实践小结/">C++教程的实践小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity-声音资源优化/">Unity 声音资源优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity3D图片大小设置/">Unity3D图片大小设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/">U3D贴图格式 GENERATE MIP MAPS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/20/Android真机调试/">Android真机调试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/25/《从行动开始》读书笔记/">《从行动开始》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/搞定GTD/">搞定GTD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/11/拖延心理学/">拖延心理学</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/游戏改变世界读后感/">《游戏改变世界》读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/04/关于Markdown/">关于Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/25/C++学习记录/">C++学习记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
 
 
 
