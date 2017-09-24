@@ -15,39 +15,24 @@
 
 
 
-<meta name="description" content="真机调试优势：在于时候看到运行的cup使用情况，项目测试通过这个真机测试找出了卡的运行，在倒计时上。有协程一直被调用占用资源，在打开这个功能后很卡，通过这个方法，定位到原因。连接调试，运行到卡的时候，可看到什么代码造成的。
-
-一.配置安卓打包环境
-JDK和ADK安装
-安装完成配置adbtools的环境变量
-在unity里指定sdk和jdk路径">
+<meta name="description" content="Unity开发者的技术文章。
+编辑：这个skidmark系统现在在GitHub上。
+很久以前，Unity发布了一个汽车教程，为汽车提供了一些很好的滑动标记，但是skidmarks脚本做了一大堆不必要的东西，并产生了一个巨大的GC问题，因为它运行，导致垃圾收集器出现大约一秒一次，使用大约25％的CPU在框架中收集一堆网格。在Scrap的早期版本中，我已经有了一些skidmark代码，但是它也有同样可">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android真机调试">
-<meta property="og:url" content="http://zhutao.github.io/2017/01/20/Android真机调试/index.html">
+<meta property="og:title" content="【翻译】Unity3D车辆的滑动效果">
+<meta property="og:url" content="http://zhutao.github.io/2017/09/24/【翻译】Unity3D车辆的滑动效果/index.html">
 <meta property="og:site_name" content="zhutaorun's Blog">
-<meta property="og:description" content="真机调试优势：在于时候看到运行的cup使用情况，项目测试通过这个真机测试找出了卡的运行，在倒计时上。有协程一直被调用占用资源，在打开这个功能后很卡，通过这个方法，定位到原因。连接调试，运行到卡的时候，可看到什么代码造成的。
-
-一.配置安卓打包环境
-JDK和ADK安装
-安装完成配置adbtools的环境变量
-在unity里指定sdk和jdk路径">
-<meta property="og:image" content="http://img.blog.csdn.net/20151112124653768">
-<meta property="og:image" content="http://img.blog.csdn.net/20151112124747830">
-<meta property="og:image" content="http://img.blog.csdn.net/20151112124834334">
-<meta property="og:image" content="http://img.blog.csdn.net/20151112125817261">
-<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/4.jpg?raw=true">
-<meta property="og:image" content="http://img.blog.csdn.net/20150406174351525">
-<meta property="og:image" content="http://img.blog.csdn.net/20150406181929100">
-<meta property="og:updated_time" content="2017-02-23T16:46:05.606Z">
+<meta property="og:description" content="Unity开发者的技术文章。
+编辑：这个skidmark系统现在在GitHub上。
+很久以前，Unity发布了一个汽车教程，为汽车提供了一些很好的滑动标记，但是skidmarks脚本做了一大堆不必要的东西，并产生了一个巨大的GC问题，因为它运行，导致垃圾收集器出现大约一秒一次，使用大约25％的CPU在框架中收集一堆网格。在Scrap的早期版本中，我已经有了一些skidmark代码，但是它也有同样可">
+<meta property="og:image" content="http://www.scrapsgame.com/wp-content/uploads/2015/11/skid.gif">
+<meta property="og:updated_time" content="2017-09-24T06:43:16.637Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android真机调试">
-<meta name="twitter:description" content="真机调试优势：在于时候看到运行的cup使用情况，项目测试通过这个真机测试找出了卡的运行，在倒计时上。有协程一直被调用占用资源，在打开这个功能后很卡，通过这个方法，定位到原因。连接调试，运行到卡的时候，可看到什么代码造成的。
-
-一.配置安卓打包环境
-JDK和ADK安装
-安装完成配置adbtools的环境变量
-在unity里指定sdk和jdk路径">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20151112124653768">
+<meta name="twitter:title" content="【翻译】Unity3D车辆的滑动效果">
+<meta name="twitter:description" content="Unity开发者的技术文章。
+编辑：这个skidmark系统现在在GitHub上。
+很久以前，Unity发布了一个汽车教程，为汽车提供了一些很好的滑动标记，但是skidmarks脚本做了一大堆不必要的东西，并产生了一个巨大的GC问题，因为它运行，导致垃圾收集器出现大约一秒一次，使用大约25％的CPU在框架中收集一堆网格。在Scrap的早期版本中，我已经有了一些skidmark代码，但是它也有同样可">
+<meta name="twitter:image" content="http://www.scrapsgame.com/wp-content/uploads/2015/11/skid.gif">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -79,7 +64,7 @@ JDK和ADK安装
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Android真机调试 | zhutaorun&#39;s Blog</title>
+<title>【翻译】Unity3D车辆的滑动效果 | zhutaorun&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -304,11 +289,11 @@ JDK和ADK安装
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Android真机调试" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-【翻译】Unity3D车辆的滑动效果" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/01/20/Android真机调试/" class="article-date">
-      <time datetime="2017-01-19T16:13:22.000Z" itemprop="datePublished">2017-01-20</time>
+      <a href="/2017/09/24/【翻译】Unity3D车辆的滑动效果/" class="article-date">
+      <time datetime="2017-09-24T06:37:23.000Z" itemprop="datePublished">2017-09-24</time>
 </a>
 
 
@@ -323,7 +308,7 @@ JDK和ADK安装
         
   
     <h1 class="article-title" itemprop="name">
-      Android真机调试
+      【翻译】Unity3D车辆的滑动效果
     </h1>
   
 
@@ -332,7 +317,7 @@ JDK和ADK安装
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/优化/">优化</a>
+    <a class="article-category-link" href="/categories/翻译/">翻译</a>
     </div>
 
 
@@ -348,31 +333,16 @@ JDK和ADK安装
     <div class="article-entry" itemprop="articleBody">
       
           
-        <blockquote>
-<p>真机调试优势：在于时候看到运行的cup使用情况，项目测试通过这个真机测试找出了卡的运行，在倒计时上。有协程一直被调用占用资源，在打开这个功能后很卡，通过这个方法，定位到原因。连接调试，运行到卡的时候，可看到什么代码造成的。</p>
-</blockquote>
-<h3 id="一-配置安卓打包环境"><a href="#一-配置安卓打包环境" class="headerlink" title="一.配置安卓打包环境"></a>一.配置安卓打包环境</h3><ul>
-<li>JDK和ADK安装</li>
-<li>安装完成配置adbtools的环境变量</li>
-<li>在unity里指定sdk和jdk路径</li>
-</ul>
-<a id="more"></a>
-<h3 id="二-Unity-设置"><a href="#二-Unity-设置" class="headerlink" title="二.Unity 设置"></a>二.Unity 设置</h3><ul>
-<li>项目切成android 设置</li>
-<li>在Window -&gt; Profiler-&gt;里<br><img src="http://img.blog.csdn.net/20151112124653768" alt=""></li>
-<li>打出来的包名是要用到的<br><img src="http://img.blog.csdn.net/20151112124747830" alt=""><br><img src="http://img.blog.csdn.net/20151112124834334" alt=""></li>
-<li>打开Unity-Profiler,在Active Profiler里加,AndroidPlayer(ADB@127.0.0.1:54999)<br><img src="http://img.blog.csdn.net/20151112125817261" alt=""></li>
-<li>在adbtool的文件夹，同时【右键shift+鼠标右键】，点击在此处打开命令窗口。<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/4.jpg?raw=true" alt=""></li>
-<li><p>在命令窗口中输入： adb forward tcp:54999 localabstract:Unity-这里加你的包名</p>
-</li>
-<li><p>执行build and Run,在正常打包的基础上，多了安装到手机上和运行的过程。</p>
-<h3 id="三-Build-and-Run-失败"><a href="#三-Build-and-Run-失败" class="headerlink" title="三.Build and Run 失败"></a>三.Build and Run 失败</h3><p>提示是： Error building Player: UnityException: Unable to install APK!<br>环境变量其中加了adbtools,任然没有有用。<br><img src="http://img.blog.csdn.net/20150406174351525" alt=""><br>决解方法是，是打一个build 的包，在手机上安装好，在连接Unity 运行。<br>输入命令，可以跑<br>效果如下图<br><img src="http://img.blog.csdn.net/20150406181929100" alt=""></p>
-</li>
-</ul>
-<hr>
-<h4 id="附"><a href="#附" class="headerlink" title="附"></a>附</h4><ul>
-<li>关于手机连接，需要开启开发者模式。和PC端正常连接，端口识别，如有问题用360等安装驱动</li>
-</ul>
+        <p>Unity开发者的技术文章。</p>
+<p>编辑：<a href="https://github.com/Nition/UnitySkidmarks" target="_blank" rel="external">这个skidmark系统现在在GitHub上。</a></p>
+<p>很久以前，Unity发布了一个汽车教程，为汽车提供了一些很好的滑动标记，但是skidmarks脚本做了一大堆不必要的东西，并<a href="http://www.scrapsgame.com/builder-demo-update-bit-technical-post/" target="_blank" rel="external">产生了一个巨大的GC问题</a>，因为它运行，导致垃圾收集器出现大约一秒一次，使用大约25％的CPU在框架中收集一堆网格。在Scrap的早期版本中，我已经有了一些skidmark代码，但是它也有同样可怕的GC问题，所以我提出来，而不是当时就修复它。</p>
+<p>在此期间，我看了几个其他的skidmark解决方案，但他们都有自己的问题。例如，有些是基于渲染器的，并且一旦车辆停止打滑，它们（所有这些）都被消除（“ <a href="https://forum.unity.com/threads/simple-skidmark-setup-for-your-unity-racing-game.168261/#post-1151688" target="_blank" rel="external">这不是一个错误，这是一个功能 </a>”）。</p>
+<p>最近有人联系了我，问我是否曾经做过，虽然我没有，但我们有一些交流，他指出，有可能做到原来的基于网格的方式没有产生如此多的垃圾。今天我发生了这样的文章，所以这里是旧的汽车案例中skidmarks的修改版本，不会生成垃圾，不会永远计数混迹的数量，并且不会在LateUpdate中执行所有不必要的网格划分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div></pre></td><td class="code"><pre><div class="line">using UnityEngine; // Skidmarks texture. Only need one of these in a scene somewhere. Call AddSkidMark.public class Skidmarks : MonoBehaviour &#123;</div><div class="line">	// INSPECTOR SETTINGS 	// Material for the skidmarks to use</div><div class="line">	[SerializeField]</div><div class="line">	Material skidmarksMaterial; 	// END INSPECTOR SETTINGS 	// Variables for each mark created. Needed to generate the correct mesh.</div><div class="line">	class MarkSection &#123;</div><div class="line">		public Vector3 Pos = Vector3.zero;</div><div class="line">		public Vector3 Normal = Vector3.zero;</div><div class="line">		public Vector4 Tangent = Vector4.zero;</div><div class="line">		public Vector3 Posl = Vector3.zero;</div><div class="line">		public Vector3 Posr = Vector3.zero;</div><div class="line">		public byte Intensity;</div><div class="line">		public int LastIndex;</div><div class="line">	&#125;; 	const int MAX_MARKS = 1024; // Max number of marks total for everyone together</div><div class="line">	const float MARK_WIDTH = 0.35f; // Width of the skidmarks. Should match the width of the wheels</div><div class="line">	const float GROUND_OFFSET = 0.02f;	// Distance above surface in metres</div><div class="line">	const float MIN_DISTANCE = 1.0f; // Distance between points in metres. Bigger = more clunky, straight-line skidmarks</div><div class="line">	const float MIN_SQR_DISTANCE = MIN_DISTANCE * MIN_DISTANCE; 	int markIndex;</div><div class="line">	MarkSection[] skidmarks;</div><div class="line">	Mesh marksMesh;</div><div class="line">	MeshRenderer mr;</div><div class="line">	MeshFilter mf;</div><div class="line">	Vector3[] vertices;</div><div class="line">	Vector3[] normals;</div><div class="line">	Vector4[] tangents;</div><div class="line">	Color32[] colors;</div><div class="line">	Vector2[] uvs;</div><div class="line">	int[] triangles; 	bool updated;</div><div class="line">	bool haveSetBounds; 	// #### UNITY INTERNAL METHODS #### 	protected void Start() &#123;</div><div class="line">		skidmarks = new MarkSection[MAX_MARKS];</div><div class="line">		for (int i = 0; i &amp;lt; MAX_MARKS; i++) &#123;</div><div class="line">			skidmarks[i] = new MarkSection();</div><div class="line">		&#125;</div><div class="line">		mf = GetComponent();</div><div class="line">		mr = GetComponent();</div><div class="line">		if (mr == null) &#123;</div><div class="line">			mr = gameObject.AddComponent();</div><div class="line">		&#125;</div><div class="line">		marksMesh = new Mesh();</div><div class="line">		marksMesh.MarkDynamic();</div><div class="line">		if (mf == null) &#123;</div><div class="line">			mf = gameObject.AddComponent();</div><div class="line">		&#125;</div><div class="line">		mf.sharedMesh = marksMesh;</div><div class="line">		vertices = new Vector3[MAX_MARKS * 4];</div><div class="line">		normals = new Vector3[MAX_MARKS * 4];</div><div class="line">		tangents = new Vector4[MAX_MARKS * 4];</div><div class="line">		colors = new Color32[MAX_MARKS * 4];</div><div class="line">		uvs = new Vector2[MAX_MARKS * 4];</div><div class="line">		triangles = new int[MAX_MARKS * 6];</div><div class="line">		mr.castShadows = false;</div><div class="line">		mr.receiveShadows = false;</div><div class="line">		mr.material = skidmarksMaterial;</div><div class="line">		mr.useLightProbes = false;</div><div class="line">	&#125; 	protected void LateUpdate() &#123;</div><div class="line">		if (!updated) return;</div><div class="line">		updated = false; 		// Reassign the mesh if it&apos;s changed this frame</div><div class="line">		marksMesh.vertices = vertices;</div><div class="line">		marksMesh.normals = normals;</div><div class="line">		marksMesh.tangents = tangents;</div><div class="line">		marksMesh.triangles = triangles;</div><div class="line">		marksMesh.colors32 = colors;</div><div class="line">		marksMesh.uv = uvs; 		if (!haveSetBounds) &#123;</div><div class="line">			// Could use RecalculateBounds here each frame instead, but it uses about 0.1-0.2ms each time.</div><div class="line">			// Save time by just making the mesh bounds huge, so the skidmarks will always draw.</div><div class="line">			// Not sure why I only need to do this once, yet can&apos;t do it in Start (it resets to zero).</div><div class="line">			marksMesh.bounds = new Bounds(new Vector3(0, 0, 0), new Vector3(10000, 10000, 10000));</div><div class="line">			haveSetBounds = true;</div><div class="line">		&#125;</div><div class="line">		mf.sharedMesh = marksMesh;</div><div class="line">	&#125; 	// #### PUBLIC METHODS #### 	// Function called by the wheels that is skidding. Gathers all the information needed to</div><div class="line">	// create the mesh later. Sets the intensity of the skidmark section b setting the alpha</div><div class="line">	// of the vertex color.</div><div class="line">	public int AddSkidMark(Vector3 pos, Vector3 normal, float intensity, int lastIndex) &#123;</div><div class="line">		if (intensity &amp;gt; 1) intensity = 1.0f;</div><div class="line">		else if (intensity &amp;lt; 0) return -1; if (lastIndex &amp;gt; 0) &#123;</div><div class="line">			float sqrDistance = (pos - skidmarks[lastIndex].Pos).sqrMagnitude;</div><div class="line">			if (sqrDistance &amp;lt; MIN_SQR_DISTANCE) return lastIndex;</div><div class="line">		&#125;</div><div class="line">		MarkSection curSection = skidmarks[markIndex];</div><div class="line">		curSection.Pos = pos + normal * GROUND_OFFSET;</div><div class="line">		curSection.Normal = normal;</div><div class="line">		curSection.Intensity = (byte)(intensity * 255f);</div><div class="line">		curSection.LastIndex = lastIndex; 		if (lastIndex != -1) &#123;</div><div class="line">			MarkSection lastSection = skidmarks[lastIndex];</div><div class="line">			Vector3 dir = (curSection.Pos - lastSection.Pos);</div><div class="line">			Vector3 xDir = Vector3.Cross(dir, normal).normalized;</div><div class="line">			curSection.Posl = curSection.Pos + xDir * MARK_WIDTH * 0.5f;</div><div class="line">			curSection.Posr = curSection.Pos - xDir * MARK_WIDTH * 0.5f;</div><div class="line">			curSection.Tangent = new Vector4(xDir.x, xDir.y, xDir.z, 1); 			if (lastSection.LastIndex == -1) &#123;</div><div class="line">				lastSection.Tangent = curSection.Tangent;</div><div class="line">				lastSection.Posl = curSection.Pos + xDir * MARK_WIDTH * 0.5f;</div><div class="line">				lastSection.Posr = curSection.Pos - xDir * MARK_WIDTH * 0.5f;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		UpdateSkidmarksMesh(); 		int curIndex = markIndex;</div><div class="line">		// Update circular index</div><div class="line">		markIndex = ++markIndex % MAX_MARKS; 		return curIndex;</div><div class="line">	&#125; 	// #### PROTECTED/PRIVATE METHODS #### 	// Update part of the mesh for the current markIndex</div><div class="line">	void UpdateSkidmarksMesh() &#123;</div><div class="line">		MarkSection curr = skidmarks[markIndex]; 		// Nothing to connect to yet</div><div class="line">		if (curr.LastIndex == -1) return;</div><div class="line">		MarkSection last = skidmarks[curr.LastIndex];</div><div class="line">		vertices[markIndex * 4 + 0] = last.Posl;</div><div class="line">		vertices[markIndex * 4 + 1] = last.Posr;</div><div class="line">		vertices[markIndex * 4 + 2] = curr.Posl;</div><div class="line">		vertices[markIndex * 4 + 3] = curr.Posr;</div><div class="line">		normals[markIndex * 4 + 0] = last.Normal;</div><div class="line">		normals[markIndex * 4 + 1] = last.Normal;</div><div class="line">		normals[markIndex * 4 + 2] = curr.Normal;</div><div class="line">		normals[markIndex * 4 + 3] = curr.Normal;</div><div class="line">		tangents[markIndex * 4 + 0] = last.Tangent;</div><div class="line">		tangents[markIndex * 4 + 1] = last.Tangent;</div><div class="line">		tangents[markIndex * 4 + 2] = curr.Tangent;</div><div class="line">		tangents[markIndex * 4 + 3] = curr.Tangent;</div><div class="line">		colors[markIndex * 4 + 0] = new Color32(0, 0, 0, last.Intensity);</div><div class="line">		colors[markIndex * 4 + 1] = new Color32(0, 0, 0, last.Intensity);</div><div class="line">		colors[markIndex * 4 + 2] = new Color32(0, 0, 0, curr.Intensity);</div><div class="line">		colors[markIndex * 4 + 3] = new Color32(0, 0, 0, curr.Intensity);</div><div class="line">		uvs[markIndex * 4 + 0] = new Vector2(0, 0);</div><div class="line">		uvs[markIndex * 4 + 1] = new Vector2(1, 0);</div><div class="line">		uvs[markIndex * 4 + 2] = new Vector2(0, 1);</div><div class="line">		uvs[markIndex * 4 + 3] = new Vector2(1, 1);</div><div class="line">		triangles[markIndex * 6 + 0] = markIndex * 4 + 0;</div><div class="line">		triangles[markIndex * 6 + 2] = markIndex * 4 + 1;</div><div class="line">		triangles[markIndex * 6 + 1] = markIndex * 4 + 2;</div><div class="line">		triangles[markIndex * 6 + 3] = markIndex * 4 + 2;</div><div class="line">		triangles[markIndex * 6 + 5] = markIndex * 4 + 1;</div><div class="line">		triangles[markIndex * 6 + 4] = markIndex * 4 + 3;</div><div class="line">		updated = true;</div><div class="line">	&#125;&#125;</div></pre></td></tr></table></figure>
+<p>将该脚本放在场景的任何地方。它需要一个MeshFilter和MeshRenderer，但它会自动生成它们。您可能希望您的滑动材料具有小于100％的Alpha。我从车教程上传只是着色器在<a href="http://www.momentstudio.co.nz/scrapsgame/files/Skidmarks.shader" target="_blank" rel="external">这里</a>。</p>
+<p>调用AddSkidmark，无论你想要什么，并跟踪lastSkid，清除它，当你想要他们停止：我正在使用<a href="https://docs.unity3d.com/ScriptReference/WheelCollider.GetGroundHit.html" target="_blank" rel="external">GetGroundHit</a>数据从车轮每个FixedUpdate。您可能需要调整车辆的前进速度，使其不像在车轮后方产生的那样。使用示例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">WheelHit wheelHitInfo;if (wheelCollider.GetGroundHit(out wheelHitInfo)) &#123;</div><div class="line">	// Check sideways speed</div><div class="line">	// Gives velocity with +Z being our forward axis</div><div class="line">	Vector3 localVelocity = transform.InverseTransformDirection(rigidbody.velocity);</div><div class="line">	float skidSpeed = Mathf.Abs(localVelocity.x);</div><div class="line">	if (skidSpeed &amp;gt;= SKID_FX_SPEED) &#123;</div><div class="line">		// MAX_SKID_INTENSITY as a constant, m/s where skids are at full intensity</div><div class="line">		float intensity = Mathf.Clamp01(skidSpeed / MAX_SKID_INTENSITY);</div><div class="line">		Vector3 skidPoint = wheelHitInfo.point + (rigidbody.velocity * Time.fixedDeltaTime);</div><div class="line">		lastSkid = Skidmarks.AddSkidMark(skidPoint, wheelHitInfo.normal, intensity, lastSkid);</div><div class="line">	&#125;</div><div class="line">	else &#123;</div><div class="line">		lastSkid = -1;</div><div class="line">	&#125;&#125;</div></pre></td></tr></table></figure></p>
+<p><img src="http://www.scrapsgame.com/wp-content/uploads/2015/11/skid.gif" alt=""><br>（不含烟）</p>
+<p>这将在下一个Scraps更新中。</p>
 
       
     </div>
@@ -381,13 +351,13 @@ JDK和ADK安装
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/01/20/Android真机调试/">Android真机调试</a></p>
+        <p><span>本文标题:</span><a href="/2017/09/24/【翻译】Unity3D车辆的滑动效果/">【翻译】Unity3D车辆的滑动效果</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
-        <p><span>发布时间:</span>2017-01-20, 00:13:22</p>
-        <p><span>最后更新:</span>2017-02-24, 00:46:05</p>
+        <p><span>发布时间:</span>2017-09-24, 14:37:23</p>
+        <p><span>最后更新:</span>2017-09-24, 14:43:16</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/01/20/Android真机调试/" title="Android真机调试">http://zhutao.github.io/2017/01/20/Android真机调试/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2017/01/20/Android真机调试/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/09/24/【翻译】Unity3D车辆的滑动效果/" title="【翻译】Unity3D车辆的滑动效果">http://zhutao.github.io/2017/09/24/【翻译】Unity3D车辆的滑动效果/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2017/09/24/【翻译】Unity3D车辆的滑动效果/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -399,16 +369,10 @@ JDK和ADK安装
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/">
-                    U3D贴图格式 GENERATE MIP MAPS
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/12/25/《从行动开始》读书笔记/">
-                    《从行动开始》读书笔记
+                <a href="/2017/09/24/实现轮胎印/">
+                    实现轮胎印
                 </a>
             </div>
         
@@ -420,7 +384,7 @@ JDK和ADK安装
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-配置安卓打包环境"><span class="toc-number">1.</span> <span class="toc-text">一.配置安卓打包环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-Unity-设置"><span class="toc-number">2.</span> <span class="toc-text">二.Unity 设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三-Build-and-Run-失败"><span class="toc-number">3.</span> <span class="toc-text">三.Build and Run 失败</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#附"><span class="toc-number">3.1.</span> <span class="toc-text">附</span></a></li></ol></li></ol>
+            
         
     </div>
     <style>
@@ -456,7 +420,7 @@ JDK和ADK安装
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Android真机调试　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"【翻译】Unity3D车辆的滑动效果　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -472,7 +436,7 @@ JDK和ADK安装
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2017/01/20/Android真机调试/" data-title="Android真机调试" data-url="http://zhutao.github.io/2017/01/20/Android真机调试/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/09/24/【翻译】Unity3D车辆的滑动效果/" data-title="【翻译】Unity3D车辆的滑动效果" data-url="http://zhutao.github.io/2017/09/24/【翻译】Unity3D车辆的滑动效果/"></div>
     <script>
         var duoshuoQuery = {short_name:"zhutaorun"};
         var loadComment = function(){
@@ -495,15 +459,13 @@ JDK和ADK安装
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/" title="上一篇: U3D贴图格式 GENERATE MIP MAPS">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/12/25/《从行动开始》读书笔记/" title="下一篇: 《从行动开始》读书笔记">
+            <a href="/2017/09/24/实现轮胎印/" title="下一篇: 实现轮胎印">
                 <i class="fa fa-angle-right"></i>
             </a>
         

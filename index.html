@@ -203,7 +203,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D/">Unity3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/习惯养成/">习惯养成</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/介绍/">介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思/">工作反思</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拆书帮/">拆书帮</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D/">Unity3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/习惯养成/">习惯养成</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/介绍/">介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思/">工作反思</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拆书帮/">拆书帮</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
                     </div>
                 </section>
                 
@@ -283,6 +283,172 @@
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-【翻译】Unity3D车辆的滑动效果" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/09/24/【翻译】Unity3D车辆的滑动效果/" class="article-date">
+      <time datetime="2017-09-24T06:37:23.000Z" itemprop="datePublished">2017-09-24</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/24/【翻译】Unity3D车辆的滑动效果/">【翻译】Unity3D车辆的滑动效果</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>Unity开发者的技术文章。</p>
+<p>编辑：<a href="https://github.com/Nition/UnitySkidmarks" target="_blank" rel="external">这个skidmark系统现在在GitHub上。</a></p>
+<p>很久以前，Unity发布了一个汽车教程，为汽车提供了一些很好的滑动标记，但是skidmarks脚本做了一大堆不必要的东西，并<a href="http://www.scrapsgame.com/builder-demo-update-bit-technical-post/" target="_blank" rel="external">产生了一个巨大的GC问题</a>，因为它运行，导致垃圾收集器出现大约一秒一次，使用大约25％的CPU在框架中收集一堆网格。在Scrap的早期版本中，我已经有了一些skidmark代码，但是它也有同样可怕的GC问题，所以我提出来，而不是当时就修复它。</p>
+<p>在此期间，我看了几个其他的skidmark解决方案，但他们都有自己的问题。例如，有些是基于渲染器的，并且一旦车辆停止打滑，它们（所有这些）都被消除（“ <a href="https://forum.unity.com/threads/simple-skidmark-setup-for-your-unity-racing-game.168261/#post-1151688" target="_blank" rel="external">这不是一个错误，这是一个功能 </a>”）。</p>
+<p>最近有人联系了我，问我是否曾经做过，虽然我没有，但我们有一些交流，他指出，有可能做到原来的基于网格的方式没有产生如此多的垃圾。今天我发生了这样的文章，所以这里是旧的汽车案例中skidmarks的修改版本，不会生成垃圾，不会永远计数混迹的数量，并且不会在LateUpdate中执行所有不必要的网格划分：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div></pre></td><td class="code"><pre><div class="line">using UnityEngine; // Skidmarks texture. Only need one of these in a scene somewhere. Call AddSkidMark.public class Skidmarks : MonoBehaviour &#123;</div><div class="line">	// INSPECTOR SETTINGS 	// Material for the skidmarks to use</div><div class="line">	[SerializeField]</div><div class="line">	Material skidmarksMaterial; 	// END INSPECTOR SETTINGS 	// Variables for each mark created. Needed to generate the correct mesh.</div><div class="line">	class MarkSection &#123;</div><div class="line">		public Vector3 Pos = Vector3.zero;</div><div class="line">		public Vector3 Normal = Vector3.zero;</div><div class="line">		public Vector4 Tangent = Vector4.zero;</div><div class="line">		public Vector3 Posl = Vector3.zero;</div><div class="line">		public Vector3 Posr = Vector3.zero;</div><div class="line">		public byte Intensity;</div><div class="line">		public int LastIndex;</div><div class="line">	&#125;; 	const int MAX_MARKS = 1024; // Max number of marks total for everyone together</div><div class="line">	const float MARK_WIDTH = 0.35f; // Width of the skidmarks. Should match the width of the wheels</div><div class="line">	const float GROUND_OFFSET = 0.02f;	// Distance above surface in metres</div><div class="line">	const float MIN_DISTANCE = 1.0f; // Distance between points in metres. Bigger = more clunky, straight-line skidmarks</div><div class="line">	const float MIN_SQR_DISTANCE = MIN_DISTANCE * MIN_DISTANCE; 	int markIndex;</div><div class="line">	MarkSection[] skidmarks;</div><div class="line">	Mesh marksMesh;</div><div class="line">	MeshRenderer mr;</div><div class="line">	MeshFilter mf;</div><div class="line">	Vector3[] vertices;</div><div class="line">	Vector3[] normals;</div><div class="line">	Vector4[] tangents;</div><div class="line">	Color32[] colors;</div><div class="line">	Vector2[] uvs;</div><div class="line">	int[] triangles; 	bool updated;</div><div class="line">	bool haveSetBounds; 	// #### UNITY INTERNAL METHODS #### 	protected void Start() &#123;</div><div class="line">		skidmarks = new MarkSection[MAX_MARKS];</div><div class="line">		for (int i = 0; i &amp;lt; MAX_MARKS; i++) &#123;</div><div class="line">			skidmarks[i] = new MarkSection();</div><div class="line">		&#125;</div><div class="line">		mf = GetComponent();</div><div class="line">		mr = GetComponent();</div><div class="line">		if (mr == null) &#123;</div><div class="line">			mr = gameObject.AddComponent();</div><div class="line">		&#125;</div><div class="line">		marksMesh = new Mesh();</div><div class="line">		marksMesh.MarkDynamic();</div><div class="line">		if (mf == null) &#123;</div><div class="line">			mf = gameObject.AddComponent();</div><div class="line">		&#125;</div><div class="line">		mf.sharedMesh = marksMesh;</div><div class="line">		vertices = new Vector3[MAX_MARKS * 4];</div><div class="line">		normals = new Vector3[MAX_MARKS * 4];</div><div class="line">		tangents = new Vector4[MAX_MARKS * 4];</div><div class="line">		colors = new Color32[MAX_MARKS * 4];</div><div class="line">		uvs = new Vector2[MAX_MARKS * 4];</div><div class="line">		triangles = new int[MAX_MARKS * 6];</div><div class="line">		mr.castShadows = false;</div><div class="line">		mr.receiveShadows = false;</div><div class="line">		mr.material = skidmarksMaterial;</div><div class="line">		mr.useLightProbes = false;</div><div class="line">	&#125; 	protected void LateUpdate() &#123;</div><div class="line">		if (!updated) return;</div><div class="line">		updated = false; 		// Reassign the mesh if it&apos;s changed this frame</div><div class="line">		marksMesh.vertices = vertices;</div><div class="line">		marksMesh.normals = normals;</div><div class="line">		marksMesh.tangents = tangents;</div><div class="line">		marksMesh.triangles = triangles;</div><div class="line">		marksMesh.colors32 = colors;</div><div class="line">		marksMesh.uv = uvs; 		if (!haveSetBounds) &#123;</div><div class="line">			// Could use RecalculateBounds here each frame instead, but it uses about 0.1-0.2ms each time.</div><div class="line">			// Save time by just making the mesh bounds huge, so the skidmarks will always draw.</div><div class="line">			// Not sure why I only need to do this once, yet can&apos;t do it in Start (it resets to zero).</div><div class="line">			marksMesh.bounds = new Bounds(new Vector3(0, 0, 0), new Vector3(10000, 10000, 10000));</div><div class="line">			haveSetBounds = true;</div><div class="line">		&#125;</div><div class="line">		mf.sharedMesh = marksMesh;</div><div class="line">	&#125; 	// #### PUBLIC METHODS #### 	// Function called by the wheels that is skidding. Gathers all the information needed to</div><div class="line">	// create the mesh later. Sets the intensity of the skidmark section b setting the alpha</div><div class="line">	// of the vertex color.</div><div class="line">	public int AddSkidMark(Vector3 pos, Vector3 normal, float intensity, int lastIndex) &#123;</div><div class="line">		if (intensity &amp;gt; 1) intensity = 1.0f;</div><div class="line">		else if (intensity &amp;lt; 0) return -1; if (lastIndex &amp;gt; 0) &#123;</div><div class="line">			float sqrDistance = (pos - skidmarks[lastIndex].Pos).sqrMagnitude;</div><div class="line">			if (sqrDistance &amp;lt; MIN_SQR_DISTANCE) return lastIndex;</div><div class="line">		&#125;</div><div class="line">		MarkSection curSection = skidmarks[markIndex];</div><div class="line">		curSection.Pos = pos + normal * GROUND_OFFSET;</div><div class="line">		curSection.Normal = normal;</div><div class="line">		curSection.Intensity = (byte)(intensity * 255f);</div><div class="line">		curSection.LastIndex = lastIndex; 		if (lastIndex != -1) &#123;</div><div class="line">			MarkSection lastSection = skidmarks[lastIndex];</div><div class="line">			Vector3 dir = (curSection.Pos - lastSection.Pos);</div><div class="line">			Vector3 xDir = Vector3.Cross(dir, normal).normalized;</div><div class="line">			curSection.Posl = curSection.Pos + xDir * MARK_WIDTH * 0.5f;</div><div class="line">			curSection.Posr = curSection.Pos - xDir * MARK_WIDTH * 0.5f;</div><div class="line">			curSection.Tangent = new Vector4(xDir.x, xDir.y, xDir.z, 1); 			if (lastSection.LastIndex == -1) &#123;</div><div class="line">				lastSection.Tangent = curSection.Tangent;</div><div class="line">				lastSection.Posl = curSection.Pos + xDir * MARK_WIDTH * 0.5f;</div><div class="line">				lastSection.Posr = curSection.Pos - xDir * MARK_WIDTH * 0.5f;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		UpdateSkidmarksMesh(); 		int curIndex = markIndex;</div><div class="line">		// Update circular index</div><div class="line">		markIndex = ++markIndex % MAX_MARKS; 		return curIndex;</div><div class="line">	&#125; 	// #### PROTECTED/PRIVATE METHODS #### 	// Update part of the mesh for the current markIndex</div><div class="line">	void UpdateSkidmarksMesh() &#123;</div><div class="line">		MarkSection curr = skidmarks[markIndex]; 		// Nothing to connect to yet</div><div class="line">		if (curr.LastIndex == -1) return;</div><div class="line">		MarkSection last = skidmarks[curr.LastIndex];</div><div class="line">		vertices[markIndex * 4 + 0] = last.Posl;</div><div class="line">		vertices[markIndex * 4 + 1] = last.Posr;</div><div class="line">		vertices[markIndex * 4 + 2] = curr.Posl;</div><div class="line">		vertices[markIndex * 4 + 3] = curr.Posr;</div><div class="line">		normals[markIndex * 4 + 0] = last.Normal;</div><div class="line">		normals[markIndex * 4 + 1] = last.Normal;</div><div class="line">		normals[markIndex * 4 + 2] = curr.Normal;</div><div class="line">		normals[markIndex * 4 + 3] = curr.Normal;</div><div class="line">		tangents[markIndex * 4 + 0] = last.Tangent;</div><div class="line">		tangents[markIndex * 4 + 1] = last.Tangent;</div><div class="line">		tangents[markIndex * 4 + 2] = curr.Tangent;</div><div class="line">		tangents[markIndex * 4 + 3] = curr.Tangent;</div><div class="line">		colors[markIndex * 4 + 0] = new Color32(0, 0, 0, last.Intensity);</div><div class="line">		colors[markIndex * 4 + 1] = new Color32(0, 0, 0, last.Intensity);</div><div class="line">		colors[markIndex * 4 + 2] = new Color32(0, 0, 0, curr.Intensity);</div><div class="line">		colors[markIndex * 4 + 3] = new Color32(0, 0, 0, curr.Intensity);</div><div class="line">		uvs[markIndex * 4 + 0] = new Vector2(0, 0);</div><div class="line">		uvs[markIndex * 4 + 1] = new Vector2(1, 0);</div><div class="line">		uvs[markIndex * 4 + 2] = new Vector2(0, 1);</div><div class="line">		uvs[markIndex * 4 + 3] = new Vector2(1, 1);</div><div class="line">		triangles[markIndex * 6 + 0] = markIndex * 4 + 0;</div><div class="line">		triangles[markIndex * 6 + 2] = markIndex * 4 + 1;</div><div class="line">		triangles[markIndex * 6 + 1] = markIndex * 4 + 2;</div><div class="line">		triangles[markIndex * 6 + 3] = markIndex * 4 + 2;</div><div class="line">		triangles[markIndex * 6 + 5] = markIndex * 4 + 1;</div><div class="line">		triangles[markIndex * 6 + 4] = markIndex * 4 + 3;</div><div class="line">		updated = true;</div><div class="line">	&#125;&#125;</div></pre></td></tr></table></figure>
+<p>将该脚本放在场景的任何地方。它需要一个MeshFilter和MeshRenderer，但它会自动生成它们。您可能希望您的滑动材料具有小于100％的Alpha。我从车教程上传只是着色器在<a href="http://www.momentstudio.co.nz/scrapsgame/files/Skidmarks.shader" target="_blank" rel="external">这里</a>。</p>
+<p>调用AddSkidmark，无论你想要什么，并跟踪lastSkid，清除它，当你想要他们停止：我正在使用<a href="https://docs.unity3d.com/ScriptReference/WheelCollider.GetGroundHit.html" target="_blank" rel="external">GetGroundHit</a>数据从车轮每个FixedUpdate。您可能需要调整车辆的前进速度，使其不像在车轮后方产生的那样。使用示例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">WheelHit wheelHitInfo;if (wheelCollider.GetGroundHit(out wheelHitInfo)) &#123;</div><div class="line">	// Check sideways speed</div><div class="line">	// Gives velocity with +Z being our forward axis</div><div class="line">	Vector3 localVelocity = transform.InverseTransformDirection(rigidbody.velocity);</div><div class="line">	float skidSpeed = Mathf.Abs(localVelocity.x);</div><div class="line">	if (skidSpeed &amp;gt;= SKID_FX_SPEED) &#123;</div><div class="line">		// MAX_SKID_INTENSITY as a constant, m/s where skids are at full intensity</div><div class="line">		float intensity = Mathf.Clamp01(skidSpeed / MAX_SKID_INTENSITY);</div><div class="line">		Vector3 skidPoint = wheelHitInfo.point + (rigidbody.velocity * Time.fixedDeltaTime);</div><div class="line">		lastSkid = Skidmarks.AddSkidMark(skidPoint, wheelHitInfo.normal, intensity, lastSkid);</div><div class="line">	&#125;</div><div class="line">	else &#123;</div><div class="line">		lastSkid = -1;</div><div class="line">	&#125;&#125;</div></pre></td></tr></table></figure></p>
+<p><img src="http://www.scrapsgame.com/wp-content/uploads/2015/11/skid.gif" alt=""><br>（不含烟）</p>
+<p>这将在下一个Scraps更新中。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/翻译/">翻译</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-实现轮胎印" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/09/24/实现轮胎印/" class="article-date">
+      <time datetime="2017-09-24T06:35:47.000Z" itemprop="datePublished">2017-09-24</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/24/实现轮胎印/">实现轮胎印</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>接到一个任务，实现一个轮胎印记。特效用粒子做的效果， 感觉不是很好。主程大哥说，那程序来实现吧。</p>
+</blockquote>
+<h3 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h3><ul>
+<li>主程大哥，给了一些关键词。</li>
+<li><a href="http://www.ceeger.com/Components/class-TrailRenderer.html" target="_blank" rel="external">TrailRender</a></li>
+<li><a href="http://www.ceeger.com/Components/shader-NormalDecal.html" target="_blank" rel="external">Decal</a></li>
+<li>在项目使用的版本上,纹理贴图是被拉伸的，实际是要的纹理复制使用，看网格的效果如下，在SomeTips的skidmarksTest.sence</li>
+</ul>
+<p><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/17.png?raw=true" alt=""></p>
+<ul>
+<li>看到Unity5.6.2.f上，使用TrailRender可以实现想要的效果<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/18.png?raw=true" alt=""><br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/19.png?raw=true" alt=""></li>
+</ul>
+<h3 id="网格控制-网络"><a href="#网格控制-网络" class="headerlink" title="网格控制-网络"></a>网格控制-网络</h3><ul>
+<li>看到一个解决方案，是网格动画，参考<a href="http://www.scrapsgame.com/a-skidmark-effect-for-vehicles-in-unity3d/#comment-648" target="_blank" rel="external">A skidmark effect for vehicles in Unity3D</a></li>
+<li>从文章的中github看到案例。是在初始化一定数目的网格，然后根据位置来使用。</li>
+<li><p>代码分析</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div></pre></td><td class="code"><pre><div class="line">using UnityEngine;</div><div class="line">using UnityEngine.Rendering;</div><div class="line"></div><div class="line">// Skidmarks controller. Put one of these in a scene somewhere. Call AddSkidMark.</div><div class="line">// Copyright 2017 Nition, BSD licence (see LICENCE file). http://nition.co</div><div class="line">public class Skidmarks : MonoBehaviour &#123;</div><div class="line">	// INSPECTOR SETTINGS</div><div class="line"></div><div class="line">	[SerializeField]</div><div class="line">	Material skidmarksMaterial; // Material for the skidmarks to use</div><div class="line"></div><div class="line">	// END INSPECTOR SETTINGS</div><div class="line"></div><div class="line">	const int MAX_MARKS = 2048; // Max number of marks total for everyone together</div><div class="line">	const float MARK_WIDTH = 0.35f; // Width of the skidmarks. Should match the width of the wheels</div><div class="line">	const float GROUND_OFFSET = 0.02f;  // Distance above surface in metres</div><div class="line">	const float MIN_DISTANCE = 0.25f; // Distance between skid texture sections in metres. Bigger = better performance, less smooth</div><div class="line">	const float MIN_SQR_DISTANCE = MIN_DISTANCE * MIN_DISTANCE;</div><div class="line"></div><div class="line">	// Info for each mark created. Needed to generate the correct mesh</div><div class="line">	class MarkSection &#123;</div><div class="line">		public Vector3 Pos = Vector3.zero;</div><div class="line">		public Vector3 Normal = Vector3.zero;</div><div class="line">		public Vector4 Tangent = Vector4.zero;</div><div class="line">		public Vector3 Posl = Vector3.zero;</div><div class="line">		public Vector3 Posr = Vector3.zero;</div><div class="line">		public byte Intensity;</div><div class="line">		public int LastIndex;</div><div class="line">	&#125;;</div><div class="line"></div><div class="line">	int markIndex;</div><div class="line">	MarkSection[] skidmarks;</div><div class="line">	Mesh marksMesh;</div><div class="line">	MeshRenderer mr;</div><div class="line">	MeshFilter mf;</div><div class="line"></div><div class="line">	Vector3[] vertices;</div><div class="line">	Vector3[] normals;</div><div class="line">	Vector4[] tangents;</div><div class="line">	Color32[] colors;</div><div class="line">	Vector2[] uvs;</div><div class="line">	int[] triangles;</div><div class="line"></div><div class="line">	bool meshUpdated;</div><div class="line">	bool haveSetBounds;</div><div class="line"></div><div class="line">	// #### UNITY INTERNAL METHODS ####</div><div class="line"></div><div class="line">	protected void Start() &#123;</div><div class="line">		// Generate a fixed array of skidmarks</div><div class="line">		skidmarks = new MarkSection[MAX_MARKS];</div><div class="line">		for (int i = 0; i &lt; MAX_MARKS; i++) &#123;</div><div class="line">			skidmarks[i] = new MarkSection();</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		mf = GetComponent&lt;MeshFilter&gt;();</div><div class="line">		mr = GetComponent&lt;MeshRenderer&gt;();</div><div class="line">		if (mr == null) &#123;</div><div class="line">			mr = gameObject.AddComponent&lt;MeshRenderer&gt;();</div><div class="line">		&#125;</div><div class="line">		marksMesh = new Mesh();</div><div class="line">		marksMesh.MarkDynamic();</div><div class="line">		if (mf == null) &#123;</div><div class="line">			mf = gameObject.AddComponent&lt;MeshFilter&gt;();</div><div class="line">		&#125;</div><div class="line">		mf.sharedMesh = marksMesh;</div><div class="line"></div><div class="line">		vertices = new Vector3[MAX_MARKS * 4];</div><div class="line">		normals = new Vector3[MAX_MARKS * 4];</div><div class="line">		tangents = new Vector4[MAX_MARKS * 4];</div><div class="line">		colors = new Color32[MAX_MARKS * 4];</div><div class="line">		uvs = new Vector2[MAX_MARKS * 4];</div><div class="line">		triangles = new int[MAX_MARKS * 6];</div><div class="line"></div><div class="line">		mr.shadowCastingMode = ShadowCastingMode.Off;</div><div class="line">		mr.receiveShadows = false;</div><div class="line">		mr.material = skidmarksMaterial;</div><div class="line">		mr.lightProbeUsage = LightProbeUsage.Off;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	protected void LateUpdate() &#123;</div><div class="line">		if (!meshUpdated) return;</div><div class="line">		meshUpdated = false;</div><div class="line"></div><div class="line">		// Reassign the mesh if it&apos;s changed this frame</div><div class="line">		marksMesh.vertices = vertices;</div><div class="line">		marksMesh.normals = normals;</div><div class="line">		marksMesh.tangents = tangents;</div><div class="line">		marksMesh.triangles = triangles;</div><div class="line">		marksMesh.colors32 = colors;</div><div class="line">		marksMesh.uv = uvs;</div><div class="line"></div><div class="line">		if (!haveSetBounds) &#123;</div><div class="line">			// Could use RecalculateBounds here each frame instead, but it uses about 0.1-0.2ms each time</div><div class="line">			// Save time by just making the mesh bounds huge, so the skidmarks will always draw</div><div class="line">			// Not sure why I only need to do this once, yet can&apos;t do it in Start (it resets to zero)</div><div class="line">			marksMesh.bounds = new Bounds(new Vector3(0, 0, 0), new Vector3(10000, 10000, 10000));</div><div class="line">			haveSetBounds = true;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		mf.sharedMesh = marksMesh;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	// #### PUBLIC METHODS ####</div><div class="line"></div><div class="line">	// Function called by the wheel that&apos;s skidding. Sets the intensity of the skidmark section</div><div class="line">	// by setting the alpha of the vertex color</div><div class="line">	public int AddSkidMark(Vector3 pos, Vector3 normal, float intensity, int lastIndex) &#123;</div><div class="line">		if (intensity &gt; 1) intensity = 1.0f;</div><div class="line">		else if (intensity &lt; 0) return -1;</div><div class="line"></div><div class="line">		if (lastIndex &gt; 0) &#123;</div><div class="line">			float sqrDistance = (pos - skidmarks[lastIndex].Pos).sqrMagnitude;</div><div class="line">			if (sqrDistance &lt; MIN_SQR_DISTANCE) return lastIndex;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		MarkSection curSection = skidmarks[markIndex];</div><div class="line"></div><div class="line">		curSection.Pos = pos + normal * GROUND_OFFSET;</div><div class="line">		curSection.Normal = normal;</div><div class="line">		curSection.Intensity = (byte)(intensity * 255f);</div><div class="line">		curSection.LastIndex = lastIndex;</div><div class="line"></div><div class="line">		if (lastIndex != -1) &#123;</div><div class="line">			MarkSection lastSection = skidmarks[lastIndex];</div><div class="line">			Vector3 dir = (curSection.Pos - lastSection.Pos);</div><div class="line">			Vector3 xDir = Vector3.Cross(dir, normal).normalized;</div><div class="line"></div><div class="line">			curSection.Posl = curSection.Pos + xDir * MARK_WIDTH * 0.5f;</div><div class="line">			curSection.Posr = curSection.Pos - xDir * MARK_WIDTH * 0.5f;</div><div class="line">			curSection.Tangent = new Vector4(xDir.x, xDir.y, xDir.z, 1);</div><div class="line"></div><div class="line">			if (lastSection.LastIndex == -1) &#123;</div><div class="line">				lastSection.Tangent = curSection.Tangent;</div><div class="line">				lastSection.Posl = curSection.Pos + xDir * MARK_WIDTH * 0.5f;</div><div class="line">				lastSection.Posr = curSection.Pos - xDir * MARK_WIDTH * 0.5f;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		UpdateSkidmarksMesh();</div><div class="line"></div><div class="line">		int curIndex = markIndex;</div><div class="line">		// Update circular index</div><div class="line">		markIndex = ++markIndex % MAX_MARKS;</div><div class="line"></div><div class="line">		return curIndex;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	// #### PROTECTED/PRIVATE METHODS ####</div><div class="line"></div><div class="line">	// Update part of the mesh for the current markIndex</div><div class="line">	void UpdateSkidmarksMesh() &#123;</div><div class="line">		MarkSection curr = skidmarks[markIndex];</div><div class="line"></div><div class="line">		// Nothing to connect to yet</div><div class="line">		if (curr.LastIndex == -1) return;</div><div class="line"></div><div class="line">		MarkSection last = skidmarks[curr.LastIndex];</div><div class="line">		vertices[markIndex * 4 + 0] = last.Posl;</div><div class="line">		vertices[markIndex * 4 + 1] = last.Posr;</div><div class="line">		vertices[markIndex * 4 + 2] = curr.Posl;</div><div class="line">		vertices[markIndex * 4 + 3] = curr.Posr;</div><div class="line"></div><div class="line">		normals[markIndex * 4 + 0] = last.Normal;</div><div class="line">		normals[markIndex * 4 + 1] = last.Normal;</div><div class="line">		normals[markIndex * 4 + 2] = curr.Normal;</div><div class="line">		normals[markIndex * 4 + 3] = curr.Normal;</div><div class="line"></div><div class="line">		tangents[markIndex * 4 + 0] = last.Tangent;</div><div class="line">		tangents[markIndex * 4 + 1] = last.Tangent;</div><div class="line">		tangents[markIndex * 4 + 2] = curr.Tangent;</div><div class="line">		tangents[markIndex * 4 + 3] = curr.Tangent;</div><div class="line"></div><div class="line">		colors[markIndex * 4 + 0] = new Color32(0, 0, 0, last.Intensity);</div><div class="line">		colors[markIndex * 4 + 1] = new Color32(0, 0, 0, last.Intensity);</div><div class="line">		colors[markIndex * 4 + 2] = new Color32(0, 0, 0, curr.Intensity);</div><div class="line">		colors[markIndex * 4 + 3] = new Color32(0, 0, 0, curr.Intensity);</div><div class="line"></div><div class="line">		uvs[markIndex * 4 + 0] = new Vector2(0, 0);</div><div class="line">		uvs[markIndex * 4 + 1] = new Vector2(1, 0);</div><div class="line">		uvs[markIndex * 4 + 2] = new Vector2(0, 1);</div><div class="line">		uvs[markIndex * 4 + 3] = new Vector2(1, 1);</div><div class="line"></div><div class="line">		triangles[markIndex * 6 + 0] = markIndex * 4 + 0;</div><div class="line">		triangles[markIndex * 6 + 2] = markIndex * 4 + 1;</div><div class="line">		triangles[markIndex * 6 + 1] = markIndex * 4 + 2;</div><div class="line"></div><div class="line">		triangles[markIndex * 6 + 3] = markIndex * 4 + 2;</div><div class="line">		triangles[markIndex * 6 + 5] = markIndex * 4 + 1;</div><div class="line">		triangles[markIndex * 6 + 4] = markIndex * 4 + 3;</div><div class="line"></div><div class="line">		meshUpdated = true;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>在LateUpdate()对位置做处理。</p>
+</li>
+<li>在理解了demo中用使用WheelCollider，rigidbody。其实是针对速度有每帧计算，速度大于0.5f有了颜色深浅的变化。还有在Y方向上，给予了(0,1,0)* 0.02f偏移值，和地面有一点间距。</li>
+<li>针对项目中具体使用，加速度部分是可以不用的，但是从效率的角度考虑，mesh的数量不要太多，可以复用。同时可以随着时间渐渐隐藏。</li>
+<li>不断使用回收，像对象池一样的。在原来的基础上，对代码做了二次开发。</li>
+<li>在渲染角度上，只增加了一个DrawCall。</li>
+<li>网络长度上和渐隐时间可以在预制件上修改，让美术调整出最好的效果。</li>
+<li>当然发现自己计算的把运动物体本身的位移忽视了。</li>
+</ul>
+<hr>
+<p>因为公司原因，最终的代码不能分享。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unity3d/">unity3d</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-Shader的纹理" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -833,146 +999,6 @@
       
         <p class="article-more-link">
           <a href="/2017/05/29/Unity推送SDk/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-查找代码的中文插件" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/30/查找代码的中文插件/" class="article-date">
-      <time datetime="2017-04-30T01:46:15.000Z" itemprop="datePublished">2017-04-30</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/30/查找代码的中文插件/">查找代码的中文插件</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>&lt; 最近项目做国际化，虽然在文字内容设计上，做了配表，来帮助实现以后要的国际化。但是还是不可避免有些写在代码中的中文文字。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/04/30/查找代码的中文插件/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-功能错误小结" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/04/30/功能错误小结/" class="article-date">
-      <time datetime="2017-04-30T01:34:47.000Z" itemprop="datePublished">2017-04-30</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/30/功能错误小结/">功能错误小结</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <blockquote>
-<p>最近做了福星转盘的功能，做完后发现当记录次数很多了以后会有性能问题，历史记录很多的时候，打开会卡。</p>
-</blockquote>
-<p><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/7.PNG?raw=true" alt=""></p>
-<h3 id="第一反应"><a href="#第一反应" class="headerlink" title="第一反应"></a>第一反应</h3><p><strong>现象</strong>：当我看到优化需求的时候，“对历史记录做限制”，我第一反应，看下Profiler是什么，造成性能问题。看到是协程的调用。有出现高峰值，有高达200多M。在多次UI操作中，内存还是稳定增长。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工作反思/">工作反思</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/04/30/功能错误小结/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
