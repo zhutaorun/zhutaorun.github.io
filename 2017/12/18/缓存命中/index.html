@@ -15,16 +15,19 @@
 
 
 
-<meta name="description" content="二分查找又称折半查找，优点是比较次数少，查找速度快，平均性能好；其缺点是要求待查表为有序表，且插入删除困难。因此，折半查找方法适用于不经常变动而查找频繁的有序列表。首先，假设表中元素是按升序排列，将表中间位置记录的关键字与查找关键字比较，如果两者相等，则查找成功；否则利用中间位置记录将表分成前、后两个子表，如果中间位置记录的关键字大于查找关键字，则进一步查找前一子表，否则进一步查找后一子表。重复以">
+<meta name="description" content="缓存命中游戏开发者可分为两类：在他们的游戏引擎中使用STL模板库之类的。以及不使用的。一些开发者认为STL内存分配模式(memory allocation pattern)不高效，也导致内存碎片问题，使STL不能在游戏中使用。一些开发者认为STL的强大和方便超过它的问题，而且大部分的问题还是可以变通解决，笔者个人认为STL在PC上可以无障碍使用。因为PC上可以无障碍使用虚拟内存（virtual m">
 <meta property="og:type" content="article">
-<meta property="og:title" content="二分法">
-<meta property="og:url" content="http://zhutao.github.io/2016/10/02/二分法/index.html">
+<meta property="og:title" content="缓存命中">
+<meta property="og:url" content="http://zhutao.github.io/2017/12/18/缓存命中/index.html">
 <meta property="og:site_name" content="zhutaorun's Blog">
-<meta property="og:description" content="二分查找又称折半查找，优点是比较次数少，查找速度快，平均性能好；其缺点是要求待查表为有序表，且插入删除困难。因此，折半查找方法适用于不经常变动而查找频繁的有序列表。首先，假设表中元素是按升序排列，将表中间位置记录的关键字与查找关键字比较，如果两者相等，则查找成功；否则利用中间位置记录将表分成前、后两个子表，如果中间位置记录的关键字大于查找关键字，则进一步查找前一子表，否则进一步查找后一子表。重复以">
-<meta property="og:updated_time" content="2016-10-24T13:39:06.933Z">
+<meta property="og:description" content="缓存命中游戏开发者可分为两类：在他们的游戏引擎中使用STL模板库之类的。以及不使用的。一些开发者认为STL内存分配模式(memory allocation pattern)不高效，也导致内存碎片问题，使STL不能在游戏中使用。一些开发者认为STL的强大和方便超过它的问题，而且大部分的问题还是可以变通解决，笔者个人认为STL在PC上可以无障碍使用。因为PC上可以无障碍使用虚拟内存（virtual m">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/23.png?raw=true">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/24.png?raw=true">
+<meta property="og:updated_time" content="2017-12-18T15:52:42.470Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="二分法">
-<meta name="twitter:description" content="二分查找又称折半查找，优点是比较次数少，查找速度快，平均性能好；其缺点是要求待查表为有序表，且插入删除困难。因此，折半查找方法适用于不经常变动而查找频繁的有序列表。首先，假设表中元素是按升序排列，将表中间位置记录的关键字与查找关键字比较，如果两者相等，则查找成功；否则利用中间位置记录将表分成前、后两个子表，如果中间位置记录的关键字大于查找关键字，则进一步查找前一子表，否则进一步查找后一子表。重复以">
+<meta name="twitter:title" content="缓存命中">
+<meta name="twitter:description" content="缓存命中游戏开发者可分为两类：在他们的游戏引擎中使用STL模板库之类的。以及不使用的。一些开发者认为STL内存分配模式(memory allocation pattern)不高效，也导致内存碎片问题，使STL不能在游戏中使用。一些开发者认为STL的强大和方便超过它的问题，而且大部分的问题还是可以变通解决，笔者个人认为STL在PC上可以无障碍使用。因为PC上可以无障碍使用虚拟内存（virtual m">
+<meta name="twitter:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/23.png?raw=true">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -56,7 +59,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>二分法 | zhutaorun&#39;s Blog</title>
+<title>缓存命中 | zhutaorun&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -281,11 +284,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-二分法" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-缓存命中" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/10/02/二分法/" class="article-date">
-      <time datetime="2016-10-02T13:03:57.000Z" itemprop="datePublished">2016-10-02</time>
+      <a href="/2017/12/18/缓存命中/" class="article-date">
+      <time datetime="2017-12-18T15:48:16.000Z" itemprop="datePublished">2017-12-18</time>
 </a>
 
 
@@ -300,7 +303,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      二分法
+      缓存命中
     </h1>
   
 
@@ -309,13 +312,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/面试与应用/">面试与应用</a>
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/计算系统/">计算系统</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -325,7 +328,31 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><a href="http://baike.baidu.com/link?url=jIRT4_ThqsC4dG2yTw5JKjEnk8wvbRi3danyU8KxfT01Vd20A6A02Xnn5XSw-30NFauqMjt9hvwIaM9WzMstla" target="_blank" rel="external">二分查找</a>又称折半查找，优点是比较次数少，查找速度快，平均性能好；其缺点是要求待查表为有序表，且插入删除困难。因此，折半查找方法适用于不经常变动而查找频繁的有序列表。首先，假设表中元素是按升序排列，将表中间位置记录的关键字与查找关键字比较，如果两者相等，则查找成功；否则利用中间位置记录将表分成前、后两个子表，如果中间位置记录的关键字大于查找关键字，则进一步查找前一子表，否则进一步查找后一子表。重复以上过程，直到找到满足条件的记录，使查找成功，或直到子表不存在为止，此时查找不成功。<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line">using UnityEngine;</div><div class="line"></div><div class="line">/// &lt;summary&gt;</div><div class="line">/// 二分查找算法（在有序数组中快速寻找一个指定数值）</div><div class="line">/// &lt;/summary&gt;</div><div class="line">public class BinarySearchSort : MonoBehaviour</div><div class="line">&#123;</div><div class="line">    //有序数组</div><div class="line">    int[] array = new[] &#123;5, 6, 7, 8, 9, 12, 45, 55&#125;;</div><div class="line"></div><div class="line">    void Start()</div><div class="line">    &#123;</div><div class="line">        //调用查找方法，输出 bool值</div><div class="line">        Debug.Log(BinarySearch(array, 45));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /// &lt;summary&gt;</div><div class="line">    /// 二分查找方法</div><div class="line">    /// &lt;/summary&gt;</div><div class="line">    /// &lt;param name=&quot;array&quot;&gt;数组&lt;/param&gt;</div><div class="line">    /// &lt;param name=&quot;targetNum&quot;&gt;目标数值&lt;/param&gt;</div><div class="line">    /// &lt;returns&gt;是否找到目标数值&lt;/returns&gt;</div><div class="line">    bool BinarySearch(int[] array, int targetNum)</div><div class="line">    &#123;</div><div class="line">        //起始点</div><div class="line">        int start = 0;</div><div class="line">        //结束点</div><div class="line">        int end = array.Length - 1;</div><div class="line">        //中界点</div><div class="line">        int mid;</div><div class="line"></div><div class="line">        //循环遍历（起始点&lt;=终止点）</div><div class="line">        while (start &lt;= end)</div><div class="line">        &#123;</div><div class="line">            //计算中界点</div><div class="line">            mid = (start + end)/2;</div><div class="line">            //第一种情况</div><div class="line">            if (array[mid] &gt; targetNum)</div><div class="line">            &#123;</div><div class="line">                //终止点=中界点-1</div><div class="line">                end = mid - 1;</div><div class="line">            &#125;</div><div class="line">            //第二种情况</div><div class="line">            else if (array[mid] &lt; targetNum)</div><div class="line">            &#123;</div><div class="line">                //起始点=中界点+1</div><div class="line">                start = mid + 1;</div><div class="line">            &#125;</div><div class="line">            //找到</div><div class="line">            else</div><div class="line">            &#123;</div><div class="line">                Debug.Log(&quot;所在下标：&quot; + mid);</div><div class="line">                return true;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        //未找到</div><div class="line">        Debug.Log(&quot;不存在该数值！&quot;);</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+        <h3 id="缓存命中"><a href="#缓存命中" class="headerlink" title="缓存命中"></a>缓存命中</h3><p>游戏开发者可分为两类：在他们的游戏引擎中使用STL模板库之类的。以及不使用的。一些开发者认为STL内存分配模式(memory allocation pattern)不高效，也导致内存碎片问题，使STL不能在游戏中使用。一些开发者认为STL的强大和方便超过它的问题，而且大部分的问题还是可以变通解决，笔者个人认为STL在PC上可以无障碍使用。因为PC上可以无障碍使用虚拟内存（virtual memory）系统,谨慎的分配内存变得不那么紧要(虽然游戏开发者仍要非常谨慎)。在游戏主机上，只有有限（甚至没有）虚拟内存功能，而且<strong>内存命中失败（cache miss)</strong>的代价极高，游戏开发者最好编写自定义的数据结构，保证是可预期或者有限的内存分配模式。（在PC上做同样的事情，肯定也不也错不了。)【以上内容来自《游戏引擎架构》第29页】</p>
+<a id="more"></a>
+<h3 id="什么是Cache"><a href="#什么是Cache" class="headerlink" title="什么是Cache?"></a>什么是Cache?</h3><p>Cache Memory也被称为Cache，是存储器子系统的组成部分，存放着程序经常使用的指令和数据，这就是Cache的传统定义。从广义的角度上看，Cache是快设备为了缓解访问慢设备延时的预留的Buffer，从而可以在掩盖访问延时的同时，尽可能地提高数据传输率。 快和慢是一个相对概念，与微架构(Microarchitecture)中的 L1/L2/L3 Cache相比， DDR内存是一个慢速设备；在磁盘 I/O 系统中，DDR却是快速设备，在磁盘 I/O 系统中，仍在使用DDR内存作为磁介质的Cache。在一个微架构中，除了有L1/L2/L3 Cache之外，用于虚实地址转换的各级TLB， MOB( Memory Ordering Buffers)、在指令流水线中的ROB，Register File和BTB等等也是一种Cache。我们这里的Cache，是狭义 Cache，是CPU流水线和主存储器的 L1/L2/L3 Cache。</p>
+<h3 id="好处是什么"><a href="#好处是什么" class="headerlink" title="好处是什么"></a>好处是什么</h3><p>提高计算机的运行速度。只要能存储数据的器件都可以称之为存储器，它的含义覆盖了寄存器，缓存，内存，硬盘。cpu访问快慢的速度依次为寄存器-&gt; 缓存-&gt;内存-&gt;硬盘。<br>寄存器是中央处理器的组成部分，是一种直接整合到cpu中的有限的高速访问速度的存储器，它是有一些与非门组合组成的，分为通用寄存器和特殊寄存器。cpu访问寄存器的速度是最快的。那为什么我们不把数据都存储到寄存器中呢，因为寄存器是一种容量有限的存储器，并且非常小。因此只把一些计算机的指令等一些计算机频繁用到的数据存储在其中，来提高计算机的运行速度。<br>缓存其实是内存中高速缓存（cache）,它之所以存在，是因为当cpu要频繁访问内存中的一些数据时，如果每次都从内存中去读，花费的时间会更多，因此在寄存器和内存之间有了缓存，把cpu要频繁访问的一些数据存储在缓冲中，这样效率就会更高，但需要注意的是，缓冲的大小也是很小的，不能存放大量的数据，并且缓存中存放的数据会因为cpu的访问而被替代，必须某个数据开始被cpu频繁访问，但后来不再频繁，那这个数据的空间会被其他访问频繁的数据所占据（那些数据会被暂时存储在缓存中是算法问题）。缓存又可以分为一级和二级缓存，一级的速度大一二级的速度。因此cpu在访问数据时，先到缓存中看有没有，没有的话再到内存中读取。<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/23.png?raw=true" alt=""><br>作为一个程序员，你需要理解存储器层次结构，因为它对应用程序的性能有着巨大的影响。如果你的程序需要的数据存储在CPU寄存器中的，那么在指令的执行期间，在零个周期内就能访问到它们。如果存储在高速缓存中，需要1~30个周期。如果存储在主存中，需要50~200个周期。而如果存储在磁盘上，需要大约几千万个周期。【以上内容来自《深入理解计算机系统(Computer Systems)》第382页】</p>
+<h3 id="如何知道Cache大小"><a href="#如何知道Cache大小" class="headerlink" title="如何知道Cache大小"></a>如何知道Cache大小</h3><p>如何知道自己CPU的L2、L3的容量多大呢？当然可以用CPU-z，但其实可以有个更加简单的办法，在命令行输入：<br>wmic cpu get L2CacheSize,L3CacheSize<br>我的笔记本得到这个结果：<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/24.png?raw=true" alt=""></p>
+<h3 id="怎么去写出缓存友好的代码"><a href="#怎么去写出缓存友好的代码" class="headerlink" title="怎么去写出缓存友好的代码"></a>怎么去写出缓存友好的代码</h3><ul>
+<li>如上一篇文章中<a href="http://zhutaorun.win/2017/11/30/struct-%E7%BB%93%E6%9E%84%E4%BD%93%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%A4%A7%E5%B0%8F%E8%AE%A1%E7%AE%97/" target="_blank" rel="external">struct 结构体类型的大小计算</a><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">struct stu3</div><div class="line">&#123;</div><div class="line">　　char c1;// 偏移量为0符合要求，首位本身不需要偏移。</div><div class="line">　　int i;  // 偏移量为4， 结构体变量中成员的偏移量必须是成员大小的整数倍（0被认为是任何数的整数倍），所以1+3</div><div class="line">　　char c2;// 偏移量为8（偏移量4+int大小4），符合要求</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>总长度不考虑自身对齐的最大的那个值的倍数，所以长度是1+3+4+1 = 9，考虑倍数长度是12<br>优化后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">struct stu3</div><div class="line">&#123;</div><div class="line">　　char c1;// 偏移量为0符合要求，首位本身不需要偏移。</div><div class="line">       char c2;// 偏移量为1（偏移量1+char大小1），符合要求</div><div class="line">　　int i;  // 偏移量为4， 结构体变量中成员的偏移量必须是成员大小的整数倍（0被认为是任何数的整数倍），所以</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>优化后大小是1+1+2+4= 8。</p>
+<ul>
+<li>让最常见的情况运行得快。大部分时间都花在少量的核心函数上，这些函数常把大部分时间都花在少量循环上。</li>
+<li>在每个循环内部缓存不命中数量最小。<br>举例数组循环<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">int sumarraycols(int a[M][N])</div><div class="line">&#123;</div><div class="line">    int i,j,sum =0;</div><div class="line">    for(i=0;i&lt;M;i++)</div><div class="line">        for(j=0;j&lt;N;j++)</div><div class="line">            sum += a[i][j];</div><div class="line">    return sum;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">int sumarraycols(int a[M][N])</div><div class="line">&#123;</div><div class="line">    int i,j,sum =0;</div><div class="line">    for(j=0;j&lt;N;j++)</div><div class="line">        for(i=0;i&lt;M;i++)       </div><div class="line">            sum += a[i][j];</div><div class="line">    return sum;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第一个写法是常见的写法，缓存比较优好。第二个是修改后的。差异在于第一个是连续的内存块。第二个是每隔一段取一块。第二种miss的概率更高。Cache是CacheLine组成的。<br>——————————</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="http://blog.csdn.net/li_ning_/article/details/51756132" target="_blank" rel="external">浅谈CPU三级缓存和缓存命中率</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/31422201" target="_blank" rel="external">L1，L2，L3 Cache究竟在哪里？</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/31859105" target="_blank" rel="external">Cache是怎么组织和工作的？</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/32058808" target="_blank" rel="external">Cache为什么有那么多级？为什么一级比一级大？是不是Cache越大越好？</a></li>
+<li><a href="http://www.cnblogs.com/yanlingyin/archive/2012/02/15/thinkingincache.html" target="_blank" rel="external">对缓存的思考【续】——编写高速缓存友好代码</a></li>
+</ul>
 
       
     </div>
@@ -334,13 +361,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/10/02/二分法/">二分法</a></p>
+        <p><span>本文标题:</span><a href="/2017/12/18/缓存命中/">缓存命中</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
-        <p><span>发布时间:</span>2016-10-02, 21:03:57</p>
-        <p><span>最后更新:</span>2016-10-24, 21:39:06</p>
+        <p><span>发布时间:</span>2017-12-18, 23:48:16</p>
+        <p><span>最后更新:</span>2017-12-18, 23:52:42</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/10/02/二分法/" title="二分法">http://zhutao.github.io/2016/10/02/二分法/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2016/10/02/二分法/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/12/18/缓存命中/" title="缓存命中">http://zhutao.github.io/2017/12/18/缓存命中/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2017/12/18/缓存命中/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -352,16 +379,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/10/02/适配器模式/">
-                    适配器模式
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/09/24/我是谁/">
-                    我是谁
+                <a href="/2017/11/30/struct-结构体类型的大小计算/">
+                    struct 结构体类型的大小计算
                 </a>
             </div>
         
@@ -373,7 +394,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#缓存命中"><span class="toc-number">1.</span> <span class="toc-text">缓存命中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是Cache"><span class="toc-number">2.</span> <span class="toc-text">什么是Cache?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#好处是什么"><span class="toc-number">3.</span> <span class="toc-text">好处是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何知道Cache大小"><span class="toc-number">4.</span> <span class="toc-text">如何知道Cache大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#怎么去写出缓存友好的代码"><span class="toc-number">5.</span> <span class="toc-text">怎么去写出缓存友好的代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
         
     </div>
     <style>
@@ -409,7 +430,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"二分法　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"缓存命中　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -425,7 +446,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2016/10/02/二分法/" data-title="二分法" data-url="http://zhutao.github.io/2016/10/02/二分法/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/12/18/缓存命中/" data-title="缓存命中" data-url="http://zhutao.github.io/2017/12/18/缓存命中/"></div>
     <script>
         var duoshuoQuery = {short_name:"zhutaorun"};
         var loadComment = function(){
@@ -448,15 +469,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/10/02/适配器模式/" title="上一篇: 适配器模式">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/09/24/我是谁/" title="下一篇: 我是谁">
+            <a href="/2017/11/30/struct-结构体类型的大小计算/" title="下一篇: struct 结构体类型的大小计算">
                 <i class="fa fa-angle-right"></i>
             </a>
         
