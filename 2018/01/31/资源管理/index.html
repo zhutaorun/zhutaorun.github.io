@@ -15,13 +15,31 @@
 
 
 
+<meta name="description" content="每个游戏都是有种类繁多的资源（有时候称为资产或媒体的构成），例如网络、材质、纹理、着色器程序、动画、音频，关卡布局、碰撞数据、物理参数等。游戏资源必须妥善保管，这包括两方面，一方面是建立资源的离线工具，一方面是在执行期载入，卸下及操作资源。因此，每个游戏都有某种形式的资源管理器。
+每个游戏资源管理器都有两个元件组成，这两个元件及独立又相互整合。其一负责离线工具链，用来创建资产及把它们转换成引擎可用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="资源管理">
 <meta property="og:url" content="http://zhutao.github.io/2018/01/31/资源管理/index.html">
 <meta property="og:site_name" content="zhutaorun's Blog">
-<meta property="og:updated_time" content="2018-01-31T16:19:32.982Z">
+<meta property="og:description" content="每个游戏都是有种类繁多的资源（有时候称为资产或媒体的构成），例如网络、材质、纹理、着色器程序、动画、音频，关卡布局、碰撞数据、物理参数等。游戏资源必须妥善保管，这包括两方面，一方面是建立资源的离线工具，一方面是在执行期载入，卸下及操作资源。因此，每个游戏都有某种形式的资源管理器。
+每个游戏资源管理器都有两个元件组成，这两个元件及独立又相互整合。其一负责离线工具链，用来创建资产及把它们转换成引擎可用">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/31.png?raw=true">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/32.png?raw=true">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/33.png?raw=true">
+<meta property="og:image" content="https://images0.cnblogs.com/i/584891/201403/232247378183306.png">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/40.png?raw=true">
+<meta property="og:image" content="https://images0.cnblogs.com/i/584891/201403/232309356623898.png">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/41.png?raw=true">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/42.png?raw=true">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/43.png?raw=true">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/44.png?raw=true">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/45.png?raw=true">
+<meta property="og:updated_time" content="2018-01-31T17:10:26.386Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="资源管理">
+<meta name="twitter:description" content="每个游戏都是有种类繁多的资源（有时候称为资产或媒体的构成），例如网络、材质、纹理、着色器程序、动画、音频，关卡布局、碰撞数据、物理参数等。游戏资源必须妥善保管，这包括两方面，一方面是建立资源的离线工具，一方面是在执行期载入，卸下及操作资源。因此，每个游戏都有某种形式的资源管理器。
+每个游戏资源管理器都有两个元件组成，这两个元件及独立又相互整合。其一负责离线工具链，用来创建资产及把它们转换成引擎可用">
+<meta name="twitter:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/31.png?raw=true">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -322,7 +340,53 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        
+        <p>每个游戏都是有种类繁多的资源（有时候称为资产或媒体的构成），例如网络、材质、纹理、着色器程序、动画、音频，关卡布局、碰撞数据、物理参数等。游戏资源必须妥善保管，这包括两方面，一方面是建立资源的离线工具，一方面是在执行期载入，卸下及操作资源。因此，每个游戏都有某种形式的资源管理器。</p>
+<p>每个游戏资源管理器都有两个元件组成，这两个元件及独立又相互整合。其一负责离线工具链，用来创建资产及把它们转换成引擎可用的形式，另一个元件在执行期间管理资源，确保资源在使用之前已转入内存，并在不需要的时候把它们从内存卸下。<br><a id="more"></a><br>在某些引擎中，资源管理是一个具清晰设计、统一、中心化的子系统，负责管理游戏中用到的所有类型资源。其他引擎的资源管理器本身不是单独子系统，还是想布局不同子系统中，或许这些子系统是有不同作者经过引擎，漫长也许多姿多彩历史而写成的，但无论资源管理器是如何实现的，他主要负起某些责任，并解决一些明确定义的问题。本节会探讨典型游戏引擎资源管理功能，以及其实现细节。<br>离线资源管理及工具链</p>
+<h3 id="6-2-1-1资产的版本控制"><a href="#6-2-1-1资产的版本控制" class="headerlink" title="6.2.1.1资产的版本控制"></a>6.2.1.1资产的版本控制</h3><p>解决数据量的问题</p>
+<h3 id="6-2-1-2资源数据库"><a href="#6-2-1-2资源数据库" class="headerlink" title="6.2.1.2资源数据库"></a>6.2.1.2资源数据库</h3><ul>
+<li>能处理多种类型的资源，理想的（但肯定非必要）是以一致的方式处理</li>
+<li>能创建新资源</li>
+<li>能删除资源</li>
+<li>能查看及修改现存的资源</li>
+<li>能把资源从一个位置移至另一个位置。（这是非常有用的因为美术人员及游戏设计师经常要重新安排资产，以反映项目目标的改动、重新思考游戏设计、新增或取消特性等）</li>
+<li>能让资源交叉引用其他资源（例如，网络引用材质，某关卡引用一组动画）。交叉引用通常同时驱动资源管理生成过程及运行是的载入过程</li>
+<li>能维持数据库内所有交叉引用的引用完整性。执行所有常见操作后，如删除或移除资源，仍能保持引用完整性</li>
+<li>能保存版本历史，并含完整日志记录改动者及事由。</li>
+<li>资源数据库若能支持不同形式的搜寻及查询，将十分有用。例如，开发者可能想了解哪一关卡用了某动画、哪些材质引用了某纹理。<h3 id="6-2-1-3一些成功的资源数据库设计"><a href="#6-2-1-3一些成功的资源数据库设计" class="headerlink" title="6.2.1.3一些成功的资源数据库设计"></a>6.2.1.3一些成功的资源数据库设计</h3>虚幻3 虚幻的资源数据库由其万用工具UnrealEd所管理。UnrealEd几乎负责一切事项，无论资源元数据管理、资产创建、关卡布局等都一律包办。好处在于是游戏引擎的一部分，还有一站式购物。<br>缺点是包文件是二进制的，不能合并；资源重新命名或移动后，产生虚拟对象。<br>顽皮狗的《神秘海域：德雷克船长的宝藏》引擎</li>
+<li>粒度小的资源</li>
+<li>必需的特性</li>
+<li>显而易见的源文件映射</li>
+<li>容易更改DCC数据的导出及处理方式</li>
+<li>容易生成资产</li>
+<li>欠缺可视化工具</li>
+<li>工具没有完全整合<h3 id="6-2-1-4资产调节管道"><a href="#6-2-1-4资产调节管道" class="headerlink" title="6.2.1.4资产调节管道"></a>6.2.1.4资产调节管道</h3>多数资源数据会经由资产调节管道（assertconditioning pipeline）才能成为游戏引擎所用的数据。</li>
+<li>导出器</li>
+<li>资源编译器</li>
+<li>资源链接器<br>##6.2.2运行时资源管理<br>###6.2.2.1 运行时资源管理器的责任</li>
+<li>确保任何时候，同一个资源在内存中只有一份</li>
+<li>管理每个资源的生命期，载入需要的资源，并不在需要的时候卸载</li>
+<li>处理复合资源的载入。复合资源是由多个资源组成的资源</li>
+<li>维护引用完整性。</li>
+<li>管理资源载入后的内存用量</li>
+<li>容许按资源类型，载入资源后执行自定义的处理</li>
+<li>通常提供单一统一接口管理多种资源类型</li>
+<li>若引擎支持，则要处理串流（即异步资源载入<h3 id="6-2-2-2-资源文件及目录组织"><a href="#6-2-2-2-资源文件及目录组织" class="headerlink" title="6.2.2.2 资源文件及目录组织"></a>6.2.2.2 资源文件及目录组织</h3>通常是树状目录<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/31.png?raw=true" alt=""><br>把多个资源包裹为单一文件，优点是减少载入时间。从文件载入数据时，三大开销为寻道时间（即把磁头移动至物理媒体上正确的位置时间）、开启每个月文件的时间及从文件读入数据至内存的时间。<br>OGRE渲染引擎的资源管理器同时支持两种模式，可把资源文件各自配置于硬盘上，也可以把资源置于庞大的ZIP存档中，使用ZIP格式的好处有：<br>1.ZIP是开放格式<br>2.ZIP存档内的虚拟文件也有相对路径<br>3.ZIP存档可被压缩<br>4.ZIP存档可视为模块<h3 id="6-2-2-3-资源文件格式"><a href="#6-2-2-3-资源文件格式" class="headerlink" title="6.2.2.3 资源文件格式"></a>6.2.2.3 资源文件格式</h3>每类资源都可能有不同的文件格式。一类是使用开放标准的格式。<br>一类是自定义的文件格式。原因是，引擎所需的部分信息可能没有标准格式可以储存，对资源做脱机处理，借以降低运行时载入资源的时间。<h3 id="6-2-2-4-资源全局统一标识符"><a href="#6-2-2-4-资源全局统一标识符" class="headerlink" title="6.2.2.4 资源全局统一标识符"></a>6.2.2.4 资源全局统一标识符</h3>常见GUID选项就是资源的文件系统路径。<h3 id="6-2-2-5-资源注册表"><a href="#6-2-2-5-资源注册表" class="headerlink" title="6.2.2.5 资源注册表"></a>6.2.2.5 资源注册表</h3>载入内存的每个资源只会有一个副本，大部分资源管理器都含有某种形式的资源注册表。常见是使用字典，即键值对。载入资源是缓慢操作，因为涉及对硬盘上文件定位及开启，读取可能大量的数据至内存，并且有机会在资源数据载入后，执行其载入后初始化工作。载入资源可能对游戏帧率造成非常明显的影响，甚至是几秒的停顿。<br>处理方式有两种，1在游戏进行中，完全禁止加载资源。2.资源以异步形式加载<h3 id="6-2-2-6-资源生命期"><a href="#6-2-2-6-资源生命期" class="headerlink" title="6.2.2.6 资源生命期"></a>6.2.2.6 资源生命期</h3>资源的生命期定义为该资源载入内存后至内存被归还做其他用途之间的时段。</li>
+<li>必须开始时便载入。</li>
+<li>有些资源的生命期能对应某游戏关卡</li>
+<li>有些短于所在关卡的时间</li>
+<li>有些资源如背景音乐等，在播放时即时串流。<h3 id="6-2-2-7-资源所需的内存管理"><a href="#6-2-2-7-资源所需的内存管理" class="headerlink" title="6.2.2.7  资源所需的内存管理"></a>6.2.2.7  资源所需的内存管理</h3>资源管理和内存管理息息相关。有些资源必须驻留在显存，包括纹理、顶点缓冲、索引缓冲、着色器。大部分其他资源可能都会驻留在主内存。<h4 id="基于堆的资源分配，会有造成内存碎片问题，游戏运行在个人计算机上，支持高级的虚拟内存分配。"><a href="#基于堆的资源分配，会有造成内存碎片问题，游戏运行在个人计算机上，支持高级的虚拟内存分配。" class="headerlink" title="基于堆的资源分配，会有造成内存碎片问题，游戏运行在个人计算机上，支持高级的虚拟内存分配。"></a>基于堆的资源分配，会有造成内存碎片问题，游戏运行在个人计算机上，支持高级的虚拟内存分配。</h4><h4 id="基于栈的资源分配，只适用于1是游戏是线性以及关卡为中心。2是内存足够容纳各个完整关卡。"><a href="#基于栈的资源分配，只适用于1是游戏是线性以及关卡为中心。2是内存足够容纳各个完整关卡。" class="headerlink" title="基于栈的资源分配，只适用于1是游戏是线性以及关卡为中心。2是内存足够容纳各个完整关卡。"></a>基于栈的资源分配，只适用于1是游戏是线性以及关卡为中心。2是内存足够容纳各个完整关卡。</h4><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/32.png?raw=true" alt=""><h4 id="基于池的资源分配"><a href="#基于池的资源分配" class="headerlink" title="基于池的资源分配"></a>基于池的资源分配</h4>把资源数据以同等大小的组块载入，因为全部组块的大小相同，可以使用池分配器。“组块式”资源分配天生具有一个取舍问题，这就是空间浪费。除非是资源大小刚好组块大小的倍数。<h4 id="资源组块分配器"><a href="#资源组块分配器" class="headerlink" title="资源组块分配器"></a>资源组块分配器</h4>设立特殊内存分配器，此分配器能利用组块内未使用的部分。管理一个链表。资源组块中未使用的区域释放。大部分游戏引擎在载入资源时都需要分配动态内存，可以使用这种方法。<h4 id="分段的资源文件"><a href="#分段的资源文件" class="headerlink" title="分段的资源文件"></a>分段的资源文件</h4>典型的资源文件可能包含1~4段，每段分为一个或者多个组块，以配合基于池的资源分配。<h3 id="6-2-2-8-复合资源及引用完整性"><a href="#6-2-2-8-复合资源及引用完整性" class="headerlink" title="6.2.2.8 复合资源及引用完整性"></a>6.2.2.8 复合资源及引用完整性</h3>游戏资源数据库可表达为，有互相依赖的数据对象所组成的有向图。数据对象之间的交叉引用可以是内部的或者外部的。<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/33.png?raw=true" alt=""></li>
+</ul>
+<h3 id="6-2-2-9-处理资源建的交叉引用"><a href="#6-2-2-9-处理资源建的交叉引用" class="headerlink" title="6.2.2.9 处理资源建的交叉引用"></a>6.2.2.9 处理资源建的交叉引用</h3><h6 id="使用全局统一标识符做交叉引用，就是把交叉引用储存为字符串或散列码，内含被引用对象的唯一标识符。"><a href="#使用全局统一标识符做交叉引用，就是把交叉引用储存为字符串或散列码，内含被引用对象的唯一标识符。" class="headerlink" title="使用全局统一标识符做交叉引用，就是把交叉引用储存为字符串或散列码，内含被引用对象的唯一标识符。"></a>使用全局统一标识符做交叉引用，就是把交叉引用储存为字符串或散列码，内含被引用对象的唯一标识符。</h6><h6 id="指针修正表-储存对象至二进制文件的方法，把指针转换为文件偏移值，把指针的位置存储到一个简单列表，此表就是指针修正表。"><a href="#指针修正表-储存对象至二进制文件的方法，把指针转换为文件偏移值，把指针的位置存储到一个简单列表，此表就是指针修正表。" class="headerlink" title="指针修正表 储存对象至二进制文件的方法，把指针转换为文件偏移值，把指针的位置存储到一个简单列表，此表就是指针修正表。"></a>指针修正表 储存对象至二进制文件的方法，把指针转换为文件偏移值，把指针的位置存储到一个简单列表，此表就是指针修正表。</h6><h6 id="处理外部引用，除了要指明偏移值或GUID-还需加上资源对象所属文件的路径。载入由多个文件组成的资源，关键在于要先载入所有互相依赖的文件。"><a href="#处理外部引用，除了要指明偏移值或GUID-还需加上资源对象所属文件的路径。载入由多个文件组成的资源，关键在于要先载入所有互相依赖的文件。" class="headerlink" title="处理外部引用，除了要指明偏移值或GUID,还需加上资源对象所属文件的路径。载入由多个文件组成的资源，关键在于要先载入所有互相依赖的文件。"></a>处理外部引用，除了要指明偏移值或GUID,还需加上资源对象所属文件的路径。载入由多个文件组成的资源，关键在于要先载入所有互相依赖的文件。</h6><h3 id="6-2-2-10载入后初始化"><a href="#6-2-2-10载入后初始化" class="headerlink" title="6.2.2.10载入后初始化"></a>6.2.2.10载入后初始化</h3><p>两种情况</p>
+<ul>
+<li>某些情况下，载入后初始化是无法避免的步骤。定义三维网格的顶点和索引值，载入主内存后，要传送至显存。</li>
+<li>某些情况下，载入后初始化是可避免的。将算好的数据加入，避免运行是计算的开销。<h2 id="以上内容来自《游戏引擎架构》第六章第二小节资源管理器，关键内容的笔记"><a href="#以上内容来自《游戏引擎架构》第六章第二小节资源管理器，关键内容的笔记" class="headerlink" title="以上内容来自《游戏引擎架构》第六章第二小节资源管理器，关键内容的笔记"></a>以上内容来自《游戏引擎架构》第六章第二小节资源管理器，关键内容的笔记</h2></li>
+</ul>
+<hr>
+<h3 id="Unity3D-情况"><a href="#Unity3D-情况" class="headerlink" title="Unity3D 情况"></a>Unity3D 情况</h3><p>Unity3D 支持资源格式，可以看官方文档。<br>任何资源导入有Importing Assets<br><img src="https://images0.cnblogs.com/i/584891/201403/232247378183306.png" alt=""><br>　在这个步骤中，Unity3D针对所有的资源生成metadata，并进行“编译”、“链接”，转换为游戏可以直接使用的资源。转换前的资源保存在“Assets”中，转换后的资源保存在“Library”中，所有的资源在Inspector面板中可以修改metadata的数据，如下图<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/40.png?raw=true" alt=""><br>shaderCache是编译好的在PC下的shade文件。<br>对于Android或者ios版本都是把资源编程成对应平台的资源，打进包里。<br>如果使用SVN等版本控制器，需要同步所有资源及其metadata。打开Edit-&gt;Project Settings-&gt;Editor，将Mode修改为“Meta Files”（默认“Disabled”），如下图<br><img src="https://images0.cnblogs.com/i/584891/201403/232309356623898.png" alt=""></p>
+<p>关于项目中资源处理的工具<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/41.png?raw=true" alt=""><br>项目中BundleManage中是官方商店BundleManager针对项目修改后的版本，<a href="http://blog.csdn.net/u011611902/article/details/52590794" target="_blank" rel="external">简单介绍</a><br>下图看到项目资源的目录结构<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/42.png?raw=true" alt=""><br>亮光选中的bundle，看右上方可以到size是364k,包含UI预制件有哪些，依赖美术资源有那些。带黄色标识的是表示这个资源其他地方重复引用了。<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/43.png?raw=true" alt=""><br>下图表示是在android和ios平台下图片格式的设置。<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/44.png?raw=true" alt=""><br>资源管理器中数据结构，用JSON做数据保存。<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/45.png?raw=true" alt=""><br>如果有复合资源的情况就放到根节点，资源加载会去把根节点加载，才会去加载子节点下的内容。<br>当生成移动平台的包，这里用android举例。在游戏启动的适合，从服务器上获取版本号，做对比，是否要更新资源。对比crc以及是否有本地缓存等等。<br>这是我经历项目里，表格、配置使用的XML和Lua代码同样也是可以作为资源热更新的。</p>
+<p>在开发运行状态下，有List维护所有加载中的资源，并显示有多少处引用，确保每个资源用完即卸载。</p>
+<p>优势是：在项目中使用的是编译的好资源，重新拉工程减少编译美术资源的时间。更新的时候可以小包更新，会在比对后是用本地还是从服务器拉取最新的。<br>缺点是：因使用md5所以，不能支持多人同时对资源打包；其次是更新的是要把整个Bundle包都上传到服务器，因上传时间有点长。当有节点有变化，或者有资源移动位置的时候都需要重新打包所有资源。有时出现问题需要强制打包所有的资源。</p>
+
       
     </div>
     
@@ -333,7 +397,7 @@
         <p><span>本文标题:</span><a href="/2018/01/31/资源管理/">资源管理</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
         <p><span>发布时间:</span>2018-01-31, 12:16:18</p>
-        <p><span>最后更新:</span>2018-02-01, 00:19:32</p>
+        <p><span>最后更新:</span>2018-02-01, 01:10:26</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/01/31/资源管理/" title="资源管理">http://zhutao.github.io/2018/01/31/资源管理/</a>
             <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2018/01/31/资源管理/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -369,7 +433,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-1资产的版本控制"><span class="toc-number">1.</span> <span class="toc-text">6.2.1.1资产的版本控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-2资源数据库"><span class="toc-number">2.</span> <span class="toc-text">6.2.1.2资源数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-3一些成功的资源数据库设计"><span class="toc-number">3.</span> <span class="toc-text">6.2.1.3一些成功的资源数据库设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-4资产调节管道"><span class="toc-number">4.</span> <span class="toc-text">6.2.1.4资产调节管道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-2-资源文件及目录组织"><span class="toc-number">5.</span> <span class="toc-text">6.2.2.2 资源文件及目录组织</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-3-资源文件格式"><span class="toc-number">6.</span> <span class="toc-text">6.2.2.3 资源文件格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-4-资源全局统一标识符"><span class="toc-number">7.</span> <span class="toc-text">6.2.2.4 资源全局统一标识符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-5-资源注册表"><span class="toc-number">8.</span> <span class="toc-text">6.2.2.5 资源注册表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-6-资源生命期"><span class="toc-number">9.</span> <span class="toc-text">6.2.2.6 资源生命期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-7-资源所需的内存管理"><span class="toc-number">10.</span> <span class="toc-text">6.2.2.7  资源所需的内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基于堆的资源分配，会有造成内存碎片问题，游戏运行在个人计算机上，支持高级的虚拟内存分配。"><span class="toc-number">10.1.</span> <span class="toc-text">基于堆的资源分配，会有造成内存碎片问题，游戏运行在个人计算机上，支持高级的虚拟内存分配。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基于栈的资源分配，只适用于1是游戏是线性以及关卡为中心。2是内存足够容纳各个完整关卡。"><span class="toc-number">10.2.</span> <span class="toc-text">基于栈的资源分配，只适用于1是游戏是线性以及关卡为中心。2是内存足够容纳各个完整关卡。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基于池的资源分配"><span class="toc-number">10.3.</span> <span class="toc-text">基于池的资源分配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#资源组块分配器"><span class="toc-number">10.4.</span> <span class="toc-text">资源组块分配器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分段的资源文件"><span class="toc-number">10.5.</span> <span class="toc-text">分段的资源文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-8-复合资源及引用完整性"><span class="toc-number">11.</span> <span class="toc-text">6.2.2.8 复合资源及引用完整性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-9-处理资源建的交叉引用"><span class="toc-number">12.</span> <span class="toc-text">6.2.2.9 处理资源建的交叉引用</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#使用全局统一标识符做交叉引用，就是把交叉引用储存为字符串或散列码，内含被引用对象的唯一标识符。"><span class="toc-number">12.0.0.1.</span> <span class="toc-text">使用全局统一标识符做交叉引用，就是把交叉引用储存为字符串或散列码，内含被引用对象的唯一标识符。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#指针修正表-储存对象至二进制文件的方法，把指针转换为文件偏移值，把指针的位置存储到一个简单列表，此表就是指针修正表。"><span class="toc-number">12.0.0.2.</span> <span class="toc-text">指针修正表 储存对象至二进制文件的方法，把指针转换为文件偏移值，把指针的位置存储到一个简单列表，此表就是指针修正表。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#处理外部引用，除了要指明偏移值或GUID-还需加上资源对象所属文件的路径。载入由多个文件组成的资源，关键在于要先载入所有互相依赖的文件。"><span class="toc-number">12.0.0.3.</span> <span class="toc-text">处理外部引用，除了要指明偏移值或GUID,还需加上资源对象所属文件的路径。载入由多个文件组成的资源，关键在于要先载入所有互相依赖的文件。</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-10载入后初始化"><span class="toc-number">13.</span> <span class="toc-text">6.2.2.10载入后初始化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#以上内容来自《游戏引擎架构》第六章第二小节资源管理器，关键内容的笔记"><span class="toc-number"></span> <span class="toc-text">以上内容来自《游戏引擎架构》第六章第二小节资源管理器，关键内容的笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Unity3D-情况"><span class="toc-number">1.</span> <span class="toc-text">Unity3D 情况</span></a></li></ol>
         
     </div>
     <style>
