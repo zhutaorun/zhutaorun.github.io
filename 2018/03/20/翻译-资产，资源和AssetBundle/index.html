@@ -15,27 +15,16 @@
 
 
 
-<meta name="description" content="最近做了福星转盘的功能，做完后发现当记录次数很多了以后会有性能问题，历史记录很多的时候，打开会卡。
-
-
-第一反应现象：当我看到优化需求的时候，“对历史记录做限制”，我第一反应，看下Profiler是什么，造成性能问题。看到是协程的调用。有出现高峰值，有高达200多M。在多次UI操作中，内存还是稳定增长。">
+<meta name="description" content="资源，资产和AssetBundle来自官方的教程内容AssetBundles和资源的使用指南版本检查：2017.3 - 难度:高级这是一系列文章，提供Unity引擎中资产和资源管理的深入讨论。它力求为专业开发人员提供关于Unity资源和序列化系统的深入源代码的知识。它考察了Unity AssetBundle系统的技术基础和当前使用它们的最佳练习 。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="功能错误小结">
-<meta property="og:url" content="http://zhutao.github.io/2017/04/30/功能错误小结/index.html">
+<meta property="og:title" content="[翻译]资产，资源和AssetBundle">
+<meta property="og:url" content="http://zhutao.github.io/2018/03/20/翻译-资产，资源和AssetBundle/index.html">
 <meta property="og:site_name" content="zhutaorun's Blog">
-<meta property="og:description" content="最近做了福星转盘的功能，做完后发现当记录次数很多了以后会有性能问题，历史记录很多的时候，打开会卡。
-
-
-第一反应现象：当我看到优化需求的时候，“对历史记录做限制”，我第一反应，看下Profiler是什么，造成性能问题。看到是协程的调用。有出现高峰值，有高达200多M。在多次UI操作中，内存还是稳定增长。">
-<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/7.PNG?raw=true">
-<meta property="og:updated_time" content="2017-04-30T10:42:57.689Z">
+<meta property="og:description" content="资源，资产和AssetBundle来自官方的教程内容AssetBundles和资源的使用指南版本检查：2017.3 - 难度:高级这是一系列文章，提供Unity引擎中资产和资源管理的深入讨论。它力求为专业开发人员提供关于Unity资源和序列化系统的深入源代码的知识。它考察了Unity AssetBundle系统的技术基础和当前使用它们的最佳练习 。">
+<meta property="og:updated_time" content="2018-03-20T01:17:28.384Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="功能错误小结">
-<meta name="twitter:description" content="最近做了福星转盘的功能，做完后发现当记录次数很多了以后会有性能问题，历史记录很多的时候，打开会卡。
-
-
-第一反应现象：当我看到优化需求的时候，“对历史记录做限制”，我第一反应，看下Profiler是什么，造成性能问题。看到是协程的调用。有出现高峰值，有高达200多M。在多次UI操作中，内存还是稳定增长。">
-<meta name="twitter:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/7.PNG?raw=true">
+<meta name="twitter:title" content="[翻译]资产，资源和AssetBundle">
+<meta name="twitter:description" content="资源，资产和AssetBundle来自官方的教程内容AssetBundles和资源的使用指南版本检查：2017.3 - 难度:高级这是一系列文章，提供Unity引擎中资产和资源管理的深入讨论。它力求为专业开发人员提供关于Unity资源和序列化系统的深入源代码的知识。它考察了Unity AssetBundle系统的技术基础和当前使用它们的最佳练习 。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -67,7 +56,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>功能错误小结 | zhutaorun&#39;s Blog</title>
+<title>[翻译]资产，资源和AssetBundle | zhutaorun&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -292,11 +281,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-功能错误小结" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-翻译-资产，资源和AssetBundle" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/04/30/功能错误小结/" class="article-date">
-      <time datetime="2017-04-30T01:34:47.000Z" itemprop="datePublished">2017-04-30</time>
+      <a href="/2018/03/20/翻译-资产，资源和AssetBundle/" class="article-date">
+      <time datetime="2018-03-19T16:29:50.000Z" itemprop="datePublished">2018-03-20</time>
 </a>
 
 
@@ -311,7 +300,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      功能错误小结
+      [翻译]资产，资源和AssetBundle
     </h1>
   
 
@@ -320,13 +309,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    <a class="article-category-link" href="/categories/技术积累-翻译/">技术积累 翻译</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工作反思/">工作反思</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3d/">Unity3d</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -336,20 +325,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <blockquote>
-<p>最近做了福星转盘的功能，做完后发现当记录次数很多了以后会有性能问题，历史记录很多的时候，打开会卡。</p>
-</blockquote>
-<p><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/7.PNG?raw=true" alt=""></p>
-<h3 id="第一反应"><a href="#第一反应" class="headerlink" title="第一反应"></a>第一反应</h3><p><strong>现象</strong>：当我看到优化需求的时候，“对历史记录做限制”，我第一反应，看下Profiler是什么，造成性能问题。看到是协程的调用。有出现高峰值，有高达200多M。在多次UI操作中，内存还是稳定增长。<br><a id="more"></a><br><strong>处理</strong>：我估计是协程调用产生的，就在每个协程调用前加了StopCoroutine()方法。</p>
-<p><strong>问题</strong>：高峰值虽然降下来了，但是每次执行高峰值稳定增加20多M。而且最奇怪的是在于每次重启Unity后，还是会稳定出现这样的情况。</p>
-<h3 id="寻求主程指导（1）"><a href="#寻求主程指导（1）" class="headerlink" title="寻求主程指导（1）"></a>寻求主程指导（1）</h3><p><strong>现象</strong>:主程同样在看了Profiler后，给出建议是，用协程播放动画的效果改成用update执行。在处理以后，任然有内存高峰值出现。而且还是大于允许值6M。高峰值会有60多M，而且还会稳定增加。在关闭界面重新打开页面的时候，还是会特别卡。会有高达3.5G的GC。<br><strong>指导建议</strong>：用协程播放动画的效果改成用update执行<br><strong>处理</strong>：两次动画播放使用Update()处理。</p>
-<p><strong>问题</strong>：内存高峰值还存在，打开界面还是卡。这个阶段最大的问题在于认为是Unity有内存泄漏的bug。并没有想到是很多历史记录文字拼接带来的效率问题。</p>
-<h3 id="寻求主程指导（2）"><a href="#寻求主程指导（2）" class="headerlink" title="寻求主程指导（2）"></a>寻求主程指导（2）</h3><p><strong>现象</strong>:主程在看Profiler后，GameObject.Awake()有高达3.5G的GC。在看了UI界面制作的方式和对应功能配表上给出了优化意见，同时指出我对业务抽象处理不够。功能灵活性太差了。UI循序是UI策划那边排好的，我做的是获取组件有对应数据做出道具展示。有32个格子需要处理。完全可以抽象到给每一个格子处理。使用一个格子动态创建。还有所谓内外圈的效果，再抽象一层，业务逻辑就服务器根本不用管什么内外圈，根据权重比得到结果，再去看停留在内外圈的标志位值，扣除次数。<br><strong>指导建议</strong>：对业务内容可以更抽象一层，UI界面创建，改用动态创建。实例化的格子太多造成卡顿。<br><strong>处理</strong>：根据格子的属性不同，做不同的显示控制。动态创建。<br><strong>问题</strong>：即使动态创建，还是有卡顿。关于动画的播放循序，不得不重新构思，主程给出建议是，完全可以有策划的配表实现，只要在表格设置Id循序就行。意识到是真正的问题是历史太长造成的卡顿。</p>
-<h3 id="历史记录的代码优化"><a href="#历史记录的代码优化" class="headerlink" title="历史记录的代码优化"></a>历史记录的代码优化</h3><p>代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public void ShowRecord(RecordItem records,int recordTime)</div><div class="line">&#123;</div><div class="line">  ViewLabel.text = TimeTools.GetUTCTime(recordTime)+&quot;获得&quot;+&quot;\n&quot;;</div><div class="line">  string temp;</div><div class="line">  PropVo propVo;</div><div class="line">  for(int i=0;i&lt;records.Length;i++)</div><div class="line">  &#123;</div><div class="line">    propVo = new PropVo(records[i].tid,records[i].num)</div><div class="line">    temp  = ColorTools.GetColorByStage(propVo.stage)+propVo.getName()+&quot;*&quot;+records[i].num+&quot; 积分&quot;+records[i].integral+&quot;\n&quot;</div><div class="line">    ViewLabel.text +=temp;//这句写的很有问题</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>首先字符拼接会带来很多GC,在for循环中给UILabel赋值是反复赋值。特别是records很多的时候，会带来卡顿。代码优化如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public void ShowRecord(RecordItem records,int recordTime)</div><div class="line">&#123;</div><div class="line">  ViewLabel.text = string.format(GameDic.cfg_Sysetem_tips.getbyId(AlertDict.Tip_10086),TimeTools.GetUTCTime(recordTime)) +&quot;\n&quot;;</div><div class="line">  string temp,conetxt;</div><div class="line">  PropVo propVo;</div><div class="line">  for(int i=0;i&lt;records.Length;i++)</div><div class="line">  &#123;</div><div class="line">    propVo = new PropVo(records[i].tid,records[i].num)</div><div class="line">    temp  =string.format(GameDic.cfg_Sysetem_tips.getbyId(AlertDict.Tip_10087,ColorTools.GetColorByStage(propVo.stage),propVo.getName(),records[i].num,records[i].integral)+&quot;\n&quot;;</div><div class="line">    conetxt +=temp;</div><div class="line">  &#125;</div><div class="line">    ViewLabel.text = conetxt;</div></pre></td></tr></table></figure></p>
-<h3 id="决解历史记录太长"><a href="#决解历史记录太长" class="headerlink" title="决解历史记录太长"></a>决解历史记录太长</h3><p><strong>现象</strong>： 在7次100连抽的后，会有UILabel的显示问题，“too Many Version on Panel”。UILabel展示范围超出去了。同时历史记录的，协议返回值的长度有8096字节。也就是需要找到合理的值。设计上是500条后，就把之前的全部删除，问题是每次抽取的长度并不固定。100次的长度肯能是18~26条之间。10次是5~<br>8之间。在系统策划商量后，决定为100条的长度，展示长度值小于100条。<br><strong>处理</strong>:在Service给历史记录的List加值，然后再去判断长度，删除RemoveAt(0)。反复操作直到长度小于100.<br><strong>问题</strong>:服务器返回协议最大值超出，服务器调整为90条。到这里性能的问题解了。</p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>这个优化的，最初觉得问题出现在动画上。结果方向还没有对。在尝试优化的基础上，反推发现，性能的问题并没有解决。从新思考造成问题的方向，确认问题所在，并给出了优化的方案。最终决解问题。<br>这个功能在开始做的时候，整个构思上，被策划需求所指引。并没有做到足够的抽象处理。造成面对策划需求变革的时候，不得不重新去更抽象理解整个业务内容。同时因为前期抽象不够，造成改动大架构的成本很高。服务器和客户端都要去改大量的代码。</p>
-
+        <h3 id="资源，资产和AssetBundle来自官方的教程内容"><a href="#资源，资产和AssetBundle来自官方的教程内容" class="headerlink" title="资源，资产和AssetBundle来自官方的教程内容"></a><a href="https://unity3d.com/cn/learn/tutorials/s/best-practices" target="_blank" rel="external">资源，资产和AssetBundle</a>来自官方的教程内容</h3><h2 id="AssetBundles和资源的使用指南"><a href="#AssetBundles和资源的使用指南" class="headerlink" title="AssetBundles和资源的使用指南"></a>AssetBundles和资源的使用指南</h2><h3 id="版本检查：2017-3-难度-高级"><a href="#版本检查：2017-3-难度-高级" class="headerlink" title="版本检查：2017.3 - 难度:高级"></a>版本检查：2017.3 - 难度:高级</h3><h5 id="这是一系列文章，提供Unity引擎中资产和资源管理的深入讨论。它力求为专业开发人员提供关于Unity资源和序列化系统的深入源代码的知识。它考察了Unity-AssetBundle系统的技术基础和当前使用它们的最佳练习-。"><a href="#这是一系列文章，提供Unity引擎中资产和资源管理的深入讨论。它力求为专业开发人员提供关于Unity资源和序列化系统的深入源代码的知识。它考察了Unity-AssetBundle系统的技术基础和当前使用它们的最佳练习-。" class="headerlink" title="这是一系列文章，提供Unity引擎中资产和资源管理的深入讨论。它力求为专业开发人员提供关于Unity资源和序列化系统的深入源代码的知识。它考察了Unity AssetBundle系统的技术基础和当前使用它们的最佳练习 。"></a>这是一系列文章，提供Unity引擎中资产和资源管理的深入讨论。它力求为专业开发人员提供关于Unity资源和序列化系统的深入源代码的知识。它考察了Unity AssetBundle系统的技术基础和当前使用它们的最佳练习 。</h5><a id="more"></a>
+<h4 id="整个指南分为4章："><a href="#整个指南分为4章：" class="headerlink" title="整个指南分为4章："></a>整个指南分为4章：</h4><h5 id="1-资产，对象和序列化讨论了Unity如何序列化资产并处理资产之间的引用的低级细节。强烈建议读者从本章开始，因为它定义了整个指南中使用的术语。"><a href="#1-资产，对象和序列化讨论了Unity如何序列化资产并处理资产之间的引用的低级细节。强烈建议读者从本章开始，因为它定义了整个指南中使用的术语。" class="headerlink" title="1.资产，对象和序列化讨论了Unity如何序列化资产并处理资产之间的引用的低级细节。强烈建议读者从本章开始，因为它定义了整个指南中使用的术语。"></a>1.资产，对象和序列化讨论了Unity如何序列化资产并处理资产之间的引用的低级细节。强烈建议读者从本章开始，因为它定义了整个指南中使用的术语。</h5><h5 id="2-Resources文件夹讨论内置的资源API。"><a href="#2-Resources文件夹讨论内置的资源API。" class="headerlink" title="2.Resources文件夹讨论内置的资源API。"></a>2.Resources文件夹讨论内置的资源API。</h5><h5 id="3-AssetBundle基础以第一章中的信息为基础，描述了AssetBundles如何操作，并讨论了AssetBundle的加载和AssetBundles中资产的加载。"><a href="#3-AssetBundle基础以第一章中的信息为基础，描述了AssetBundles如何操作，并讨论了AssetBundle的加载和AssetBundles中资产的加载。" class="headerlink" title="3.AssetBundle基础以第一章中的信息为基础，描述了AssetBundles如何操作，并讨论了AssetBundle的加载和AssetBundles中资产的加载。"></a>3.AssetBundle基础以第一章中的信息为基础，描述了AssetBundles如何操作，并讨论了AssetBundle的加载和AssetBundles中资产的加载。</h5><h5 id="4-AssetBundle使用模式是一篇长篇文章，讨论围绕AssetBundles实际使用的许多主题。它包括将资产分配给AssetBundles以及管理加载资产的章节，并描述了开发人员使用AssetBundles遇到的许多常见缺陷。"><a href="#4-AssetBundle使用模式是一篇长篇文章，讨论围绕AssetBundles实际使用的许多主题。它包括将资产分配给AssetBundles以及管理加载资产的章节，并描述了开发人员使用AssetBundles遇到的许多常见缺陷。" class="headerlink" title="4.AssetBundle使用模式是一篇长篇文章，讨论围绕AssetBundles实际使用的许多主题。它包括将资产分配给AssetBundles以及管理加载资产的章节，并描述了开发人员使用AssetBundles遇到的许多常见缺陷。"></a>4.AssetBundle使用模式是一篇长篇文章，讨论围绕AssetBundles实际使用的许多主题。它包括将资产分配给AssetBundles以及管理加载资产的章节，并描述了开发人员使用AssetBundles遇到的许多常见缺陷。</h5><p><em>注意：</em> 本指南的对象和资产不同于Unity的公开API命名约定。</p>
+<h5 id="本指南叫对象子在许多Unity公开API中被称为资产，例如AssetBundle-LoadAsset和Resources-UnLoadUnusedAssets。本指南称为Assets的文件很少在任何公开API中提及。当它们提及了时，它通常只在与构建相关的代码中使用，例如AssetDatabase和BuildPipline。在这些情况下，它们被称为公开API中的文件"><a href="#本指南叫对象子在许多Unity公开API中被称为资产，例如AssetBundle-LoadAsset和Resources-UnLoadUnusedAssets。本指南称为Assets的文件很少在任何公开API中提及。当它们提及了时，它通常只在与构建相关的代码中使用，例如AssetDatabase和BuildPipline。在这些情况下，它们被称为公开API中的文件" class="headerlink" title="本指南叫对象子在许多Unity公开API中被称为资产，例如AssetBundle.LoadAsset和Resources.UnLoadUnusedAssets。本指南称为Assets的文件很少在任何公开API中提及。当它们提及了时，它通常只在与构建相关的代码中使用，例如AssetDatabase和BuildPipline。在这些情况下，它们被称为公开API中的文件"></a>本指南叫对象子在许多Unity公开API中被称为资产，例如AssetBundle.LoadAsset和Resources.UnLoadUnusedAssets。本指南称为Assets的文件很少在任何公开API中提及。当它们提及了时，它通常只在与构建相关的代码中使用，例如AssetDatabase和BuildPipline。在这些情况下，它们被称为公开API中的文件</h5>
       
     </div>
     
@@ -357,13 +335,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/04/30/功能错误小结/">功能错误小结</a></p>
+        <p><span>本文标题:</span><a href="/2018/03/20/翻译-资产，资源和AssetBundle/">[翻译]资产，资源和AssetBundle</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
-        <p><span>发布时间:</span>2017-04-30, 09:34:47</p>
-        <p><span>最后更新:</span>2017-04-30, 18:42:57</p>
+        <p><span>发布时间:</span>2018-03-20, 00:29:50</p>
+        <p><span>最后更新:</span>2018-03-20, 09:17:28</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/04/30/功能错误小结/" title="功能错误小结">http://zhutao.github.io/2017/04/30/功能错误小结/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2017/04/30/功能错误小结/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/03/20/翻译-资产，资源和AssetBundle/" title="[翻译]资产，资源和AssetBundle">http://zhutao.github.io/2018/03/20/翻译-资产，资源和AssetBundle/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2018/03/20/翻译-资产，资源和AssetBundle/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -376,15 +354,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/04/30/查找代码的中文插件/">
-                    查找代码的中文插件
+                <a href="/2018/03/20/资产，对象和序列化/">
+                    资产，对象和序列化
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/03/24/《重构-改善既有代码的设计》读书笔记/">
-                    《重构-改善既有代码的设计》读书笔记
+                <a href="/2018/02/01/游戏项目中的美术，策划文档怎么管理/">
+                    游戏项目中的美术，策划文档怎么管理
                 </a>
             </div>
         
@@ -396,7 +374,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一反应"><span class="toc-number">1.</span> <span class="toc-text">第一反应</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#寻求主程指导（1）"><span class="toc-number">2.</span> <span class="toc-text">寻求主程指导（1）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#寻求主程指导（2）"><span class="toc-number">3.</span> <span class="toc-text">寻求主程指导（2）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#历史记录的代码优化"><span class="toc-number">4.</span> <span class="toc-text">历史记录的代码优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#决解历史记录太长"><span class="toc-number">5.</span> <span class="toc-text">决解历史记录太长</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-number">6.</span> <span class="toc-text">小结</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#资源，资产和AssetBundle来自官方的教程内容"><span class="toc-number">1.</span> <span class="toc-text">资源，资产和AssetBundle来自官方的教程内容</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AssetBundles和资源的使用指南"><span class="toc-number"></span> <span class="toc-text">AssetBundles和资源的使用指南</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#版本检查：2017-3-难度-高级"><span class="toc-number">1.</span> <span class="toc-text">版本检查：2017.3 - 难度:高级</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#这是一系列文章，提供Unity引擎中资产和资源管理的深入讨论。它力求为专业开发人员提供关于Unity资源和序列化系统的深入源代码的知识。它考察了Unity-AssetBundle系统的技术基础和当前使用它们的最佳练习-。"><span class="toc-number">1.0.1.</span> <span class="toc-text">这是一系列文章，提供Unity引擎中资产和资源管理的深入讨论。它力求为专业开发人员提供关于Unity资源和序列化系统的深入源代码的知识。它考察了Unity AssetBundle系统的技术基础和当前使用它们的最佳练习 。</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#整个指南分为4章："><span class="toc-number">1.1.</span> <span class="toc-text">整个指南分为4章：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-资产，对象和序列化讨论了Unity如何序列化资产并处理资产之间的引用的低级细节。强烈建议读者从本章开始，因为它定义了整个指南中使用的术语。"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.资产，对象和序列化讨论了Unity如何序列化资产并处理资产之间的引用的低级细节。强烈建议读者从本章开始，因为它定义了整个指南中使用的术语。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-Resources文件夹讨论内置的资源API。"><span class="toc-number">1.1.2.</span> <span class="toc-text">2.Resources文件夹讨论内置的资源API。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-AssetBundle基础以第一章中的信息为基础，描述了AssetBundles如何操作，并讨论了AssetBundle的加载和AssetBundles中资产的加载。"><span class="toc-number">1.1.3.</span> <span class="toc-text">3.AssetBundle基础以第一章中的信息为基础，描述了AssetBundles如何操作，并讨论了AssetBundle的加载和AssetBundles中资产的加载。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-AssetBundle使用模式是一篇长篇文章，讨论围绕AssetBundles实际使用的许多主题。它包括将资产分配给AssetBundles以及管理加载资产的章节，并描述了开发人员使用AssetBundles遇到的许多常见缺陷。"><span class="toc-number">1.1.4.</span> <span class="toc-text">4.AssetBundle使用模式是一篇长篇文章，讨论围绕AssetBundles实际使用的许多主题。它包括将资产分配给AssetBundles以及管理加载资产的章节，并描述了开发人员使用AssetBundles遇到的许多常见缺陷。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#本指南叫对象子在许多Unity公开API中被称为资产，例如AssetBundle-LoadAsset和Resources-UnLoadUnusedAssets。本指南称为Assets的文件很少在任何公开API中提及。当它们提及了时，它通常只在与构建相关的代码中使用，例如AssetDatabase和BuildPipline。在这些情况下，它们被称为公开API中的文件"><span class="toc-number">1.1.5.</span> <span class="toc-text">本指南叫对象子在许多Unity公开API中被称为资产，例如AssetBundle.LoadAsset和Resources.UnLoadUnusedAssets。本指南称为Assets的文件很少在任何公开API中提及。当它们提及了时，它通常只在与构建相关的代码中使用，例如AssetDatabase和BuildPipline。在这些情况下，它们被称为公开API中的文件</span></a></li></ol></li></ol></li></ol>
         
     </div>
     <style>
@@ -432,7 +410,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"功能错误小结　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"[翻译]资产，资源和AssetBundle　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -448,7 +426,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2017/04/30/功能错误小结/" data-title="功能错误小结" data-url="http://zhutao.github.io/2017/04/30/功能错误小结/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2018/03/20/翻译-资产，资源和AssetBundle/" data-title="[翻译]资产，资源和AssetBundle" data-url="http://zhutao.github.io/2018/03/20/翻译-资产，资源和AssetBundle/"></div>
     <script>
         var duoshuoQuery = {short_name:"zhutaorun"};
         var loadComment = function(){
@@ -471,7 +449,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/04/30/查找代码的中文插件/" title="上一篇: 查找代码的中文插件">
+            <a href="/2018/03/20/资产，对象和序列化/" title="上一篇: 资产，对象和序列化">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -479,7 +457,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/03/24/《重构-改善既有代码的设计》读书笔记/" title="下一篇: 《重构-改善既有代码的设计》读书笔记">
+            <a href="/2018/02/01/游戏项目中的美术，策划文档怎么管理/" title="下一篇: 游戏项目中的美术，策划文档怎么管理">
                 <i class="fa fa-angle-right"></i>
             </a>
         

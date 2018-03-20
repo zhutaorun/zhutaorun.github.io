@@ -284,6 +284,356 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-MMO小地图实现方式" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/30/MMO小地图实现方式/" class="article-date">
+      <time datetime="2017-06-30T15:03:42.000Z" itemprop="datePublished">2017-06-30</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/30/MMO小地图实现方式/">MMO小地图实现方式</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <blockquote>
+<p>面试遇到关于小地图的制作问题</p>
+<h2 id="实现方式如下"><a href="#实现方式如下" class="headerlink" title="实现方式如下"></a>实现方式如下</h2><ul>
+<li>NGUI minimap的插件</li>
+<li>根据场景，制作一张俯视截图，做坐标的相对运算。</li>
+<li>在主角的头顶挂一个摄像机，用renderTexture，实时渲染。
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/06/30/MMO小地图实现方式/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Android端外推送到底有多烦" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/31/Android端外推送到底有多烦/" class="article-date">
+      <time datetime="2017-05-31T15:52:37.000Z" itemprop="datePublished">2017-05-31</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/31/Android端外推送到底有多烦/">Android端外推送到底有多烦</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>说Android端外推送比较烦，实际有两层意思：首先是说实现上比较麻烦，至今业界也没有找到一种完美的解决方案，Android程序员通常需要同时集成多家推送平台（如果有自己的端内推送，还要考虑与端内推送的配合）；其次是说Android推送的市场现状比较混乱，无论选择哪一家，都让人纠结万分，难免心情烦躁。无论是你花费了多少功夫，做了多少优化，仍然可能存在推送不到或推送延迟的情况。</p>
+<p>网上已经有很多关于Android推送的讨论，但很少有站在App开发者（特别是开发App的创业团队）的角度来进行介绍的文章。本文的目的，就是站在一个App开发团队的角度，集中讨论两方面的问题：<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/专业内容/">专业内容</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/05/31/Android端外推送到底有多烦/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Unity推送SDk" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/29/Unity推送SDk/" class="article-date">
+      <time datetime="2017-05-29T10:42:18.000Z" itemprop="datePublished">2017-05-29</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/29/Unity推送SDk/">Unity推送SDk</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h2 id="Unityd的android和ios的本地推送"><a href="#Unityd的android和ios的本地推送" class="headerlink" title="Unityd的android和ios的本地推送"></a>Unityd的android和ios的本地推送</h2><p>这个方式是固定时间，无需和服务器通信。内容不可更改。还有就是如果应用本身不在运行状态，其实没办法收到的。<br><a href="http://blog.csdn.net/azhou_hui/article/details/50790870">详细内容</a>。自己出个APK运行下，其实也很好理解的。效果最简单的DOME,在github上下载打包就可以实现。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/05/29/Unity推送SDk/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-查找代码的中文插件" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/30/查找代码的中文插件/" class="article-date">
+      <time datetime="2017-04-30T01:46:15.000Z" itemprop="datePublished">2017-04-30</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/30/查找代码的中文插件/">查找代码的中文插件</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>&lt; 最近项目做国际化，虽然在文字内容设计上，做了配表，来帮助实现以后要的国际化。但是还是不可避免有些写在代码中的中文文字。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/04/30/查找代码的中文插件/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-功能错误小结" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/04/30/功能错误小结/" class="article-date">
+      <time datetime="2017-04-30T01:34:47.000Z" itemprop="datePublished">2017-04-30</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/30/功能错误小结/">功能错误小结</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <blockquote>
+<p>最近做了福星转盘的功能，做完后发现当记录次数很多了以后会有性能问题，历史记录很多的时候，打开会卡。</p>
+</blockquote>
+<p><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/7.PNG?raw=true" alt=""></p>
+<h3 id="第一反应"><a href="#第一反应" class="headerlink" title="第一反应"></a>第一反应</h3><p><strong>现象</strong>：当我看到优化需求的时候，“对历史记录做限制”，我第一反应，看下Profiler是什么，造成性能问题。看到是协程的调用。有出现高峰值，有高达200多M。在多次UI操作中，内存还是稳定增长。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工作反思/">工作反思</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/04/30/功能错误小结/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-《重构-改善既有代码的设计》读书笔记" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -649,371 +999,9 @@
 
 
   
-    <article id="post-Android真机调试" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/01/20/Android真机调试/" class="article-date">
-      <time datetime="2017-01-19T16:13:22.000Z" itemprop="datePublished">2017-01-20</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/20/Android真机调试/">Android真机调试</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <blockquote>
-<p>真机调试优势：在于时候看到运行的cup使用情况，项目测试通过这个真机测试找出了卡的运行，在倒计时上。有协程一直被调用占用资源，在打开这个功能后很卡，通过这个方法，定位到原因。连接调试，运行到卡的时候，可看到什么代码造成的。</p>
-</blockquote>
-<h3 id="一-配置安卓打包环境"><a href="#一-配置安卓打包环境" class="headerlink" title="一.配置安卓打包环境"></a>一.配置安卓打包环境</h3><ul>
-<li>JDK和ADK安装</li>
-<li>安装完成配置adbtools的环境变量</li>
-<li>在unity里指定sdk和jdk路径</li>
-</ul>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/优化/">优化</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/01/20/Android真机调试/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-《从行动开始》读书笔记" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/12/25/《从行动开始》读书笔记/" class="article-date">
-      <time datetime="2016-12-25T09:21:13.000Z" itemprop="datePublished">2016-12-25</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/25/《从行动开始》读书笔记/">《从行动开始》读书笔记</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h2 id="《从行动开始》"><a href="#《从行动开始》" class="headerlink" title="《从行动开始》"></a><a href="http://baike.baidu.com/link?url=sJoBT4cY3YSOaR1nDCx-1MLnmQ0anlA5duQtLRewgKhgdNAcjLN-PP5ZqJ2dHs_P1LXFmb1W0f4XULwIipOkuXNyDA_l2bLhhM9LdqgFnbVwUNVurutd586OpCI3sHlJBVM7xY90jNXDyeZ5L2wyMq">《从行动开始》</a></h2><h3 id="一-你之所以难改变的原因"><a href="#一-你之所以难改变的原因" class="headerlink" title="一.你之所以难改变的原因"></a>一.你之所以难改变的原因</h3><ul>
-<li>不管是工作还是生活，帮助我们取得成功的并非“意志”而是“行动。只有改变行动，才能改变一切。</li>
-<li>如果能够长期采取有效的行动，甚至可以控制自己的意志。</li>
-<li>“行动科学管理术”其原理来自“行动分析学”，简单说是排除一切抽象的概念和无法测量的因素，只以“行动”作为一切判断的标准。行动科学管理术将彻底分解行动法则，让每个人都能够轻松理解并完成目标。</li>
-<li>你越是依赖想法，越会出现“认知偏差”。正视现实
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/习惯养成/">习惯养成</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/12/25/《从行动开始》读书笔记/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Unity3Dy各个平台动态读取外部文件解析" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/" class="article-date">
-      <time datetime="2016-12-19T14:48:31.000Z" itemprop="datePublished">2016-12-19</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><ul>
-<li>临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新，lua和xml通过bundle的方式来更新。对于遇到的内容重新去看。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-搞定GTD" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/12/16/搞定GTD/" class="article-date">
-      <time datetime="2016-12-15T16:22:35.000Z" itemprop="datePublished">2016-12-16</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/16/搞定GTD/">搞定GTD</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>拆书书目：<a href="http://baike.baidu.com/link?url=PyykhoduTdQMx-mHjlY3OEzeaTiJd_bLGQ9RvEhYlXgAiymH_FpCjOkhdXVLVqWGpZNmK-jveowqTnvnvpg6YoBtRqVqV2_p-dnLDIfJ07O">《搞定I-无压力工作的艺术》</a><br>作者是知名时间管理大师戴维-艾伦，GTD个人事务管理系统</p>
-<h3 id="一-你的大脑并不总是这么管用"><a href="#一-你的大脑并不总是这么管用" class="headerlink" title="一.你的大脑并不总是这么管用"></a>一.你的大脑并不总是这么管用</h3><ul>
-<li>还有没有明确地认定它们的预期结果是什么</li>
-<li>你还没有确定你下一步的具体行动是什么</li>
-<li>你还没有把关于预期结果和即将采取行动的提示信息存入你所依赖的系统中去</li>
-</ul>
-<p><strong>如果清空大脑的事，就会持续不断地对你施加压力</strong><br><strong>材料来源</strong><br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/时间管理/">时间管理</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/拆书帮/">拆书帮</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/12/16/搞定GTD/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-拖延心理学" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/12/11/拖延心理学/" class="article-date">
-      <time datetime="2016-12-11T15:39:32.000Z" itemprop="datePublished">2016-12-11</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/11/拖延心理学/">拖延心理学</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>拆书书目：<a href="https://book.douban.com/subject/4180711/">《拖延心理学》</a><br>拖延症，70%的人都会有拖延症。</p>
-<h3 id="一-拖延的怪圈"><a href="#一-拖延的怪圈" class="headerlink" title="一 拖延的怪圈"></a>一 拖延的怪圈</h3><h4 id="I-不那么做的坏处"><a href="#I-不那么做的坏处" class="headerlink" title="I.不那么做的坏处"></a>I.不那么做的坏处</h4><ul>
-<li>有拖延就会：事情做不好</li>
-<li>内在会：感到愧疚感</li>
-<li>长期会：自信的缺失，自我否定
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/时间管理/">时间管理</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/拆书帮/">拆书帮</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/12/11/拖延心理学/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 </div>
