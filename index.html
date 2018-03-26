@@ -203,7 +203,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D/">Unity3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3d/">Unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/习惯养成/">习惯养成</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/介绍/">介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思/">工作反思</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拆书帮/">拆书帮</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏测试/">游戏测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算系统/">计算系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D/">Unity3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3d/">Unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/习惯养成/">习惯养成</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/介绍/">介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思/">工作反思</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/思考/">思考</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拆书帮/">拆书帮</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏测试/">游戏测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算系统/">计算系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
                     </div>
                 </section>
                 
@@ -283,6 +283,94 @@
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-代码质量" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/03/26/代码质量/" class="article-date">
+      <time datetime="2018-03-26T15:44:39.000Z" itemprop="datePublished">2018-03-26</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/26/代码质量/">代码质量</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>项目老大回家之前，让我和另一个人刚入职的程序，看新的一版的战斗UI的案子。但工作推进缺交给了原来的程序负责。只有4天的开发时间，就由原来的人负责。<br>在验收时间之前，出了一个中间版本，有几个问题。老大让我帮忙看下。<br>在重新梳理了下当前的需求，我在代码看到一个按钮逐渐显示的代码。我感觉对了下一个版本的需求。发现目前代码的无法满足，下个版本功能的扩展。</p>
+</blockquote>
+<h3 id="梳理下代码"><a href="#梳理下代码" class="headerlink" title="梳理下代码"></a>梳理下代码</h3><p>UI部分和3D操作的部分功能分别由两个人来实现。UI上的一些用了数组来控制对应的文字或者image。</p>
+<p>从UI代码来上，最大的问题，在程序设计上，不够抽象。这是刚入门以及写的功能不多。不会考虑未来策划的需求变更，自己的代码不够健壮，陷入无限修复bug中。</p>
+<p>还有一些逻辑代码，一个函数在捡起的中，还有扔下的操作。函数最好单一功能。这中间造成的问题就是，数据一旦变化了，因为设定，就会有一些自动逻辑。然后造成逻辑就不对了。</p>
+<h3 id="个人理解对需求的阶段"><a href="#个人理解对需求的阶段" class="headerlink" title="个人理解对需求的阶段"></a>个人理解对需求的阶段</h3><p>对于策划的需求</p>
+<ul>
+<li>第一个阶段是能实现策划的要的效果</li>
+<li>第二个阶段是能抽象的思维，尽量减少使用数组用类来实现</li>
+<li>第三个阶段是有抽象思维，写出的代码考虑未来扩展需求。足够健壮</li>
+<li>第四个阶段是对于数据结构的使用很有心得，注重代码的效率，内存友好，时间上友好</li>
+</ul>
+<p><strong>策划每个版本的需求都要有案子，有变化，也要及时更新案子</strong></p>
+<h3 id="质量标准"><a href="#质量标准" class="headerlink" title="质量标准"></a>质量标准</h3><p>1正确性：代码能正确无误的实现功能。</p>
+<p>2健壮性：在软件遭到意外情况时，仍然能健壮的运行。</p>
+<p>3安全性：有效保护用户隐私，非授权用户不得使用，能够有效防止黑客的攻击。</p>
+<p>4易用性：有必备的注释，修改起来容易，遵循MVC设计理念，各个模块之间耦合性低，易于维护。</p>
+<h3 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h3><p>重新回顾面向对象的设计原则，并分别简述它们的含义。</p>
+<p>1） 单一职责原则 （The Single Responsiblity Principle，简称SRP）：一个类，最好只做一件事，只有一个引起它的变化.</p>
+<p>2） 开放－封闭原则 （The Open－Close Principle，简称OCP）：对于扩展是开放的，对于更改是封闭的</p>
+<p>3） Liskov 替换原则（The Liskov Substitution Principle,简称LSP）：子类必须能够替换其基类</p>
+<p>4） 依赖倒置原则（The Dependency Inversion Pricinple，简称DIP）：依赖于抽象</p>
+<p>5） 接口隔离原则 （The Interface Segregation Principle，简称ISP）：使用多个小的专门的接口，而不要使用一个大的总接口。</p>
+<h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><p><a href="https://kb.cnblogs.com/page/522021/" target="_blank" rel="external">编写高质量的代码——从命名入手</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/代码质量/">代码质量</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/思考/">思考</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-AssetBundle使用模式" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -891,78 +979,6 @@
       
         <p class="article-more-link">
           <a href="/2017/12/18/缓存命中/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-struct-结构体类型的大小计算" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/11/30/struct-结构体类型的大小计算/" class="article-date">
-      <time datetime="2017-11-30T12:50:26.000Z" itemprop="datePublished">2017-11-30</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/30/struct-结构体类型的大小计算/">struct 结构体类型的大小计算</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="关于偏移量"><a href="#关于偏移量" class="headerlink" title="关于偏移量"></a>关于偏移量</h3><ul>
-<li>偏移量指的是结构体变量中成员的地址和结构体变量地址的差。结构体大小等于最后一个成员的偏移量加上最后一个成员的大小。显然，结构体变量中第一个成员的地址就是结构体变量的首地址。</li>
-<li>由于存储变量时地址对齐的要求，编译器在编译程序时会遵循两条原则：</li>
-<li>一、结构体变量中成员的偏移量必须是成员大小的整数倍（0被认为是任何数的整数倍）</li>
-<li>二、结构体大小必须是所有成员大小的整数倍。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/11/30/struct-结构体类型的大小计算/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
