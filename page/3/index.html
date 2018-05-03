@@ -284,6 +284,78 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Unity的内存优化以及在移动平台上的优化" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/30/Unity的内存优化以及在移动平台上的优化/" class="article-date">
+      <time datetime="2017-07-30T10:39:27.000Z" itemprop="datePublished">2017-07-30</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/30/Unity的内存优化以及在移动平台上的优化/">Unity的内存优化以及在移动平台上的优化</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <blockquote>
+<p>在面试上有被问到这个两个问题，结合自己经历过的项目和看过的优化方案。做一次总结。</p>
+</blockquote>
+<h3 id="内存里有什么"><a href="#内存里有什么" class="headerlink" title="内存里有什么"></a>内存里有什么</h3><h4 id="Unity3D游戏引擎是如何分配内存的。有三大部分"><a href="#Unity3D游戏引擎是如何分配内存的。有三大部分" class="headerlink" title="Unity3D游戏引擎是如何分配内存的。有三大部分"></a>Unity3D游戏引擎是如何分配内存的。有三大部分</h4><p>Unity3D内部的内存<br>Mono的托管内存（值类型和引用类型）<br>第三方引入的DLL</p>
+<h5 id="Unity3D内部的内存"><a href="#Unity3D内部的内存" class="headerlink" title="Unity3D内部的内存"></a>Unity3D内部的内存</h5><p>资源：纹理，网格，音频等等<br>GameObject和各种组件<br>引擎内部逻辑需要的内存：渲染器，物理系统，粒子系统<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/07/30/Unity的内存优化以及在移动平台上的优化/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-准备入职，写点东西" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -898,86 +970,6 @@
       
         <p class="article-more-link">
           <a href="/2017/03/18/C-教程的实践小结/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Unity-声音资源优化" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/02/24/Unity-声音资源优化/" class="article-date">
-      <time datetime="2017-02-24T08:37:39.000Z" itemprop="datePublished">2017-02-24</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/24/Unity-声音资源优化/">Unity 声音资源优化</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <blockquote>
-<p>Unity3D里声音分为，游戏音效和游戏音乐，游戏音乐，时间长度较长，音效很短。</p>
-</blockquote>
-<h3 id="一-Unity3D游戏引擎一共支持4个音乐格式的文件"><a href="#一-Unity3D游戏引擎一共支持4个音乐格式的文件" class="headerlink" title="一.Unity3D游戏引擎一共支持4个音乐格式的文件"></a>一.Unity3D游戏引擎一共支持4个音乐格式的文件</h3><ul>
-<li><p>.AIFF  适用于较短的音乐文件可用作游戏打斗音效</p>
-</li>
-<li><p>.WAV  适用于较短的音乐文件可用作游戏打斗音效</p>
-</li>
-<li><p>.MP3  适用于较长的音乐文件可用作游戏背景音乐</p>
-</li>
-<li><p>.OGG  适用于较长的音乐文件可用作游戏背景音乐</p>
-</li>
-</ul>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/02/24/Unity-声音资源优化/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
