@@ -15,30 +15,28 @@
 
 
 
-<meta name="description" content="面试遇到关于小地图的制作问题
-实现方式如下
-NGUI minimap的插件
-根据场景，制作一张俯视截图，做坐标的相对运算。
-在主角的头顶挂一个摄像机，用renderTexture，实时渲染。">
+<meta name="description" content="接到的任务需求是在将3d模型的内容在UI上显示
+
+前言梳理了目前有3个种方式，当然没有好坏之分，只有合适与否。在开源项目中SomeTips的Scenes文件夹中,加入3DUIWayNo1-3的场景，看到以上的实现方式。
+UI和场景的混合实现Camer是skyBox直接与UI混合。如果在放在UI节点下，因为在同一层级下，通过控制Z值设置前后的关系。
+RenderTexture使用Rendertex">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MMO小地图实现方式">
-<meta property="og:url" content="http://zhutao.github.io/2017/06/30/MMO小地图实现方式/index.html">
+<meta property="og:title" content="模型在UI上显示">
+<meta property="og:url" content="http://zhutao.github.io/2018/05/31/模型在UI上显示/index.html">
 <meta property="og:site_name" content="zhutaorun's Blog">
-<meta property="og:description" content="面试遇到关于小地图的制作问题
-实现方式如下
-NGUI minimap的插件
-根据场景，制作一张俯视截图，做坐标的相对运算。
-在主角的头顶挂一个摄像机，用renderTexture，实时渲染。">
-<meta property="og:image" content="http://img.blog.csdn.net/20140707183056281?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd3VtaW5nMjIyMjI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-09-23T18:09:33.699Z">
+<meta property="og:description" content="接到的任务需求是在将3d模型的内容在UI上显示
+
+前言梳理了目前有3个种方式，当然没有好坏之分，只有合适与否。在开源项目中SomeTips的Scenes文件夹中,加入3DUIWayNo1-3的场景，看到以上的实现方式。
+UI和场景的混合实现Camer是skyBox直接与UI混合。如果在放在UI节点下，因为在同一层级下，通过控制Z值设置前后的关系。
+RenderTexture使用Rendertex">
+<meta property="og:updated_time" content="2018-05-31T16:00:41.260Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MMO小地图实现方式">
-<meta name="twitter:description" content="面试遇到关于小地图的制作问题
-实现方式如下
-NGUI minimap的插件
-根据场景，制作一张俯视截图，做坐标的相对运算。
-在主角的头顶挂一个摄像机，用renderTexture，实时渲染。">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20140707183056281?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd3VtaW5nMjIyMjI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta name="twitter:title" content="模型在UI上显示">
+<meta name="twitter:description" content="接到的任务需求是在将3d模型的内容在UI上显示
+
+前言梳理了目前有3个种方式，当然没有好坏之分，只有合适与否。在开源项目中SomeTips的Scenes文件夹中,加入3DUIWayNo1-3的场景，看到以上的实现方式。
+UI和场景的混合实现Camer是skyBox直接与UI混合。如果在放在UI节点下，因为在同一层级下，通过控制Z值设置前后的关系。
+RenderTexture使用Rendertex">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -70,7 +68,7 @@ NGUI minimap的插件
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>MMO小地图实现方式 | zhutaorun&#39;s Blog</title>
+<title>模型在UI上显示 | zhutaorun&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -295,11 +293,11 @@ NGUI minimap的插件
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-MMO小地图实现方式" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-模型在UI上显示" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/06/30/MMO小地图实现方式/" class="article-date">
-      <time datetime="2017-06-30T15:03:42.000Z" itemprop="datePublished">2017-06-30</time>
+      <a href="/2018/05/31/模型在UI上显示/" class="article-date">
+      <time datetime="2018-05-31T15:59:09.000Z" itemprop="datePublished">2018-05-31</time>
 </a>
 
 
@@ -314,7 +312,7 @@ NGUI minimap的插件
         
   
     <h1 class="article-title" itemprop="name">
-      MMO小地图实现方式
+      模型在UI上显示
     </h1>
   
 
@@ -340,28 +338,15 @@ NGUI minimap的插件
       
           
         <blockquote>
-<p>面试遇到关于小地图的制作问题</p>
-<h2 id="实现方式如下"><a href="#实现方式如下" class="headerlink" title="实现方式如下"></a>实现方式如下</h2><ul>
-<li>NGUI minimap的插件</li>
-<li>根据场景，制作一张俯视截图，做坐标的相对运算。</li>
-<li>在主角的头顶挂一个摄像机，用renderTexture，实时渲染。<a id="more"></a>
-<h2 id="一-NGUI-minimap的插件"><a href="#一-NGUI-minimap的插件" class="headerlink" title="一 NGUI minimap的插件"></a>一 NGUI minimap的插件</h2>1.导入该插件后，在Mesh Version-&gt;Prefabs中，将NJG MiniMap(2D)拖入到场景中；<br>2.在Hierarchy中点击MiniMap(位于NJG MiniMap(2D) -&gt; UI Root -&gt; Camera -&gt; Anchor -&gt; MiniMap)，在Inspector中不勾选UIMini Map On GUI -&gt; Zoom Settings -&gt; MouseWheel ，将Zoom值调为最小；<br>3.给游戏主角和NPC各添加脚本NJGMap Item(Script),设置Marker Type属性：主角设为2DMe，NPC设为OtherPlayer;<br>4.此时运行游戏看到小地图有毛边；若想去掉毛边，重新设置Mask为一个矩形的Texture；<br>5.运行游戏可得到基本样式的小地图了；<br>6.注意：小地图这个窗口会自动刚好俯视到场景中所有物体所以应该让所有物体在地图的范围中，这样窗口范围和地图范围刚好吻合；<br>如图：(上方为小地图，下方为场景地图；小地图中靛色圆点为主角，绿色箭头为NPC，圆点和绿色箭头来自插件中)<br><img src="http://img.blog.csdn.net/20140707183056281?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd3VtaW5nMjIyMjI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><h2 id="二-通过角色在原地图中的位置比例来确定角色在小地图中的位置"><a href="#二-通过角色在原地图中的位置比例来确定角色在小地图中的位置" class="headerlink" title="二 通过角色在原地图中的位置比例来确定角色在小地图中的位置"></a>二 通过角色在原地图中的位置比例来确定角色在小地图中的位置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">[csharp] view plain copy print?</div><div class="line">public class Map : MonoBehaviour &#123;  </div><div class="line">    public Texture map  ;//小地图图片、地图的俯视图；  </div><div class="line">    public Texture playerTexture ;//在小地图中代表角色的标识  </div><div class="line"> </div><div class="line">    float cubePosX=0 ;//角色在小地图中的位置x  </div><div class="line">    float cubePosY=0 ;//角色在小地图中的位置y  </div><div class="line"> </div><div class="line">    public GameObject player;  </div><div class="line">    public GameObject plane;//场景中的地图  </div><div class="line">    float planeWidth;  </div><div class="line">    float planeHeight;  </div><div class="line">    float scale = 1.0f;//缩放比  </div><div class="line"> </div><div class="line">    void Start()  </div><div class="line">    &#123;  </div><div class="line">        planeWidth = plane.GetComponent&lt;MeshFilter&gt;().mesh.bounds.size.x * (plane.transform.localScale.x );  </div><div class="line">        planeHeight = plane.GetComponent&lt;MeshFilter&gt;().mesh.bounds.size.z * (plane.transform.localScale.z);  </div><div class="line">    &#125;  </div><div class="line"> </div><div class="line">    void Update()  </div><div class="line">    &#123;  </div><div class="line">        //通过场景地图中的位置比例(player.transform.position.x/planeWidth)来确定角色在小地图中的位置  </div><div class="line">        cubePosX = map.width*player.transform.position.x/planeWidth;  </div><div class="line">        cubePosY = 159-map.height*player.transform.position.z/planeHeight;  </div><div class="line">    &#125;  </div><div class="line"> </div><div class="line">    void OnGUI ()  </div><div class="line">    &#123;  </div><div class="line">        GUI.DrawTexture(new Rect( 0, 0, map.width*scale, map.height*scale), map);  </div><div class="line">        GUI.DrawTexture(new Rect((cubePosX+6) * scale, (cubePosY-34) * scale, 5, 5), playerTexture);  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
+<p>接到的任务需求是在将3d模型的内容在UI上显示</p>
 </blockquote>
-<h3 id="三-场景投射型小地图"><a href="#三-场景投射型小地图" class="headerlink" title="三 场景投射型小地图"></a>三 场景投射型小地图</h3><ul>
-<li>在主角的头顶挂一个摄像机相机保持和角色在同一XZ坐标（写个很简单的同步位置的脚本）</li>
-<li>设置Camera渲染在单独的Layer上，同时主Camera渲染取消该层</li>
-<li>创建材质球，使用一个带遮罩的shader。</li>
-<li>创建RenderTexture,并设置到camera以及添加到材质球里。</li>
-<li>在UI界面里，为小地图UITexure中添加该材质球。</li>
-<li>调整合适的位置和大小</li>
-<li>使用quad为角色添加在小地图的显示图标</li>
-</ul>
-<hr>
-<p><strong> 面试有遇到说可以使用mesh的小地图制作方式，有知道的朋友请留下大概的解决思路。</strong></p>
-<hr>
-<p>参考内容：<a href="http://blog.csdn.net/wuming22222/article/details/37526659" target="_blank" rel="external">Unity3d-游戏中的小地图制作</a></p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>梳理了目前有3个种方式，当然没有好坏之分，只有合适与否。在开源项目中<a href="https://github.com/zhutaorun/SomeTips/tree/master/Assets/Scenes" target="_blank" rel="external">SomeTips的Scenes文件夹中</a>,加入3DUIWayNo1-3的场景，看到以上的实现方式。</p>
+<h3 id="UI和场景的混合实现"><a href="#UI和场景的混合实现" class="headerlink" title="UI和场景的混合实现"></a>UI和场景的混合实现</h3><p>Camer是skyBox直接与UI混合。如果在放在UI节点下，因为在同一层级下，通过控制Z值设置前后的关系。</p>
+<h3 id="RenderTexture"><a href="#RenderTexture" class="headerlink" title="RenderTexture"></a>RenderTexture</h3><p>使用Rendertexur,Camera单独照模型，摄像机的内容放到RenderTexure,在UI界面上放入Raw Image。要设置渲染层都为RenderTexture。<br>renderTexture的方式，可以满足在两个不同的层级之间的需求。问题是美术效果上，需求要对于效果做shader上处理。用Camera和原来的在Camer下有色差，以及如果涉及粒子特效。粒子的效果的衰减。也有研究自己写shader解决Alpha的问题。</p>
+<p>原因在于默认的粒子效果使用到的shader中使用了ColorMask RGB,所以只有RGB三个通道的值被存入了缓冲，而没有写入A通道的值, 所以我们得到的texture其实没有粒子的alpha信息，由於使用了ZWrite Off,所以也沒有粒子的深度信息，当我们把这张纹理拿出来显示的时候，由于某些粒子所在位置alpha值为0，所以通过alpha预存得到的RGBA值是（0, 0, 0, 0），所以最后也就看不到颜色了。</p>
+<p>对用的解决办法是将shader中的ColorMask RGB改为ColorMask RGBA，写入粒子的alpha信息就行了。</p>
+<h3 id="Camera混合"><a href="#Camera混合" class="headerlink" title="Camera混合"></a>Camera混合</h3><p>使用多个摄像机混合，但要同时要求Camera都是深度模式，需要脚本去改变camera的depth值。另外渲染的camera的depeth要大于UICamera的。好处在于用的时候加载，在不用的时候就卸载了。方便自己的管理。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>自己项目中选择第三种，原因是在需要在不同的场景下打开，如果是美术效果最好，当然是单独场景最好。而且背景上有更大的美术发挥空间。问题在于场景Loading会有点奇怪，不合乎策划设计的初衷，体验上有转场的感受。<br>研究了下守望先锋的宝箱，其实在同一个场景里，切到了场景某个点，进行操作的，没有加载的过程。如果在场景某个点作为开启的位置，目前多个场景都要处理。带来更多的美术工作量。后期需要美术管理反而变多了。</p>
 
       
     </div>
@@ -370,13 +355,13 @@ NGUI minimap的插件
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/06/30/MMO小地图实现方式/">MMO小地图实现方式</a></p>
+        <p><span>本文标题:</span><a href="/2018/05/31/模型在UI上显示/">模型在UI上显示</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
-        <p><span>发布时间:</span>2017-06-30, 23:03:42</p>
-        <p><span>最后更新:</span>2017-09-24, 02:09:33</p>
+        <p><span>发布时间:</span>2018-05-31, 23:59:09</p>
+        <p><span>最后更新:</span>2018-06-01, 00:00:41</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/06/30/MMO小地图实现方式/" title="MMO小地图实现方式">http://zhutao.github.io/2017/06/30/MMO小地图实现方式/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2017/06/30/MMO小地图实现方式/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/05/31/模型在UI上显示/" title="模型在UI上显示">http://zhutao.github.io/2018/05/31/模型在UI上显示/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2018/05/31/模型在UI上显示/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -388,16 +373,10 @@ NGUI minimap的插件
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/06/30/Unity资源制作要求/">
-                    Unity资源制作要求
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/05/31/Android端外推送到底有多烦/">
-                    Android端外推送到底有多烦
+                <a href="/2018/05/04/Unity中音效插件/">
+                    Unity中音效插件
                 </a>
             </div>
         
@@ -409,7 +388,7 @@ NGUI minimap的插件
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#实现方式如下"><span class="toc-number">1.</span> <span class="toc-text">实现方式如下</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一-NGUI-minimap的插件"><span class="toc-number">2.</span> <span class="toc-text">一 NGUI minimap的插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-通过角色在原地图中的位置比例来确定角色在小地图中的位置"><span class="toc-number">3.</span> <span class="toc-text">二 通过角色在原地图中的位置比例来确定角色在小地图中的位置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#三-场景投射型小地图"><span class="toc-number">3.1.</span> <span class="toc-text">三 场景投射型小地图</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UI和场景的混合实现"><span class="toc-number">2.</span> <span class="toc-text">UI和场景的混合实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RenderTexture"><span class="toc-number">3.</span> <span class="toc-text">RenderTexture</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Camera混合"><span class="toc-number">4.</span> <span class="toc-text">Camera混合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol>
         
     </div>
     <style>
@@ -445,7 +424,7 @@ NGUI minimap的插件
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"MMO小地图实现方式　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"模型在UI上显示　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -461,7 +440,7 @@ NGUI minimap的插件
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2017/06/30/MMO小地图实现方式/" data-title="MMO小地图实现方式" data-url="http://zhutao.github.io/2017/06/30/MMO小地图实现方式/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2018/05/31/模型在UI上显示/" data-title="模型在UI上显示" data-url="http://zhutao.github.io/2018/05/31/模型在UI上显示/"></div>
     <script>
         var duoshuoQuery = {short_name:"zhutaorun"};
         var loadComment = function(){
@@ -484,15 +463,13 @@ NGUI minimap的插件
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/06/30/Unity资源制作要求/" title="上一篇: Unity资源制作要求">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/05/31/Android端外推送到底有多烦/" title="下一篇: Android端外推送到底有多烦">
+            <a href="/2018/05/04/Unity中音效插件/" title="下一篇: Unity中音效插件">
                 <i class="fa fa-angle-right"></i>
             </a>
         

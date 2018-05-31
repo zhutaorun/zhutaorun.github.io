@@ -284,6 +284,79 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-模型在UI上显示" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/05/31/模型在UI上显示/" class="article-date">
+      <time datetime="2018-05-31T15:59:09.000Z" itemprop="datePublished">2018-05-31</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/31/模型在UI上显示/">模型在UI上显示</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>接到的任务需求是在将3d模型的内容在UI上显示</p>
+</blockquote>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>梳理了目前有3个种方式，当然没有好坏之分，只有合适与否。在开源项目中<a href="https://github.com/zhutaorun/SomeTips/tree/master/Assets/Scenes" target="_blank" rel="external">SomeTips的Scenes文件夹中</a>,加入3DUIWayNo1-3的场景，看到以上的实现方式。</p>
+<h3 id="UI和场景的混合实现"><a href="#UI和场景的混合实现" class="headerlink" title="UI和场景的混合实现"></a>UI和场景的混合实现</h3><p>Camer是skyBox直接与UI混合。如果在放在UI节点下，因为在同一层级下，通过控制Z值设置前后的关系。</p>
+<h3 id="RenderTexture"><a href="#RenderTexture" class="headerlink" title="RenderTexture"></a>RenderTexture</h3><p>使用Rendertexur,Camera单独照模型，摄像机的内容放到RenderTexure,在UI界面上放入Raw Image。要设置渲染层都为RenderTexture。<br>renderTexture的方式，可以满足在两个不同的层级之间的需求。问题是美术效果上，需求要对于效果做shader上处理。用Camera和原来的在Camer下有色差，以及如果涉及粒子特效。粒子的效果的衰减。也有研究自己写shader解决Alpha的问题。</p>
+<p>原因在于默认的粒子效果使用到的shader中使用了ColorMask RGB,所以只有RGB三个通道的值被存入了缓冲，而没有写入A通道的值, 所以我们得到的texture其实没有粒子的alpha信息，由於使用了ZWrite Off,所以也沒有粒子的深度信息，当我们把这张纹理拿出来显示的时候，由于某些粒子所在位置alpha值为0，所以通过alpha预存得到的RGBA值是（0, 0, 0, 0），所以最后也就看不到颜色了。</p>
+<p>对用的解决办法是将shader中的ColorMask RGB改为ColorMask RGBA，写入粒子的alpha信息就行了。</p>
+<h3 id="Camera混合"><a href="#Camera混合" class="headerlink" title="Camera混合"></a>Camera混合</h3><p>使用多个摄像机混合，但要同时要求Camera都是深度模式，需要脚本去改变camera的depth值。另外渲染的camera的depeth要大于UICamera的。好处在于用的时候加载，在不用的时候就卸载了。方便自己的管理。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>自己项目中选择第三种，原因是在需要在不同的场景下打开，如果是美术效果最好，当然是单独场景最好。而且背景上有更大的美术发挥空间。问题在于场景Loading会有点奇怪，不合乎策划设计的初衷，体验上有转场的感受。<br>研究了下守望先锋的宝箱，其实在同一个场景里，切到了场景某个点，进行操作的，没有加载的过程。如果在场景某个点作为开启的位置，目前多个场景都要处理。带来更多的美术工作量。后期需要美术管理反而变多了。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Unity中音效插件" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -895,80 +968,6 @@
       
         <p class="article-more-link">
           <a href="/2018/02/01/游戏项目中的美术，策划文档怎么管理/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-关于游戏测试" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/01/31/关于游戏测试/" class="article-date">
-      <time datetime="2018-01-31T04:16:54.000Z" itemprop="datePublished">2018-01-31</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/31/关于游戏测试/">关于游戏测试</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="一-人员构成"><a href="#一-人员构成" class="headerlink" title="一.人员构成"></a>一.人员构成</h3><p><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/25.png?raw=true" alt=""></p>
-<h4 id="制作人：项目整体负责人"><a href="#制作人：项目整体负责人" class="headerlink" title="制作人：项目整体负责人"></a>制作人：项目整体负责人</h4><ul>
-<li>1.负责游戏研发环节</li>
-<li>2.负责游戏运营环节</li>
-<li>3.负责项目人员管理</li>
-<li>4.负责项目事务管理</li>
-</ul>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/随笔/">随笔</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/游戏测试/">游戏测试</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2018/01/31/关于游戏测试/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
