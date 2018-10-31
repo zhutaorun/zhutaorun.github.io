@@ -203,7 +203,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D/">Unity3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3d/">Unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3d-优化/">Unity3d  优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/习惯养成/">习惯养成</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/介绍/">介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思/">工作反思</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/思考/">思考</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拆书帮/">拆书帮</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏测试/">游戏测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算系统/">计算系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D/">Unity3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3d/">Unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3d-优化/">Unity3d  优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/习惯养成/">习惯养成</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/介绍/">介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思/">工作反思</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思-帧同步/">工作反思 帧同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/思考/">思考</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拆书帮/">拆书帮</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏测试/">游戏测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算系统/">计算系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
                     </div>
                 </section>
                 
@@ -283,6 +283,78 @@
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-一个神奇的bug" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/09/16/一个神奇的bug/" class="article-date">
+      <time datetime="2018-09-16T08:53:53.000Z" itemprop="datePublished">2018-09-16</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/16/一个神奇的bug/">一个神奇的bug</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>项目是用帧同步做的项目，之前做了一点战斗相关的功能，对于帧同步有一些认识。</p>
+<h3 id="一-宝箱对应的标识并没有消失"><a href="#一-宝箱对应的标识并没有消失" class="headerlink" title="一.宝箱对应的标识并没有消失"></a>一.宝箱对应的标识并没有消失</h3><p> 详细内容：接手新的空投改版任务，修改一个版本结束后，一直报第一圈第一个宝箱开启，场景中的模型消失，但对应的UI层的标识没有消失。</p>
+</blockquote>
+<p>跟着下来是FixVec3转Vector3,再转FixVec3。数值已经和之前的完全不一样的。</p>
+<p><img src="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/47.png" alt=""></p>
+<p>反思为嘛之前没有出现转换出现的这样的问题，之前设计是方形的作为基本使用，当然数值上也是加上一个整数。<br>现在引入扇形，需要进行正弦余弦计算，小数点后保留6位，在转换后出现数值差异。以上图可见第3位上出现数值不同。<br>思考，是否可以避免使用FixVec3作为key，看了之前的代码确实难以改动。解决方案就是在原来类中加FixVec3存一份作为key值使用。</p>
+<h3 id="二-空投的模型，有莫名消失"><a href="#二-空投的模型，有莫名消失" class="headerlink" title="二.空投的模型，有莫名消失"></a>二.空投的模型，有莫名消失</h3><p>详细内容：一直觉得是UI上没清理对应的标识，觉得是AOI管理上，把对应的模型删除，但是没有确认。和做AOI模块的同事沟通，也觉得不受影响。后来在空投箱子销毁的地方加Log，看了下调用栈，确实在视野处理的时候，把空投宝箱的模型删除了。在加了空投宝箱的标识后，问题修复了。<br>当初设计空投宝箱的时候，AOI并没有使用，后来处理视野里可以见得内容，并没有把空投宝箱算进去</p>
+<h3 id="三-总结反思"><a href="#三-总结反思" class="headerlink" title="三.总结反思"></a>三.总结反思</h3><p>1.测试功能，没想清楚，明明可以改配置，快速测试，实际花了很多时间在等待过程。<br>2.因为是接手别人的功能修改，加宏看log,但是他个人的log代码，没有提交，自己打log重新看，比较聪明的做法是直接要一份他的log代码<br>3.和策划沟通，需要二次确认，有时策划听内容的时候，但是有没有认真听，很难确定，后期修改的，幸好代码基本没啥改动量。<br>4.关于帧同步的项目做视图和逻辑分离，注意一些数值转换后并不能再使用了。<br>5.如果新的功能开发，还是需要去沟通是否影响现有功能的内容。AOI管理了场景中的实体，空投的实体并没有被管理到。在处理的时候就删除了。<br>ub.io/master/images/9.png)</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工作反思-帧同步/">工作反思 帧同步</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-模型在UI上显示" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -898,76 +970,6 @@
       
         <p class="article-more-link">
           <a href="/2018/03/20/翻译-资产，资源和AssetBundle/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-游戏项目中的美术，策划文档怎么管理" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/02/01/游戏项目中的美术，策划文档怎么管理/" class="article-date">
-      <time datetime="2018-02-01T14:53:41.000Z" itemprop="datePublished">2018-02-01</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/01/游戏项目中的美术，策划文档怎么管理/">游戏项目中的美术，策划文档怎么管理</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <blockquote>
-<p>其实之前就好奇其他一些项目是怎么管理美术和策划文档,今天看到<a href="https://www.zhihu.com/question/61067225">游戏项目中美术资源，策划文档等这些非代码文件需要加入到版本控制中去吗？ - 知乎</a>,决定把自己看到和听到一些组织方式总结下。</p>
-</blockquote>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/知乎回答/">知乎回答</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2018/02/01/游戏项目中的美术，策划文档怎么管理/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
