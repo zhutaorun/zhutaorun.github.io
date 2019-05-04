@@ -15,19 +15,39 @@
 
 
 
-<meta name="description" content="前言
-临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新，lua和xml通过bundle的方式来更新。对于遇到的内容重新去看。">
+<meta name="description" content="一时兴起，写了这一篇文章。在实际开发中为了更好的表现，需要在一段动画播放后，再做别的行为
+这篇文章3月6日开始定题，3月22日写完初稿，5月4日再补充一点，今天发布。
+
+一.不同的动画组件
+动画美术直接编辑动画，定位到要变化挂点的帧（比如24帧），在Events里添加一个动画事件， 名字规范成 TakeWeapon
+
+这个方案
+优：让美术准确控制帧数， 可以个性化劣：所有模型该动作都要加一下。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unity3Dy各个平台动态读取外部文件解析">
-<meta property="og:url" content="http://zhutao.github.io/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/index.html">
+<meta property="og:title" content="关于动画结束的处理">
+<meta property="og:url" content="http://zhutao.github.io/2019/05/04/关于动画结束的处理/index.html">
 <meta property="og:site_name" content="zhutaorun's Blog">
-<meta property="og:description" content="前言
-临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新，lua和xml通过bundle的方式来更新。对于遇到的内容重新去看。">
-<meta property="og:updated_time" content="2017-02-23T16:45:26.503Z">
+<meta property="og:description" content="一时兴起，写了这一篇文章。在实际开发中为了更好的表现，需要在一段动画播放后，再做别的行为
+这篇文章3月6日开始定题，3月22日写完初稿，5月4日再补充一点，今天发布。
+
+一.不同的动画组件
+动画美术直接编辑动画，定位到要变化挂点的帧（比如24帧），在Events里添加一个动画事件， 名字规范成 TakeWeapon
+
+这个方案
+优：让美术准确控制帧数， 可以个性化劣：所有模型该动作都要加一下。">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/50.png">
+<meta property="og:updated_time" content="2019-05-04T15:10:43.699Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Unity3Dy各个平台动态读取外部文件解析">
-<meta name="twitter:description" content="前言
-临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新，lua和xml通过bundle的方式来更新。对于遇到的内容重新去看。">
+<meta name="twitter:title" content="关于动画结束的处理">
+<meta name="twitter:description" content="一时兴起，写了这一篇文章。在实际开发中为了更好的表现，需要在一段动画播放后，再做别的行为
+这篇文章3月6日开始定题，3月22日写完初稿，5月4日再补充一点，今天发布。
+
+一.不同的动画组件
+动画美术直接编辑动画，定位到要变化挂点的帧（比如24帧），在Events里添加一个动画事件， 名字规范成 TakeWeapon
+
+这个方案
+优：让美术准确控制帧数， 可以个性化劣：所有模型该动作都要加一下。">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/50.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -59,7 +79,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Unity3Dy各个平台动态读取外部文件解析 | zhutaorun&#39;s Blog</title>
+<title>关于动画结束的处理 | zhutaorun&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -284,11 +304,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Unity3Dy各个平台动态读取外部文件解析" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-关于动画结束的处理" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/" class="article-date">
-      <time datetime="2016-12-19T14:48:31.000Z" itemprop="datePublished">2016-12-19</time>
+      <a href="/2019/05/04/关于动画结束的处理/" class="article-date">
+      <time datetime="2019-05-04T15:03:50.000Z" itemprop="datePublished">2019-05-04</time>
 </a>
 
 
@@ -303,7 +323,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Unity3Dy各个平台动态读取外部文件解析
+      关于动画结束的处理
     </h1>
   
 
@@ -311,16 +331,8 @@
       
       <div class="article-info article-info-post">
         
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
-    </div>
-
 
         
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
-    </div>
-
         <div class="clearfix"></div>
       </div>
       
@@ -328,111 +340,29 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><ul>
-<li>临近项目上线，开始整理项目相关的热更新，之前项目使用AssetBundle更新UI和表格，后来项目引入Ulua。但热更新这块没有去。给了三天把原来项中把原来的AssetBundle更新重新开了一遍，之前没看到服务器配置这块，现在了了解整个更新的流程。这周再看项目重lua和xml的更新，lua和xml通过bundle的方式来更新。对于遇到的内容重新去看。<a id="more"></a>
-<h3 id="一各个平台的资源路路径"><a href="#一各个平台的资源路路径" class="headerlink" title="一各个平台的资源路路径"></a>一各个平台的资源路路径</h3><h4 id="Window或者Mac"><a href="#Window或者Mac" class="headerlink" title="Window或者Mac"></a>Window或者Mac</h4></li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>路径</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Application.dataPath</td>
-<td>返回程序的数据文件所在文件夹的路径</td>
-</tr>
-<tr>
-<td>Application.streamingAssetsPath</td>
-<td>返回流数据的缓存目录，适合设置一些外部数据文件的路径</td>
-</tr>
-<tr>
-<td>Application.persistentData</td>
-<td>返回一个持久化数据存储目录的路径，可以在次路径下存储一些持久化的数据文件</td>
-</tr>
-<tr>
-<td>Application.temporaryCachePath</td>
-<td>返回一个临时数据的缓存目录</td>
-</tr>
-</tbody>
-</table>
-<h4 id="Android平台"><a href="#Android平台" class="headerlink" title="Android平台"></a>Android平台</h4><table>
-<thead>
-<tr>
-<th>路径</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Application.dataPath</td>
-<td>/data/app/xxx.xxx.xxx.apk</td>
-</tr>
-<tr>
-<td>Application.streamingAssetsPath</td>
-<td>jar:file:///data/app/xxx.xxx.xxx.apk/!/assets</td>
-</tr>
-<tr>
-<td>Application.persistentData</td>
-<td>/data/data/xxx.xxx.xxx/files</td>
-</tr>
-<tr>
-<td>Application.temporaryCachePath</td>
-<td>/data/data/xxx.xxx.xxx/cache</td>
-</tr>
-</tbody>
-</table>
-<h4 id="iOS平台"><a href="#iOS平台" class="headerlink" title="iOS平台"></a>iOS平台</h4><table>
-<thead>
-<tr>
-<th>路径</th>
-<th>解释</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Application.dataPath</td>
-<td>Application/XXXXX-xxx-xxxx-xxxx-xxxxxxx/xxx.app/Data</td>
-</tr>
-<tr>
-<td>Application.streamingAssetsPath</td>
-<td>Application/XXXXX-xxx-xxxx-xxxx-xxxxxxx/xxx.app/Data/Raw</td>
-</tr>
-<tr>
-<td>Application.persistentData</td>
-<td>Application/XXXXX-xxx-xxxx-xxxx-xxxxxxx/Documents</td>
-</tr>
-<tr>
-<td>Application.temporaryCachePath</td>
-<td>Application/XXXXX-xxx-xxxx-xxxx-xxxxxxx/Library/Caches</td>
-</tr>
-</tbody>
-</table>
-<p>dataPath和streamingAssetsPath的路径位置一般是相对程序的安装目录位置，而persistentDataPath和temporaryCachePath的路径位置一般是相对所在系统的固定位置。那么现在明确了unity3d中各个地址在不同平台上的含义，下一个问题就来了，也就是我打包之后的资源要怎么和这些地址对应上呢？要知道在pc的editor里默认的资源文件存放的路径就是Assets啊，为何又会派生出那么多路径呢？</p>
-<h3 id="二Unity3d中资源的处理"><a href="#二Unity3d中资源的处理" class="headerlink" title="二Unity3d中资源的处理"></a>二Unity3d中资源的处理</h3><h4 id="Resources"><a href="#Resources" class="headerlink" title="Resources:"></a>Resources:</h4><blockquote>
-<p>是作为一个Unity3D的保留文件夹出现的，也就是如果你新建的文件夹的名字叫Resources，那么里面的内容在打包时都会被无条件的打到发布包中。它的特点简单总结一下就是：<br>1.只读，即不能动态修改。所以想要动态更新的资源不要放在这里。</p>
-<p>2.会将文件夹内的资源打包集成到.asset文件里面。因此建议可以放一些Prefab，因为Prefab在打包时会自动过滤掉不需要的资源，有利于减小资源包的大小。</p>
-<p>3.主线程加载。</p>
-<p>4.资源读取使用Resources.Load()。</p>
+        <blockquote>
+<p>一时兴起，写了这一篇文章。在实际开发中为了更好的表现，需要在一段动画播放后，再做别的行为</p>
+<p>这篇文章3月6日开始定题，3月22日写完初稿，5月4日再补充一点，今天发布。</p>
 </blockquote>
-<h4 id="StreamingAssets："><a href="#StreamingAssets：" class="headerlink" title="StreamingAssets："></a>StreamingAssets：</h4><blockquote>
-<p>简而言之就是把prefab或者二进制文件封装成AssetBundle文件（也是一种二进制）。但是也有硬伤，就是在移动端无法更新脚本。</p>
-<p>1.是Unity3D定义的一种二进制类型。</p>
-<p>2.最好将prefab封装成AseetBundle，不过上面不是才说了在移动端无法更新脚本吗？那从Assetbundle中拿到的Prefab上挂的脚本是不是就无法运行了？也不一定，只要这个prefab上挂的是本地脚本，就可以。</p>
-<p>3.使用WWW类来下载。</p>
-</blockquote>
-<p><strong>很多项目使用Ulua来解决热更新代码，android下可以通过热更新Dll的来热更新代码，苹果因为政策原因不允许，ulua成为适用苹果和android合适的选择</strong></p>
-<h3 id="PersistentDataPath"><a href="#PersistentDataPath" class="headerlink" title="PersistentDataPath:"></a>PersistentDataPath:</h3><blockquote>
-<p>看上去它只是个路径呀，可为什么要把它从路径里面单独拿出来介绍呢？因为它的确蛮特殊的，这个路径下是可读写。而且在IOS上就是应用程序的沙盒，但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write Access，可以设置它的路径是沙盒还是sdcard。下面同样简单的总结一下：</p>
-<p>1.内容可读写,不过只能运行时才能写入或者读取。<strong>提前将数据存入这个路径是不可行的。</strong></p>
-<hr>
-<p>2.无内容限制.你可以从StreamingAssets中读取二进制文件或者从<strong>AssetBundle</strong>读取文件来写入<strong>PersistentDataPath</strong>中。</p>
-<p>3.写下的文件，可以在电脑上查看。同样也可以清掉</p>
-</blockquote>
-<h3 id="三补充"><a href="#三补充" class="headerlink" title="三补充"></a>三补充</h3><h5 id="但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write-Access，可以设置它的路径是（Internal）沙盒还是-External（SDCard）-sdcard。"><a href="#但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write-Access，可以设置它的路径是（Internal）沙盒还是-External（SDCard）-sdcard。" class="headerlink" title="但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write Access，可以设置它的路径是（Internal）沙盒还是(External（SDCard）)sdcard。"></a>但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write Access，可以设置它的路径是（Internal）沙盒还是(External（SDCard）)sdcard。</h5><hr>
-<p>参考<br><a href="http://www.cnblogs.com/murongxiaopifu/p/4199541.html#_labelTop" target="_blank" rel="external">Unity3D移动平台动态读取外部文件全解析</a></p>
+<h3 id="一-不同的动画组件"><a href="#一-不同的动画组件" class="headerlink" title="一.不同的动画组件"></a>一.不同的动画组件</h3><ol>
+<li>动画美术直接编辑动画，定位到要变化挂点的帧（比如24帧），在Events里添加一个动画事件， 名字规范成 TakeWeapon</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/50.png" alt=""><br>这个方案</p>
+<p>优：让美术准确控制帧数， 可以个性化<br>劣：所有模型该动作都要加一下。</p>
+<h3 id="二-用程序添加"><a href="#二-用程序添加" class="headerlink" title="二.用程序添加"></a>二.用程序添加</h3><p>网上有animation添加事件的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">AnimationEvent evt = new AnimationEvent();</div><div class="line">evt.time = 0;</div><div class="line">evt.functionName = &quot;Test&quot;;</div><div class="line">animation.GetClip(&quot;ani&quot;).AddEvent(evt);</div></pre></td></tr></table></figure></p>
+<p>但我们现在用的新动画系统Animator， 如何找到对应名字的动画呢？<br>找了一下 Animator的接口和成员变量，还是有一个可用的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">for(int i=0;i&lt; animator.runtimeAnimatorController.animationClips.Length;++i)</div><div class="line">&#123;</div><div class="line">    if(animator.runtimeAnimatorController.animationClips[i].name == name)</div><div class="line">    &#123;</div><div class="line">        return animator.runtimeAnimatorController.animationClips[i];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>能找到对应的名字的 animationClip,然后就可以<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">AnimationEvent evt = new AnimationEvent();</div><div class="line">evt.time = 24f/30;</div><div class="line">evt.functionName = &quot;TakeWeapon&quot;;</div><div class="line">animClip.AddEvent(evt);</div></pre></td></tr></table></figure></p>
+<p>优：所有角色动画动作可以统一处理，不需要美术再加工</p>
+<p>劣：时间不太好做个性化。</p>
+<p>事件绑定好了，但是执行时报错误：<br>AnimationEvent ‘TakeWeapon’ has no receiver!<br>原来 TakeWeapon方法所在脚本必须挂在Animation（或Animator）所在GameObject上!</p>
+<h3 id="三-当使用Animator组件的时候"><a href="#三-当使用Animator组件的时候" class="headerlink" title="三.当使用Animator组件的时候"></a>三.当使用Animator组件的时候</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">void Update()</div><div class="line">&#123;</div><div class="line">    var stateInfo = an.GetCurrentAnimatorStateInfo(0);</div><div class="line">    if(stateInfo.IsName(_openName)&amp;&amp; stateInfo.normalizedTime &gt;= 1f)</div><div class="line">    &#123;</div><div class="line">        //播放结束</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="四-使用IEnumerator-等待动画的长度"><a href="#四-使用IEnumerator-等待动画的长度" class="headerlink" title="四.使用IEnumerator 等待动画的长度"></a>四.使用IEnumerator 等待动画的长度</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Animation Anim;</div><div class="line">float time = Anim.Getclip(&quot;anim1&quot;).Length;</div><div class="line">private IEnumerator WaitAnimationEnd()</div><div class="line">&#123;</div><div class="line">    yield return new WaitForSeconds(time);</div><div class="line">    EndAnimation();</div><div class="line">&#125;</div><div class="line"></div><div class="line">private void EndAnimation()</div><div class="line">&#123;</div><div class="line">    // 动作播放结束</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="五-使用Animation踩的坑"><a href="#五-使用Animation踩的坑" class="headerlink" title="五.使用Animation踩的坑"></a>五.使用Animation踩的坑</h3><h6 id="1-有一个头像大小缩放的动画，从Animation是没有任何问题的，但实际代码调用的时候，一直不执行。"><a href="#1-有一个头像大小缩放的动画，从Animation是没有任何问题的，但实际代码调用的时候，一直不执行。" class="headerlink" title="1. 有一个头像大小缩放的动画，从Animation是没有任何问题的，但实际代码调用的时候，一直不执行。"></a>1. 有一个头像大小缩放的动画，从Animation是没有任何问题的，但实际代码调用的时候，一直不执行。</h6><p>功能开发中，优先级并不是特别高。就一直没查。<br>后来查找原因，当界面没有打开的状态下，执行动画的播放.当界面打开的时候再播放，动画部生效了，所以在animation调用的时候，要一句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">if（this.gameObject.activeInHierarchy == false）return;</div></pre></td></tr></table></figure></p>
+<h6 id="2-基于四的思路，做了一个文字动画反复播放显示的内容。当同时添加两段文字的时候，只播放了一次。设计上是将文字做了队列缓存-。当一个动画播完在播放另一个。"><a href="#2-基于四的思路，做了一个文字动画反复播放显示的内容。当同时添加两段文字的时候，只播放了一次。设计上是将文字做了队列缓存-。当一个动画播完在播放另一个。" class="headerlink" title="2.基于四的思路，做了一个文字动画反复播放显示的内容。当同时添加两段文字的时候，只播放了一次。设计上是将文字做了队列缓存 。当一个动画播完在播放另一个。"></a>2.基于四的思路，做了一个文字动画反复播放显示的内容。当同时添加两段文字的时候，只播放了一次。设计上是将文字做了队列缓存 。当一个动画播完在播放另一个。</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">private Animation Anim;</div><div class="line">public Queue&lt;string&gt; TipsStringQueue = new Queue&lt;string&gt;();</div><div class="line"> //Add String</div><div class="line">public void AddString(string tips)</div><div class="line">&#123;</div><div class="line">    TipsStringQueue.Enqueue(tips);</div><div class="line">    if(!Anim.isPlaying)</div><div class="line">    &#123;</div><div class="line">        ParseString();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">private void ParseString()</div><div class="line">&#123;</div><div class="line">    if(TipsStringQueue.count == 0)</div><div class="line">        return;</div><div class="line">    string tips = TipsStringQueue.Dequeue();</div><div class="line">    if(!string.IsNullOrEmpty(tips))</div><div class="line">    &#123;</div><div class="line">        //Json解析</div><div class="line">        //UI元素赋值</div><div class="line">        Anim[&quot;Anim01&quot;].time = 0;</div><div class="line">        Anim.Play();</div><div class="line">        StopCoroutine(WaitAnimationEnd());</div><div class="line">        StartCoroutine(WaitAnimationEnd());</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">private IEnumerator WaitAnimationEnd()</div><div class="line">&#123;</div><div class="line">    yield return new WaitForSeconds(Anim.GetClip(&quot;Anim01&quot;).length);</div><div class="line">    EndAnimation();</div><div class="line">&#125;</div><div class="line"></div><div class="line">private void EndAnimation()</div><div class="line">&#123;</div><div class="line">    if(TipsStringQueue.count&gt;0)</div><div class="line">    &#123;</div><div class="line">        ParseString();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>Anim[“Anim01”].time = 0;在Play()之前写这句很重要的，不然就会出现当同时加入两个文字的时候，播放一次。</strong></p>
+<h3 id="补充-把Loop的Animation停止指定帧"><a href="#补充-把Loop的Animation停止指定帧" class="headerlink" title="补充 把Loop的Animation停止指定帧"></a>补充 把Loop的Animation停止指定帧</h3><p>当时实习生遇到，把一个Loop的动画停在初始帧。<br>把循环动画停在指定的帧上，先给time赋值，在simple(),在stop()。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">private void StoLoopAnimationOnBegin()</div><div class="line"> &#123;</div><div class="line">        Animation an;</div><div class="line">        an[&quot;an1&quot;].time = 0;</div><div class="line">        an.Sample();</div><div class="line">        an.Stop();</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<h5 id="原因是"><a href="#原因是" class="headerlink" title="原因是"></a>原因是</h5><p>在调用了动画播放之后，动画并不会立即应用（骨骼Transform并不会立即改变），最快也要等到本帧lateUpdate才能生效。</p>
+<p>如果有特殊需求，希望在调用了动画播放之后立即生效，则可以紧接着调一句Animation.sample()</p>
 
       
     </div>
@@ -441,13 +371,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></p>
+        <p><span>本文标题:</span><a href="/2019/05/04/关于动画结束的处理/">关于动画结束的处理</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
-        <p><span>发布时间:</span>2016-12-19, 22:48:31</p>
-        <p><span>最后更新:</span>2017-02-24, 00:45:26</p>
+        <p><span>发布时间:</span>2019-05-04, 23:03:50</p>
+        <p><span>最后更新:</span>2019-05-04, 23:10:43</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/" title="Unity3Dy各个平台动态读取外部文件解析">http://zhutao.github.io/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/05/04/关于动画结束的处理/" title="关于动画结束的处理">http://zhutao.github.io/2019/05/04/关于动画结束的处理/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2019/05/04/关于动画结束的处理/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -459,16 +389,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/12/25/《从行动开始》读书笔记/">
-                    《从行动开始》读书笔记
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/12/16/搞定GTD/">
-                    搞定GTD
+                <a href="/2019/02/03/帧同步的逻辑工程维护/">
+                    帧同步的逻辑工程维护
                 </a>
             </div>
         
@@ -480,7 +404,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一各个平台的资源路路径"><span class="toc-number">2.</span> <span class="toc-text">一各个平台的资源路路径</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Window或者Mac"><span class="toc-number">2.1.</span> <span class="toc-text">Window或者Mac</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Android平台"><span class="toc-number">2.2.</span> <span class="toc-text">Android平台</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#iOS平台"><span class="toc-number">2.3.</span> <span class="toc-text">iOS平台</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二Unity3d中资源的处理"><span class="toc-number">3.</span> <span class="toc-text">二Unity3d中资源的处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Resources"><span class="toc-number">3.1.</span> <span class="toc-text">Resources:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#StreamingAssets："><span class="toc-number">3.2.</span> <span class="toc-text">StreamingAssets：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PersistentDataPath"><span class="toc-number">4.</span> <span class="toc-text">PersistentDataPath:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三补充"><span class="toc-number">5.</span> <span class="toc-text">三补充</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write-Access，可以设置它的路径是（Internal）沙盒还是-External（SDCard）-sdcard。"><span class="toc-number">5.0.1.</span> <span class="toc-text">但是在Android可以是程序的沙盒，也可以是sdcard。并且在Android打包的时候，ProjectSetting页面有一个选项Write Access，可以设置它的路径是（Internal）沙盒还是(External（SDCard）)sdcard。</span></a></li></ol></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-不同的动画组件"><span class="toc-number">1.</span> <span class="toc-text">一.不同的动画组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-用程序添加"><span class="toc-number">2.</span> <span class="toc-text">二.用程序添加</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三-当使用Animator组件的时候"><span class="toc-number">3.</span> <span class="toc-text">三.当使用Animator组件的时候</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四-使用IEnumerator-等待动画的长度"><span class="toc-number">4.</span> <span class="toc-text">四.使用IEnumerator 等待动画的长度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五-使用Animation踩的坑"><span class="toc-number">5.</span> <span class="toc-text">五.使用Animation踩的坑</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-有一个头像大小缩放的动画，从Animation是没有任何问题的，但实际代码调用的时候，一直不执行。"><span class="toc-number">5.0.0.1.</span> <span class="toc-text">1. 有一个头像大小缩放的动画，从Animation是没有任何问题的，但实际代码调用的时候，一直不执行。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-基于四的思路，做了一个文字动画反复播放显示的内容。当同时添加两段文字的时候，只播放了一次。设计上是将文字做了队列缓存-。当一个动画播完在播放另一个。"><span class="toc-number">5.0.0.2.</span> <span class="toc-text">2.基于四的思路，做了一个文字动画反复播放显示的内容。当同时添加两段文字的时候，只播放了一次。设计上是将文字做了队列缓存 。当一个动画播完在播放另一个。</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#补充-把Loop的Animation停止指定帧"><span class="toc-number">6.</span> <span class="toc-text">补充 把Loop的Animation停止指定帧</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#原因是"><span class="toc-number">6.0.1.</span> <span class="toc-text">原因是</span></a></li></ol></li></ol></li></ol>
         
     </div>
     <style>
@@ -516,7 +440,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Unity3Dy各个平台动态读取外部文件解析　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"关于动画结束的处理　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -532,7 +456,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2016/12/19/Unity3Dy各个平台动态读取外部文件解析/" data-title="Unity3Dy各个平台动态读取外部文件解析" data-url="http://zhutao.github.io/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2019/05/04/关于动画结束的处理/" data-title="关于动画结束的处理" data-url="http://zhutao.github.io/2019/05/04/关于动画结束的处理/"></div>
     <script>
         var duoshuoQuery = {short_name:"zhutaorun"};
         var loadComment = function(){
@@ -555,15 +479,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/12/25/《从行动开始》读书笔记/" title="上一篇: 《从行动开始》读书笔记">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/12/16/搞定GTD/" title="下一篇: 搞定GTD">
+            <a href="/2019/02/03/帧同步的逻辑工程维护/" title="下一篇: 帧同步的逻辑工程维护">
                 <i class="fa fa-angle-right"></i>
             </a>
         

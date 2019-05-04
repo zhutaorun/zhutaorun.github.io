@@ -284,6 +284,84 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-关于动画结束的处理" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/05/04/关于动画结束的处理/" class="article-date">
+      <time datetime="2019-05-04T15:03:50.000Z" itemprop="datePublished">2019-05-04</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/04/关于动画结束的处理/">关于动画结束的处理</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>一时兴起，写了这一篇文章。在实际开发中为了更好的表现，需要在一段动画播放后，再做别的行为</p>
+<p>这篇文章3月6日开始定题，3月22日写完初稿，5月4日再补充一点，今天发布。</p>
+</blockquote>
+<h3 id="一-不同的动画组件"><a href="#一-不同的动画组件" class="headerlink" title="一.不同的动画组件"></a>一.不同的动画组件</h3><ol>
+<li>动画美术直接编辑动画，定位到要变化挂点的帧（比如24帧），在Events里添加一个动画事件， 名字规范成 TakeWeapon</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/50.png" alt=""><br>这个方案</p>
+<p>优：让美术准确控制帧数， 可以个性化<br>劣：所有模型该动作都要加一下。</p>
+<h3 id="二-用程序添加"><a href="#二-用程序添加" class="headerlink" title="二.用程序添加"></a>二.用程序添加</h3><p>网上有animation添加事件的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">AnimationEvent evt = new AnimationEvent();</div><div class="line">evt.time = 0;</div><div class="line">evt.functionName = &quot;Test&quot;;</div><div class="line">animation.GetClip(&quot;ani&quot;).AddEvent(evt);</div></pre></td></tr></table></figure></p>
+<p>但我们现在用的新动画系统Animator， 如何找到对应名字的动画呢？<br>找了一下 Animator的接口和成员变量，还是有一个可用的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">for(int i=0;i&lt; animator.runtimeAnimatorController.animationClips.Length;++i)</div><div class="line">&#123;</div><div class="line">    if(animator.runtimeAnimatorController.animationClips[i].name == name)</div><div class="line">    &#123;</div><div class="line">        return animator.runtimeAnimatorController.animationClips[i];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>能找到对应的名字的 animationClip,然后就可以<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">AnimationEvent evt = new AnimationEvent();</div><div class="line">evt.time = 24f/30;</div><div class="line">evt.functionName = &quot;TakeWeapon&quot;;</div><div class="line">animClip.AddEvent(evt);</div></pre></td></tr></table></figure></p>
+<p>优：所有角色动画动作可以统一处理，不需要美术再加工</p>
+<p>劣：时间不太好做个性化。</p>
+<p>事件绑定好了，但是执行时报错误：<br>AnimationEvent ‘TakeWeapon’ has no receiver!<br>原来 TakeWeapon方法所在脚本必须挂在Animation（或Animator）所在GameObject上!</p>
+<h3 id="三-当使用Animator组件的时候"><a href="#三-当使用Animator组件的时候" class="headerlink" title="三.当使用Animator组件的时候"></a>三.当使用Animator组件的时候</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">void Update()</div><div class="line">&#123;</div><div class="line">    var stateInfo = an.GetCurrentAnimatorStateInfo(0);</div><div class="line">    if(stateInfo.IsName(_openName)&amp;&amp; stateInfo.normalizedTime &gt;= 1f)</div><div class="line">    &#123;</div><div class="line">        //播放结束</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="四-使用IEnumerator-等待动画的长度"><a href="#四-使用IEnumerator-等待动画的长度" class="headerlink" title="四.使用IEnumerator 等待动画的长度"></a>四.使用IEnumerator 等待动画的长度</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Animation Anim;</div><div class="line">float time = Anim.Getclip(&quot;anim1&quot;).Length;</div><div class="line">private IEnumerator WaitAnimationEnd()</div><div class="line">&#123;</div><div class="line">    yield return new WaitForSeconds(time);</div><div class="line">    EndAnimation();</div><div class="line">&#125;</div><div class="line"></div><div class="line">private void EndAnimation()</div><div class="line">&#123;</div><div class="line">    // 动作播放结束</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="五-使用Animation踩的坑"><a href="#五-使用Animation踩的坑" class="headerlink" title="五.使用Animation踩的坑"></a>五.使用Animation踩的坑</h3><h6 id="1-有一个头像大小缩放的动画，从Animation是没有任何问题的，但实际代码调用的时候，一直不执行。"><a href="#1-有一个头像大小缩放的动画，从Animation是没有任何问题的，但实际代码调用的时候，一直不执行。" class="headerlink" title="1. 有一个头像大小缩放的动画，从Animation是没有任何问题的，但实际代码调用的时候，一直不执行。"></a>1. 有一个头像大小缩放的动画，从Animation是没有任何问题的，但实际代码调用的时候，一直不执行。</h6><p>功能开发中，优先级并不是特别高。就一直没查。<br>后来查找原因，当界面没有打开的状态下，执行动画的播放.当界面打开的时候再播放，动画部生效了，所以在animation调用的时候，要一句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">if（this.gameObject.activeInHierarchy == false）return;</div></pre></td></tr></table></figure></p>
+<h6 id="2-基于四的思路，做了一个文字动画反复播放显示的内容。当同时添加两段文字的时候，只播放了一次。设计上是将文字做了队列缓存-。当一个动画播完在播放另一个。"><a href="#2-基于四的思路，做了一个文字动画反复播放显示的内容。当同时添加两段文字的时候，只播放了一次。设计上是将文字做了队列缓存-。当一个动画播完在播放另一个。" class="headerlink" title="2.基于四的思路，做了一个文字动画反复播放显示的内容。当同时添加两段文字的时候，只播放了一次。设计上是将文字做了队列缓存 。当一个动画播完在播放另一个。"></a>2.基于四的思路，做了一个文字动画反复播放显示的内容。当同时添加两段文字的时候，只播放了一次。设计上是将文字做了队列缓存 。当一个动画播完在播放另一个。</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">private Animation Anim;</div><div class="line">public Queue&lt;string&gt; TipsStringQueue = new Queue&lt;string&gt;();</div><div class="line"> //Add String</div><div class="line">public void AddString(string tips)</div><div class="line">&#123;</div><div class="line">    TipsStringQueue.Enqueue(tips);</div><div class="line">    if(!Anim.isPlaying)</div><div class="line">    &#123;</div><div class="line">        ParseString();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">private void ParseString()</div><div class="line">&#123;</div><div class="line">    if(TipsStringQueue.count == 0)</div><div class="line">        return;</div><div class="line">    string tips = TipsStringQueue.Dequeue();</div><div class="line">    if(!string.IsNullOrEmpty(tips))</div><div class="line">    &#123;</div><div class="line">        //Json解析</div><div class="line">        //UI元素赋值</div><div class="line">        Anim[&quot;Anim01&quot;].time = 0;</div><div class="line">        Anim.Play();</div><div class="line">        StopCoroutine(WaitAnimationEnd());</div><div class="line">        StartCoroutine(WaitAnimationEnd());</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">private IEnumerator WaitAnimationEnd()</div><div class="line">&#123;</div><div class="line">    yield return new WaitForSeconds(Anim.GetClip(&quot;Anim01&quot;).length);</div><div class="line">    EndAnimation();</div><div class="line">&#125;</div><div class="line"></div><div class="line">private void EndAnimation()</div><div class="line">&#123;</div><div class="line">    if(TipsStringQueue.count&gt;0)</div><div class="line">    &#123;</div><div class="line">        ParseString();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>Anim[“Anim01”].time = 0;在Play()之前写这句很重要的，不然就会出现当同时加入两个文字的时候，播放一次。</strong></p>
+<h3 id="补充-把Loop的Animation停止指定帧"><a href="#补充-把Loop的Animation停止指定帧" class="headerlink" title="补充 把Loop的Animation停止指定帧"></a>补充 把Loop的Animation停止指定帧</h3><p>当时实习生遇到，把一个Loop的动画停在初始帧。<br>把循环动画停在指定的帧上，先给time赋值，在simple(),在stop()。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">private void StoLoopAnimationOnBegin()</div><div class="line"> &#123;</div><div class="line">        Animation an;</div><div class="line">        an[&quot;an1&quot;].time = 0;</div><div class="line">        an.Sample();</div><div class="line">        an.Stop();</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+<h5 id="原因是"><a href="#原因是" class="headerlink" title="原因是"></a>原因是</h5><p>在调用了动画播放之后，动画并不会立即应用（骨骼Transform并不会立即改变），最快也要等到本帧lateUpdate才能生效。</p>
+<p>如果有特殊需求，希望在调用了动画播放之后立即生效，则可以紧接着调一句Animation.sample()</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-帧同步的逻辑工程维护" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -918,75 +996,6 @@
       
         <p class="article-more-link">
           <a href="/2018/03/20/AssetBundle的基本原理/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-资源文件夹" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/03/20/资源文件夹/" class="article-date">
-      <time datetime="2018-03-19T16:41:12.000Z" itemprop="datePublished">2018-03-20</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/20/资源文件夹/">资源文件夹</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h1 id="资源文件夹"><a href="#资源文件夹" class="headerlink" title="资源文件夹"></a>资源文件夹</h1><h4 id="版本检查：2017-3-难度：高级"><a href="#版本检查：2017-3-难度：高级" class="headerlink" title="版本检查：2017.3 - 难度：高级"></a>版本检查：2017.3 - 难度：高级</h4><p>这是关于<a href="https://unity3d.com/cn/learn/tutorials/topics/best-practices/guide-assetbundles-and-resources">资产，资源和资源管理</a>系列文章的第三章。</p>
-<p>本章讨论资源系统。这是一个允许开发人员将资产存储在名为Resources的一个或多个文件夹中的系统，以及使用资源在运行时从这些资产加载或卸载对象的系统。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术积累-翻译/">技术积累 翻译</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3d/">Unity3d</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2018/03/20/资源文件夹/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
