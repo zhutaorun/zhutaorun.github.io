@@ -36,7 +36,7 @@
 这个方案
 优：让美术准确控制帧数， 可以个性化劣：所有模型该动作都要加一下。">
 <meta property="og:image" content="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/50.png">
-<meta property="og:updated_time" content="2019-05-04T15:10:43.699Z">
+<meta property="og:updated_time" content="2019-05-04T15:23:41.860Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于动画结束的处理">
 <meta name="twitter:description" content="一时兴起，写了这一篇文章。在实际开发中为了更好的表现，需要在一段动画播放后，再做别的行为
@@ -331,8 +331,16 @@
       
       <div class="article-info article-info-post">
         
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/工作反思/">工作反思</a>
+    </div>
+
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3d/">Unity3d</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -348,7 +356,7 @@
 <li>动画美术直接编辑动画，定位到要变化挂点的帧（比如24帧），在Events里添加一个动画事件， 名字规范成 TakeWeapon</li>
 </ol>
 <p><img src="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/50.png" alt=""><br>这个方案</p>
-<p>优：让美术准确控制帧数， 可以个性化<br>劣：所有模型该动作都要加一下。</p>
+<p>优：让美术准确控制帧数， 可以个性化<br>劣：所有模型该动作都要加一下。<br><a id="more"></a></p>
 <h3 id="二-用程序添加"><a href="#二-用程序添加" class="headerlink" title="二.用程序添加"></a>二.用程序添加</h3><p>网上有animation添加事件的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">AnimationEvent evt = new AnimationEvent();</div><div class="line">evt.time = 0;</div><div class="line">evt.functionName = &quot;Test&quot;;</div><div class="line">animation.GetClip(&quot;ani&quot;).AddEvent(evt);</div></pre></td></tr></table></figure></p>
 <p>但我们现在用的新动画系统Animator， 如何找到对应名字的动画呢？<br>找了一下 Animator的接口和成员变量，还是有一个可用的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">for(int i=0;i&lt; animator.runtimeAnimatorController.animationClips.Length;++i)</div><div class="line">&#123;</div><div class="line">    if(animator.runtimeAnimatorController.animationClips[i].name == name)</div><div class="line">    &#123;</div><div class="line">        return animator.runtimeAnimatorController.animationClips[i];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>能找到对应的名字的 animationClip,然后就可以<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">AnimationEvent evt = new AnimationEvent();</div><div class="line">evt.time = 24f/30;</div><div class="line">evt.functionName = &quot;TakeWeapon&quot;;</div><div class="line">animClip.AddEvent(evt);</div></pre></td></tr></table></figure></p>
@@ -374,7 +382,7 @@
         <p><span>本文标题:</span><a href="/2019/05/04/关于动画结束的处理/">关于动画结束的处理</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
         <p><span>发布时间:</span>2019-05-04, 23:03:50</p>
-        <p><span>最后更新:</span>2019-05-04, 23:10:43</p>
+        <p><span>最后更新:</span>2019-05-04, 23:23:41</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/05/04/关于动画结束的处理/" title="关于动画结束的处理">http://zhutao.github.io/2019/05/04/关于动画结束的处理/</a>
             <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2019/05/04/关于动画结束的处理/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -388,6 +396,12 @@
 
 
     <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019/06/12/游戏同步/">
+                    游戏同步
+                </a>
+            </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
@@ -479,7 +493,9 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2019/06/12/游戏同步/" title="上一篇: 游戏同步">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
@@ -491,7 +507,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/05/04/关于动画结束的处理/">关于动画结束的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/03/帧同步的逻辑工程维护/">帧同步的逻辑工程维护</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/01/再谈优化/">再谈优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/16/一个神奇的bug/">一个神奇的bug</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/31/模型在UI上显示/">模型在UI上显示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/04/Unity中音效插件/">Unity中音效插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/24/UWA-Day-2018分享/">UWA-Day-2018分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/26/代码质量/">代码质量</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/AssetBundle使用模式/">AssetBundle使用模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/AssetBundle的基本原理/">AssetBundle的基本原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/资源文件夹/">资源文件夹</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/资产，对象和序列化/">资产，对象和序列化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/翻译-资产，资源和AssetBundle/">[翻译]资产，资源和AssetBundle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/01/游戏项目中的美术，策划文档怎么管理/">游戏项目中的美术，策划文档怎么管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/关于游戏测试/">关于游戏测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/资源管理/">资源管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/18/缓存命中/">缓存命中</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/struct-结构体类型的大小计算/">struct 结构体类型的大小计算</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Unity小技巧-清除缓存/">Unity小技巧-清除缓存</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/自动上阵功能开发的小结/">自动上阵功能开发的小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/MVC、MVP和MVVM的图示/">MVC、MVP和MVVM的图示</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/24/【翻译】Unity3D车辆的滑动效果/">【翻译】Unity3D车辆的滑动效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/24/实现轮胎印/">实现轮胎印</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/Shader的纹理/">Shader的纹理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/如何熟悉一个老项目/">如何快速熟悉一个老项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/Unity的内存优化以及在移动平台上的优化/">Unity的内存优化以及在移动平台上的优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/准备入职，写点东西/">准备入职，写点东西</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/Unity资源制作要求/">Unity资源制作要求</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/MMO小地图实现方式/">MMO小地图实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/31/Android端外推送到底有多烦/">Android端外推送到底有多烦</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/Unity推送SDk/">Unity推送SDk</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/查找代码的中文插件/">查找代码的中文插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/功能错误小结/">功能错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/24/《重构-改善既有代码的设计》读书笔记/">《重构-改善既有代码的设计》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/18/C-教程的实践小结/">C++教程的实践小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity-声音资源优化/">Unity 声音资源优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity3D图片大小设置/">Unity3D图片大小设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/">U3D贴图格式 GENERATE MIP MAPS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/20/Android真机调试/">Android真机调试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/25/《从行动开始》读书笔记/">《从行动开始》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/搞定GTD/">搞定GTD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/11/拖延心理学/">拖延心理学</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/游戏改变世界读后感/">《游戏改变世界》读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/04/关于Markdown/">关于Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/25/C++学习记录/">C++学习记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/06/12/游戏同步/">游戏同步</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/04/关于动画结束的处理/">关于动画结束的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/03/帧同步的逻辑工程维护/">帧同步的逻辑工程维护</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/01/再谈优化/">再谈优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/16/一个神奇的bug/">一个神奇的bug</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/31/模型在UI上显示/">模型在UI上显示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/04/Unity中音效插件/">Unity中音效插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/24/UWA-Day-2018分享/">UWA-Day-2018分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/26/代码质量/">代码质量</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/AssetBundle使用模式/">AssetBundle使用模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/AssetBundle的基本原理/">AssetBundle的基本原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/资源文件夹/">资源文件夹</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/资产，对象和序列化/">资产，对象和序列化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/翻译-资产，资源和AssetBundle/">[翻译]资产，资源和AssetBundle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/01/游戏项目中的美术，策划文档怎么管理/">游戏项目中的美术，策划文档怎么管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/关于游戏测试/">关于游戏测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/资源管理/">资源管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/18/缓存命中/">缓存命中</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/struct-结构体类型的大小计算/">struct 结构体类型的大小计算</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Unity小技巧-清除缓存/">Unity小技巧-清除缓存</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/自动上阵功能开发的小结/">自动上阵功能开发的小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/MVC、MVP和MVVM的图示/">MVC、MVP和MVVM的图示</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/24/【翻译】Unity3D车辆的滑动效果/">【翻译】Unity3D车辆的滑动效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/24/实现轮胎印/">实现轮胎印</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/Shader的纹理/">Shader的纹理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/如何熟悉一个老项目/">如何快速熟悉一个老项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/Unity的内存优化以及在移动平台上的优化/">Unity的内存优化以及在移动平台上的优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/准备入职，写点东西/">准备入职，写点东西</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/Unity资源制作要求/">Unity资源制作要求</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/MMO小地图实现方式/">MMO小地图实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/31/Android端外推送到底有多烦/">Android端外推送到底有多烦</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/Unity推送SDk/">Unity推送SDk</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/查找代码的中文插件/">查找代码的中文插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/功能错误小结/">功能错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/24/《重构-改善既有代码的设计》读书笔记/">《重构-改善既有代码的设计》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/18/C-教程的实践小结/">C++教程的实践小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity-声音资源优化/">Unity 声音资源优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity3D图片大小设置/">Unity3D图片大小设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/">U3D贴图格式 GENERATE MIP MAPS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/20/Android真机调试/">Android真机调试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/25/《从行动开始》读书笔记/">《从行动开始》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/搞定GTD/">搞定GTD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/11/拖延心理学/">拖延心理学</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/游戏改变世界读后感/">《游戏改变世界》读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/04/关于Markdown/">关于Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/25/C++学习记录/">C++学习记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
 
 
 

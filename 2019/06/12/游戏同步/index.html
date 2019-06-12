@@ -15,28 +15,28 @@
 
 
 
-<meta name="description" content="创建新帐号的时候，默认给选择服务器。目前创建新账号，会记录上个帐号的选择服务器id。
-如何判断？
-在移动平台，可以通过服务器记录上次登录的服务器id,或者服务器不记录的话，可以用PlayerPrefs.GetInt(“ServieId”);
-在PC上要清除临时文件。">
+<meta name="description" content="早上在翻个人博客文件夹的时候，发现这篇18年10月30日写完的，再去翻了个人博客里，确实没发出来。随便把当时写的手稿也发上来。
+###游戏同步：帧同步和状态同步
+帧同步：服务器负责转化客户端的操作，每个客户端在固定的逻辑帧执行该帧所有客户端的操作命令，通过在严格一致的时间轴上执行同样的命令序列得到同样的结果。主流的老牌RTS游戏都是帧同步：星际争霸、war3
+状态同步：服务器承载所有计算，客户端">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unity小技巧-清除缓存">
-<meta property="og:url" content="http://zhutao.github.io/2017/11/30/Unity小技巧-清除缓存/index.html">
+<meta property="og:title" content="游戏同步">
+<meta property="og:url" content="http://zhutao.github.io/2019/06/12/游戏同步/index.html">
 <meta property="og:site_name" content="zhutaorun's Blog">
-<meta property="og:description" content="创建新帐号的时候，默认给选择服务器。目前创建新账号，会记录上个帐号的选择服务器id。
-如何判断？
-在移动平台，可以通过服务器记录上次登录的服务器id,或者服务器不记录的话，可以用PlayerPrefs.GetInt(“ServieId”);
-在PC上要清除临时文件。">
-<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/21.png?raw=true">
-<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/22.png?raw=true">
-<meta property="og:updated_time" content="2017-11-30T13:22:10.374Z">
+<meta property="og:description" content="早上在翻个人博客文件夹的时候，发现这篇18年10月30日写完的，再去翻了个人博客里，确实没发出来。随便把当时写的手稿也发上来。
+###游戏同步：帧同步和状态同步
+帧同步：服务器负责转化客户端的操作，每个客户端在固定的逻辑帧执行该帧所有客户端的操作命令，通过在严格一致的时间轴上执行同样的命令序列得到同样的结果。主流的老牌RTS游戏都是帧同步：星际争霸、war3
+状态同步：服务器承载所有计算，客户端">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/51.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/52.png">
+<meta property="og:updated_time" content="2019-06-12T02:27:07.140Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Unity小技巧-清除缓存">
-<meta name="twitter:description" content="创建新帐号的时候，默认给选择服务器。目前创建新账号，会记录上个帐号的选择服务器id。
-如何判断？
-在移动平台，可以通过服务器记录上次登录的服务器id,或者服务器不记录的话，可以用PlayerPrefs.GetInt(“ServieId”);
-在PC上要清除临时文件。">
-<meta name="twitter:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/21.png?raw=true">
+<meta name="twitter:title" content="游戏同步">
+<meta name="twitter:description" content="早上在翻个人博客文件夹的时候，发现这篇18年10月30日写完的，再去翻了个人博客里，确实没发出来。随便把当时写的手稿也发上来。
+###游戏同步：帧同步和状态同步
+帧同步：服务器负责转化客户端的操作，每个客户端在固定的逻辑帧执行该帧所有客户端的操作命令，通过在严格一致的时间轴上执行同样的命令序列得到同样的结果。主流的老牌RTS游戏都是帧同步：星际争霸、war3
+状态同步：服务器承载所有计算，客户端">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/51.png">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -68,7 +68,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Unity小技巧-清除缓存 | zhutaorun&#39;s Blog</title>
+<title>游戏同步 | zhutaorun&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -293,11 +293,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Unity小技巧-清除缓存" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-游戏同步" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/11/30/Unity小技巧-清除缓存/" class="article-date">
-      <time datetime="2017-11-30T12:50:02.000Z" itemprop="datePublished">2017-11-30</time>
+      <a href="/2019/06/12/游戏同步/" class="article-date">
+      <time datetime="2019-06-12T02:14:42.000Z" itemprop="datePublished">2019-06-12</time>
 </a>
 
 
@@ -312,7 +312,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Unity小技巧-清除缓存
+      游戏同步
     </h1>
   
 
@@ -321,7 +321,7 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/tips/">tips</a>
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
     </div>
 
 
@@ -338,20 +338,72 @@
       
           
         <blockquote>
-<p>创建新帐号的时候，默认给选择服务器。目前创建新账号，会记录上个帐号的选择服务器id。</p>
-<h3 id="如何判断？"><a href="#如何判断？" class="headerlink" title="如何判断？"></a>如何判断？</h3><ul>
-<li>在移动平台，可以通过服务器记录上次登录的服务器id,或者服务器不记录的话，可以用PlayerPrefs.GetInt(“ServieId”);</li>
-<li>在PC上要清除临时文件。</li>
-</ul>
-</blockquote>
-<a id="more"></a>
-<h3 id="在PC测试"><a href="#在PC测试" class="headerlink" title="在PC测试"></a>在PC测试</h3><ul>
-<li>通过打开注册表，清除文件的缓存。</li>
-<li>打开项目，看到项目的PlayerSettings。在CompanyName:com.game.zhutao。<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/21.png?raw=true" alt=""></li>
-<li>在注册表中选择文件右击，选择删除。就清除掉缓存了。<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/22.png?raw=true" alt=""></li>
-<li>在PC上测试创建新号的完整流程了。</li>
-</ul>
-<p>。</p>
+<p>早上在翻个人博客文件夹的时候，发现这篇18年10月30日写完的，再去翻了个人博客里，确实没发出来。随便把当时写的手稿也发上来。</p>
+<p>###游戏同步：帧同步和状态同步</p>
+<h5 id="帧同步：服务器负责转化客户端的操作，每个客户端在固定的逻辑帧执行该帧所有客户端的操作命令，通过在严格一致的时间轴上执行同样的命令序列得到同样的结果。主流的老牌RTS游戏都是帧同步：星际争霸、war3"><a href="#帧同步：服务器负责转化客户端的操作，每个客户端在固定的逻辑帧执行该帧所有客户端的操作命令，通过在严格一致的时间轴上执行同样的命令序列得到同样的结果。主流的老牌RTS游戏都是帧同步：星际争霸、war3" class="headerlink" title="帧同步：服务器负责转化客户端的操作，每个客户端在固定的逻辑帧执行该帧所有客户端的操作命令，通过在严格一致的时间轴上执行同样的命令序列得到同样的结果。主流的老牌RTS游戏都是帧同步：星际争霸、war3"></a>帧同步：服务器负责转化客户端的操作，每个客户端在固定的逻辑帧执行该帧所有客户端的操作命令，通过在严格一致的时间轴上执行同样的命令序列得到同样的结果。主流的老牌RTS游戏都是帧同步：星际争霸、war3</h5></blockquote>
+<h5 id="状态同步：服务器承载所有计算，客户端只做表现。主流的大型MMO游戏都采用状态同步。"><a href="#状态同步：服务器承载所有计算，客户端只做表现。主流的大型MMO游戏都采用状态同步。" class="headerlink" title="状态同步：服务器承载所有计算，客户端只做表现。主流的大型MMO游戏都采用状态同步。"></a>状态同步：服务器承载所有计算，客户端只做表现。主流的大型MMO游戏都采用状态同步。</h5><a id="more"></a>
+<p>状态同步：适合人数比较多的场景，回合制，ARPG</p>
+<p>帧同步：适合用于RTS，格斗，赛车游戏。</p>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th style="text-align:right">状态同步</th>
+<th style="text-align:center">帧同步</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>流量</td>
+<td style="text-align:right">相对高</td>
+<td style="text-align:center">相对低</td>
+</tr>
+<tr>
+<td>回放</td>
+<td style="text-align:right">记录文件大</td>
+<td style="text-align:center">记录文件小</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td style="text-align:right">服务器实现逻辑，安全性高</td>
+<td style="text-align:center">逻辑在客户端，反外挂压力大，无法避免开图挂</td>
+</tr>
+<tr>
+<td>战斗校验</td>
+<td style="text-align:right">协议加密，内存混淆；误差校验。无法彻底解决</td>
+<td style="text-align:center">服务器可以重启跑战斗</td>
+</tr>
+<tr>
+<td>网络卡顿的表现</td>
+<td style="text-align:right">瞬移，回位，莫名掉血</td>
+<td style="text-align:center">战斗卡顿</td>
+</tr>
+<tr>
+<td>服务器开发压力</td>
+<td style="text-align:right">大</td>
+<td style="text-align:center">小</td>
+</tr>
+<tr>
+<td>客户端实现</td>
+<td style="text-align:right">调优状态同步方式，客户端需要做差值处理</td>
+<td style="text-align:center">客户端按照单机方式开发，保证逻辑层和表现层分离;逻辑层不要用到浮点数，不要用到不确定顺序的逻辑结构。对于物理引擎和浮点数计算都不要用Unity的</td>
+</tr>
+<tr>
+<td>打击感</td>
+<td style="text-align:right">打击感相对差一点</td>
+<td style="text-align:center">打击感更好</td>
+</tr>
+<tr>
+<td>客户端性能</td>
+<td style="text-align:right">优势明显，直接裁切</td>
+<td style="text-align:center">逻辑性能优化有压力</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="附-1"><a href="#附-1" class="headerlink" title="附 1"></a>附 1</h3><p>社会因素，对于我来说，知道帧同步，是因为王者荣耀这款手游。<br>当然王者荣耀能在手机上保持怎么好的网络稳定，离不开4G网络普及。当时我还是很少玩手机游戏。后来看到售楼处的小哥，午休聚在一起玩，我才意思到。这款游戏用户确认很多。<br><a href="http://www.cnblogs.com/zwgtech/articles/4996013.html" target="_blank" rel="external">移动游戏战斗系统实现方式探讨</a><br><a href="http://www.skywind.me/blog/?s=%E5%86%8D%E8%B0%88%E7%BD%91%E6%B8%B8%E5%90%8C%E6%AD%A5%E6%8A%80%E6%9C%AF" target="_blank" rel="external">再谈网游同步技术</a></p>
+<h3 id="附-2"><a href="#附-2" class="headerlink" title="附 2"></a>附 2</h3><p><img src="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/51.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/52.png" alt=""></p>
 
       
     </div>
@@ -360,13 +412,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/11/30/Unity小技巧-清除缓存/">Unity小技巧-清除缓存</a></p>
+        <p><span>本文标题:</span><a href="/2019/06/12/游戏同步/">游戏同步</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
-        <p><span>发布时间:</span>2017-11-30, 20:50:02</p>
-        <p><span>最后更新:</span>2017-11-30, 21:22:10</p>
+        <p><span>发布时间:</span>2019-06-12, 10:14:42</p>
+        <p><span>最后更新:</span>2019-06-12, 10:27:07</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/11/30/Unity小技巧-清除缓存/" title="Unity小技巧-清除缓存">http://zhutao.github.io/2017/11/30/Unity小技巧-清除缓存/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2017/11/30/Unity小技巧-清除缓存/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2019/06/12/游戏同步/" title="游戏同步">http://zhutao.github.io/2019/06/12/游戏同步/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2019/06/12/游戏同步/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -378,16 +430,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/11/30/struct-结构体类型的大小计算/">
-                    struct 结构体类型的大小计算
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/11/28/自动上阵功能开发的小结/">
-                    自动上阵功能开发的小结
+                <a href="/2019/05/04/关于动画结束的处理/">
+                    关于动画结束的处理
                 </a>
             </div>
         
@@ -399,7 +445,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#如何判断？"><span class="toc-number">1.</span> <span class="toc-text">如何判断？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在PC测试"><span class="toc-number">2.</span> <span class="toc-text">在PC测试</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#帧同步：服务器负责转化客户端的操作，每个客户端在固定的逻辑帧执行该帧所有客户端的操作命令，通过在严格一致的时间轴上执行同样的命令序列得到同样的结果。主流的老牌RTS游戏都是帧同步：星际争霸、war3"><span class="toc-number">1.</span> <span class="toc-text">帧同步：服务器负责转化客户端的操作，每个客户端在固定的逻辑帧执行该帧所有客户端的操作命令，通过在严格一致的时间轴上执行同样的命令序列得到同样的结果。主流的老牌RTS游戏都是帧同步：星际争霸、war3</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#状态同步：服务器承载所有计算，客户端只做表现。主流的大型MMO游戏都采用状态同步。"><span class="toc-number">2.</span> <span class="toc-text">状态同步：服务器承载所有计算，客户端只做表现。主流的大型MMO游戏都采用状态同步。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#附-1"><span class="toc-number"></span> <span class="toc-text">附 1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#附-2"><span class="toc-number"></span> <span class="toc-text">附 2</span></a>
         
     </div>
     <style>
@@ -435,7 +481,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Unity小技巧-清除缓存　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"游戏同步　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -451,7 +497,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2017/11/30/Unity小技巧-清除缓存/" data-title="Unity小技巧-清除缓存" data-url="http://zhutao.github.io/2017/11/30/Unity小技巧-清除缓存/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2019/06/12/游戏同步/" data-title="游戏同步" data-url="http://zhutao.github.io/2019/06/12/游戏同步/"></div>
     <script>
         var duoshuoQuery = {short_name:"zhutaorun"};
         var loadComment = function(){
@@ -474,15 +520,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/11/30/struct-结构体类型的大小计算/" title="上一篇: struct 结构体类型的大小计算">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/11/28/自动上阵功能开发的小结/" title="下一篇: 自动上阵功能开发的小结">
+            <a href="/2019/05/04/关于动画结束的处理/" title="下一篇: 关于动画结束的处理">
                 <i class="fa fa-angle-right"></i>
             </a>
         
