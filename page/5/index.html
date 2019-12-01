@@ -284,6 +284,77 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-U3D贴图格式-GENERATE-MIP-MAPS" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/" class="article-date">
+      <time datetime="2017-01-24T15:05:19.000Z" itemprop="datePublished">2017-01-24</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/">U3D贴图格式 GENERATE MIP MAPS</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <blockquote>
+<p>UI策划问我，是否要勾选上GENERATE MIP MAPS，勾选上后Loading图清晰多了。对此重新去看，以及整理在这里</p>
+</blockquote>
+<h3 id="工作小知识"><a href="#工作小知识" class="headerlink" title="工作小知识"></a>工作小知识</h3><p>在UITexture的格式上 是否勾选上GENERATE MIP MAPS。<br>之前问过其他人，说是影响不大。确实在安卓手机上，图片清晰度没有差别，但是 PC端上的海马模拟器上UITexture 图片就显得有差别了。勾选了后，图片显得模糊。<br>一张图勾选上Generate mip maps,会由0.5M到0.7M，资源会增大四分之一。<br>2D游戏的话，所有都不需要勾选多重采样，具有3D性质的贴图，我们都需要勾选上GENERATE MIP MAPS，这样会使贴图大小增加25%这样。<br>Loading图不需要勾选，人物模型和场景的贴图都要够勾选。<br><strong><a href="http://docs.unity3d.com/Manual/class-TextureImporter.html">http://docs.unity3d.com/Manual/class-TextureImporter.html</a></strong></p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Android真机调试" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -925,74 +996,6 @@
       
         <p class="article-more-link">
           <a href="/2016/10/02/适配器模式/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-二分法" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/10/02/二分法/" class="article-date">
-      <time datetime="2016-10-02T13:03:57.000Z" itemprop="datePublished">2016-10-02</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/02/二分法/">二分法</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><a href="http://baike.baidu.com/link?url=jIRT4_ThqsC4dG2yTw5JKjEnk8wvbRi3danyU8KxfT01Vd20A6A02Xnn5XSw-30NFauqMjt9hvwIaM9WzMstla">二分查找</a>又称折半查找，优点是比较次数少，查找速度快，平均性能好；其缺点是要求待查表为有序表，且插入删除困难。因此，折半查找方法适用于不经常变动而查找频繁的有序列表。首先，假设表中元素是按升序排列，将表中间位置记录的关键字与查找关键字比较，如果两者相等，则查找成功；否则利用中间位置记录将表分成前、后两个子表，如果中间位置记录的关键字大于查找关键字，则进一步查找前一子表，否则进一步查找后一子表。重复以上过程，直到找到满足条件的记录，使查找成功，或直到子表不存在为止，此时查找不成功。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/面试与应用/">面试与应用</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2016/10/02/二分法/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
