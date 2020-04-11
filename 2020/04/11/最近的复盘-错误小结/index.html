@@ -15,25 +15,22 @@
 
 
 
-<meta name="description" content="之前项目的主程说优化口诀，优化就三样。算法优化，把CPU的事情放到GPU,都不行了就开多线程干。经历目前这个项目的优化，加上看了一些UWA的文章。
+<meta name="description" content="最近线上测试，发现有2个C（概率复现，对玩家没什么影响）级BUG给到我，虽然一直也有出现，但没找到原因。因昨天打包电脑换工位，外面也刮风下雨。宅在家写点内容。小结下最近看到自己所犯的错误。
 
-一.优化的目的对程序员来说，提高“性能”；性能是关于计算机所需花费的时间和内存空间占用，宏观上保持保持每一帧的流畅，最终目标是对给player优质的体验。对于Ta和美术-自由发挥艺术设计的“空间”。 最终目标就是给Player视觉上“炫炫炫”。对于">
+一、线上C级BUG表现：可领取的特效没显示，显示上2/2,也没显示已经领取的打勾显示">
 <meta property="og:type" content="article">
-<meta property="og:title" content="再谈优化">
-<meta property="og:url" content="http://zhutao.github.io/2018/11/01/再谈优化/index.html">
+<meta property="og:title" content="最近的复盘-错误小结">
+<meta property="og:url" content="http://zhutao.github.io/2020/04/11/最近的复盘-错误小结/index.html">
 <meta property="og:site_name" content="zhutaorun's Blog">
-<meta property="og:description" content="之前项目的主程说优化口诀，优化就三样。算法优化，把CPU的事情放到GPU,都不行了就开多线程干。经历目前这个项目的优化，加上看了一些UWA的文章。
+<meta property="og:description" content="最近线上测试，发现有2个C（概率复现，对玩家没什么影响）级BUG给到我，虽然一直也有出现，但没找到原因。因昨天打包电脑换工位，外面也刮风下雨。宅在家写点内容。小结下最近看到自己所犯的错误。
 
-一.优化的目的对程序员来说，提高“性能”；性能是关于计算机所需花费的时间和内存空间占用，宏观上保持保持每一帧的流畅，最终目标是对给player优质的体验。对于Ta和美术-自由发挥艺术设计的“空间”。 最终目标就是给Player视觉上“炫炫炫”。对于">
-<meta property="og:image" content="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/48.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/49.png">
-<meta property="og:updated_time" content="2018-11-01T15:07:20.068Z">
+一、线上C级BUG表现：可领取的特效没显示，显示上2/2,也没显示已经领取的打勾显示">
+<meta property="og:updated_time" content="2020-04-11T09:39:04.050Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="再谈优化">
-<meta name="twitter:description" content="之前项目的主程说优化口诀，优化就三样。算法优化，把CPU的事情放到GPU,都不行了就开多线程干。经历目前这个项目的优化，加上看了一些UWA的文章。
+<meta name="twitter:title" content="最近的复盘-错误小结">
+<meta name="twitter:description" content="最近线上测试，发现有2个C（概率复现，对玩家没什么影响）级BUG给到我，虽然一直也有出现，但没找到原因。因昨天打包电脑换工位，外面也刮风下雨。宅在家写点内容。小结下最近看到自己所犯的错误。
 
-一.优化的目的对程序员来说，提高“性能”；性能是关于计算机所需花费的时间和内存空间占用，宏观上保持保持每一帧的流畅，最终目标是对给player优质的体验。对于Ta和美术-自由发挥艺术设计的“空间”。 最终目标就是给Player视觉上“炫炫炫”。对于">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/48.png">
+一、线上C级BUG表现：可领取的特效没显示，显示上2/2,也没显示已经领取的打勾显示">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -65,7 +62,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>再谈优化 | zhutaorun&#39;s Blog</title>
+<title>最近的复盘-错误小结 | zhutaorun&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -298,11 +295,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-再谈优化" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-最近的复盘-错误小结" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2018/11/01/再谈优化/" class="article-date">
-      <time datetime="2018-11-01T15:04:58.000Z" itemprop="datePublished">2018-11-01</time>
+      <a href="/2020/04/11/最近的复盘-错误小结/" class="article-date">
+      <time datetime="2020-04-11T09:29:15.000Z" itemprop="datePublished">2020-04-11</time>
 </a>
 
 
@@ -317,7 +314,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      再谈优化
+      最近的复盘-错误小结
     </h1>
   
 
@@ -326,13 +323,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    <a class="article-category-link" href="/categories/小结反思/">小结反思</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D-优化/">Unity3D 优化</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -343,20 +340,30 @@
       
           
         <blockquote>
-<p>之前项目的主程说优化口诀，优化就三样。算法优化，把CPU的事情放到GPU,都不行了就开多线程干。<br>经历目前这个项目的优化，加上看了一些UWA的文章。</p>
+<p>最近线上测试，发现有2个C（概率复现，对玩家没什么影响）级BUG给到我，虽然一直也有出现，但没找到原因。因昨天打包电脑换工位，外面也刮风下雨。宅在家写点内容。小结下最近看到自己所犯的错误。</p>
 </blockquote>
-<h3 id="一-优化的目的"><a href="#一-优化的目的" class="headerlink" title="一.优化的目的"></a>一.优化的目的</h3><p>对程序员来说，提高“性能”；性能是关于计算机所需花费的时间和内存空间占用，宏观上保持保持每一帧的流畅，最终目标是对给player优质的体验。<br>对于Ta和美术-自由发挥艺术设计的“空间”。 最终目标就是给Player视觉上“炫炫炫”。<br>对于运营和发行来说，就是更多地玩家同屏人数，服务器可承载更多的玩家。对于初始包体要很小。</p>
-<h3 id="二-优化的背后知识体系"><a href="#二-优化的背后知识体系" class="headerlink" title="二.优化的背后知识体系"></a>二.优化的背后知识体系</h3><p>基础图形原理<br>计算机常用的算法和数据结构<br>对移动平台的硬件有充分了解（CPU，GPU，内存，I/O…）<br>对Unity在Mobile Device上的.net实现环境有所了解（mono or il2cpp)</p>
-<h3 id="三-优化的效果指标"><a href="#三-优化的效果指标" class="headerlink" title="三.优化的效果指标"></a>三.优化的效果指标</h3><p>详细可以看到wetest给予各项指标图，wetest的unity深度测试。</p>
-<p><img src="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/48.png" alt=""><br><img src="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/49.png" alt=""></p>
-<h3 id="四-优化的工具"><a href="#四-优化的工具" class="headerlink" title="四.优化的工具"></a>四.优化的工具</h3><ul>
-<li>wetest</li>
-<li>uwa got tool</li>
-<li>Profiler</li>
-<li>Memory Profiler</li>
-<li>Mali Graphics Debugger(基于Arm显卡的工具)</li>
-<li>Snapdragon Profiler<h3 id="五-优化是一件坚持记录和对比的过程"><a href="#五-优化是一件坚持记录和对比的过程" class="headerlink" title="五.优化是一件坚持记录和对比的过程"></a>五.优化是一件坚持记录和对比的过程</h3>优化是可以看到这个团队在配合程度，只有前期很好制定了美术资源在不同的级别制作标准，才能在后期适配更多的手机。<br>记录当前版本的问题，毕竟改进的后数据记录。很多团队都选择用Excel来做记录。</li>
-</ul>
+<h2 id="一、线上C级BUG"><a href="#一、线上C级BUG" class="headerlink" title="一、线上C级BUG"></a>一、线上C级BUG</h2><p>表现：可领取的特效没显示，显示上2/2,也没显示已经领取的打勾显示<br><a id="more"></a><br>分析：看到单子的那一刻，我分析下，我觉得逻辑上，加载对应的特效的肯定没写错。那方向锁定了特效的被UI的层级内容挡住了。看了下是SortingOrder出错了，看了之前的代码，当时为了方便还特地取了当前的界面的canvas,但是获取地方错了，因为在设计上延迟卸载会有UI层级的重新排序。如果放在Open函数中就能决解问题的。</p>
+<p>解决方案：在要加载的Node界面中，获取当前打开界面的View，再获取Canvas。规避因UI排序的造成的影响，也让代码可读性提高了。明确这个Node是哪个View的子节点。</p>
+<h2 id="二、赛季奖励界面，低概率报错"><a href="#二、赛季奖励界面，低概率报错" class="headerlink" title="二、赛季奖励界面，低概率报错"></a>二、赛季奖励界面，低概率报错</h2><p>策划需求，2个PVP活动，要支持热更新，要支持配置多个赛季</p>
+<p>程序设计上：一张表分为2个部分请求，一次是框架表的内容，一次是用id关联具体的奖励信息。有依赖关系和先后关系。</p>
+<p>表现：有时有的新帐号，打开界面报错。</p>
+<p>第一次QA报告过来，觉得是配置问题，让服务器查了配置解决发来的部分是没问题。我觉得是初始化的问题。加了对应的代码保护，作为一个低概率复现的bug给了QA。QA把单子关掉了。</p>
+<p>第二次QA报告过来，Unity可以复现这样的表现，但QA复现的情况是，在修改服务器时间（切换赛季的时候出现）。再切换服务器时间，又不复现。</p>
+<p>有点陷入困局。逻辑上没问题，函数初始化也做了保护。看到一行UIScorllView的报错，传入数据是null的话，是收到服务器返回协议的时间不对。加了收到两条协议的时间打印。验证我的思考方向，时间打印顺序不对。一般来说都认为服务器协议是队列的，先进先出。这两条协议和服务器交流下来，因为第一条协议内容更多，回来的慢一点。</p>
+<p>决解方案：在两条协议都确认收到后刷新界面。</p>
+<h2 id="三、开蛋的动画停的帧不对"><a href="#三、开蛋的动画停的帧不对" class="headerlink" title="三、开蛋的动画停的帧不对"></a>三、开蛋的动画停的帧不对</h2><p>UE需求：三个蛋分别在不同时间里晃动，0-3、3-6、6-9；<br>在一个蛋播放完砸开的动画后1s,其他2个也播放砸蛋动画</p>
+<p>表现：第三个蛋的砸蛋动画，所停在帧是不对的</p>
+<p>分析：播放动画和动画样的代码都没问题，还找同事帮忙确下动画相关的代码没写错。第二天有找另一位同事帮忙看。是协程的问题的。</p>
+<p>我个人习惯觉得StartCoroutine(method())比StartCoroutine(“method”),在代码友好和可维护上比后者好。误认为对应的停止函数StopCoroutine(method())和StopCoroutine(“method”)，其实前者这方法是错误的，并不能生效。</p>
+<p>决解方案：用StopAllcoroutines()有点粗暴。<br>正确的写法是<br>coroutine  mCoroutine = Startcoroutine(method())；<br>StopCoroutine( mCoroutine);</p>
+<p>看官方API<br>public Coroutine StartCoroutine(IEnumerator routine);<br>public void StopCoroutine(string methodName);<br>public void StopCoroutine(IEnumerator routine);<br>public void StopCoroutine(Coroutine routine);<br>用的时候没看，有点想当然了。</p>
+<h2 id="四、龙玉升级当从1级直接升级到9级龙玉的时候会出错"><a href="#四、龙玉升级当从1级直接升级到9级龙玉的时候会出错" class="headerlink" title="四、龙玉升级当从1级直接升级到9级龙玉的时候会出错"></a>四、龙玉升级当从1级直接升级到9级龙玉的时候会出错</h2><p>表现：从1级直接合成9级龙玉，显示上扣除数量是对的，但报错了，服务器判断不能升级，并把龙玉扣掉了。如果重新登录，对应扣掉的龙玉又返还回来了。</p>
+<p>分析：客户端显示的计算是没错，服务器在返回失败的情况，不应该扣除龙玉。QA复现，服务器定位收到协议数据，我发过去的数据计算错了。<br>解决方案：为嘛在升9级时候报错，因一种龙玉的最大堆叠数为999,而升9级的超过了，跨堆计算数量的时候，数值减错了。</p>
+<p>反思：之前写过类似的代码<a href="https://blog.csdn.net/u011611902/article/details/51298701" target="_blank" rel="external">代码优化</a>,不请记得自己当时是什么状态，但确实不够细心。还是非常感谢QA耐心帮忙测试。对于线上版本影响不大。挨个试，才确定了复现方式。</p>
+<h2 id="五、组件的显示不对"><a href="#五、组件的显示不对" class="headerlink" title="五、组件的显示不对"></a>五、组件的显示不对</h2><p>表现：根据阵营不同，对应特效的不同节点显示和隐藏。</p>
+<p>分析：收到的数据是有没有出错的，分析原因是组件和数据之前关联，那一步出错了。<br>目前也没有定位到具体问题出在了哪里了。<br>下周继续死磕了。</p>
+<h2 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h2><p>工作中都会犯错，但通过复盘让自己减少犯同类似的错误，来最大化提高效率。从过去的经验中学习，形成自己遇到新问题解决的方式。</p>
+<p>例如重新这个情况，却有三种不同情况出现。一种是卡顿重连，一种是下线重连还有一种是顶号换端重连。</p>
 
       
     </div>
@@ -365,13 +372,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2018/11/01/再谈优化/">再谈优化</a></p>
+        <p><span>本文标题:</span><a href="/2020/04/11/最近的复盘-错误小结/">最近的复盘-错误小结</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
-        <p><span>发布时间:</span>2018-11-01, 23:04:58</p>
-        <p><span>最后更新:</span>2018-11-01, 23:07:20</p>
+        <p><span>发布时间:</span>2020-04-11, 17:29:15</p>
+        <p><span>最后更新:</span>2020-04-11, 17:39:04</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2018/11/01/再谈优化/" title="再谈优化">http://zhutao.github.io/2018/11/01/再谈优化/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2018/11/01/再谈优化/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/04/11/最近的复盘-错误小结/" title="最近的复盘-错误小结">http://zhutao.github.io/2020/04/11/最近的复盘-错误小结/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2020/04/11/最近的复盘-错误小结/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -383,16 +390,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/02/03/帧同步的逻辑工程维护/">
-                    帧同步的逻辑工程维护
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2018/09/16/一个神奇的bug/">
-                    一个神奇的bug
+                <a href="/2020/02/03/Unity-Apk解包/">
+                    Unity-Apk解包
                 </a>
             </div>
         
@@ -404,7 +405,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-优化的目的"><span class="toc-number">1.</span> <span class="toc-text">一.优化的目的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-优化的背后知识体系"><span class="toc-number">2.</span> <span class="toc-text">二.优化的背后知识体系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三-优化的效果指标"><span class="toc-number">3.</span> <span class="toc-text">三.优化的效果指标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四-优化的工具"><span class="toc-number">4.</span> <span class="toc-text">四.优化的工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五-优化是一件坚持记录和对比的过程"><span class="toc-number">5.</span> <span class="toc-text">五.优化是一件坚持记录和对比的过程</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、线上C级BUG"><span class="toc-number">1.</span> <span class="toc-text">一、线上C级BUG</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、赛季奖励界面，低概率报错"><span class="toc-number">2.</span> <span class="toc-text">二、赛季奖励界面，低概率报错</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、开蛋的动画停的帧不对"><span class="toc-number">3.</span> <span class="toc-text">三、开蛋的动画停的帧不对</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、龙玉升级当从1级直接升级到9级龙玉的时候会出错"><span class="toc-number">4.</span> <span class="toc-text">四、龙玉升级当从1级直接升级到9级龙玉的时候会出错</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、组件的显示不对"><span class="toc-number">5.</span> <span class="toc-text">五、组件的显示不对</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、总结"><span class="toc-number">6.</span> <span class="toc-text">六、总结</span></a></li></ol>
         
     </div>
     <style>
@@ -440,7 +441,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"再谈优化　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"最近的复盘-错误小结　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -456,7 +457,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2018/11/01/再谈优化/" data-title="再谈优化" data-url="http://zhutao.github.io/2018/11/01/再谈优化/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2020/04/11/最近的复盘-错误小结/" data-title="最近的复盘-错误小结" data-url="http://zhutao.github.io/2020/04/11/最近的复盘-错误小结/"></div>
     <script>
         var duoshuoQuery = {short_name:"zhutaorun"};
         var loadComment = function(){
@@ -479,15 +480,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/02/03/帧同步的逻辑工程维护/" title="上一篇: 帧同步的逻辑工程维护">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2018/09/16/一个神奇的bug/" title="下一篇: 一个神奇的bug">
+            <a href="/2020/02/03/Unity-Apk解包/" title="下一篇: Unity-Apk解包">
                 <i class="fa fa-angle-right"></i>
             </a>
         
