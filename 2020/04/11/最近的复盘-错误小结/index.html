@@ -25,7 +25,7 @@
 <meta property="og:description" content="最近线上测试，发现有2个C（概率复现，对玩家没什么影响）级BUG给到我，虽然一直也有出现，但没找到原因。因昨天打包电脑换工位，外面也刮风下雨。宅在家写点内容。小结下最近看到自己所犯的错误。
 
 一、线上C级BUG表现：可领取的特效没显示，显示上2/2,也没显示已经领取的打勾显示">
-<meta property="og:updated_time" content="2020-04-11T09:39:04.050Z">
+<meta property="og:updated_time" content="2020-04-17T14:52:03.633Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="最近的复盘-错误小结">
 <meta name="twitter:description" content="最近线上测试，发现有2个C（概率复现，对玩家没什么影响）级BUG给到我，虽然一直也有出现，但没找到原因。因昨天打包电脑换工位，外面也刮风下雨。宅在家写点内容。小结下最近看到自己所犯的错误。
@@ -361,7 +361,11 @@
 <p>分析：客户端显示的计算是没错，服务器在返回失败的情况，不应该扣除龙玉。QA复现，服务器定位收到协议数据，我发过去的数据计算错了。<br>解决方案：为嘛在升9级时候报错，因一种龙玉的最大堆叠数为999,而升9级的超过了，跨堆计算数量的时候，数值减错了。</p>
 <p>反思：之前写过类似的代码<a href="https://blog.csdn.net/u011611902/article/details/51298701" target="_blank" rel="external">代码优化</a>,不请记得自己当时是什么状态，但确实不够细心。还是非常感谢QA耐心帮忙测试。对于线上版本影响不大。挨个试，才确定了复现方式。</p>
 <h2 id="五、组件的显示不对"><a href="#五、组件的显示不对" class="headerlink" title="五、组件的显示不对"></a>五、组件的显示不对</h2><p>表现：根据阵营不同，对应特效的不同节点显示和隐藏。</p>
-<p>分析：收到的数据是有没有出错的，分析原因是组件和数据之前关联，那一步出错了。<br>目前也没有定位到具体问题出在了哪里了。<br>下周继续死磕了。</p>
+<p>分析：收到的数据是有没有出错的，分析原因是组件和数据之前关联，那一步出错了。<br>目前也没有定位到具体问题出在了哪里了。</p>
+<p><del>下周继续死磕了。</del></p>
+<p><strong>更新</strong>  :  QA后来稳定复现异常的情况。在FadeIn的时候，字典处理当时没理清楚。<br>处理前的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if(value!= NUll &amp;&amp;!Dic..ContainsKey(key)</div><div class="line">&#123;</div><div class="line">   Dic.Add(key,value);</div><div class="line">   ChangeEffect(key,value);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>处理后的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if(value!= NUll)</div><div class="line">&#123;</div><div class="line">   Dic[key]=value;</div><div class="line">   ChangeEffect(key,value);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>完美解决问题了。<br>反思：通过打印日子看逐步Log才确认问题了。dic加新Key之前先判Key后加入，确实之前养的好习惯。主要还是缺少对于这个地方返回出现FadeIn的情况理解。</p>
 <h2 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h2><p>工作中都会犯错，但通过复盘让自己减少犯同类似的错误，来最大化提高效率。从过去的经验中学习，形成自己遇到新问题解决的方式。</p>
 <p>例如重新这个情况，却有三种不同情况出现。一种是卡顿重连，一种是下线重连还有一种是顶号换端重连。</p>
 
@@ -375,7 +379,7 @@
         <p><span>本文标题:</span><a href="/2020/04/11/最近的复盘-错误小结/">最近的复盘-错误小结</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
         <p><span>发布时间:</span>2020-04-11, 17:29:15</p>
-        <p><span>最后更新:</span>2020-04-11, 17:39:04</p>
+        <p><span>最后更新:</span>2020-04-17, 22:52:03</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2020/04/11/最近的复盘-错误小结/" title="最近的复盘-错误小结">http://zhutao.github.io/2020/04/11/最近的复盘-错误小结/</a>
             <span class="copy-path" data-clipboard-text="原文: http://zhutao.github.io/2020/04/11/最近的复盘-错误小结/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
