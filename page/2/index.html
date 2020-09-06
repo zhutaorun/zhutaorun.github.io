@@ -292,6 +292,84 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-再谈优化" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/11/01/再谈优化/" class="article-date">
+      <time datetime="2018-11-01T15:04:58.000Z" itemprop="datePublished">2018-11-01</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/01/再谈优化/">再谈优化</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>之前项目的主程说优化口诀，优化就三样。算法优化，把CPU的事情放到GPU,都不行了就开多线程干。<br>经历目前这个项目的优化，加上看了一些UWA的文章。</p>
+</blockquote>
+<h3 id="一-优化的目的"><a href="#一-优化的目的" class="headerlink" title="一.优化的目的"></a>一.优化的目的</h3><p>对程序员来说，提高“性能”；性能是关于计算机所需花费的时间和内存空间占用，宏观上保持保持每一帧的流畅，最终目标是对给player优质的体验。<br>对于Ta和美术-自由发挥艺术设计的“空间”。 最终目标就是给Player视觉上“炫炫炫”。<br>对于运营和发行来说，就是更多地玩家同屏人数，服务器可承载更多的玩家。对于初始包体要很小。</p>
+<h3 id="二-优化的背后知识体系"><a href="#二-优化的背后知识体系" class="headerlink" title="二.优化的背后知识体系"></a>二.优化的背后知识体系</h3><p>基础图形原理<br>计算机常用的算法和数据结构<br>对移动平台的硬件有充分了解（CPU，GPU，内存，I/O…）<br>对Unity在Mobile Device上的.net实现环境有所了解（mono or il2cpp)</p>
+<h3 id="三-优化的效果指标"><a href="#三-优化的效果指标" class="headerlink" title="三.优化的效果指标"></a>三.优化的效果指标</h3><p>详细可以看到wetest给予各项指标图，wetest的unity深度测试。</p>
+<p><img src="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/48.png" alt=""><br><img src="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/49.png" alt=""></p>
+<h3 id="四-优化的工具"><a href="#四-优化的工具" class="headerlink" title="四.优化的工具"></a>四.优化的工具</h3><ul>
+<li>wetest</li>
+<li>uwa got tool</li>
+<li>Profiler</li>
+<li>Memory Profiler</li>
+<li>Mali Graphics Debugger(基于Arm显卡的工具)</li>
+<li>Snapdragon Profiler<h3 id="五-优化是一件坚持记录和对比的过程"><a href="#五-优化是一件坚持记录和对比的过程" class="headerlink" title="五.优化是一件坚持记录和对比的过程"></a>五.优化是一件坚持记录和对比的过程</h3>优化是可以看到这个团队在配合程度，只有前期很好制定了美术资源在不同的级别制作标准，才能在后期适配更多的手机。<br>记录当前版本的问题，毕竟改进的后数据记录。很多团队都选择用Excel来做记录。</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D-优化/">Unity3D 优化</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-一个神奇的bug" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -913,74 +991,6 @@
       
         <p class="article-more-link">
           <a href="/2018/03/20/资产，对象和序列化/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-翻译-资产，资源和AssetBundle" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/03/20/翻译-资产，资源和AssetBundle/" class="article-date">
-      <time datetime="2018-03-19T16:29:50.000Z" itemprop="datePublished">2018-03-20</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/20/翻译-资产，资源和AssetBundle/">[翻译]资产，资源和AssetBundle</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="资源，资产和AssetBundle来自官方的教程内容"><a href="#资源，资产和AssetBundle来自官方的教程内容" class="headerlink" title="资源，资产和AssetBundle来自官方的教程内容"></a><a href="https://unity3d.com/cn/learn/tutorials/s/best-practices">资源，资产和AssetBundle</a>来自官方的教程内容</h3><h2 id="AssetBundles和资源的使用指南"><a href="#AssetBundles和资源的使用指南" class="headerlink" title="AssetBundles和资源的使用指南"></a>AssetBundles和资源的使用指南</h2><h3 id="版本检查：2017-3-难度-高级"><a href="#版本检查：2017-3-难度-高级" class="headerlink" title="版本检查：2017.3 - 难度:高级"></a>版本检查：2017.3 - 难度:高级</h3><h5 id="这是一系列文章，提供Unity引擎中资产和资源管理的深入讨论。它力求为专业开发人员提供关于Unity资源和序列化系统的深入源代码的知识。它考察了Unity-AssetBundle系统的技术基础和当前使用它们的最佳练习-。"><a href="#这是一系列文章，提供Unity引擎中资产和资源管理的深入讨论。它力求为专业开发人员提供关于Unity资源和序列化系统的深入源代码的知识。它考察了Unity-AssetBundle系统的技术基础和当前使用它们的最佳练习-。" class="headerlink" title="这是一系列文章，提供Unity引擎中资产和资源管理的深入讨论。它力求为专业开发人员提供关于Unity资源和序列化系统的深入源代码的知识。它考察了Unity AssetBundle系统的技术基础和当前使用它们的最佳练习 。"></a>这是一系列文章，提供Unity引擎中资产和资源管理的深入讨论。它力求为专业开发人员提供关于Unity资源和序列化系统的深入源代码的知识。它考察了Unity AssetBundle系统的技术基础和当前使用它们的最佳练习 。</h5>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术积累-翻译/">技术积累 翻译</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3d/">Unity3d</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2018/03/20/翻译-资产，资源和AssetBundle/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>

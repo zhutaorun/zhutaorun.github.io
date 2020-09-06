@@ -292,6 +292,77 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-个人最近踩的坑" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/09/06/个人最近踩的坑/" class="article-date">
+      <time datetime="2020-09-06T12:23:25.000Z" itemprop="datePublished">2020-09-06</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/06/个人最近踩的坑/">个人最近踩的坑</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <blockquote>
+<p>6月份初稿，在6月-8月遇到的问题,总结反思.也是目前都已经解决掉的问题</p>
+</blockquote>
+<h2 id="一、半圆组件初始化显示异常"><a href="#一、半圆组件初始化显示异常" class="headerlink" title="一、半圆组件初始化显示异常"></a>一、半圆组件初始化显示异常</h2><p>在用一个半圆组件。让item分布在恰当的位置显示，只有一个的时候居中，有2个时候在偏移30度的地方显示。但是打开界面第一次的时候，位置总是异常。<br>当时UE加组件的时候，并不清楚要这样。只是让2个角中一个显示就行了。后来UE告诉要程序控制一下组件。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工作反思/">工作反思</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2020/09/06/个人最近踩的坑/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-《Lua程序设计（第四版）》读书笔记" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -962,84 +1033,6 @@
         <p class="article-more-link">
           <a href="/2019/02/03/帧同步的逻辑工程维护/#more">阅读全文 >></a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-再谈优化" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/11/01/再谈优化/" class="article-date">
-      <time datetime="2018-11-01T15:04:58.000Z" itemprop="datePublished">2018-11-01</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/01/再谈优化/">再谈优化</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <blockquote>
-<p>之前项目的主程说优化口诀，优化就三样。算法优化，把CPU的事情放到GPU,都不行了就开多线程干。<br>经历目前这个项目的优化，加上看了一些UWA的文章。</p>
-</blockquote>
-<h3 id="一-优化的目的"><a href="#一-优化的目的" class="headerlink" title="一.优化的目的"></a>一.优化的目的</h3><p>对程序员来说，提高“性能”；性能是关于计算机所需花费的时间和内存空间占用，宏观上保持保持每一帧的流畅，最终目标是对给player优质的体验。<br>对于Ta和美术-自由发挥艺术设计的“空间”。 最终目标就是给Player视觉上“炫炫炫”。<br>对于运营和发行来说，就是更多地玩家同屏人数，服务器可承载更多的玩家。对于初始包体要很小。</p>
-<h3 id="二-优化的背后知识体系"><a href="#二-优化的背后知识体系" class="headerlink" title="二.优化的背后知识体系"></a>二.优化的背后知识体系</h3><p>基础图形原理<br>计算机常用的算法和数据结构<br>对移动平台的硬件有充分了解（CPU，GPU，内存，I/O…）<br>对Unity在Mobile Device上的.net实现环境有所了解（mono or il2cpp)</p>
-<h3 id="三-优化的效果指标"><a href="#三-优化的效果指标" class="headerlink" title="三.优化的效果指标"></a>三.优化的效果指标</h3><p>详细可以看到wetest给予各项指标图，wetest的unity深度测试。</p>
-<p><img src="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/48.png" alt=""><br><img src="https://raw.githubusercontent.com/zhutaorun/zhutaorun.github.io/master/images/49.png" alt=""></p>
-<h3 id="四-优化的工具"><a href="#四-优化的工具" class="headerlink" title="四.优化的工具"></a>四.优化的工具</h3><ul>
-<li>wetest</li>
-<li>uwa got tool</li>
-<li>Profiler</li>
-<li>Memory Profiler</li>
-<li>Mali Graphics Debugger(基于Arm显卡的工具)</li>
-<li>Snapdragon Profiler<h3 id="五-优化是一件坚持记录和对比的过程"><a href="#五-优化是一件坚持记录和对比的过程" class="headerlink" title="五.优化是一件坚持记录和对比的过程"></a>五.优化是一件坚持记录和对比的过程</h3>优化是可以看到这个团队在配合程度，只有前期很好制定了美术资源在不同的级别制作标准，才能在后期适配更多的手机。<br>记录当前版本的问题，毕竟改进的后数据记录。很多团队都选择用Excel来做记录。</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D-优化/">Unity3D 优化</a></li></ul>
-    </div>
-
       
       <div class="clearfix"></div>
     </div>
