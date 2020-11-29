@@ -27,7 +27,7 @@
 
 继承可以重新定义从基类继承的任意方法。只需要编写一个新方法就行了。Lua语言中的对象有一个有趣的特性，就是无须为了指定一种新行为而创建一个新类。
 多重继承1.多重继承之在多个类中查找一个字段其实多重继承没什么特别的，除非两个将要被继承的类有相同的函数名和属性，否则，处理起来很简单。">
-<meta property="og:updated_time" content="2020-11-29T12:40:04.861Z">
+<meta property="og:updated_time" content="2020-11-29T12:48:01.138Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lua的多重继承实现">
 <meta name="twitter:description" content="之前讲过在Lua中实现面向对象,今天详细聊下多重继承
@@ -378,6 +378,8 @@
 </li>
 <li><p>方法2，将继承的方法复制到子类中，缺点是当系统运行后就较难修改方法的定义。</p>
 </li>
+<li><p>推荐第二种实现方式，在项目中已经使用了第2种方式</p>
+</li>
 </ul>
 
       
@@ -390,7 +392,7 @@
         <p><span>本文标题:</span><a href="/2020/11/29/Lua的多重继承实现/">Lua的多重继承实现</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
         <p><span>发布时间:</span>2020-11-29, 20:36:49</p>
-        <p><span>最后更新:</span>2020-11-29, 20:40:04</p>
+        <p><span>最后更新:</span>2020-11-29, 20:48:01</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2020/11/29/Lua的多重继承实现/" title="Lua的多重继承实现">http://zhutaorun.win/2020/11/29/Lua的多重继承实现/</a>
             <span class="copy-path" data-clipboard-text="原文: http://zhutaorun.win/2020/11/29/Lua的多重继承实现/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
