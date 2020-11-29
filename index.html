@@ -296,6 +296,78 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Lua的多重继承实现" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/11/29/Lua的多重继承实现/" class="article-date">
+      <time datetime="2020-11-29T12:36:49.000Z" itemprop="datePublished">2020-11-29</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/29/Lua的多重继承实现/">Lua的多重继承实现</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <blockquote>
+<p>之前讲过在<a href="https://zhutaorun.win/2020/09/26/Lua%E7%9A%84metatable%E5%92%8CLua%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%AE%9E%E7%8E%B0/">Lua中实现面向对象</a>,今天详细聊下多重继承</p>
+</blockquote>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>可以重新定义从基类继承的任意方法。只需要编写一个新方法就行了。<br>Lua语言中的对象有一个有趣的特性，就是无须为了指定一种新行为而创建一个新类。</p>
+<h2 id="多重继承"><a href="#多重继承" class="headerlink" title="多重继承"></a>多重继承</h2><h3 id="1-多重继承之在多个类中查找一个字段"><a href="#1-多重继承之在多个类中查找一个字段" class="headerlink" title="1.多重继承之在多个类中查找一个字段"></a>1.多重继承之在多个类中查找一个字段</h3><p>其实多重继承没什么特别的，除非两个将要被继承的类有相同的函数名和属性，否则，处理起来很简单。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lua/">Lua</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2020/11/29/Lua的多重继承实现/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Lua的OOP实现" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -914,77 +986,6 @@
       
         <p class="article-more-link">
           <a href="/2019/08/07/Unity里实现Hook函数/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-游戏同步" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/06/12/游戏同步/" class="article-date">
-      <time datetime="2019-06-12T02:14:42.000Z" itemprop="datePublished">2019-06-12</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/12/游戏同步/">游戏同步</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <blockquote>
-<p>早上在翻个人博客文件夹的时候，发现这篇18年10月30日写完的，再去翻了个人博客里，确实没发出来。随便把当时写的手稿也发上来。</p>
-</blockquote>
-<h3 id="游戏同步：帧同步和状态同步"><a href="#游戏同步：帧同步和状态同步" class="headerlink" title="游戏同步：帧同步和状态同步"></a>游戏同步：帧同步和状态同步</h3><h5 id="帧同步：服务器负责转化客户端的操作，每个客户端在固定的逻辑帧执行该帧所有客户端的操作命令，通过在严格一致的时间轴上执行同样的命令序列得到同样的结果。主流的老牌RTS游戏都是帧同步：星际争霸、war3"><a href="#帧同步：服务器负责转化客户端的操作，每个客户端在固定的逻辑帧执行该帧所有客户端的操作命令，通过在严格一致的时间轴上执行同样的命令序列得到同样的结果。主流的老牌RTS游戏都是帧同步：星际争霸、war3" class="headerlink" title="帧同步：服务器负责转化客户端的操作，每个客户端在固定的逻辑帧执行该帧所有客户端的操作命令，通过在严格一致的时间轴上执行同样的命令序列得到同样的结果。主流的老牌RTS游戏都是帧同步：星际争霸、war3"></a>帧同步：服务器负责转化客户端的操作，每个客户端在固定的逻辑帧执行该帧所有客户端的操作命令，通过在严格一致的时间轴上执行同样的命令序列得到同样的结果。主流的老牌RTS游戏都是帧同步：星际争霸、war3</h5><h5 id="状态同步：服务器承载所有计算，客户端只做表现。主流的大型MMO游戏都采用状态同步。"><a href="#状态同步：服务器承载所有计算，客户端只做表现。主流的大型MMO游戏都采用状态同步。" class="headerlink" title="状态同步：服务器承载所有计算，客户端只做表现。主流的大型MMO游戏都采用状态同步。"></a>状态同步：服务器承载所有计算，客户端只做表现。主流的大型MMO游戏都采用状态同步。</h5>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2019/06/12/游戏同步/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>

@@ -15,30 +15,25 @@
 
 
 
-<meta name="description" content="面试遇到关于小地图的制作问题
-实现方式如下
-NGUI minimap的插件
-根据场景，制作一张俯视截图，做坐标的相对运算。
-在主角的头顶挂一个摄像机，用renderTexture，实时渲染。">
+<meta name="description" content="之前讲过在Lua中实现面向对象,今天详细聊下多重继承
+
+继承可以重新定义从基类继承的任意方法。只需要编写一个新方法就行了。Lua语言中的对象有一个有趣的特性，就是无须为了指定一种新行为而创建一个新类。
+多重继承1.多重继承之在多个类中查找一个字段其实多重继承没什么特别的，除非两个将要被继承的类有相同的函数名和属性，否则，处理起来很简单。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MMO小地图实现方式">
-<meta property="og:url" content="http://zhutaorun.win/2017/06/30/MMO小地图实现方式/index.html">
+<meta property="og:title" content="Lua的多重继承实现">
+<meta property="og:url" content="http://zhutaorun.win/2020/11/29/Lua的多重继承实现/index.html">
 <meta property="og:site_name" content="zhutaorun's Blog">
-<meta property="og:description" content="面试遇到关于小地图的制作问题
-实现方式如下
-NGUI minimap的插件
-根据场景，制作一张俯视截图，做坐标的相对运算。
-在主角的头顶挂一个摄像机，用renderTexture，实时渲染。">
-<meta property="og:image" content="http://img.blog.csdn.net/20140707183056281?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd3VtaW5nMjIyMjI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-09-23T18:09:33.700Z">
+<meta property="og:description" content="之前讲过在Lua中实现面向对象,今天详细聊下多重继承
+
+继承可以重新定义从基类继承的任意方法。只需要编写一个新方法就行了。Lua语言中的对象有一个有趣的特性，就是无须为了指定一种新行为而创建一个新类。
+多重继承1.多重继承之在多个类中查找一个字段其实多重继承没什么特别的，除非两个将要被继承的类有相同的函数名和属性，否则，处理起来很简单。">
+<meta property="og:updated_time" content="2020-11-29T12:40:04.861Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MMO小地图实现方式">
-<meta name="twitter:description" content="面试遇到关于小地图的制作问题
-实现方式如下
-NGUI minimap的插件
-根据场景，制作一张俯视截图，做坐标的相对运算。
-在主角的头顶挂一个摄像机，用renderTexture，实时渲染。">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20140707183056281?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd3VtaW5nMjIyMjI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta name="twitter:title" content="Lua的多重继承实现">
+<meta name="twitter:description" content="之前讲过在Lua中实现面向对象,今天详细聊下多重继承
+
+继承可以重新定义从基类继承的任意方法。只需要编写一个新方法就行了。Lua语言中的对象有一个有趣的特性，就是无须为了指定一种新行为而创建一个新类。
+多重继承1.多重继承之在多个类中查找一个字段其实多重继承没什么特别的，除非两个将要被继承的类有相同的函数名和属性，否则，处理起来很简单。">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -70,7 +65,7 @@ NGUI minimap的插件
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>MMO小地图实现方式 | zhutaorun&#39;s Blog</title>
+<title>Lua的多重继承实现 | zhutaorun&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -307,11 +302,11 @@ NGUI minimap的插件
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-MMO小地图实现方式" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Lua的多重继承实现" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/06/30/MMO小地图实现方式/" class="article-date">
-      <time datetime="2017-06-30T15:03:42.000Z" itemprop="datePublished">2017-06-30</time>
+      <a href="/2020/11/29/Lua的多重继承实现/" class="article-date">
+      <time datetime="2020-11-29T12:36:49.000Z" itemprop="datePublished">2020-11-29</time>
 </a>
 
 
@@ -326,7 +321,7 @@ NGUI minimap的插件
         
   
     <h1 class="article-title" itemprop="name">
-      MMO小地图实现方式
+      Lua的多重继承实现
     </h1>
   
 
@@ -341,7 +336,7 @@ NGUI minimap的插件
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lua/">Lua</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -352,28 +347,38 @@ NGUI minimap的插件
       
           
         <blockquote>
-<p>面试遇到关于小地图的制作问题</p>
-<h2 id="实现方式如下"><a href="#实现方式如下" class="headerlink" title="实现方式如下"></a>实现方式如下</h2><ul>
-<li>NGUI minimap的插件</li>
-<li>根据场景，制作一张俯视截图，做坐标的相对运算。</li>
-<li>在主角的头顶挂一个摄像机，用renderTexture，实时渲染。<a id="more"></a>
-<h2 id="一-NGUI-minimap的插件"><a href="#一-NGUI-minimap的插件" class="headerlink" title="一 NGUI minimap的插件"></a>一 NGUI minimap的插件</h2>1.导入该插件后，在Mesh Version-&gt;Prefabs中，将NJG MiniMap(2D)拖入到场景中；<br>2.在Hierarchy中点击MiniMap(位于NJG MiniMap(2D) -&gt; UI Root -&gt; Camera -&gt; Anchor -&gt; MiniMap)，在Inspector中不勾选UIMini Map On GUI -&gt; Zoom Settings -&gt; MouseWheel ，将Zoom值调为最小；<br>3.给游戏主角和NPC各添加脚本NJGMap Item(Script),设置Marker Type属性：主角设为2DMe，NPC设为OtherPlayer;<br>4.此时运行游戏看到小地图有毛边；若想去掉毛边，重新设置Mask为一个矩形的Texture；<br>5.运行游戏可得到基本样式的小地图了；<br>6.注意：小地图这个窗口会自动刚好俯视到场景中所有物体所以应该让所有物体在地图的范围中，这样窗口范围和地图范围刚好吻合；<br>如图：(上方为小地图，下方为场景地图；小地图中靛色圆点为主角，绿色箭头为NPC，圆点和绿色箭头来自插件中)<br><img src="http://img.blog.csdn.net/20140707183056281?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd3VtaW5nMjIyMjI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""><h2 id="二-通过角色在原地图中的位置比例来确定角色在小地图中的位置"><a href="#二-通过角色在原地图中的位置比例来确定角色在小地图中的位置" class="headerlink" title="二 通过角色在原地图中的位置比例来确定角色在小地图中的位置"></a>二 通过角色在原地图中的位置比例来确定角色在小地图中的位置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">[csharp] view plain copy print?</div><div class="line">public class Map : MonoBehaviour &#123;  </div><div class="line">    public Texture map  ;//小地图图片、地图的俯视图；  </div><div class="line">    public Texture playerTexture ;//在小地图中代表角色的标识  </div><div class="line"> </div><div class="line">    float cubePosX=0 ;//角色在小地图中的位置x  </div><div class="line">    float cubePosY=0 ;//角色在小地图中的位置y  </div><div class="line"> </div><div class="line">    public GameObject player;  </div><div class="line">    public GameObject plane;//场景中的地图  </div><div class="line">    float planeWidth;  </div><div class="line">    float planeHeight;  </div><div class="line">    float scale = 1.0f;//缩放比  </div><div class="line"> </div><div class="line">    void Start()  </div><div class="line">    &#123;  </div><div class="line">        planeWidth = plane.GetComponent&lt;MeshFilter&gt;().mesh.bounds.size.x * (plane.transform.localScale.x );  </div><div class="line">        planeHeight = plane.GetComponent&lt;MeshFilter&gt;().mesh.bounds.size.z * (plane.transform.localScale.z);  </div><div class="line">    &#125;  </div><div class="line"> </div><div class="line">    void Update()  </div><div class="line">    &#123;  </div><div class="line">        //通过场景地图中的位置比例(player.transform.position.x/planeWidth)来确定角色在小地图中的位置  </div><div class="line">        cubePosX = map.width*player.transform.position.x/planeWidth;  </div><div class="line">        cubePosY = 159-map.height*player.transform.position.z/planeHeight;  </div><div class="line">    &#125;  </div><div class="line"> </div><div class="line">    void OnGUI ()  </div><div class="line">    &#123;  </div><div class="line">        GUI.DrawTexture(new Rect( 0, 0, map.width*scale, map.height*scale), map);  </div><div class="line">        GUI.DrawTexture(new Rect((cubePosX+6) * scale, (cubePosY-34) * scale, 5, 5), playerTexture);  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>之前讲过在<a href="https://zhutaorun.win/2020/09/26/Lua%E7%9A%84metatable%E5%92%8CLua%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%AE%9E%E7%8E%B0/">Lua中实现面向对象</a>,今天详细聊下多重继承</p>
+</blockquote>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>可以重新定义从基类继承的任意方法。只需要编写一个新方法就行了。<br>Lua语言中的对象有一个有趣的特性，就是无须为了指定一种新行为而创建一个新类。</p>
+<h2 id="多重继承"><a href="#多重继承" class="headerlink" title="多重继承"></a>多重继承</h2><h3 id="1-多重继承之在多个类中查找一个字段"><a href="#1-多重继承之在多个类中查找一个字段" class="headerlink" title="1.多重继承之在多个类中查找一个字段"></a>1.多重继承之在多个类中查找一个字段</h3><p>其实多重继承没什么特别的，除非两个将要被继承的类有相同的函数名和属性，否则，处理起来很简单。<br><a id="more"></a><br>无非就是在多个table中查找某个字段而已，不简单吗？Lua里的继承就是在别人的table里查找自己不存在的字段罢了。</p>
+<p>那么，单继承与多重继承的差别也在这里，一个是只查找一个table，另一个是查找两个或以上的table。</p>
+<p>我们就先来看看如何从2个或多个table中查找某个字段，如下代码：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">search</span><span class="params">(classes, key)</span></span></div><div class="line">    <span class="keyword">for</span> i = <span class="number">1</span>, #classes <span class="keyword">do</span></div><div class="line">        <span class="keyword">local</span> value = classes[i][key];</div><div class="line">        <span class="keyword">if</span> value ~= <span class="keyword">nil</span> <span class="keyword">then</span></div><div class="line">            <span class="keyword">return</span> value;</div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="keyword">local</span> t1 = &#123;name = <span class="string">"hehe"</span>&#125;;</div><div class="line"><span class="keyword">local</span> t2 = &#123;game = <span class="string">"who"</span>&#125;;</div><div class="line"><span class="built_in">print</span>(search(&#123;t1, t2&#125;, <span class="string">"game"</span>));</div></pre></td></tr></table></figure></p>
+<p>这里的classes参数，是一个table，这个table里又存放了多个table，也就是我们想要继承的那些类。</p>
+<p>而key就是要查找的字段。</p>
+<p>只需要遍历所有的table，判断这个字段是否在某个table里，找到之后，就返回这个值。</p>
+<p>我们的测试代码就是从t1、t2中查找game这个字段，t1、t1可以看成是两个类。</p>
+<p>输出结果如下：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[LUA-<span class="built_in">print</span>] who</div></pre></td></tr></table></figure></p>
+<h3 id="2-多重继承之创建继承多个类的子类"><a href="#2-多重继承之创建继承多个类的子类" class="headerlink" title="2.多重继承之创建继承多个类的子类"></a>2.多重继承之创建继承多个类的子类</h3><p>代码如下<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createClass</span><span class="params">(...)</span></span></div><div class="line">    <span class="keyword">local</span> parents = &#123;...&#125;;</div><div class="line">    <span class="keyword">local</span> child = &#123;&#125;;</div><div class="line"></div><div class="line">    <span class="comment">-- 设置类的元表</span></div><div class="line">    <span class="built_in">setmetatable</span>(child, &#123;</div><div class="line">        __index = <span class="function"><span class="keyword">function</span><span class="params">(table, key)</span></span></div><div class="line">            <span class="keyword">return</span> search(parents, key);</div><div class="line">        <span class="keyword">end</span></div><div class="line">    &#125;)</div><div class="line"></div><div class="line">    <span class="comment">-- 给类新增一个new函数，用于创建对象</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">child:new</span><span class="params">()</span></span></div><div class="line">        o = &#123;&#125;;</div><div class="line">        <span class="built_in">setmetatable</span>(o, child);</div><div class="line">        child.__index = child;</div><div class="line">        <span class="keyword">return</span> o;</div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="comment">-- 返回这个继承了多个类的子类</span></div><div class="line">    <span class="keyword">return</span> child;</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+<p>createClass函数就是用来创建一个继承了多个类的子类，有点小复杂，慢慢分析：</p>
+<p>1） 参数是一个可变参数，我们要将多个被继承的类作为参数传递进来</p>
+<p>2） parents用于保存这些被继承的类</p>
+<p>3） 创建一个新的table——child，它就是我们想要的那个继承了多个类的子类</p>
+<p>4） 给child设置元表，并且设置<strong>index元方法，</strong>index元方法可以是一个函数，当它是一个函数时，它的参数就是元表所属的table，以及要查找的字段名。</p>
+<p>5） 我们在__index元方法函数里调用search函数，从多个父类中查找所需的字段。于是，当调用child的某个函数时，就会从各个父类中查找，这已经完成了继承的工作了。</p>
+<p>6） 接下来就是我们所熟悉的new函数，用来创建child的子类。</p>
+<p>7） 最后返回child，一切都完成了。</p>
+<p>看似很复杂，其实还是对__index的应用而已。</p>
+<p>我们赶紧来测试一下吧，如下代码：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">--一个精灵类</span></div><div class="line">TSprite = &#123;&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">TSprite:hello</span><span class="params">()</span></span></div><div class="line">    <span class="built_in">print</span>(<span class="string">"谁跟你hello！"</span>);</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">TSprite:new</span><span class="params">()</span></span></div><div class="line">    o = &#123;&#125;</div><div class="line">    <span class="built_in">setmetatable</span>(o, self);</div><div class="line">    self.__index = self;</div><div class="line">    <span class="keyword">return</span> o;</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="comment">-- 一个子弹类</span></div><div class="line">TBullet = &#123;&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">TBullet:fire</span><span class="params">()</span></span></div><div class="line">    <span class="built_in">print</span>(<span class="string">"别动，再动我就瞄不准了！"</span>);</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">TBullet:new</span><span class="params">()</span></span></div><div class="line">    o = &#123;&#125;</div><div class="line">    <span class="built_in">setmetatable</span>(o, self);</div><div class="line">    self.__index = self;</div><div class="line">    <span class="keyword">return</span> o;</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="comment">-- 继承了两个类的子类</span></div><div class="line"><span class="keyword">local</span> BulletSprite = createClass(TSprite, TBullet);</div><div class="line"></div><div class="line"><span class="comment">-- 子类的对象</span></div><div class="line"><span class="keyword">local</span> bSprite = BulletSprite:new();</div><div class="line">bSprite:hello();</div><div class="line">bSprite:fire();</div></pre></td></tr></table></figure></p>
+<p>这里创建了两个类：TSprite和TBullet。</p>
+<p>然后调用createClass函数，创建一个继承了TSprite和TBullet的子类。</p>
+<p>最后创建子类的对象，调用对象的hello和fire函数。</p>
+<p>输出结果如下：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[LUA-<span class="built_in">print</span>] 谁跟你hello！</div><div class="line">[LUA-<span class="built_in">print</span>] 别动，再动我就瞄不准了！</div></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p>方法1，让__index字段成为一个函数，在该函数中搜索多个基类的方法段，搜索具有一定复杂性，性能不如单继承</p>
+</li>
+<li><p>方法2，将继承的方法复制到子类中，缺点是当系统运行后就较难修改方法的定义。</p>
 </li>
 </ul>
-</blockquote>
-<h3 id="三-场景投射型小地图"><a href="#三-场景投射型小地图" class="headerlink" title="三 场景投射型小地图"></a>三 场景投射型小地图</h3><ul>
-<li>在主角的头顶挂一个摄像机相机保持和角色在同一XZ坐标（写个很简单的同步位置的脚本）</li>
-<li>设置Camera渲染在单独的Layer上，同时主Camera渲染取消该层</li>
-<li>创建材质球，使用一个带遮罩的shader。</li>
-<li>创建RenderTexture,并设置到camera以及添加到材质球里。</li>
-<li>在UI界面里，为小地图UITexure中添加该材质球。</li>
-<li>调整合适的位置和大小</li>
-<li>使用quad为角色添加在小地图的显示图标</li>
-</ul>
-<hr>
-<p><strong> 面试有遇到说可以使用mesh的小地图制作方式，有知道的朋友请留下大概的解决思路。</strong></p>
-<hr>
-<p>参考内容：<a href="http://blog.csdn.net/wuming22222/article/details/37526659" target="_blank" rel="external">Unity3d-游戏中的小地图制作</a></p>
 
       
     </div>
@@ -382,13 +387,13 @@ NGUI minimap的插件
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/06/30/MMO小地图实现方式/">MMO小地图实现方式</a></p>
+        <p><span>本文标题:</span><a href="/2020/11/29/Lua的多重继承实现/">Lua的多重继承实现</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
-        <p><span>发布时间:</span>2017-06-30, 23:03:42</p>
-        <p><span>最后更新:</span>2017-09-24, 02:09:33</p>
+        <p><span>发布时间:</span>2020-11-29, 20:36:49</p>
+        <p><span>最后更新:</span>2020-11-29, 20:40:04</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/06/30/MMO小地图实现方式/" title="MMO小地图实现方式">http://zhutaorun.win/2017/06/30/MMO小地图实现方式/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://zhutaorun.win/2017/06/30/MMO小地图实现方式/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/11/29/Lua的多重继承实现/" title="Lua的多重继承实现">http://zhutaorun.win/2020/11/29/Lua的多重继承实现/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutaorun.win/2020/11/29/Lua的多重继承实现/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -400,16 +405,10 @@ NGUI minimap的插件
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2017/06/30/Unity资源制作要求/">
-                    Unity资源制作要求
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2017/05/31/Android端外推送到底有多烦/">
-                    Android端外推送到底有多烦
+                <a href="/2020/10/25/Lua的OOP实现/">
+                    Lua的OOP实现
                 </a>
             </div>
         
@@ -421,7 +420,7 @@ NGUI minimap的插件
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#实现方式如下"><span class="toc-number">1.</span> <span class="toc-text">实现方式如下</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一-NGUI-minimap的插件"><span class="toc-number">2.</span> <span class="toc-text">一 NGUI minimap的插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-通过角色在原地图中的位置比例来确定角色在小地图中的位置"><span class="toc-number">3.</span> <span class="toc-text">二 通过角色在原地图中的位置比例来确定角色在小地图中的位置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#三-场景投射型小地图"><span class="toc-number">3.1.</span> <span class="toc-text">三 场景投射型小地图</span></a></li></ol></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#继承"><span class="toc-number">1.</span> <span class="toc-text">继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多重继承"><span class="toc-number">2.</span> <span class="toc-text">多重继承</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-多重继承之在多个类中查找一个字段"><span class="toc-number">2.1.</span> <span class="toc-text">1.多重继承之在多个类中查找一个字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-多重继承之创建继承多个类的子类"><span class="toc-number">2.2.</span> <span class="toc-text">2.多重继承之创建继承多个类的子类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
         
     </div>
     <style>
@@ -457,7 +456,7 @@ NGUI minimap的插件
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"MMO小地图实现方式　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Lua的多重继承实现　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -473,7 +472,7 @@ NGUI minimap的插件
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2017/06/30/MMO小地图实现方式/" data-title="MMO小地图实现方式" data-url="http://zhutaorun.win/2017/06/30/MMO小地图实现方式/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2020/11/29/Lua的多重继承实现/" data-title="Lua的多重继承实现" data-url="http://zhutaorun.win/2020/11/29/Lua的多重继承实现/"></div>
     <script>
         var duoshuoQuery = {short_name:"zhutaorun"};
         var loadComment = function(){
@@ -496,15 +495,13 @@ NGUI minimap的插件
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/06/30/Unity资源制作要求/" title="上一篇: Unity资源制作要求">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2017/05/31/Android端外推送到底有多烦/" title="下一篇: Android端外推送到底有多烦">
+            <a href="/2020/10/25/Lua的OOP实现/" title="下一篇: Lua的OOP实现">
                 <i class="fa fa-angle-right"></i>
             </a>
         

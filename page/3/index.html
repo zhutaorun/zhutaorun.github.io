@@ -296,6 +296,76 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-AssetBundle的基本原理" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/03/20/AssetBundle的基本原理/" class="article-date">
+      <time datetime="2018-03-19T16:42:41.000Z" itemprop="datePublished">2018-03-20</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/20/AssetBundle的基本原理/">AssetBundle的基本原理</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h1 id="AssetBundle基本原理"><a href="#AssetBundle基本原理" class="headerlink" title="AssetBundle基本原理"></a>AssetBundle基本原理</h1><h4 id="版本检查：2017-3-难度：高级"><a href="#版本检查：2017-3-难度：高级" class="headerlink" title="版本检查：2017.3 -难度：高级"></a>版本检查：2017.3 -难度：高级</h4><p>这是涵盖Unity5<a href="https://unity3d.com/learn/tutorials/topics/best-practices/guide-asset-bundles-and-resources">资产，资源和资源管理系列文章</a>的第四章。</p>
+<p>本章讨论AssetBundles。它介绍了构建AssetBundles的基本系统，以及用于与AssetBundles进行交互的核心API。具体来说，它讨论了AssetBundles本身的加载和卸载以及AssetBundles中特定资产和对象的加载和卸载。</p>
+<p>有关AssetBundles使用的更多模式和最佳实践，请参阅本系列的下一章。<br>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累-翻译/">技术积累 翻译</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3d/">Unity3d</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2018/03/20/AssetBundle的基本原理/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-资源文件夹" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -910,81 +980,6 @@
       
         <p class="article-more-link">
           <a href="/2017/11/30/Unity小技巧-清除缓存/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-自动上阵功能开发的小结" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/11/28/自动上阵功能开发的小结/" class="article-date">
-      <time datetime="2017-11-28T15:35:55.000Z" itemprop="datePublished">2017-11-28</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/28/自动上阵功能开发的小结/">自动上阵功能开发的小结</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <blockquote>
-<p>最近一周中周一体检，周二发了一天低烧，周三才好一些。解决一个自动上阵的问题，截止到昨天晚上，算是最终解决问题。</p>
-<h3 id="槽点"><a href="#槽点" class="headerlink" title="槽点"></a>槽点</h3><p>这个功能没有案子，很早之前的案子也找不到。所以只能看代码。而我一边晕着看着代码，一边理当中的逻辑。</p>
-<h3 id="从功能划分"><a href="#从功能划分" class="headerlink" title="从功能划分"></a>从功能划分</h3><ul>
-<li>设计的内容：主将=》副将=》武器。</li>
-<li>具体操作：下阵=》界面刷新=》上阵=》界面刷新</li>
-<li>对应到数据层：清楚数据=》设置新数据，整个过程都是客户端给服务器发协议，设置的计算是客户端来做。</li>
-<li>未知风险：代码哪一些处理；还有数量级上去了是否会出现卡顿；界面在刷新过程中会出现隐藏UI情况，感觉并不是很好。
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工作反思/">工作反思</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/11/28/自动上阵功能开发的小结/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
