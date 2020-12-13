@@ -296,6 +296,78 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Lua热重载" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/12/13/Lua热重载/" class="article-date">
+      <time datetime="2020-12-13T07:01:34.000Z" itemprop="datePublished">2020-12-13</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/13/Lua热重载/">Lua热重载</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <blockquote>
+<p>之前项目用Lua的模块很少，确实没关注是否在客户端部分实现热重载。因为项目的服务器开发是C++和Lua的组合，在配合处理开发的时候，服务器脚本实现热重载。在客户端使用Lua的模块越来越多，也有人更多的同事开始用Lua开发。为了提交高效率，觉得还是可以花点时间在客户端实现下Lua热重载。</p>
+</blockquote>
+<p>Lua的特点：基于寄存器的虚拟机，简洁的语法，高效的编译执行，容易嵌入的特性。Lua在国内互联网技术上的应用也占领不少市场，redis，openresty, skynet等等都能看到Lua忙碌的身影。</p>
+<h3 id="一、原理"><a href="#一、原理" class="headerlink" title="一、原理"></a>一、原理</h3><p>函数requier在表中package.loaded中检查模块是否已被加载。<br>最简单粗暴的热更新就是将package.loaded[modelname]的值置为nil，强制重新加载：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">reload_module_obsolete</span><span class="params">(module_name)</span></span></div><div class="line">    <span class="built_in">package</span>.loaded[module_name] = <span class="keyword">nil</span></div><div class="line">    <span class="built_in">require</span>(module_name)</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lua/">Lua</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2020/12/13/Lua热重载/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Lua的多重继承实现" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -936,77 +1008,9 @@
 
 
   
-    <article id="post-Unity里实现Hook函数" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/08/07/Unity里实现Hook函数/" class="article-date">
-      <time datetime="2019-08-07T15:38:23.000Z" itemprop="datePublished">2019-08-07</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/07/Unity里实现Hook函数/">Unity里实现Hook函数</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="一-什么是钩子函数？"><a href="#一-什么是钩子函数？" class="headerlink" title="一.什么是钩子函数？"></a>一.什么是钩子函数？</h3><p>先来看一段百科：钩子函数是Windows消息处理机制的一部分，通过设置“钩子”，应用程序可以在系统级对所有消息、事件进行过滤，访问在正常情况下无法访问的消息。钩子的本质是一段用以处理系统消息的程序，通过系统调用，把它挂入系统。<br>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2019/08/07/Unity里实现Hook函数/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 </div>
