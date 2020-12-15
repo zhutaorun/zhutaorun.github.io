@@ -296,6 +296,78 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-struct-结构体类型的大小计算" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/11/30/struct-结构体类型的大小计算/" class="article-date">
+      <time datetime="2017-11-30T12:50:26.000Z" itemprop="datePublished">2017-11-30</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/30/struct-结构体类型的大小计算/">struct 结构体类型的大小计算</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="关于偏移量"><a href="#关于偏移量" class="headerlink" title="关于偏移量"></a>关于偏移量</h3><ul>
+<li>偏移量指的是结构体变量中成员的地址和结构体变量地址的差。结构体大小等于最后一个成员的偏移量加上最后一个成员的大小。显然，结构体变量中第一个成员的地址就是结构体变量的首地址。</li>
+<li>由于存储变量时地址对齐的要求，编译器在编译程序时会遵循两条原则：</li>
+<li>一、结构体变量中成员的偏移量必须是成员大小的整数倍（0被认为是任何数的整数倍）</li>
+<li>二、结构体大小必须是所有成员大小的整数倍。
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a href="/2017/11/30/struct-结构体类型的大小计算/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Unity小技巧-清除缓存" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -930,78 +1002,6 @@
       
         <p class="article-more-link">
           <a href="/2017/07/30/准备入职，写点东西/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Unity资源制作要求" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/06/30/Unity资源制作要求/" class="article-date">
-      <time datetime="2017-06-30T15:59:40.000Z" itemprop="datePublished">2017-06-30</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/30/Unity资源制作要求/">Unity资源制作要求</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="模型面数要求"><a href="#模型面数要求" class="headerlink" title="模型面数要求"></a>模型面数要求</h3><ul>
-<li>武器面数：武器模型控制在150个三角面，187个顶点以内。贴图控制在1张，最大256<em>256，最好128</em>128。</li>
-<li>场景面数 场景（地形、建筑、其他装饰物）面数控制在10000面左右，贴图控制在最多2张512*512。</li>
-<li>主角面数 主角模型控制在900-1300个三角面（以最终导入unity3d中的三角面数量为准）。贴图控制在1张，最好256×256，最多512×512。</li>
-<li>小怪面数 小怪模型控制在600-900个三角面（以最终导入unity3d中的三角面数量为准）。贴图控制在1张，最大256×256。<br><strong>注意：所有单个模型不准出现超过20000三角面的情况，否则导出时可能会出错。</strong>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a href="/2017/06/30/Unity资源制作要求/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>

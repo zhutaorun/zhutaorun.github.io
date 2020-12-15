@@ -15,25 +15,22 @@
 
 
 
-<meta name="description" content="之前讲过在Lua中实现面向对象,今天详细聊下多重继承
+<meta name="description" content="上一篇讲在Lua文件变化的时候实现自动重载。有2种方式
 
-继承可以重新定义从基类继承的任意方法。只需要编写一个新方法就行了。Lua语言中的对象有一个有趣的特性，就是无须为了指定一种新行为而创建一个新类。
-多重继承1.多重继承之在多个类中查找一个字段其实多重继承没什么特别的，除非两个将要被继承的类有相同的函数名和属性，否则，处理起来很简单。">
+一、assetpostprocessorssetPostProcessor是一个编辑器类，一个资源导入的一个管理器，在资源导入之前和之后可以根据导入的资源做一些设置和一些数据的修改，比如网格，纹理的压缩，模型添加组件等。当资源导入之前和之后都会发送通知，可以根据不同的资源类型，在导入之前和之后做不同的处理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lua的多重继承实现">
-<meta property="og:url" content="http://zhutaorun.win/2020/11/29/Lua的多重继承实现/index.html">
+<meta property="og:title" content="检测文件变化">
+<meta property="og:url" content="http://zhutaorun.win/2020/12/15/检测文件变化/index.html">
 <meta property="og:site_name" content="zhutaorun's Blog">
-<meta property="og:description" content="之前讲过在Lua中实现面向对象,今天详细聊下多重继承
+<meta property="og:description" content="上一篇讲在Lua文件变化的时候实现自动重载。有2种方式
 
-继承可以重新定义从基类继承的任意方法。只需要编写一个新方法就行了。Lua语言中的对象有一个有趣的特性，就是无须为了指定一种新行为而创建一个新类。
-多重继承1.多重继承之在多个类中查找一个字段其实多重继承没什么特别的，除非两个将要被继承的类有相同的函数名和属性，否则，处理起来很简单。">
-<meta property="og:updated_time" content="2020-11-29T12:48:01.138Z">
+一、assetpostprocessorssetPostProcessor是一个编辑器类，一个资源导入的一个管理器，在资源导入之前和之后可以根据导入的资源做一些设置和一些数据的修改，比如网格，纹理的压缩，模型添加组件等。当资源导入之前和之后都会发送通知，可以根据不同的资源类型，在导入之前和之后做不同的处理">
+<meta property="og:updated_time" content="2020-12-15T08:48:42.174Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lua的多重继承实现">
-<meta name="twitter:description" content="之前讲过在Lua中实现面向对象,今天详细聊下多重继承
+<meta name="twitter:title" content="检测文件变化">
+<meta name="twitter:description" content="上一篇讲在Lua文件变化的时候实现自动重载。有2种方式
 
-继承可以重新定义从基类继承的任意方法。只需要编写一个新方法就行了。Lua语言中的对象有一个有趣的特性，就是无须为了指定一种新行为而创建一个新类。
-多重继承1.多重继承之在多个类中查找一个字段其实多重继承没什么特别的，除非两个将要被继承的类有相同的函数名和属性，否则，处理起来很简单。">
+一、assetpostprocessorssetPostProcessor是一个编辑器类，一个资源导入的一个管理器，在资源导入之前和之后可以根据导入的资源做一些设置和一些数据的修改，比如网格，纹理的压缩，模型添加组件等。当资源导入之前和之后都会发送通知，可以根据不同的资源类型，在导入之前和之后做不同的处理">
 
 <link rel="apple-touch-icon" href= "/apple-touch-icon.png">
 
@@ -65,7 +62,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Lua的多重继承实现 | zhutaorun&#39;s Blog</title>
+<title>检测文件变化 | zhutaorun&#39;s Blog</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -302,11 +299,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
 </nav>
-      <div class="body-wrap"><article id="post-Lua的多重继承实现" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-检测文件变化" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2020/11/29/Lua的多重继承实现/" class="article-date">
-      <time datetime="2020-11-29T12:36:49.000Z" itemprop="datePublished">2020-11-29</time>
+      <a href="/2020/12/15/检测文件变化/" class="article-date">
+      <time datetime="2020-12-15T08:39:44.000Z" itemprop="datePublished">2020-12-15</time>
 </a>
 
 
@@ -321,7 +318,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Lua的多重继承实现
+      检测文件变化
     </h1>
   
 
@@ -347,39 +344,30 @@
       
           
         <blockquote>
-<p>之前讲过在<a href="https://zhutaorun.win/2020/09/26/Lua%E7%9A%84metatable%E5%92%8CLua%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%AE%9E%E7%8E%B0/">Lua中实现面向对象</a>,今天详细聊下多重继承</p>
+<p>上一篇讲在Lua文件变化的时候实现自动重载。有2种方式</p>
 </blockquote>
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>可以重新定义从基类继承的任意方法。只需要编写一个新方法就行了。<br>Lua语言中的对象有一个有趣的特性，就是无须为了指定一种新行为而创建一个新类。</p>
-<h2 id="多重继承"><a href="#多重继承" class="headerlink" title="多重继承"></a>多重继承</h2><h3 id="1-多重继承之在多个类中查找一个字段"><a href="#1-多重继承之在多个类中查找一个字段" class="headerlink" title="1.多重继承之在多个类中查找一个字段"></a>1.多重继承之在多个类中查找一个字段</h3><p>其实多重继承没什么特别的，除非两个将要被继承的类有相同的函数名和属性，否则，处理起来很简单。<br><a id="more"></a><br>无非就是在多个table中查找某个字段而已，不简单吗？Lua里的继承就是在别人的table里查找自己不存在的字段罢了。</p>
-<p>那么，单继承与多重继承的差别也在这里，一个是只查找一个table，另一个是查找两个或以上的table。</p>
-<p>我们就先来看看如何从2个或多个table中查找某个字段，如下代码：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">search</span><span class="params">(classes, key)</span></span></div><div class="line">    <span class="keyword">for</span> i = <span class="number">1</span>, #classes <span class="keyword">do</span></div><div class="line">        <span class="keyword">local</span> value = classes[i][key];</div><div class="line">        <span class="keyword">if</span> value ~= <span class="keyword">nil</span> <span class="keyword">then</span></div><div class="line">            <span class="keyword">return</span> value;</div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="keyword">local</span> t1 = &#123;name = <span class="string">"hehe"</span>&#125;;</div><div class="line"><span class="keyword">local</span> t2 = &#123;game = <span class="string">"who"</span>&#125;;</div><div class="line"><span class="built_in">print</span>(search(&#123;t1, t2&#125;, <span class="string">"game"</span>));</div></pre></td></tr></table></figure></p>
-<p>这里的classes参数，是一个table，这个table里又存放了多个table，也就是我们想要继承的那些类。</p>
-<p>而key就是要查找的字段。</p>
-<p>只需要遍历所有的table，判断这个字段是否在某个table里，找到之后，就返回这个值。</p>
-<p>我们的测试代码就是从t1、t2中查找game这个字段，t1、t1可以看成是两个类。</p>
-<p>输出结果如下：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[LUA-<span class="built_in">print</span>] who</div></pre></td></tr></table></figure></p>
-<h3 id="2-多重继承之创建继承多个类的子类"><a href="#2-多重继承之创建继承多个类的子类" class="headerlink" title="2.多重继承之创建继承多个类的子类"></a>2.多重继承之创建继承多个类的子类</h3><p>代码如下<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createClass</span><span class="params">(...)</span></span></div><div class="line">    <span class="keyword">local</span> parents = &#123;...&#125;;</div><div class="line">    <span class="keyword">local</span> child = &#123;&#125;;</div><div class="line"></div><div class="line">    <span class="comment">-- 设置类的元表</span></div><div class="line">    <span class="built_in">setmetatable</span>(child, &#123;</div><div class="line">        __index = <span class="function"><span class="keyword">function</span><span class="params">(table, key)</span></span></div><div class="line">            <span class="keyword">return</span> search(parents, key);</div><div class="line">        <span class="keyword">end</span></div><div class="line">    &#125;)</div><div class="line"></div><div class="line">    <span class="comment">-- 给类新增一个new函数，用于创建对象</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">child:new</span><span class="params">()</span></span></div><div class="line">        o = &#123;&#125;;</div><div class="line">        <span class="built_in">setmetatable</span>(o, child);</div><div class="line">        child.__index = child;</div><div class="line">        <span class="keyword">return</span> o;</div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="comment">-- 返回这个继承了多个类的子类</span></div><div class="line">    <span class="keyword">return</span> child;</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure></p>
-<p>createClass函数就是用来创建一个继承了多个类的子类，有点小复杂，慢慢分析：</p>
-<p>1） 参数是一个可变参数，我们要将多个被继承的类作为参数传递进来</p>
-<p>2） parents用于保存这些被继承的类</p>
-<p>3） 创建一个新的table——child，它就是我们想要的那个继承了多个类的子类</p>
-<p>4） 给child设置元表，并且设置<strong>index元方法，</strong>index元方法可以是一个函数，当它是一个函数时，它的参数就是元表所属的table，以及要查找的字段名。</p>
-<p>5） 我们在__index元方法函数里调用search函数，从多个父类中查找所需的字段。于是，当调用child的某个函数时，就会从各个父类中查找，这已经完成了继承的工作了。</p>
-<p>6） 接下来就是我们所熟悉的new函数，用来创建child的子类。</p>
-<p>7） 最后返回child，一切都完成了。</p>
-<p>看似很复杂，其实还是对__index的应用而已。</p>
-<p>我们赶紧来测试一下吧，如下代码：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">--一个精灵类</span></div><div class="line">TSprite = &#123;&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">TSprite:hello</span><span class="params">()</span></span></div><div class="line">    <span class="built_in">print</span>(<span class="string">"谁跟你hello！"</span>);</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">TSprite:new</span><span class="params">()</span></span></div><div class="line">    o = &#123;&#125;</div><div class="line">    <span class="built_in">setmetatable</span>(o, self);</div><div class="line">    self.__index = self;</div><div class="line">    <span class="keyword">return</span> o;</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="comment">-- 一个子弹类</span></div><div class="line">TBullet = &#123;&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">TBullet:fire</span><span class="params">()</span></span></div><div class="line">    <span class="built_in">print</span>(<span class="string">"别动，再动我就瞄不准了！"</span>);</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">TBullet:new</span><span class="params">()</span></span></div><div class="line">    o = &#123;&#125;</div><div class="line">    <span class="built_in">setmetatable</span>(o, self);</div><div class="line">    self.__index = self;</div><div class="line">    <span class="keyword">return</span> o;</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="comment">-- 继承了两个类的子类</span></div><div class="line"><span class="keyword">local</span> BulletSprite = createClass(TSprite, TBullet);</div><div class="line"></div><div class="line"><span class="comment">-- 子类的对象</span></div><div class="line"><span class="keyword">local</span> bSprite = BulletSprite:new();</div><div class="line">bSprite:hello();</div><div class="line">bSprite:fire();</div></pre></td></tr></table></figure></p>
-<p>这里创建了两个类：TSprite和TBullet。</p>
-<p>然后调用createClass函数，创建一个继承了TSprite和TBullet的子类。</p>
-<p>最后创建子类的对象，调用对象的hello和fire函数。</p>
-<p>输出结果如下：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[LUA-<span class="built_in">print</span>] 谁跟你hello！</div><div class="line">[LUA-<span class="built_in">print</span>] 别动，再动我就瞄不准了！</div></pre></td></tr></table></figure></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li><p>方法1，让__index字段成为一个函数，在该函数中搜索多个基类的方法段，搜索具有一定复杂性，性能不如单继承</p>
-</li>
-<li><p>方法2，将继承的方法复制到子类中，缺点是当系统运行后就较难修改方法的定义。</p>
-</li>
-<li><p>推荐第二种实现方式，在项目中已经使用了第2种方式</p>
-</li>
+<h2 id="一、assetpostprocessor"><a href="#一、assetpostprocessor" class="headerlink" title="一、assetpostprocessor"></a>一、assetpostprocessor</h2><p>ssetPostProcessor是一个编辑器类，一个资源导入的一个管理器，在资源导入之前和之后可以根据导入的资源做一些设置和一些数据的修改，比如网格，纹理的压缩，模型添加组件等。当资源导入之前和之后都会发送通知，可以根据不同的资源类型，在导入之前和之后做不同的处理<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">public class LuaReLoadProcessor : AssetPostprocessor</div><div class="line">&#123;</div><div class="line">    protected const string LUA_MAIN_PATH = &quot;Assets/Scripts/Lua/&quot;;</div><div class="line">    public static void OnPostprocessAllAssets(string[] importedAsset, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)</div><div class="line">    &#123;</div><div class="line">        if (Application.isPlaying)</div><div class="line">        &#123;</div><div class="line">            for (int i = 0; i &lt; importedAsset.Length; i++)</div><div class="line">            &#123;</div><div class="line">                bool isLuaFile = importedAsset[i].EndsWith(&quot;.lua&quot;);//这个地方根据各自项目调整</div><div class="line">                if (isLuaFile)</div><div class="line">                &#123;</div><div class="line">                        //根据路径名称解析得到对应的文件名称，执行热重载的逻辑</div><div class="line">                        var sharedStringBuilder = SharedStringBuilder.Get();</div><div class="line">                        sharedStringBuilder.Append(importedAsset[i]);</div><div class="line">                        sharedStringBuilder.Replace(LUA_MAIN_PATH, &quot;&quot;);</div><div class="line">                        sharedStringBuilder.Replace(&quot;.lua&quot;, &quot;&quot;);</div><div class="line">                        sharedStringBuilder.Replace(&quot;/&quot;, &quot;.&quot;);</div><div class="line">                        Debug.LogError(&quot;执行热重载- &gt;&quot;+ sharedStringBuilder.ToString());</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在修改后，保存文件（ctrl+s）。就可以看到对应的修改文件路径的Log日志</p>
+<p>特殊情况：Auto ReResh（Editor-&gt;General）不勾选的话，还要额外键盘按下（ctrl+r），刷新下。</p>
+<h2 id="二、C-基于FileSystemWatcher"><a href="#二、C-基于FileSystemWatcher" class="headerlink" title="二、C#基于FileSystemWatcher"></a>二、C#基于FileSystemWatcher</h2><p>FileSystemWatcher监控指定文件或目录的文件的创建、删除、改动、重命名等活动。可以动态地定义需要监控的文件类型及文件属性改动的类型。</p>
+<ul>
+<li>IncludeSubdirectories  是否包含子文件。</li>
+<li>Path 目标路径。</li>
+<li>NotifyFilter 设置文件的哪些属性的变动会触发</li>
+<li>Changed事件。这里设置成了当文件内容发生变化时会触发。</li>
+<li>Filter 设置筛选字符串，用于确定在目录中监视哪些类型的文件。这里只需要筛选 .lua后缀文件即可。</li>
+<li>Changed 文件发生改变时的监听事件，需要一个FileSystemEventHandler 类型的委托。除了Changed外还可以监听Renamed、Deleted、Created。</li>
+<li>EnableRaisingEvents 设置是否开始监控，默认为false   </li>
+<li>InternalBufferSize 能够监听的改动大小。如果监听事件没有触发，请把这个值设得大一点。</li>
+<li>还有一些其他属性，<a href="https://docs.microsoft.com/en-us/dotnet/api/system.io.filesystemwatcher?view=netcore-3.1" target="_blank" rel="external">详细看MSDN关于FileSystemWatcher</a></li>
+</ul>
+<p>详细代码到下面给出案例</p>
+<p><a href="https://zhuanlan.zhihu.com/p/139548726" target="_blank" rel="external">【Lua运行时热重载①】检测Lua文件发生变化 - 水曜日鸡的文章 - 知乎</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>目前项目中是选中第一种实现方式，第二种是有大佬提了一下，但没去尝试，少了一个踩坑的环节，看到有知乎的水曜日鸡用了这样的实现方式。</p>
+<h2 id="附"><a href="#附" class="headerlink" title="附"></a>附</h2><p>参考</p>
+<ul>
+<li><a href="https://www.cnblogs.com/springyangwc/archive/2011/08/27/2155547.html" target="_blank" rel="external">C# FileSystemWatcher 在监控文件夹和文件时的用法</a></li>
+<li><a href="https://docs.unity3d.com/ScriptReference/AssetPostprocessor.html" target="_blank" rel="external">AssetPostprocessor</a></li>
 </ul>
 
       
@@ -389,13 +377,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2020/11/29/Lua的多重继承实现/">Lua的多重继承实现</a></p>
+        <p><span>本文标题:</span><a href="/2020/12/15/检测文件变化/">检测文件变化</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
-        <p><span>发布时间:</span>2020-11-29, 20:36:49</p>
-        <p><span>最后更新:</span>2020-11-29, 20:48:01</p>
+        <p><span>发布时间:</span>2020-12-15, 16:39:44</p>
+        <p><span>最后更新:</span>2020-12-15, 16:48:42</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2020/11/29/Lua的多重继承实现/" title="Lua的多重继承实现">http://zhutaorun.win/2020/11/29/Lua的多重继承实现/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://zhutaorun.win/2020/11/29/Lua的多重继承实现/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2020/12/15/检测文件变化/" title="检测文件变化">http://zhutaorun.win/2020/12/15/检测文件变化/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutaorun.win/2020/12/15/检测文件变化/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
         <p>
@@ -407,16 +395,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2020/12/13/Lua热重载/">
-                    Lua热重载
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2020/10/25/Lua的OOP实现/">
-                    Lua的OOP实现
+                <a href="/2020/12/13/Lua热重载/">
+                    Lua热重载
                 </a>
             </div>
         
@@ -428,7 +410,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#继承"><span class="toc-number">1.</span> <span class="toc-text">继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多重继承"><span class="toc-number">2.</span> <span class="toc-text">多重继承</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-多重继承之在多个类中查找一个字段"><span class="toc-number">2.1.</span> <span class="toc-text">1.多重继承之在多个类中查找一个字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-多重继承之创建继承多个类的子类"><span class="toc-number">2.2.</span> <span class="toc-text">2.多重继承之创建继承多个类的子类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、assetpostprocessor"><span class="toc-number">1.</span> <span class="toc-text">一、assetpostprocessor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、C-基于FileSystemWatcher"><span class="toc-number">2.</span> <span class="toc-text">二、C#基于FileSystemWatcher</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附"><span class="toc-number">4.</span> <span class="toc-text">附</span></a></li></ol>
         
     </div>
     <style>
@@ -464,7 +446,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"Lua的多重继承实现　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"检测文件变化　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -480,7 +462,7 @@
     
       <div class="duoshuo" id="comments">
     <div id="comment-box" ></div>
-    <div class="ds-thread" id="ds-thread" data-thread-key="2020/11/29/Lua的多重继承实现/" data-title="Lua的多重继承实现" data-url="http://zhutaorun.win/2020/11/29/Lua的多重继承实现/"></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2020/12/15/检测文件变化/" data-title="检测文件变化" data-url="http://zhutaorun.win/2020/12/15/检测文件变化/"></div>
     <script>
         var duoshuoQuery = {short_name:"zhutaorun"};
         var loadComment = function(){
@@ -503,15 +485,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2020/12/13/Lua热重载/" title="上一篇: Lua热重载">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2020/10/25/Lua的OOP实现/" title="下一篇: Lua的OOP实现">
+            <a href="/2020/12/13/Lua热重载/" title="下一篇: Lua热重载">
                 <i class="fa fa-angle-right"></i>
             </a>
         
