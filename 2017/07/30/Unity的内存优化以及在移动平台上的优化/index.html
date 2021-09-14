@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="zhutaorun" />
+
+
+
+<meta name="description" content="在面试上有被问到这个两个问题，结合自己经历过的项目和看过的优化方案。做一次总结。
+
+内存里有什么Unity3D游戏引擎是如何分配内存的。有三大部分Unity3D内部的内存Mono的托管内存（值类型和引用类型）第三方引入的DLL
+Unity3D内部的内存资源：纹理，网格，音频等等GameObject和各种组件引擎内部逻辑需要的内存：渲染器，物理系统，粒子系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity的内存优化以及在移动平台上的优化">
+<meta property="og:url" content="http://zhutaorun.win/2017/07/30/Unity的内存优化以及在移动平台上的优化/index.html">
+<meta property="og:site_name" content="zhutaorun's Blog">
+<meta property="og:description" content="在面试上有被问到这个两个问题，结合自己经历过的项目和看过的优化方案。做一次总结。
+
+内存里有什么Unity3D游戏引擎是如何分配内存的。有三大部分Unity3D内部的内存Mono的托管内存（值类型和引用类型）第三方引入的DLL
+Unity3D内部的内存资源：纹理，网格，音频等等GameObject和各种组件引擎内部逻辑需要的内存：渲染器，物理系统，粒子系统">
+<meta property="og:updated_time" content="2021-09-13T12:25:04.628Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unity的内存优化以及在移动平台上的优化">
+<meta name="twitter:description" content="在面试上有被问到这个两个问题，结合自己经历过的项目和看过的优化方案。做一次总结。
+
+内存里有什么Unity3D游戏引擎是如何分配内存的。有三大部分Unity3D内部的内存Mono的托管内存（值类型和引用类型）第三方引入的DLL
+Unity3D内部的内存资源：纹理，网格，音频等等GameObject和各种组件引擎内部逻辑需要的内存：渲染器，物理系统，粒子系统">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="zhutaorun&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Unity的内存优化以及在移动平台上的优化 | zhutaorun&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?925b283002cdaa5eb0c0a14c5135593c";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">zhutaorun</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">迈入新世界，为了成为有保持乐趣的Unity客户端</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/friends/">友情链接</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="/zhutaorun@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2409097900/" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/zhutaorun" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/zhutaorun" title="知乎"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011611902" title="CSDN"></a>
+                            
+                                <a class="fa 微信" href="/peter-zhutao" title="微信"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua-面向对象编程/">Lua 面向对象编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D/">Unity3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D-优化/">Unity3D 优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D优化/">Unity3D优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3d/">Unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/习惯养成/">习惯养成</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/介绍/">介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思/">工作反思</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思-帧同步/">工作反思 帧同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具类-效率提升/">工具类 效率提升</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/思考/">思考</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拆书帮/">拆书帮</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏测试/">游戏测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算系统/">计算系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.luzexi.com/">技术人生 Jesse</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.cnblogs.com/zhaoqingqing">赵青青的博客</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于游戏开发</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">zhutaorun</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">zhutaorun</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">迈入新世界，为了成为有保持乐趣的Unity客户端</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/friends/">友情链接</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="/zhutaorun@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2409097900/" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/zhutaorun" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/zhutaorun" title="知乎"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011611902" title="CSDN"></a>
+                            
+                                <a class="fa 微信" target="_blank" href="/peter-zhutao" title="微信"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Unity的内存优化以及在移动平台上的优化" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/30/Unity的内存优化以及在移动平台上的优化/" class="article-date">
+      <time datetime="2017-07-30T10:39:27.000Z" itemprop="datePublished">2017-07-30</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Unity的内存优化以及在移动平台上的优化
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>在面试上有被问到这个两个问题，结合自己经历过的项目和看过的优化方案。做一次总结。</p>
+</blockquote>
+<h3 id="内存里有什么"><a href="#内存里有什么" class="headerlink" title="内存里有什么"></a>内存里有什么</h3><h4 id="Unity3D游戏引擎是如何分配内存的。有三大部分"><a href="#Unity3D游戏引擎是如何分配内存的。有三大部分" class="headerlink" title="Unity3D游戏引擎是如何分配内存的。有三大部分"></a>Unity3D游戏引擎是如何分配内存的。有三大部分</h4><p>Unity3D内部的内存<br>Mono的托管内存（值类型和引用类型）<br>第三方引入的DLL</p>
+<h5 id="Unity3D内部的内存"><a href="#Unity3D内部的内存" class="headerlink" title="Unity3D内部的内存"></a>Unity3D内部的内存</h5><p>资源：纹理，网格，音频等等<br>GameObject和各种组件<br>引擎内部逻辑需要的内存：渲染器，物理系统，粒子系统<br><a id="more"></a></p>
+<h5 id="当然还有这样的分类"><a href="#当然还有这样的分类" class="headerlink" title="当然还有这样的分类"></a>当然还有这样的分类</h5><p>资源内存<br>代码内存（Mono内存，引擎使用内存）<br>第三方库(sdk,插件)</p>
+<h3 id="优化角度"><a href="#优化角度" class="headerlink" title="优化角度"></a>优化角度</h3><h6 id="场景：将场景中的材质相同满足一定条件的模型合并，减少静态物体的DrawCall；看不到模型背面，减少面数。使用lightingMap代替实时灯光。结合自己参与的项目，在场景中有使用特效的门，就改成代码只加载下一个要被看到的门。"><a href="#场景：将场景中的材质相同满足一定条件的模型合并，减少静态物体的DrawCall；看不到模型背面，减少面数。使用lightingMap代替实时灯光。结合自己参与的项目，在场景中有使用特效的门，就改成代码只加载下一个要被看到的门。" class="headerlink" title="场景：将场景中的材质相同满足一定条件的模型合并，减少静态物体的DrawCall；看不到模型背面，减少面数。使用lightingMap代替实时灯光。结合自己参与的项目，在场景中有使用特效的门，就改成代码只加载下一个要被看到的门。"></a>场景：将场景中的材质相同满足一定条件的模型合并，减少静态物体的DrawCall；看不到模型背面，减少面数。使用lightingMap代替实时灯光。结合自己参与的项目，在场景中有使用特效的门，就改成代码只加载下一个要被看到的门。</h6><h6 id="角色怪物：-根据关卡按需加载，这个还带来切换场景的Loading等待时间缩短。项目中，场景bundle加载完毕，再加载怪物。主角模型3500到4000，骨骼不超过40根，三个material。"><a href="#角色怪物：-根据关卡按需加载，这个还带来切换场景的Loading等待时间缩短。项目中，场景bundle加载完毕，再加载怪物。主角模型3500到4000，骨骼不超过40根，三个material。" class="headerlink" title="角色怪物： 根据关卡按需加载，这个还带来切换场景的Loading等待时间缩短。项目中，场景bundle加载完毕，再加载怪物。主角模型3500到4000，骨骼不超过40根，三个material。"></a>角色怪物： 根据关卡按需加载，这个还带来切换场景的Loading等待时间缩短。项目中，场景bundle加载完毕，再加载怪物。主角模型3500到4000，骨骼不超过40根，三个material。</h6><h6 id="动作资源：删除关键帧，压缩精度"><a href="#动作资源：删除关键帧，压缩精度" class="headerlink" title="动作资源：删除关键帧，压缩精度"></a>动作资源：删除关键帧，压缩精度</h6><h6 id="特效：监控proticlesystem和动画数量。为了特效分级控制，挂接一个组件，开中档特效的时候，修改组件的属性，让部分失效。"><a href="#特效：监控proticlesystem和动画数量。为了特效分级控制，挂接一个组件，开中档特效的时候，修改组件的属性，让部分失效。" class="headerlink" title="特效：监控proticlesystem和动画数量。为了特效分级控制，挂接一个组件，开中档特效的时候，修改组件的属性，让部分失效。"></a>特效：监控proticlesystem和动画数量。为了特效分级控制，挂接一个组件，开中档特效的时候，修改组件的属性，让部分失效。</h6><h6 id="UI图集：按需区分图集，平衡共有图集数和使用率。拆分Alpha，规范的正方形或图形进行尺寸压缩。自己项目一个UI界面控制在3个图集，一个进入就加载图标的图集，一个是公用的UI-按钮等-，第三个是这个UI界面独有的图集。"><a href="#UI图集：按需区分图集，平衡共有图集数和使用率。拆分Alpha，规范的正方形或图形进行尺寸压缩。自己项目一个UI界面控制在3个图集，一个进入就加载图标的图集，一个是公用的UI-按钮等-，第三个是这个UI界面独有的图集。" class="headerlink" title="UI图集：按需区分图集，平衡共有图集数和使用率。拆分Alpha，规范的正方形或图形进行尺寸压缩。自己项目一个UI界面控制在3个图集，一个进入就加载图标的图集，一个是公用的UI(按钮等)，第三个是这个UI界面独有的图集。"></a>UI图集：按需区分图集，平衡共有图集数和使用率。拆分Alpha，规范的正方形或图形进行尺寸压缩。自己项目一个UI界面控制在3个图集，一个进入就加载图标的图集，一个是公用的UI(按钮等)，第三个是这个UI界面独有的图集。</h6><h6 id="资源及时卸载"><a href="#资源及时卸载" class="headerlink" title="资源及时卸载"></a>资源及时卸载</h6><h6 id="避免内存泄漏：被依赖的ab过早卸载，会导致资源重复加载。"><a href="#避免内存泄漏：被依赖的ab过早卸载，会导致资源重复加载。" class="headerlink" title="避免内存泄漏：被依赖的ab过早卸载，会导致资源重复加载。"></a>避免内存泄漏：被依赖的ab过早卸载，会导致资源重复加载。</h6><h6 id="表格：二进制，相对csv，解析快，没有gc，字典存表。"><a href="#表格：二进制，相对csv，解析快，没有gc，字典存表。" class="headerlink" title="表格：二进制，相对csv，解析快，没有gc，字典存表。"></a>表格：二进制，相对csv，解析快，没有gc，字典存表。</h6><h6 id="帧频：drawcall-人物做预处理，各个部分的mesh都提取出来。mesh做预处理，在游戏中合并在低端机，一次混合比八次Drawcall更有性能上的优势。-龙之谷手游优化）锁帧30帧，降低电耗。"><a href="#帧频：drawcall-人物做预处理，各个部分的mesh都提取出来。mesh做预处理，在游戏中合并在低端机，一次混合比八次Drawcall更有性能上的优势。-龙之谷手游优化）锁帧30帧，降低电耗。" class="headerlink" title="帧频：drawcall 人物做预处理，各个部分的mesh都提取出来。mesh做预处理，在游戏中合并在低端机，一次混合比八次Drawcall更有性能上的优势。(龙之谷手游优化）锁帧30帧，降低电耗。"></a>帧频：drawcall 人物做预处理，各个部分的mesh都提取出来。mesh做预处理，在游戏中合并在低端机，一次混合比八次Drawcall更有性能上的优势。(龙之谷手游优化）锁帧30帧，降低电耗。</h6><h6 id="UI：动静分离，减少UIMesh动态更新，控制飘字的最大数量。还有减少rendertexture的数量。直接把3D模型在UI界面上使用，这需要在UI界面在设计的时候支持。"><a href="#UI：动静分离，减少UIMesh动态更新，控制飘字的最大数量。还有减少rendertexture的数量。直接把3D模型在UI界面上使用，这需要在UI界面在设计的时候支持。" class="headerlink" title="UI：动静分离，减少UIMesh动态更新，控制飘字的最大数量。还有减少rendertexture的数量。直接把3D模型在UI界面上使用，这需要在UI界面在设计的时候支持。"></a>UI：动静分离，减少UIMesh动态更新，控制飘字的最大数量。还有减少rendertexture的数量。直接把3D模型在UI界面上使用，这需要在UI界面在设计的时候支持。</h6><h6 id="减少更新。这是Unity官方推荐的animator-optimize-game-object，还有及时停止不必要的update，减少Billboard和Animation的updade操作。比如位移旋转，都会消耗比较大，特别在低端机上，适当减少update操作，会带来帧率优化。"><a href="#减少更新。这是Unity官方推荐的animator-optimize-game-object，还有及时停止不必要的update，减少Billboard和Animation的updade操作。比如位移旋转，都会消耗比较大，特别在低端机上，适当减少update操作，会带来帧率优化。" class="headerlink" title="减少更新。这是Unity官方推荐的animator optimize game object，还有及时停止不必要的update，减少Billboard和Animation的updade操作。比如位移旋转，都会消耗比较大，特别在低端机上，适当减少update操作，会带来帧率优化。"></a>减少更新。这是Unity官方推荐的animator optimize game object，还有及时停止不必要的update，减少Billboard和Animation的updade操作。比如位移旋转，都会消耗比较大，特别在低端机上，适当减少update操作，会带来帧率优化。</h6><h6 id="渲染效率的控制。针对移动平台的shader。减少采样通道。"><a href="#渲染效率的控制。针对移动平台的shader。减少采样通道。" class="headerlink" title="渲染效率的控制。针对移动平台的shader。减少采样通道。"></a>渲染效率的控制。针对移动平台的shader。减少采样通道。</h6><h6 id="使用assetBundle-资源分离和共享。实现资源在先更新。"><a href="#使用assetBundle-资源分离和共享。实现资源在先更新。" class="headerlink" title="使用assetBundle.资源分离和共享。实现资源在先更新。"></a>使用assetBundle.资源分离和共享。实现资源在先更新。</h6><h6 id="代码裁剪使用stripLvel使用-net2-0subset。"><a href="#代码裁剪使用stripLvel使用-net2-0subset。" class="headerlink" title="代码裁剪使用stripLvel使用.net2.0subset。"></a>代码裁剪使用stripLvel使用.net2.0subset。</h6><h6 id="裁剪粒子系统。粒子的发射数量控制在50个。"><a href="#裁剪粒子系统。粒子的发射数量控制在50个。" class="headerlink" title="裁剪粒子系统。粒子的发射数量控制在50个。"></a>裁剪粒子系统。粒子的发射数量控制在50个。</h6><h6 id="音效：可以使用单声道就使用单声道，根据效果压缩大小。"><a href="#音效：可以使用单声道就使用单声道，根据效果压缩大小。" class="headerlink" title="音效：可以使用单声道就使用单声道，根据效果压缩大小。"></a>音效：可以使用单声道就使用单声道，根据效果压缩大小。</h6><h6 id="Texture-Android平台ECT。iOS平台使用PVRTC-UI纹理上从设计层面减少纹理的色差范围。可以用使用九宫格的使用九宫格。UI上关闭mipmap。Read-amp-write不开启。开始除了在GPU上有一份，CPU中也有一份。"><a href="#Texture-Android平台ECT。iOS平台使用PVRTC-UI纹理上从设计层面减少纹理的色差范围。可以用使用九宫格的使用九宫格。UI上关闭mipmap。Read-amp-write不开启。开始除了在GPU上有一份，CPU中也有一份。" class="headerlink" title="Texture: Android平台ECT。iOS平台使用PVRTC.UI纹理上从设计层面减少纹理的色差范围。可以用使用九宫格的使用九宫格。UI上关闭mipmap。Read&amp;write不开启。开始除了在GPU上有一份，CPU中也有一份。"></a>Texture: Android平台ECT。iOS平台使用PVRTC.UI纹理上从设计层面减少纹理的色差范围。可以用使用九宫格的使用九宫格。UI上关闭mipmap。Read&amp;write不开启。开始除了在GPU上有一份，CPU中也有一份。</h6><h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a href="http://www.gad.qq.com/article/detail/29256" target="_blank" rel="external">内存 vs 帧率 - 龙之谷手游优化实战（Unite2017分享实录）</a><br><a href="http://www.gad.qq.com/article/detail/29272" target="_blank" rel="external">Unity内存优化之美术资源篇</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/07/30/Unity的内存优化以及在移动平台上的优化/">Unity的内存优化以及在移动平台上的优化</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
+        <p><span>发布时间:</span>2017-07-30, 18:39:27</p>
+        <p><span>最后更新:</span>2021-09-13, 20:25:04</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/07/30/Unity的内存优化以及在移动平台上的优化/" title="Unity的内存优化以及在移动平台上的优化">http://zhutaorun.win/2017/07/30/Unity的内存优化以及在移动平台上的优化/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutaorun.win/2017/07/30/Unity的内存优化以及在移动平台上的优化/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2017/08/31/如何熟悉一个老项目/">
+                    如何快速熟悉一个老项目
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/07/30/准备入职，写点东西/">
+                    准备入职，写点东西
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#内存里有什么"><span class="toc-number">1.</span> <span class="toc-text">内存里有什么</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Unity3D游戏引擎是如何分配内存的。有三大部分"><span class="toc-number">1.1.</span> <span class="toc-text">Unity3D游戏引擎是如何分配内存的。有三大部分</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Unity3D内部的内存"><span class="toc-number">1.1.1.</span> <span class="toc-text">Unity3D内部的内存</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#当然还有这样的分类"><span class="toc-number">1.1.2.</span> <span class="toc-text">当然还有这样的分类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优化角度"><span class="toc-number">2.</span> <span class="toc-text">优化角度</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#场景：将场景中的材质相同满足一定条件的模型合并，减少静态物体的DrawCall；看不到模型背面，减少面数。使用lightingMap代替实时灯光。结合自己参与的项目，在场景中有使用特效的门，就改成代码只加载下一个要被看到的门。"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">场景：将场景中的材质相同满足一定条件的模型合并，减少静态物体的DrawCall；看不到模型背面，减少面数。使用lightingMap代替实时灯光。结合自己参与的项目，在场景中有使用特效的门，就改成代码只加载下一个要被看到的门。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#角色怪物：-根据关卡按需加载，这个还带来切换场景的Loading等待时间缩短。项目中，场景bundle加载完毕，再加载怪物。主角模型3500到4000，骨骼不超过40根，三个material。"><span class="toc-number">2.0.0.2.</span> <span class="toc-text">角色怪物： 根据关卡按需加载，这个还带来切换场景的Loading等待时间缩短。项目中，场景bundle加载完毕，再加载怪物。主角模型3500到4000，骨骼不超过40根，三个material。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#动作资源：删除关键帧，压缩精度"><span class="toc-number">2.0.0.3.</span> <span class="toc-text">动作资源：删除关键帧，压缩精度</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#特效：监控proticlesystem和动画数量。为了特效分级控制，挂接一个组件，开中档特效的时候，修改组件的属性，让部分失效。"><span class="toc-number">2.0.0.4.</span> <span class="toc-text">特效：监控proticlesystem和动画数量。为了特效分级控制，挂接一个组件，开中档特效的时候，修改组件的属性，让部分失效。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#UI图集：按需区分图集，平衡共有图集数和使用率。拆分Alpha，规范的正方形或图形进行尺寸压缩。自己项目一个UI界面控制在3个图集，一个进入就加载图标的图集，一个是公用的UI-按钮等-，第三个是这个UI界面独有的图集。"><span class="toc-number">2.0.0.5.</span> <span class="toc-text">UI图集：按需区分图集，平衡共有图集数和使用率。拆分Alpha，规范的正方形或图形进行尺寸压缩。自己项目一个UI界面控制在3个图集，一个进入就加载图标的图集，一个是公用的UI(按钮等)，第三个是这个UI界面独有的图集。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#资源及时卸载"><span class="toc-number">2.0.0.6.</span> <span class="toc-text">资源及时卸载</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#避免内存泄漏：被依赖的ab过早卸载，会导致资源重复加载。"><span class="toc-number">2.0.0.7.</span> <span class="toc-text">避免内存泄漏：被依赖的ab过早卸载，会导致资源重复加载。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#表格：二进制，相对csv，解析快，没有gc，字典存表。"><span class="toc-number">2.0.0.8.</span> <span class="toc-text">表格：二进制，相对csv，解析快，没有gc，字典存表。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#帧频：drawcall-人物做预处理，各个部分的mesh都提取出来。mesh做预处理，在游戏中合并在低端机，一次混合比八次Drawcall更有性能上的优势。-龙之谷手游优化）锁帧30帧，降低电耗。"><span class="toc-number">2.0.0.9.</span> <span class="toc-text">帧频：drawcall 人物做预处理，各个部分的mesh都提取出来。mesh做预处理，在游戏中合并在低端机，一次混合比八次Drawcall更有性能上的优势。(龙之谷手游优化）锁帧30帧，降低电耗。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#UI：动静分离，减少UIMesh动态更新，控制飘字的最大数量。还有减少rendertexture的数量。直接把3D模型在UI界面上使用，这需要在UI界面在设计的时候支持。"><span class="toc-number">2.0.0.10.</span> <span class="toc-text">UI：动静分离，减少UIMesh动态更新，控制飘字的最大数量。还有减少rendertexture的数量。直接把3D模型在UI界面上使用，这需要在UI界面在设计的时候支持。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#减少更新。这是Unity官方推荐的animator-optimize-game-object，还有及时停止不必要的update，减少Billboard和Animation的updade操作。比如位移旋转，都会消耗比较大，特别在低端机上，适当减少update操作，会带来帧率优化。"><span class="toc-number">2.0.0.11.</span> <span class="toc-text">减少更新。这是Unity官方推荐的animator optimize game object，还有及时停止不必要的update，减少Billboard和Animation的updade操作。比如位移旋转，都会消耗比较大，特别在低端机上，适当减少update操作，会带来帧率优化。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#渲染效率的控制。针对移动平台的shader。减少采样通道。"><span class="toc-number">2.0.0.12.</span> <span class="toc-text">渲染效率的控制。针对移动平台的shader。减少采样通道。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#使用assetBundle-资源分离和共享。实现资源在先更新。"><span class="toc-number">2.0.0.13.</span> <span class="toc-text">使用assetBundle.资源分离和共享。实现资源在先更新。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#代码裁剪使用stripLvel使用-net2-0subset。"><span class="toc-number">2.0.0.14.</span> <span class="toc-text">代码裁剪使用stripLvel使用.net2.0subset。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#裁剪粒子系统。粒子的发射数量控制在50个。"><span class="toc-number">2.0.0.15.</span> <span class="toc-text">裁剪粒子系统。粒子的发射数量控制在50个。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#音效：可以使用单声道就使用单声道，根据效果压缩大小。"><span class="toc-number">2.0.0.16.</span> <span class="toc-text">音效：可以使用单声道就使用单声道，根据效果压缩大小。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Texture-Android平台ECT。iOS平台使用PVRTC-UI纹理上从设计层面减少纹理的色差范围。可以用使用九宫格的使用九宫格。UI上关闭mipmap。Read-amp-write不开启。开始除了在GPU上有一份，CPU中也有一份。"><span class="toc-number">2.0.0.17.</span> <span class="toc-text">Texture: Android平台ECT。iOS平台使用PVRTC.UI纹理上从设计层面减少纹理的色差范围。可以用使用九宫格的使用九宫格。UI上关闭mipmap。Read&write不开启。开始除了在GPU上有一份，CPU中也有一份。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参考"><span class="toc-number">2.1.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Unity的内存优化以及在移动平台上的优化　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/07/30/Unity的内存优化以及在移动平台上的优化/" data-title="Unity的内存优化以及在移动平台上的优化" data-url="http://zhutaorun.win/2017/07/30/Unity的内存优化以及在移动平台上的优化/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"zhutaorun"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/08/31/如何熟悉一个老项目/" title="上一篇: 如何快速熟悉一个老项目">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/07/30/准备入职，写点东西/" title="下一篇: 准备入职，写点东西">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/12/15/检测文件变化/">检测文件变化</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/13/Lua热重载/">Lua热重载</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/29/Lua的多重继承实现/">Lua的多重继承实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/25/Lua的OOP实现/">Lua的OOP实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/09/26/Lua的metatable和Lua的面向对象实现/">Lua的metatable和Lua的面向对象实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/09/06/个人最近踩的坑/">个人最近踩的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/30/《Lua程序设计（第四版）》读书笔记/">《Lua程序设计（第四版）》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/10/写Shader的IDE工具合集/">写Shader的IDE工具合集</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/11/最近的复盘-错误小结/">最近的复盘-错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/03/Unity-Apk解包/">Unity-Apk解包</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/01/关于项目优化杂谈/">关于项目优化杂谈</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/07/Unity里实现Hook函数/">Unity里实现Hook函数</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/12/游戏同步/">游戏同步</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/04/关于动画结束的处理/">关于动画结束的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/03/帧同步的逻辑工程维护/">帧同步的逻辑工程维护</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/01/再谈优化/">再谈优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/16/一个神奇的bug/">一个神奇的bug</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/31/模型在UI上显示/">模型在UI上显示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/04/Unity中音效插件/">Unity中音效插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/24/UWA-Day-2018分享/">UWA-Day-2018分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/26/代码质量/">代码质量</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/AssetBundle使用模式/">AssetBundle使用模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/AssetBundle的基本原理/">AssetBundle的基本原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/资源文件夹/">资源文件夹</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/资产，对象和序列化/">资产，对象和序列化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/翻译-资产，资源和AssetBundle/">[翻译]资产，资源和AssetBundle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/01/游戏项目中的美术，策划文档怎么管理/">游戏项目中的美术，策划文档怎么管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/关于游戏测试/">关于游戏测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/资源管理/">资源管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/18/缓存命中/">缓存命中</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/struct-结构体类型的大小计算/">struct 结构体类型的大小计算</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Unity小技巧-清除缓存/">Unity小技巧-清除缓存</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/自动上阵功能开发的小结/">自动上阵功能开发的小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/MVC、MVP和MVVM的图示/">MVC、MVP和MVVM的图示</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/24/【翻译】Unity3D车辆的滑动效果/">【翻译】Unity3D车辆的滑动效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/24/实现轮胎印/">实现轮胎印</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/Shader的纹理/">Shader的纹理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/如何熟悉一个老项目/">如何快速熟悉一个老项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/Unity的内存优化以及在移动平台上的优化/">Unity的内存优化以及在移动平台上的优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/准备入职，写点东西/">准备入职，写点东西</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/Unity资源制作要求/">Unity资源制作要求</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/MMO小地图实现方式/">MMO小地图实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/31/Android端外推送到底有多烦/">Android端外推送到底有多烦</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/Unity推送SDk/">Unity推送SDk</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/查找代码的中文插件/">查找代码的中文插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/功能错误小结/">功能错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/24/《重构-改善既有代码的设计》读书笔记/">《重构-改善既有代码的设计》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/18/C-教程的实践小结/">C++教程的实践小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity-声音资源优化/">Unity 声音资源优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity3D图片大小设置/">Unity3D图片大小设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/">U3D贴图格式 GENERATE MIP MAPS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/20/Android真机调试/">Android真机调试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/25/《从行动开始》读书笔记/">《从行动开始》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/搞定GTD/">搞定GTD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/11/拖延心理学/">拖延心理学</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/游戏改变世界读后感/">《游戏改变世界》读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/04/关于Markdown/">关于Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/25/C++学习记录/">C++学习记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2021 zhutaorun
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

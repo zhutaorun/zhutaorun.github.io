@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="zhutaorun" />
+
+
+
+<meta name="description" content="每个游戏都是有种类繁多的资源（有时候称为资产或媒体的构成），例如网络、材质、纹理、着色器程序、动画、音频，关卡布局、碰撞数据、物理参数等。游戏资源必须妥善保管，这包括两方面，一方面是建立资源的离线工具，一方面是在执行期载入，卸下及操作资源。因此，每个游戏都有某种形式的资源管理器。
+每个游戏资源管理器都有两个元件组成，这两个元件及独立又相互整合。其一负责离线工具链，用来创建资产及把它们转换成引擎可用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="资源管理">
+<meta property="og:url" content="http://zhutaorun.win/2018/01/31/资源管理/index.html">
+<meta property="og:site_name" content="zhutaorun's Blog">
+<meta property="og:description" content="每个游戏都是有种类繁多的资源（有时候称为资产或媒体的构成），例如网络、材质、纹理、着色器程序、动画、音频，关卡布局、碰撞数据、物理参数等。游戏资源必须妥善保管，这包括两方面，一方面是建立资源的离线工具，一方面是在执行期载入，卸下及操作资源。因此，每个游戏都有某种形式的资源管理器。
+每个游戏资源管理器都有两个元件组成，这两个元件及独立又相互整合。其一负责离线工具链，用来创建资产及把它们转换成引擎可用">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/31.png?raw=true">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/32.png?raw=true">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/33.png?raw=true">
+<meta property="og:image" content="https://images0.cnblogs.com/i/584891/201403/232247378183306.png">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/40.png?raw=true">
+<meta property="og:image" content="https://images0.cnblogs.com/i/584891/201403/232309356623898.png">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/41.png?raw=true">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/42.png?raw=true">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/43.png?raw=true">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/44.png?raw=true">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/45.png?raw=true">
+<meta property="og:updated_time" content="2021-09-13T12:24:49.989Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="资源管理">
+<meta name="twitter:description" content="每个游戏都是有种类繁多的资源（有时候称为资产或媒体的构成），例如网络、材质、纹理、着色器程序、动画、音频，关卡布局、碰撞数据、物理参数等。游戏资源必须妥善保管，这包括两方面，一方面是建立资源的离线工具，一方面是在执行期载入，卸下及操作资源。因此，每个游戏都有某种形式的资源管理器。
+每个游戏资源管理器都有两个元件组成，这两个元件及独立又相互整合。其一负责离线工具链，用来创建资产及把它们转换成引擎可用">
+<meta name="twitter:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/31.png?raw=true">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="zhutaorun&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>资源管理 | zhutaorun&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?925b283002cdaa5eb0c0a14c5135593c";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">zhutaorun</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">迈入新世界，为了成为有保持乐趣的Unity客户端</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/friends/">友情链接</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="/zhutaorun@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2409097900/" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/zhutaorun" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/zhutaorun" title="知乎"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011611902" title="CSDN"></a>
+                            
+                                <a class="fa 微信" href="/peter-zhutao" title="微信"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua-面向对象编程/">Lua 面向对象编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D/">Unity3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D-优化/">Unity3D 优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D优化/">Unity3D优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3d/">Unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/习惯养成/">习惯养成</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/介绍/">介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思/">工作反思</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思-帧同步/">工作反思 帧同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具类-效率提升/">工具类 效率提升</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/思考/">思考</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拆书帮/">拆书帮</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏测试/">游戏测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算系统/">计算系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.luzexi.com/">技术人生 Jesse</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.cnblogs.com/zhaoqingqing">赵青青的博客</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于游戏开发</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">zhutaorun</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">zhutaorun</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">迈入新世界，为了成为有保持乐趣的Unity客户端</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/friends/">友情链接</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="/zhutaorun@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2409097900/" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/zhutaorun" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/zhutaorun" title="知乎"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011611902" title="CSDN"></a>
+                            
+                                <a class="fa 微信" target="_blank" href="/peter-zhutao" title="微信"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-资源管理" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/01/31/资源管理/" class="article-date">
+      <time datetime="2018-01-31T04:16:18.000Z" itemprop="datePublished">2018-01-31</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      资源管理
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3D/">Unity3D</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>每个游戏都是有种类繁多的资源（有时候称为资产或媒体的构成），例如网络、材质、纹理、着色器程序、动画、音频，关卡布局、碰撞数据、物理参数等。游戏资源必须妥善保管，这包括两方面，一方面是建立资源的离线工具，一方面是在执行期载入，卸下及操作资源。因此，每个游戏都有某种形式的资源管理器。</p>
+<p>每个游戏资源管理器都有两个元件组成，这两个元件及独立又相互整合。其一负责离线工具链，用来创建资产及把它们转换成引擎可用的形式，另一个元件在执行期间管理资源，确保资源在使用之前已转入内存，并在不需要的时候把它们从内存卸下。<br><a id="more"></a><br>在某些引擎中，资源管理是一个具清晰设计、统一、中心化的子系统，负责管理游戏中用到的所有类型资源。其他引擎的资源管理器本身不是单独子系统，还是想布局不同子系统中，或许这些子系统是有不同作者经过引擎，漫长也许多姿多彩历史而写成的，但无论资源管理器是如何实现的，他主要负起某些责任，并解决一些明确定义的问题。本节会探讨典型游戏引擎资源管理功能，以及其实现细节。<br>离线资源管理及工具链</p>
+<h3 id="6-2-1-1资产的版本控制"><a href="#6-2-1-1资产的版本控制" class="headerlink" title="6.2.1.1资产的版本控制"></a>6.2.1.1资产的版本控制</h3><p>解决数据量的问题</p>
+<h3 id="6-2-1-2资源数据库"><a href="#6-2-1-2资源数据库" class="headerlink" title="6.2.1.2资源数据库"></a>6.2.1.2资源数据库</h3><ul>
+<li>能处理多种类型的资源，理想的（但肯定非必要）是以一致的方式处理</li>
+<li>能创建新资源</li>
+<li>能删除资源</li>
+<li>能查看及修改现存的资源</li>
+<li>能把资源从一个位置移至另一个位置。（这是非常有用的因为美术人员及游戏设计师经常要重新安排资产，以反映项目目标的改动、重新思考游戏设计、新增或取消特性等）</li>
+<li>能让资源交叉引用其他资源（例如，网络引用材质，某关卡引用一组动画）。交叉引用通常同时驱动资源管理生成过程及运行是的载入过程</li>
+<li>能维持数据库内所有交叉引用的引用完整性。执行所有常见操作后，如删除或移除资源，仍能保持引用完整性</li>
+<li>能保存版本历史，并含完整日志记录改动者及事由。</li>
+<li>资源数据库若能支持不同形式的搜寻及查询，将十分有用。例如，开发者可能想了解哪一关卡用了某动画、哪些材质引用了某纹理。<h3 id="6-2-1-3一些成功的资源数据库设计"><a href="#6-2-1-3一些成功的资源数据库设计" class="headerlink" title="6.2.1.3一些成功的资源数据库设计"></a>6.2.1.3一些成功的资源数据库设计</h3><h4 id="虚幻3"><a href="#虚幻3" class="headerlink" title="虚幻3"></a>虚幻3</h4></li>
+<li>虚幻的资源数据库由其万用工具UnrealEd所管理。UnrealEd几乎负责一切事项，无论资源元数据管理、资产创建、关卡布局等都一律包办。好处在于是游戏引擎的一部分，还有一站式购物。</li>
+<li>缺点是包文件是二进制的，不能合并；资源重新命名或移动后，产生虚拟对象。<h4 id="顽皮狗的《神秘海域：德雷克船长的宝藏》引擎"><a href="#顽皮狗的《神秘海域：德雷克船长的宝藏》引擎" class="headerlink" title="顽皮狗的《神秘海域：德雷克船长的宝藏》引擎"></a>顽皮狗的《神秘海域：德雷克船长的宝藏》引擎</h4></li>
+<li>粒度小的资源</li>
+<li>必需的特性</li>
+<li>显而易见的源文件映射</li>
+<li>容易更改DCC数据的导出及处理方式</li>
+<li>容易生成资产</li>
+<li>欠缺可视化工具</li>
+<li>工具没有完全整合<h3 id="6-2-1-4资产调节管道"><a href="#6-2-1-4资产调节管道" class="headerlink" title="6.2.1.4资产调节管道"></a>6.2.1.4资产调节管道</h3>多数资源数据会经由资产调节管道（assertconditioning pipeline）才能成为游戏引擎所用的数据。</li>
+<li>导出器</li>
+<li>资源编译器</li>
+<li>资源链接器<h2 id="6-2-2运行时资源管理"><a href="#6-2-2运行时资源管理" class="headerlink" title="6.2.2运行时资源管理"></a>6.2.2运行时资源管理</h2><h3 id="6-2-2-1-运行时资源管理器的责任"><a href="#6-2-2-1-运行时资源管理器的责任" class="headerlink" title="6.2.2.1 运行时资源管理器的责任"></a>6.2.2.1 运行时资源管理器的责任</h3></li>
+<li>确保任何时候，同一个资源在内存中只有一份</li>
+<li>管理每个资源的生命期，载入需要的资源，并不在需要的时候卸载</li>
+<li>处理复合资源的载入。复合资源是由多个资源组成的资源</li>
+<li>维护引用完整性。</li>
+<li>管理资源载入后的内存用量</li>
+<li>容许按资源类型，载入资源后执行自定义的处理</li>
+<li>通常提供单一统一接口管理多种资源类型</li>
+<li>若引擎支持，则要处理串流（即异步资源载入<h3 id="6-2-2-2-资源文件及目录组织"><a href="#6-2-2-2-资源文件及目录组织" class="headerlink" title="6.2.2.2 资源文件及目录组织"></a>6.2.2.2 资源文件及目录组织</h3>通常是树状目录<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/31.png?raw=true" alt=""><br>把多个资源包裹为单一文件，优点是减少载入时间。从文件载入数据时，三大开销为寻道时间（即把磁头移动至物理媒体上正确的位置时间）、开启每个月文件的时间及从文件读入数据至内存的时间。<br>OGRE渲染引擎的资源管理器同时支持两种模式，可把资源文件各自配置于硬盘上，也可以把资源置于庞大的ZIP存档中，使用ZIP格式的好处有：<br>1.ZIP是开放格式<br>2.ZIP存档内的虚拟文件也有相对路径<br>3.ZIP存档可被压缩<br>4.ZIP存档可视为模块<h3 id="6-2-2-3-资源文件格式"><a href="#6-2-2-3-资源文件格式" class="headerlink" title="6.2.2.3 资源文件格式"></a>6.2.2.3 资源文件格式</h3>每类资源都可能有不同的文件格式。一类是使用开放标准的格式。<br>一类是自定义的文件格式。原因是，引擎所需的部分信息可能没有标准格式可以储存，对资源做脱机处理，借以降低运行时载入资源的时间。<h3 id="6-2-2-4-资源全局统一标识符"><a href="#6-2-2-4-资源全局统一标识符" class="headerlink" title="6.2.2.4 资源全局统一标识符"></a>6.2.2.4 资源全局统一标识符</h3>常见GUID选项就是资源的文件系统路径。<h3 id="6-2-2-5-资源注册表"><a href="#6-2-2-5-资源注册表" class="headerlink" title="6.2.2.5 资源注册表"></a>6.2.2.5 资源注册表</h3>载入内存的每个资源只会有一个副本，大部分资源管理器都含有某种形式的资源注册表。常见是使用字典，即键值对。载入资源是缓慢操作，因为涉及对硬盘上文件定位及开启，读取可能大量的数据至内存，并且有机会在资源数据载入后，执行其载入后初始化工作。载入资源可能对游戏帧率造成非常明显的影响，甚至是几秒的停顿。<br>处理方式有两种，1在游戏进行中，完全禁止加载资源。2.资源以异步形式加载<h3 id="6-2-2-6-资源生命期"><a href="#6-2-2-6-资源生命期" class="headerlink" title="6.2.2.6 资源生命期"></a>6.2.2.6 资源生命期</h3>资源的生命期定义为该资源载入内存后至内存被归还做其他用途之间的时段。</li>
+<li>必须开始时便载入。</li>
+<li>有些资源的生命期能对应某游戏关卡</li>
+<li>有些短于所在关卡的时间</li>
+<li>有些资源如背景音乐等，在播放时即时串流。<h3 id="6-2-2-7-资源所需的内存管理"><a href="#6-2-2-7-资源所需的内存管理" class="headerlink" title="6.2.2.7  资源所需的内存管理"></a>6.2.2.7  资源所需的内存管理</h3>资源管理和内存管理息息相关。有些资源必须驻留在显存，包括纹理、顶点缓冲、索引缓冲、着色器。大部分其他资源可能都会驻留在主内存。<h4 id="基于堆的资源分配，会有造成内存碎片问题，游戏运行在个人计算机上，支持高级的虚拟内存分配。"><a href="#基于堆的资源分配，会有造成内存碎片问题，游戏运行在个人计算机上，支持高级的虚拟内存分配。" class="headerlink" title="基于堆的资源分配，会有造成内存碎片问题，游戏运行在个人计算机上，支持高级的虚拟内存分配。"></a>基于堆的资源分配，会有造成内存碎片问题，游戏运行在个人计算机上，支持高级的虚拟内存分配。</h4><h4 id="基于栈的资源分配，只适用于1是游戏是线性以及关卡为中心。2是内存足够容纳各个完整关卡。"><a href="#基于栈的资源分配，只适用于1是游戏是线性以及关卡为中心。2是内存足够容纳各个完整关卡。" class="headerlink" title="基于栈的资源分配，只适用于1是游戏是线性以及关卡为中心。2是内存足够容纳各个完整关卡。"></a>基于栈的资源分配，只适用于1是游戏是线性以及关卡为中心。2是内存足够容纳各个完整关卡。</h4><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/32.png?raw=true" alt=""><h4 id="基于池的资源分配"><a href="#基于池的资源分配" class="headerlink" title="基于池的资源分配"></a>基于池的资源分配</h4>把资源数据以同等大小的组块载入，因为全部组块的大小相同，可以使用池分配器。“组块式”资源分配天生具有一个取舍问题，这就是空间浪费。除非是资源大小刚好组块大小的倍数。<h4 id="资源组块分配器"><a href="#资源组块分配器" class="headerlink" title="资源组块分配器"></a>资源组块分配器</h4>设立特殊内存分配器，此分配器能利用组块内未使用的部分。管理一个链表。资源组块中未使用的区域释放。大部分游戏引擎在载入资源时都需要分配动态内存，可以使用这种方法。<h4 id="分段的资源文件"><a href="#分段的资源文件" class="headerlink" title="分段的资源文件"></a>分段的资源文件</h4>典型的资源文件可能包含1~4段，每段分为一个或者多个组块，以配合基于池的资源分配。<h3 id="6-2-2-8-复合资源及引用完整性"><a href="#6-2-2-8-复合资源及引用完整性" class="headerlink" title="6.2.2.8 复合资源及引用完整性"></a>6.2.2.8 复合资源及引用完整性</h3>游戏资源数据库可表达为，有互相依赖的数据对象所组成的有向图。数据对象之间的交叉引用可以是内部的或者外部的。<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/33.png?raw=true" alt=""></li>
+</ul>
+<h3 id="6-2-2-9-处理资源建的交叉引用"><a href="#6-2-2-9-处理资源建的交叉引用" class="headerlink" title="6.2.2.9 处理资源建的交叉引用"></a>6.2.2.9 处理资源建的交叉引用</h3><h6 id="使用全局统一标识符做交叉引用，就是把交叉引用储存为字符串或散列码，内含被引用对象的唯一标识符。"><a href="#使用全局统一标识符做交叉引用，就是把交叉引用储存为字符串或散列码，内含被引用对象的唯一标识符。" class="headerlink" title="使用全局统一标识符做交叉引用，就是把交叉引用储存为字符串或散列码，内含被引用对象的唯一标识符。"></a>使用全局统一标识符做交叉引用，就是把交叉引用储存为字符串或散列码，内含被引用对象的唯一标识符。</h6><h6 id="指针修正表-储存对象至二进制文件的方法，把指针转换为文件偏移值，把指针的位置存储到一个简单列表，此表就是指针修正表。"><a href="#指针修正表-储存对象至二进制文件的方法，把指针转换为文件偏移值，把指针的位置存储到一个简单列表，此表就是指针修正表。" class="headerlink" title="指针修正表 储存对象至二进制文件的方法，把指针转换为文件偏移值，把指针的位置存储到一个简单列表，此表就是指针修正表。"></a>指针修正表 储存对象至二进制文件的方法，把指针转换为文件偏移值，把指针的位置存储到一个简单列表，此表就是指针修正表。</h6><h6 id="处理外部引用，除了要指明偏移值或GUID-还需加上资源对象所属文件的路径。载入由多个文件组成的资源，关键在于要先载入所有互相依赖的文件。"><a href="#处理外部引用，除了要指明偏移值或GUID-还需加上资源对象所属文件的路径。载入由多个文件组成的资源，关键在于要先载入所有互相依赖的文件。" class="headerlink" title="处理外部引用，除了要指明偏移值或GUID,还需加上资源对象所属文件的路径。载入由多个文件组成的资源，关键在于要先载入所有互相依赖的文件。"></a>处理外部引用，除了要指明偏移值或GUID,还需加上资源对象所属文件的路径。载入由多个文件组成的资源，关键在于要先载入所有互相依赖的文件。</h6><h3 id="6-2-2-10载入后初始化"><a href="#6-2-2-10载入后初始化" class="headerlink" title="6.2.2.10载入后初始化"></a>6.2.2.10载入后初始化</h3><p>两种情况</p>
+<ul>
+<li>某些情况下，载入后初始化是无法避免的步骤。定义三维网格的顶点和索引值，载入主内存后，要传送至显存。</li>
+<li>某些情况下，载入后初始化是可避免的。将算好的数据加入，避免运行是计算的开销。<h2 id="以上内容来自《游戏引擎架构》第六章第二小节资源管理器，关键内容的笔记"><a href="#以上内容来自《游戏引擎架构》第六章第二小节资源管理器，关键内容的笔记" class="headerlink" title="以上内容来自《游戏引擎架构》第六章第二小节资源管理器，关键内容的笔记"></a>以上内容来自《游戏引擎架构》第六章第二小节资源管理器，关键内容的笔记</h2></li>
+</ul>
+<hr>
+<h3 id="Unity3D-情况"><a href="#Unity3D-情况" class="headerlink" title="Unity3D 情况"></a>Unity3D 情况</h3><p>Unity3D 支持资源格式，可以看官方文档。<br>任何资源导入有Importing Assets<br><img src="https://images0.cnblogs.com/i/584891/201403/232247378183306.png" alt=""><br>　在这个步骤中，Unity3D针对所有的资源生成metadata，并进行“编译”、“链接”，转换为游戏可以直接使用的资源。转换前的资源保存在“Assets”中，转换后的资源保存在“Library”中，所有的资源在Inspector面板中可以修改metadata的数据，如下图<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/40.png?raw=true" alt=""><br>shaderCache是编译好的在PC下的shade文件。<br>对于Android或者ios版本都是把资源编程成对应平台的资源，打进包里。<br>如果使用SVN等版本控制器，需要同步所有资源及其metadata。打开Edit-&gt;Project Settings-&gt;Editor，将Mode修改为“Meta Files”（默认“Disabled”），如下图<br><img src="https://images0.cnblogs.com/i/584891/201403/232309356623898.png" alt=""></p>
+<p>关于项目中资源处理的工具<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/41.png?raw=true" alt=""><br>项目中BundleManage中是官方商店BundleManager针对项目修改后的版本，<a href="http://blog.csdn.net/u011611902/article/details/52590794" target="_blank" rel="external">简单介绍</a><br>下图看到项目资源的目录结构<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/42.png?raw=true" alt=""><br>亮光选中的bundle，看右上方可以到size是364k,包含UI预制件有哪些，依赖美术资源有那些。带黄色标识的是表示这个资源其他地方重复引用了。<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/43.png?raw=true" alt=""><br>下图表示是在android和ios平台下图片格式的设置。<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/44.png?raw=true" alt=""><br>资源管理器中数据结构，用JSON做数据保存。<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/45.png?raw=true" alt=""><br>如果有复合资源的情况就放到根节点，资源加载会去把根节点加载，才会去加载子节点下的内容。<br>当生成移动平台的包，这里用android举例。在游戏启动的适合，从服务器上获取版本号，做对比，是否要更新资源。对比crc以及是否有本地缓存等等。<br>这是我经历项目里，表格、配置使用的XML和Lua代码同样也是可以作为资源热更新的。</p>
+<p>在开发运行状态下，有List维护所有加载中的资源，并显示有多少处引用，确保每个资源用完即卸载。</p>
+<p>优势是：在项目中使用的是编译的好资源，重新拉工程减少编译美术资源的时间。更新的时候可以小包更新，会在比对后是用本地还是从服务器拉取最新的。<br>缺点是：因使用md5所以，不能支持多人同时对资源打包；其次是更新的是要把整个Bundle包都上传到服务器，因上传时间有点长。当有节点有变化，或者有资源移动位置的时候都需要重新打包所有资源。有时出现问题需要强制打包所有的资源。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/01/31/资源管理/">资源管理</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
+        <p><span>发布时间:</span>2018-01-31, 12:16:18</p>
+        <p><span>最后更新:</span>2021-09-13, 20:24:49</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/01/31/资源管理/" title="资源管理">http://zhutaorun.win/2018/01/31/资源管理/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutaorun.win/2018/01/31/资源管理/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/01/31/关于游戏测试/">
+                    关于游戏测试
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/12/18/缓存命中/">
+                    缓存命中
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-1资产的版本控制"><span class="toc-number">1.</span> <span class="toc-text">6.2.1.1资产的版本控制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-2资源数据库"><span class="toc-number">2.</span> <span class="toc-text">6.2.1.2资源数据库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-3一些成功的资源数据库设计"><span class="toc-number">3.</span> <span class="toc-text">6.2.1.3一些成功的资源数据库设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#虚幻3"><span class="toc-number">3.1.</span> <span class="toc-text">虚幻3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#顽皮狗的《神秘海域：德雷克船长的宝藏》引擎"><span class="toc-number">3.2.</span> <span class="toc-text">顽皮狗的《神秘海域：德雷克船长的宝藏》引擎</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-4资产调节管道"><span class="toc-number">4.</span> <span class="toc-text">6.2.1.4资产调节管道</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-2运行时资源管理"><span class="toc-number"></span> <span class="toc-text">6.2.2运行时资源管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-1-运行时资源管理器的责任"><span class="toc-number">1.</span> <span class="toc-text">6.2.2.1 运行时资源管理器的责任</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-2-资源文件及目录组织"><span class="toc-number">2.</span> <span class="toc-text">6.2.2.2 资源文件及目录组织</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-3-资源文件格式"><span class="toc-number">3.</span> <span class="toc-text">6.2.2.3 资源文件格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-4-资源全局统一标识符"><span class="toc-number">4.</span> <span class="toc-text">6.2.2.4 资源全局统一标识符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-5-资源注册表"><span class="toc-number">5.</span> <span class="toc-text">6.2.2.5 资源注册表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-6-资源生命期"><span class="toc-number">6.</span> <span class="toc-text">6.2.2.6 资源生命期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-7-资源所需的内存管理"><span class="toc-number">7.</span> <span class="toc-text">6.2.2.7  资源所需的内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基于堆的资源分配，会有造成内存碎片问题，游戏运行在个人计算机上，支持高级的虚拟内存分配。"><span class="toc-number">7.1.</span> <span class="toc-text">基于堆的资源分配，会有造成内存碎片问题，游戏运行在个人计算机上，支持高级的虚拟内存分配。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基于栈的资源分配，只适用于1是游戏是线性以及关卡为中心。2是内存足够容纳各个完整关卡。"><span class="toc-number">7.2.</span> <span class="toc-text">基于栈的资源分配，只适用于1是游戏是线性以及关卡为中心。2是内存足够容纳各个完整关卡。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基于池的资源分配"><span class="toc-number">7.3.</span> <span class="toc-text">基于池的资源分配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#资源组块分配器"><span class="toc-number">7.4.</span> <span class="toc-text">资源组块分配器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分段的资源文件"><span class="toc-number">7.5.</span> <span class="toc-text">分段的资源文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-8-复合资源及引用完整性"><span class="toc-number">8.</span> <span class="toc-text">6.2.2.8 复合资源及引用完整性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-9-处理资源建的交叉引用"><span class="toc-number">9.</span> <span class="toc-text">6.2.2.9 处理资源建的交叉引用</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#使用全局统一标识符做交叉引用，就是把交叉引用储存为字符串或散列码，内含被引用对象的唯一标识符。"><span class="toc-number">9.0.0.1.</span> <span class="toc-text">使用全局统一标识符做交叉引用，就是把交叉引用储存为字符串或散列码，内含被引用对象的唯一标识符。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#指针修正表-储存对象至二进制文件的方法，把指针转换为文件偏移值，把指针的位置存储到一个简单列表，此表就是指针修正表。"><span class="toc-number">9.0.0.2.</span> <span class="toc-text">指针修正表 储存对象至二进制文件的方法，把指针转换为文件偏移值，把指针的位置存储到一个简单列表，此表就是指针修正表。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#处理外部引用，除了要指明偏移值或GUID-还需加上资源对象所属文件的路径。载入由多个文件组成的资源，关键在于要先载入所有互相依赖的文件。"><span class="toc-number">9.0.0.3.</span> <span class="toc-text">处理外部引用，除了要指明偏移值或GUID,还需加上资源对象所属文件的路径。载入由多个文件组成的资源，关键在于要先载入所有互相依赖的文件。</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-10载入后初始化"><span class="toc-number">10.</span> <span class="toc-text">6.2.2.10载入后初始化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#以上内容来自《游戏引擎架构》第六章第二小节资源管理器，关键内容的笔记"><span class="toc-number"></span> <span class="toc-text">以上内容来自《游戏引擎架构》第六章第二小节资源管理器，关键内容的笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Unity3D-情况"><span class="toc-number">1.</span> <span class="toc-text">Unity3D 情况</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"资源管理　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2018/01/31/资源管理/" data-title="资源管理" data-url="http://zhutaorun.win/2018/01/31/资源管理/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"zhutaorun"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/01/31/关于游戏测试/" title="上一篇: 关于游戏测试">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/12/18/缓存命中/" title="下一篇: 缓存命中">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/12/15/检测文件变化/">检测文件变化</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/13/Lua热重载/">Lua热重载</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/29/Lua的多重继承实现/">Lua的多重继承实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/25/Lua的OOP实现/">Lua的OOP实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/09/26/Lua的metatable和Lua的面向对象实现/">Lua的metatable和Lua的面向对象实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/09/06/个人最近踩的坑/">个人最近踩的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/30/《Lua程序设计（第四版）》读书笔记/">《Lua程序设计（第四版）》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/10/写Shader的IDE工具合集/">写Shader的IDE工具合集</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/11/最近的复盘-错误小结/">最近的复盘-错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/03/Unity-Apk解包/">Unity-Apk解包</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/01/关于项目优化杂谈/">关于项目优化杂谈</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/07/Unity里实现Hook函数/">Unity里实现Hook函数</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/12/游戏同步/">游戏同步</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/04/关于动画结束的处理/">关于动画结束的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/03/帧同步的逻辑工程维护/">帧同步的逻辑工程维护</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/01/再谈优化/">再谈优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/16/一个神奇的bug/">一个神奇的bug</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/31/模型在UI上显示/">模型在UI上显示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/04/Unity中音效插件/">Unity中音效插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/24/UWA-Day-2018分享/">UWA-Day-2018分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/26/代码质量/">代码质量</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/AssetBundle使用模式/">AssetBundle使用模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/AssetBundle的基本原理/">AssetBundle的基本原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/资源文件夹/">资源文件夹</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/资产，对象和序列化/">资产，对象和序列化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/翻译-资产，资源和AssetBundle/">[翻译]资产，资源和AssetBundle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/01/游戏项目中的美术，策划文档怎么管理/">游戏项目中的美术，策划文档怎么管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/关于游戏测试/">关于游戏测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/资源管理/">资源管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/18/缓存命中/">缓存命中</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/struct-结构体类型的大小计算/">struct 结构体类型的大小计算</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Unity小技巧-清除缓存/">Unity小技巧-清除缓存</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/自动上阵功能开发的小结/">自动上阵功能开发的小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/MVC、MVP和MVVM的图示/">MVC、MVP和MVVM的图示</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/24/【翻译】Unity3D车辆的滑动效果/">【翻译】Unity3D车辆的滑动效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/24/实现轮胎印/">实现轮胎印</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/Shader的纹理/">Shader的纹理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/如何熟悉一个老项目/">如何快速熟悉一个老项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/Unity的内存优化以及在移动平台上的优化/">Unity的内存优化以及在移动平台上的优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/准备入职，写点东西/">准备入职，写点东西</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/Unity资源制作要求/">Unity资源制作要求</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/MMO小地图实现方式/">MMO小地图实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/31/Android端外推送到底有多烦/">Android端外推送到底有多烦</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/Unity推送SDk/">Unity推送SDk</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/查找代码的中文插件/">查找代码的中文插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/功能错误小结/">功能错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/24/《重构-改善既有代码的设计》读书笔记/">《重构-改善既有代码的设计》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/18/C-教程的实践小结/">C++教程的实践小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity-声音资源优化/">Unity 声音资源优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity3D图片大小设置/">Unity3D图片大小设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/">U3D贴图格式 GENERATE MIP MAPS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/20/Android真机调试/">Android真机调试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/25/《从行动开始》读书笔记/">《从行动开始》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/搞定GTD/">搞定GTD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/11/拖延心理学/">拖延心理学</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/游戏改变世界读后感/">《游戏改变世界》读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/04/关于Markdown/">关于Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/25/C++学习记录/">C++学习记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2021 zhutaorun
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

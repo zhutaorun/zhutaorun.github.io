@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="zhutaorun" />
+
+
+
+<meta name="description" content="缓存命中游戏开发者可分为两类：在他们的游戏引擎中使用STL模板库之类的。以及不使用的。一些开发者认为STL内存分配模式(memory allocation pattern)不高效，也导致内存碎片问题，使STL不能在游戏中使用。一些开发者认为STL的强大和方便超过它的问题，而且大部分的问题还是可以变通解决，笔者个人认为STL在PC上可以无障碍使用。因为PC上可以无障碍使用虚拟内存（virtual m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="缓存命中">
+<meta property="og:url" content="http://zhutaorun.win/2017/12/18/缓存命中/index.html">
+<meta property="og:site_name" content="zhutaorun's Blog">
+<meta property="og:description" content="缓存命中游戏开发者可分为两类：在他们的游戏引擎中使用STL模板库之类的。以及不使用的。一些开发者认为STL内存分配模式(memory allocation pattern)不高效，也导致内存碎片问题，使STL不能在游戏中使用。一些开发者认为STL的强大和方便超过它的问题，而且大部分的问题还是可以变通解决，笔者个人认为STL在PC上可以无障碍使用。因为PC上可以无障碍使用虚拟内存（virtual m">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/23.png?raw=true">
+<meta property="og:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/24.png?raw=true">
+<meta property="og:updated_time" content="2021-09-13T12:24:57.496Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="缓存命中">
+<meta name="twitter:description" content="缓存命中游戏开发者可分为两类：在他们的游戏引擎中使用STL模板库之类的。以及不使用的。一些开发者认为STL内存分配模式(memory allocation pattern)不高效，也导致内存碎片问题，使STL不能在游戏中使用。一些开发者认为STL的强大和方便超过它的问题，而且大部分的问题还是可以变通解决，笔者个人认为STL在PC上可以无障碍使用。因为PC上可以无障碍使用虚拟内存（virtual m">
+<meta name="twitter:image" content="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/23.png?raw=true">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="zhutaorun&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>缓存命中 | zhutaorun&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?925b283002cdaa5eb0c0a14c5135593c";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">zhutaorun</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">迈入新世界，为了成为有保持乐趣的Unity客户端</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/friends/">友情链接</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="/zhutaorun@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2409097900/" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/zhutaorun" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/zhutaorun" title="知乎"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011611902" title="CSDN"></a>
+                            
+                                <a class="fa 微信" href="/peter-zhutao" title="微信"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua-面向对象编程/">Lua 面向对象编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D/">Unity3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D-优化/">Unity3D 优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D优化/">Unity3D优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3d/">Unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/习惯养成/">习惯养成</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/介绍/">介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思/">工作反思</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思-帧同步/">工作反思 帧同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具类-效率提升/">工具类 效率提升</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/思考/">思考</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拆书帮/">拆书帮</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏测试/">游戏测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算系统/">计算系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.luzexi.com/">技术人生 Jesse</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.cnblogs.com/zhaoqingqing">赵青青的博客</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于游戏开发</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">zhutaorun</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">zhutaorun</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">迈入新世界，为了成为有保持乐趣的Unity客户端</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/friends/">友情链接</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="/zhutaorun@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2409097900/" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/zhutaorun" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/zhutaorun" title="知乎"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011611902" title="CSDN"></a>
+                            
+                                <a class="fa 微信" target="_blank" href="/peter-zhutao" title="微信"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-缓存命中" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/12/18/缓存命中/" class="article-date">
+      <time datetime="2017-12-18T15:48:16.000Z" itemprop="datePublished">2017-12-18</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      缓存命中
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/计算系统/">计算系统</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="缓存命中"><a href="#缓存命中" class="headerlink" title="缓存命中"></a>缓存命中</h3><p>游戏开发者可分为两类：在他们的游戏引擎中使用STL模板库之类的。以及不使用的。一些开发者认为STL内存分配模式(memory allocation pattern)不高效，也导致内存碎片问题，使STL不能在游戏中使用。一些开发者认为STL的强大和方便超过它的问题，而且大部分的问题还是可以变通解决，笔者个人认为STL在PC上可以无障碍使用。因为PC上可以无障碍使用虚拟内存（virtual memory）系统,谨慎的分配内存变得不那么紧要(虽然游戏开发者仍要非常谨慎)。在游戏主机上，只有有限（甚至没有）虚拟内存功能，而且<strong>内存命中失败（cache miss)</strong>的代价极高，游戏开发者最好编写自定义的数据结构，保证是可预期或者有限的内存分配模式。（在PC上做同样的事情，肯定也不也错不了。)【以上内容来自《游戏引擎架构》第29页】</p>
+<a id="more"></a>
+<h3 id="什么是Cache"><a href="#什么是Cache" class="headerlink" title="什么是Cache?"></a>什么是Cache?</h3><p>Cache Memory也被称为Cache，是存储器子系统的组成部分，存放着程序经常使用的指令和数据，这就是Cache的传统定义。从广义的角度上看，Cache是快设备为了缓解访问慢设备延时的预留的Buffer，从而可以在掩盖访问延时的同时，尽可能地提高数据传输率。 快和慢是一个相对概念，与微架构(Microarchitecture)中的 L1/L2/L3 Cache相比， DDR内存是一个慢速设备；在磁盘 I/O 系统中，DDR却是快速设备，在磁盘 I/O 系统中，仍在使用DDR内存作为磁介质的Cache。在一个微架构中，除了有L1/L2/L3 Cache之外，用于虚实地址转换的各级TLB， MOB( Memory Ordering Buffers)、在指令流水线中的ROB，Register File和BTB等等也是一种Cache。我们这里的Cache，是狭义 Cache，是CPU流水线和主存储器的 L1/L2/L3 Cache。</p>
+<h3 id="好处是什么"><a href="#好处是什么" class="headerlink" title="好处是什么"></a>好处是什么</h3><p>提高计算机的运行速度。只要能存储数据的器件都可以称之为存储器，它的含义覆盖了寄存器，缓存，内存，硬盘。cpu访问快慢的速度依次为寄存器-&gt; 缓存-&gt;内存-&gt;硬盘。<br>寄存器是中央处理器的组成部分，是一种直接整合到cpu中的有限的高速访问速度的存储器，它是有一些与非门组合组成的，分为通用寄存器和特殊寄存器。cpu访问寄存器的速度是最快的。那为什么我们不把数据都存储到寄存器中呢，因为寄存器是一种容量有限的存储器，并且非常小。因此只把一些计算机的指令等一些计算机频繁用到的数据存储在其中，来提高计算机的运行速度。<br>缓存其实是内存中高速缓存（cache）,它之所以存在，是因为当cpu要频繁访问内存中的一些数据时，如果每次都从内存中去读，花费的时间会更多，因此在寄存器和内存之间有了缓存，把cpu要频繁访问的一些数据存储在缓冲中，这样效率就会更高，但需要注意的是，缓冲的大小也是很小的，不能存放大量的数据，并且缓存中存放的数据会因为cpu的访问而被替代，必须某个数据开始被cpu频繁访问，但后来不再频繁，那这个数据的空间会被其他访问频繁的数据所占据（那些数据会被暂时存储在缓存中是算法问题）。缓存又可以分为一级和二级缓存，一级的速度大一二级的速度。因此cpu在访问数据时，先到缓存中看有没有，没有的话再到内存中读取。<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/23.png?raw=true" alt=""><br>作为一个程序员，你需要理解存储器层次结构，因为它对应用程序的性能有着巨大的影响。如果你的程序需要的数据存储在CPU寄存器中的，那么在指令的执行期间，在零个周期内就能访问到它们。如果存储在高速缓存中，需要1~30个周期。如果存储在主存中，需要50~200个周期。而如果存储在磁盘上，需要大约几千万个周期。【以上内容来自《深入理解计算机系统(Computer Systems)》第382页】</p>
+<h3 id="如何知道Cache大小"><a href="#如何知道Cache大小" class="headerlink" title="如何知道Cache大小"></a>如何知道Cache大小</h3><p>如何知道自己CPU的L2、L3的容量多大呢？当然可以用CPU-z，但其实可以有个更加简单的办法，在命令行输入：<br>wmic cpu get L2CacheSize,L3CacheSize<br>我的笔记本得到这个结果：<br><img src="https://github.com/zhutaorun/zhutaorun.github.io/blob/master/images/24.png?raw=true" alt=""></p>
+<h3 id="怎么去写出缓存友好的代码"><a href="#怎么去写出缓存友好的代码" class="headerlink" title="怎么去写出缓存友好的代码"></a>怎么去写出缓存友好的代码</h3><ul>
+<li>如上一篇文章中<a href="http://zhutaorun.win/2017/11/30/struct-%E7%BB%93%E6%9E%84%E4%BD%93%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%A4%A7%E5%B0%8F%E8%AE%A1%E7%AE%97/">struct 结构体类型的大小计算</a><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">struct stu3</div><div class="line">&#123;</div><div class="line">　　char c1;// 偏移量为0符合要求，首位本身不需要偏移。</div><div class="line">　　int i;  // 偏移量为4， 结构体变量中成员的偏移量必须是成员大小的整数倍（0被认为是任何数的整数倍），所以1+3</div><div class="line">　　char c2;// 偏移量为8（偏移量4+int大小4），符合要求</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>总长度不考虑自身对齐的最大的那个值的倍数，所以长度是1+3+4+1 = 9，考虑倍数长度是12<br>优化后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">struct stu3</div><div class="line">&#123;</div><div class="line">　　char c1;// 偏移量为0符合要求，首位本身不需要偏移。</div><div class="line">       char c2;// 偏移量为1（偏移量1+char大小1），符合要求</div><div class="line">　　int i;  // 偏移量为4， 结构体变量中成员的偏移量必须是成员大小的整数倍（0被认为是任何数的整数倍），所以</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>优化后大小是1+1+2+4= 8。</p>
+<ul>
+<li>让最常见的情况运行得快。大部分时间都花在少量的核心函数上，这些函数常把大部分时间都花在少量循环上。</li>
+<li>在每个循环内部缓存不命中数量最小。<br>举例数组循环<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">int sumarraycols(int a[M][N])</div><div class="line">&#123;</div><div class="line">    int i,j,sum =0;</div><div class="line">    for(i=0;i&lt;M;i++)</div><div class="line">        for(j=0;j&lt;N;j++)</div><div class="line">            sum += a[i][j];</div><div class="line">    return sum;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">int sumarraycols(int a[M][N])</div><div class="line">&#123;</div><div class="line">    int i,j,sum =0;</div><div class="line">    for(j=0;j&lt;N;j++)</div><div class="line">        for(i=0;i&lt;M;i++)       </div><div class="line">            sum += a[i][j];</div><div class="line">    return sum;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>第一个写法是常见的写法，缓存比较优好。第二个是修改后的。差异在于第一个是连续的内存块。第二个是每隔一段取一块。第二种miss的概率更高。Cache是CacheLine组成的。<br>——————————</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="http://blog.csdn.net/li_ning_/article/details/51756132" target="_blank" rel="external">浅谈CPU三级缓存和缓存命中率</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/31422201" target="_blank" rel="external">L1，L2，L3 Cache究竟在哪里？</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/31859105" target="_blank" rel="external">Cache是怎么组织和工作的？</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/32058808" target="_blank" rel="external">Cache为什么有那么多级？为什么一级比一级大？是不是Cache越大越好？</a></li>
+<li><a href="http://www.cnblogs.com/yanlingyin/archive/2012/02/15/thinkingincache.html" target="_blank" rel="external">对缓存的思考【续】——编写高速缓存友好代码</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/12/18/缓存命中/">缓存命中</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
+        <p><span>发布时间:</span>2017-12-18, 23:48:16</p>
+        <p><span>最后更新:</span>2021-09-13, 20:24:57</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/12/18/缓存命中/" title="缓存命中">http://zhutaorun.win/2017/12/18/缓存命中/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutaorun.win/2017/12/18/缓存命中/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/01/31/资源管理/">
+                    资源管理
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/11/30/struct-结构体类型的大小计算/">
+                    struct 结构体类型的大小计算
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#缓存命中"><span class="toc-number">1.</span> <span class="toc-text">缓存命中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是Cache"><span class="toc-number">2.</span> <span class="toc-text">什么是Cache?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#好处是什么"><span class="toc-number">3.</span> <span class="toc-text">好处是什么</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何知道Cache大小"><span class="toc-number">4.</span> <span class="toc-text">如何知道Cache大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#怎么去写出缓存友好的代码"><span class="toc-number">5.</span> <span class="toc-text">怎么去写出缓存友好的代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"缓存命中　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2017/12/18/缓存命中/" data-title="缓存命中" data-url="http://zhutaorun.win/2017/12/18/缓存命中/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"zhutaorun"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/01/31/资源管理/" title="上一篇: 资源管理">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/11/30/struct-结构体类型的大小计算/" title="下一篇: struct 结构体类型的大小计算">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/12/15/检测文件变化/">检测文件变化</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/13/Lua热重载/">Lua热重载</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/29/Lua的多重继承实现/">Lua的多重继承实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/25/Lua的OOP实现/">Lua的OOP实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/09/26/Lua的metatable和Lua的面向对象实现/">Lua的metatable和Lua的面向对象实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/09/06/个人最近踩的坑/">个人最近踩的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/30/《Lua程序设计（第四版）》读书笔记/">《Lua程序设计（第四版）》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/10/写Shader的IDE工具合集/">写Shader的IDE工具合集</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/11/最近的复盘-错误小结/">最近的复盘-错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/03/Unity-Apk解包/">Unity-Apk解包</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/01/关于项目优化杂谈/">关于项目优化杂谈</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/07/Unity里实现Hook函数/">Unity里实现Hook函数</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/12/游戏同步/">游戏同步</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/04/关于动画结束的处理/">关于动画结束的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/03/帧同步的逻辑工程维护/">帧同步的逻辑工程维护</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/01/再谈优化/">再谈优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/16/一个神奇的bug/">一个神奇的bug</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/31/模型在UI上显示/">模型在UI上显示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/04/Unity中音效插件/">Unity中音效插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/24/UWA-Day-2018分享/">UWA-Day-2018分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/26/代码质量/">代码质量</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/AssetBundle使用模式/">AssetBundle使用模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/AssetBundle的基本原理/">AssetBundle的基本原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/资源文件夹/">资源文件夹</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/资产，对象和序列化/">资产，对象和序列化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/翻译-资产，资源和AssetBundle/">[翻译]资产，资源和AssetBundle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/01/游戏项目中的美术，策划文档怎么管理/">游戏项目中的美术，策划文档怎么管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/关于游戏测试/">关于游戏测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/资源管理/">资源管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/18/缓存命中/">缓存命中</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/struct-结构体类型的大小计算/">struct 结构体类型的大小计算</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Unity小技巧-清除缓存/">Unity小技巧-清除缓存</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/自动上阵功能开发的小结/">自动上阵功能开发的小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/MVC、MVP和MVVM的图示/">MVC、MVP和MVVM的图示</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/24/【翻译】Unity3D车辆的滑动效果/">【翻译】Unity3D车辆的滑动效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/24/实现轮胎印/">实现轮胎印</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/Shader的纹理/">Shader的纹理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/如何熟悉一个老项目/">如何快速熟悉一个老项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/Unity的内存优化以及在移动平台上的优化/">Unity的内存优化以及在移动平台上的优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/准备入职，写点东西/">准备入职，写点东西</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/Unity资源制作要求/">Unity资源制作要求</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/MMO小地图实现方式/">MMO小地图实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/31/Android端外推送到底有多烦/">Android端外推送到底有多烦</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/Unity推送SDk/">Unity推送SDk</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/查找代码的中文插件/">查找代码的中文插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/功能错误小结/">功能错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/24/《重构-改善既有代码的设计》读书笔记/">《重构-改善既有代码的设计》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/18/C-教程的实践小结/">C++教程的实践小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity-声音资源优化/">Unity 声音资源优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity3D图片大小设置/">Unity3D图片大小设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/">U3D贴图格式 GENERATE MIP MAPS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/20/Android真机调试/">Android真机调试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/25/《从行动开始》读书笔记/">《从行动开始》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/搞定GTD/">搞定GTD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/11/拖延心理学/">拖延心理学</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/游戏改变世界读后感/">《游戏改变世界》读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/04/关于Markdown/">关于Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/25/C++学习记录/">C++学习记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2021 zhutaorun
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

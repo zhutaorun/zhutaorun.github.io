@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="zhutaorun" />
+
+
+
+<meta name="description" content="在已经过去的两个月中花了3周，总结了下龙2中的优化内容，目标是为了新的项目做前期的规划；涉及相关的项目中细节内容，不详说，说下哪些可以规避的问题
+
+一.工具类开发1.查找重复或冗余未使用的资源2.查找超过1024尺寸的图片工具并加入每日检查3.添加对于资源检查的工具对于美术资源的检测，对于资源的规范性的检测，可以减少一些资源是否合理的检测代码。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于项目优化杂谈">
+<meta property="og:url" content="http://zhutaorun.win/2019/12/01/关于项目优化杂谈/index.html">
+<meta property="og:site_name" content="zhutaorun's Blog">
+<meta property="og:description" content="在已经过去的两个月中花了3周，总结了下龙2中的优化内容，目标是为了新的项目做前期的规划；涉及相关的项目中细节内容，不详说，说下哪些可以规避的问题
+
+一.工具类开发1.查找重复或冗余未使用的资源2.查找超过1024尺寸的图片工具并加入每日检查3.添加对于资源检查的工具对于美术资源的检测，对于资源的规范性的检测，可以减少一些资源是否合理的检测代码。">
+<meta property="og:updated_time" content="2021-09-13T12:24:57.300Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于项目优化杂谈">
+<meta name="twitter:description" content="在已经过去的两个月中花了3周，总结了下龙2中的优化内容，目标是为了新的项目做前期的规划；涉及相关的项目中细节内容，不详说，说下哪些可以规避的问题
+
+一.工具类开发1.查找重复或冗余未使用的资源2.查找超过1024尺寸的图片工具并加入每日检查3.添加对于资源检查的工具对于美术资源的检测，对于资源的规范性的检测，可以减少一些资源是否合理的检测代码。">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="zhutaorun&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>关于项目优化杂谈 | zhutaorun&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?925b283002cdaa5eb0c0a14c5135593c";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">zhutaorun</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">迈入新世界，为了成为有保持乐趣的Unity客户端</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/friends/">友情链接</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="/zhutaorun@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2409097900/" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/zhutaorun" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/zhutaorun" title="知乎"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011611902" title="CSDN"></a>
+                            
+                                <a class="fa 微信" href="/peter-zhutao" title="微信"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua-面向对象编程/">Lua 面向对象编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D/">Unity3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D-优化/">Unity3D 优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D优化/">Unity3D优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3d/">Unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/习惯养成/">习惯养成</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/介绍/">介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思/">工作反思</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思-帧同步/">工作反思 帧同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具类-效率提升/">工具类 效率提升</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/思考/">思考</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拆书帮/">拆书帮</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏测试/">游戏测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算系统/">计算系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.luzexi.com/">技术人生 Jesse</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.cnblogs.com/zhaoqingqing">赵青青的博客</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于游戏开发</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">zhutaorun</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">zhutaorun</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">迈入新世界，为了成为有保持乐趣的Unity客户端</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/friends/">友情链接</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="/zhutaorun@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2409097900/" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/zhutaorun" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/zhutaorun" title="知乎"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011611902" title="CSDN"></a>
+                            
+                                <a class="fa 微信" target="_blank" href="/peter-zhutao" title="微信"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-关于项目优化杂谈" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/12/01/关于项目优化杂谈/" class="article-date">
+      <time datetime="2019-12-01T03:41:56.000Z" itemprop="datePublished">2019-12-01</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      关于项目优化杂谈
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/优化-技术积累/">优化 技术积累</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3d/">Unity3d</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>在已经过去的两个月中花了3周，总结了下龙2中的优化内容，目标是为了新的项目做前期的规划；涉及相关的项目中细节内容，不详说，说下哪些可以规避的问题</p>
+</blockquote>
+<h2 id="一-工具类开发"><a href="#一-工具类开发" class="headerlink" title="一.工具类开发"></a>一.工具类开发</h2><p>1.查找重复或冗余未使用的资源<br>2.查找超过1024尺寸的图片工具并加入每日检查<br>3.添加对于资源检查的工具<br>对于美术资源的检测，对于资源的规范性的检测，可以减少一些资源是否合理的检测代码。<br><a id="more"></a></p>
+<h2 id="二-最小的Dome测试"><a href="#二-最小的Dome测试" class="headerlink" title="二.最小的Dome测试"></a>二.最小的Dome测试</h2><p>1.对于引入第三库的测试<br>2.某个设备崩溃的定位<br>3.快速验证某个方案是否可行<br>从某种角度就是排除法定位问题，其实快速测试的验证</p>
+<h2 id="三-表格的膨胀"><a href="#三-表格的膨胀" class="headerlink" title="三.表格的膨胀"></a>三.表格的膨胀</h2><p>随着内容的推进，表格的数量越来越多，表内的数段和行数也越多，会有表格遍历的性能问题，其次是加载和内容的速度影响。<br>1.方式是用到时加载，之前的项目都是游戏启动的时候加载。但现在目前不能采用这个方式。不然会带来启动时间变长。<br>2.启动的时候，加载表的索引的，在读表的时候正在加载表格，在一段时间后卸载<br>3.对于复杂的表或者行数多的表，使用常驻索引表。减少遍历的消耗</p>
+<h2 id="四-字符串的噩梦"><a href="#四-字符串的噩梦" class="headerlink" title="四.字符串的噩梦"></a>四.字符串的噩梦</h2><p>字符串的拼接带来的性能问题，一直被困扰。<br>解决方案有两种适用两种不同的情况<br>1.每秒变化的文字，例如倒计时显示的文字,C#unsafe memcpy<br>2.文字拼接。string.Formate（）或者stringBuilder<br><a href="https://blog.csdn.net/onelei1994/article/details/101054633" target="_blank" rel="external">【Unity优化】Unity字符串String优化</a><br><a href="http://www.xuanyusong.com/archives/4601" target="_blank" rel="external">Unity3D研究院之字符串拼接0GC（一百零四）</a></p>
+<h4 id="总结思路："><a href="#总结思路：" class="headerlink" title="总结思路："></a>总结思路：</h4><p>1.使用C# unsafe memcpy，是实现C语言的内存拷贝函数，内存占用会多一些;<br>2.用StringBuilder,也有性能问题上，但处于能接受的范围，一个是扩容，一个是toString()的。<br>3.还有一种方式String.Concat,如果不能确定最终长度，但是能够确定字符串的个数，可以将它们放在一个数组中，并调用String.Concat进行连接<br>项目的在初始分配一个较大的StringBuilder(256)。完美解决StringBuilder拼接的问题。</p>
+<h6 id="补充还有一份详细的讲解"><a href="#补充还有一份详细的讲解" class="headerlink" title="补充还有一份详细的讲解"></a>补充还有一份详细的讲解</h6><p><a href="http://blog.zhaojie.me/2009/11/string-concat-perf-1-benchmark.html" target="_blank" rel="external">重谈字符串连接性能上</a><br><a href="http://blog.zhaojie.me/2009/12/string-concat-perf-2-stringbuilder-implementations.html" target="_blank" rel="external">重谈字符串连接性能中</a><br><a href="http://blog.zhaojie.me/2009/12/string-concat-perf-3-profiling-analysis.html" target="_blank" rel="external">重谈字符串连接性能下</a></p>
+<h2 id="五-代码优化"><a href="#五-代码优化" class="headerlink" title="五.代码优化"></a>五.代码优化</h2><p>比如一些函数，之前使用觉得并没有问题，但随着内容推进，是性能的瓶颈了。如AddComponent<t>，耗时巨大，会导致瞬卡。看源码，因为使用泛型，所以是把所有的组件遍历一遍，然后找到对应的类。这是也我觉得很意外的地方，Unity还有提高的地方。</t></p>
+<p>1.有些代码写法，有一点性能提升。例如，如果需要判断包含并且要使用value值，则把myDictionary.Contains(oneKey)改为myDictionary.TryGetValue(oneKey, out myValue)，可减少冗余的哈希次数；字典的key枚举用int代替<br>2.协程的使用上；协程执行Update接口，需要使用WaitForSeconds时，最好先将变量生成好，不要每次创建，会产生开销（开启关闭用函数名，方便查找引用）。<br>3.游戏中尽量不使用AddComponent，可以先在prefab上添加好Component。如果必须动态添加的话，使用XComponentHelper，优化销毁和检查引用的耗时</p>
+<h2 id="六-UE优化"><a href="#六-UE优化" class="headerlink" title="六.UE优化"></a>六.UE优化</h2><p>这个有点老生常谈了，UWA关于的这样的方面的内容不少。<br>1.动静分离<br>2.合理规划图集<br>3.对象尽量避免高频使用setActive，会带来大GC问题，推荐使用setscale或者canvasgroup，但是使用setscale需要注意动画问题。（SetActiveByScale：scale 和alpha为0的时候就不会再画了，区别就是脚本还有没有在runtime）<br>4.异步加载或者分帧加载。<br>5.预制尽量小，对于复杂的预制进行拆分</p>
+<h2 id="七-网络优化"><a href="#七-网络优化" class="headerlink" title="七.网络优化"></a>七.网络优化</h2><p>我之前没关注过的部分，随便写一定，欢迎交流<br>1.协议优化，网络包体减少，数据结构和字段类型<br>2.网络协议使用Pool,回收内存。减少内存分配及减少GC<br>3.客户端协议注册改为代码生成（避免调用GetAllTypes 及访问.BaseType 导致IL2CPP加载大量数据）</p>
+<h2 id="八-渲染优化"><a href="#八-渲染优化" class="headerlink" title="八.渲染优化"></a>八.渲染优化</h2><p>个人知识体系很少触及的部分，说一些优化点<br>1.游戏渲染分级，适配不同类型的机型用户，根据手机设备显示合适的渲染效果<br>2.植被系统，对于草的数据结构体优化，草的分布密度，是否弃用Gupinstance<br>3.阴影的优化在多人情况下测试，对于不同渲染基本调整方案<br>4.shader精度优化</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>有些问题，是借助工具定位。Heap Explorer，可以看到项目中表格占用5M的内存空间，String确实是占用最多的。有些的内容，需要提前规划清楚，有些问题只有在性能优化测试的时候，才发现暴漏问题的。看了这些优化的内容，理解其中思路。这是一个综合考虑做出的选择，是最恰当的。才能清楚自己有哪些实确很少涉及。自己的完全不懂这一内容。</p>
+<p>——————</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://docs.unity3d.com/2017.4/Documentation/Manual/UnderstandingAutomaticMemoryManagement.html" target="_blank" rel="external">Understanding Automatic Memory Management</a><br><a href="https://www.memorymanagement.org/" target="_blank" rel="external">Memory Management Reference</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/12/01/关于项目优化杂谈/">关于项目优化杂谈</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
+        <p><span>发布时间:</span>2019-12-01, 11:41:56</p>
+        <p><span>最后更新:</span>2021-09-13, 20:24:57</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/12/01/关于项目优化杂谈/" title="关于项目优化杂谈">http://zhutaorun.win/2019/12/01/关于项目优化杂谈/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutaorun.win/2019/12/01/关于项目优化杂谈/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2020/02/03/Unity-Apk解包/">
+                    Unity-Apk解包
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/08/07/Unity里实现Hook函数/">
+                    Unity里实现Hook函数
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一-工具类开发"><span class="toc-number">1.</span> <span class="toc-text">一.工具类开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-最小的Dome测试"><span class="toc-number">2.</span> <span class="toc-text">二.最小的Dome测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-表格的膨胀"><span class="toc-number">3.</span> <span class="toc-text">三.表格的膨胀</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四-字符串的噩梦"><span class="toc-number">4.</span> <span class="toc-text">四.字符串的噩梦</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#总结思路："><span class="toc-number">4.0.1.</span> <span class="toc-text">总结思路：</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#补充还有一份详细的讲解"><span class="toc-number">4.0.1.0.1.</span> <span class="toc-text">补充还有一份详细的讲解</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五-代码优化"><span class="toc-number">5.</span> <span class="toc-text">五.代码优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六-UE优化"><span class="toc-number">6.</span> <span class="toc-text">六.UE优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七-网络优化"><span class="toc-number">7.</span> <span class="toc-text">七.网络优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#八-渲染优化"><span class="toc-number">8.</span> <span class="toc-text">八.渲染优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">9.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-number">9.1.</span> <span class="toc-text">参考</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"关于项目优化杂谈　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2019/12/01/关于项目优化杂谈/" data-title="关于项目优化杂谈" data-url="http://zhutaorun.win/2019/12/01/关于项目优化杂谈/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"zhutaorun"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2020/02/03/Unity-Apk解包/" title="上一篇: Unity-Apk解包">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/08/07/Unity里实现Hook函数/" title="下一篇: Unity里实现Hook函数">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/12/15/检测文件变化/">检测文件变化</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/13/Lua热重载/">Lua热重载</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/29/Lua的多重继承实现/">Lua的多重继承实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/25/Lua的OOP实现/">Lua的OOP实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/09/26/Lua的metatable和Lua的面向对象实现/">Lua的metatable和Lua的面向对象实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/09/06/个人最近踩的坑/">个人最近踩的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/30/《Lua程序设计（第四版）》读书笔记/">《Lua程序设计（第四版）》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/10/写Shader的IDE工具合集/">写Shader的IDE工具合集</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/11/最近的复盘-错误小结/">最近的复盘-错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/03/Unity-Apk解包/">Unity-Apk解包</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/01/关于项目优化杂谈/">关于项目优化杂谈</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/07/Unity里实现Hook函数/">Unity里实现Hook函数</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/12/游戏同步/">游戏同步</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/04/关于动画结束的处理/">关于动画结束的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/03/帧同步的逻辑工程维护/">帧同步的逻辑工程维护</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/01/再谈优化/">再谈优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/16/一个神奇的bug/">一个神奇的bug</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/31/模型在UI上显示/">模型在UI上显示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/04/Unity中音效插件/">Unity中音效插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/24/UWA-Day-2018分享/">UWA-Day-2018分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/26/代码质量/">代码质量</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/AssetBundle使用模式/">AssetBundle使用模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/AssetBundle的基本原理/">AssetBundle的基本原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/资源文件夹/">资源文件夹</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/资产，对象和序列化/">资产，对象和序列化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/翻译-资产，资源和AssetBundle/">[翻译]资产，资源和AssetBundle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/01/游戏项目中的美术，策划文档怎么管理/">游戏项目中的美术，策划文档怎么管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/关于游戏测试/">关于游戏测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/资源管理/">资源管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/18/缓存命中/">缓存命中</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/struct-结构体类型的大小计算/">struct 结构体类型的大小计算</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Unity小技巧-清除缓存/">Unity小技巧-清除缓存</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/自动上阵功能开发的小结/">自动上阵功能开发的小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/MVC、MVP和MVVM的图示/">MVC、MVP和MVVM的图示</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/24/【翻译】Unity3D车辆的滑动效果/">【翻译】Unity3D车辆的滑动效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/24/实现轮胎印/">实现轮胎印</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/Shader的纹理/">Shader的纹理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/如何熟悉一个老项目/">如何快速熟悉一个老项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/Unity的内存优化以及在移动平台上的优化/">Unity的内存优化以及在移动平台上的优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/准备入职，写点东西/">准备入职，写点东西</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/Unity资源制作要求/">Unity资源制作要求</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/MMO小地图实现方式/">MMO小地图实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/31/Android端外推送到底有多烦/">Android端外推送到底有多烦</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/Unity推送SDk/">Unity推送SDk</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/查找代码的中文插件/">查找代码的中文插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/功能错误小结/">功能错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/24/《重构-改善既有代码的设计》读书笔记/">《重构-改善既有代码的设计》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/18/C-教程的实践小结/">C++教程的实践小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity-声音资源优化/">Unity 声音资源优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity3D图片大小设置/">Unity3D图片大小设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/">U3D贴图格式 GENERATE MIP MAPS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/20/Android真机调试/">Android真机调试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/25/《从行动开始》读书笔记/">《从行动开始》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/搞定GTD/">搞定GTD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/11/拖延心理学/">拖延心理学</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/游戏改变世界读后感/">《游戏改变世界》读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/04/关于Markdown/">关于Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/25/C++学习记录/">C++学习记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2021 zhutaorun
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="zhutaorun" />
+
+
+
+<meta name="description" content="最近一直没在偷懒，在收集各种开源项目中OOP的实现方案。关于其中的理解，因为给新人指导，就要求自己能够很好的理解，并讲解出来。教会也是给对于知识理解的更高阶段。
+
+一、实现OOP
+核心是Metatable和__index方法
+理解OOP中类继承多重继承可见我上一篇文章Lua的metatable和Lua的面向对象实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua的OOP实现">
+<meta property="og:url" content="http://zhutaorun.win/2020/10/25/Lua的OOP实现/index.html">
+<meta property="og:site_name" content="zhutaorun's Blog">
+<meta property="og:description" content="最近一直没在偷懒，在收集各种开源项目中OOP的实现方案。关于其中的理解，因为给新人指导，就要求自己能够很好的理解，并讲解出来。教会也是给对于知识理解的更高阶段。
+
+一、实现OOP
+核心是Metatable和__index方法
+理解OOP中类继承多重继承可见我上一篇文章Lua的metatable和Lua的面向对象实现">
+<meta property="og:updated_time" content="2021-09-13T12:25:09.631Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lua的OOP实现">
+<meta name="twitter:description" content="最近一直没在偷懒，在收集各种开源项目中OOP的实现方案。关于其中的理解，因为给新人指导，就要求自己能够很好的理解，并讲解出来。教会也是给对于知识理解的更高阶段。
+
+一、实现OOP
+核心是Metatable和__index方法
+理解OOP中类继承多重继承可见我上一篇文章Lua的metatable和Lua的面向对象实现">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="zhutaorun&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Lua的OOP实现 | zhutaorun&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?925b283002cdaa5eb0c0a14c5135593c";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">zhutaorun</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">迈入新世界，为了成为有保持乐趣的Unity客户端</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/friends/">友情链接</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="/zhutaorun@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2409097900/" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/zhutaorun" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/zhutaorun" title="知乎"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011611902" title="CSDN"></a>
+                            
+                                <a class="fa 微信" href="/peter-zhutao" title="微信"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua-面向对象编程/">Lua 面向对象编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D/">Unity3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D-优化/">Unity3D 优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D优化/">Unity3D优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3d/">Unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/习惯养成/">习惯养成</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/介绍/">介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思/">工作反思</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思-帧同步/">工作反思 帧同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具类-效率提升/">工具类 效率提升</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/思考/">思考</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拆书帮/">拆书帮</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏测试/">游戏测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算系统/">计算系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.luzexi.com/">技术人生 Jesse</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.cnblogs.com/zhaoqingqing">赵青青的博客</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于游戏开发</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">zhutaorun</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">zhutaorun</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">迈入新世界，为了成为有保持乐趣的Unity客户端</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/friends/">友情链接</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="/zhutaorun@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2409097900/" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/zhutaorun" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/zhutaorun" title="知乎"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011611902" title="CSDN"></a>
+                            
+                                <a class="fa 微信" target="_blank" href="/peter-zhutao" title="微信"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-Lua的OOP实现" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2020/10/25/Lua的OOP实现/" class="article-date">
+      <time datetime="2020-10-25T15:11:42.000Z" itemprop="datePublished">2020-10-25</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Lua的OOP实现
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累/">技术积累</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Lua/">Lua</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>最近一直没在偷懒，在收集各种开源项目中OOP的实现方案。关于其中的理解，因为给新人指导，就要求自己能够很好的理解，并讲解出来。教会也是给对于知识理解的更高阶段。</p>
+</blockquote>
+<h3 id="一、实现OOP"><a href="#一、实现OOP" class="headerlink" title="一、实现OOP"></a>一、实现OOP</h3><ul>
+<li>核心是Metatable和__index方法</li>
+<li>理解OOP中类继承多重继承<br>可见我上一篇文章<a href="https://zhutaorun.win/2020/09/26/Lua%E7%9A%84metatable%E5%92%8CLua%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%AE%9E%E7%8E%B0/">Lua的metatable和Lua的面向对象实现</a></li>
+</ul>
+<a id="more"></a>
+<h3 id="二、lua-的作者推荐了一种方案来实现-OO"><a href="#二、lua-的作者推荐了一种方案来实现-OO" class="headerlink" title="二、lua 的作者推荐了一种方案来实现 OO"></a>二、lua 的作者推荐了一种方案来实现 OO</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">class</span><span class="params">(def)</span></span></div><div class="line">    <span class="keyword">local</span> class = &#123;&#125;</div><div class="line">    <span class="keyword">local</span> parents = &#123;&#125;</div><div class="line"></div><div class="line">    <span class="keyword">local</span> upv</div><div class="line">    <span class="keyword">local</span> env = <span class="built_in">_G</span></div><div class="line"></div><div class="line">    <span class="keyword">local</span> wraps</div><div class="line">    <span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">super</span><span class="params">(parent_class)</span></span></div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> parent_class <span class="keyword">then</span></div><div class="line">            parent_class = parents[<span class="number">1</span>]</div><div class="line">        <span class="keyword">end</span></div><div class="line"></div><div class="line">        <span class="keyword">local</span> this = this</div><div class="line">        <span class="keyword">local</span> that = &#123;&#125;</div><div class="line">        <span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(parent_class) <span class="keyword">do</span></div><div class="line">            that[k] = <span class="built_in">type</span>(v) == <span class="string">'function'</span> <span class="keyword">and</span> wraps(this, v) <span class="keyword">or</span> v</div><div class="line">        <span class="keyword">end</span></div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="built_in">setmetatable</span>(that, that)</div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">wraps</span><span class="params">(this, func)</span></span></div><div class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">(...)</span></span></div><div class="line">            <span class="keyword">local</span> t = env.this</div><div class="line">            <span class="keyword">local</span> s = env.super</div><div class="line"></div><div class="line">            env.this = this</div><div class="line">            env.super = super</div><div class="line"></div><div class="line">            <span class="keyword">local</span> ret = <span class="built_in">pcall</span>(func, ...)</div><div class="line"></div><div class="line">            env.this = t</div><div class="line">            env.super = s</div><div class="line"></div><div class="line">            <span class="keyword">return</span> ret</div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">class.__init</span><span class="params">()</span></span></div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="keyword">for</span> i = <span class="number">1</span>, <span class="built_in">math</span>.huge <span class="keyword">do</span></div><div class="line">        inherit, v = <span class="built_in">debug</span>.getlocal(def, i)</div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> inherit <span class="keyword">then</span></div><div class="line">            <span class="keyword">break</span></div><div class="line">        <span class="keyword">end</span></div><div class="line"></div><div class="line">        <span class="keyword">local</span> parent_class = <span class="built_in">_G</span>[inherit]</div><div class="line">        <span class="keyword">for</span> i = <span class="number">1</span>, <span class="built_in">math</span>.huge <span class="keyword">do</span></div><div class="line">            <span class="keyword">local</span> name, pclass = <span class="built_in">debug</span>.getlocal(<span class="number">2</span>, i, <span class="number">1</span>)</div><div class="line">            <span class="keyword">if</span> <span class="keyword">not</span> name <span class="keyword">then</span></div><div class="line">                <span class="keyword">break</span></div><div class="line">            <span class="keyword">elseif</span> name == inherit <span class="keyword">then</span></div><div class="line">                parent_class = pclass</div><div class="line">                <span class="keyword">break</span></div><div class="line">            <span class="keyword">end</span></div><div class="line">        <span class="keyword">end</span></div><div class="line"></div><div class="line">        <span class="keyword">if</span> parent_class <span class="keyword">and</span> <span class="built_in">type</span>(parent_class) == <span class="string">'table'</span> <span class="keyword">then</span></div><div class="line">            <span class="built_in">table</span>.insert(parents, parent_class)</div><div class="line">            <span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(parent_class) <span class="keyword">do</span></div><div class="line">                class[k] = v</div><div class="line">            <span class="keyword">end</span></div><div class="line">        <span class="keyword">else</span></div><div class="line">            <span class="built_in">error</span>(<span class="built_in">string</span>.format(<span class="string">'Class "%s" not valid.'</span>, name))</div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="keyword">for</span> i = <span class="number">1</span>, <span class="built_in">math</span>.huge <span class="keyword">do</span></div><div class="line">        <span class="keyword">local</span> name, value = <span class="built_in">debug</span>.getupvalue(def, i)</div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> name <span class="keyword">then</span></div><div class="line">            <span class="keyword">break</span></div><div class="line">        <span class="keyword">elseif</span> name == <span class="string">'_ENV'</span> <span class="keyword">then</span></div><div class="line">            env = value</div><div class="line">            upv = i</div><div class="line">            <span class="keyword">break</span></div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="keyword">local</span> _env = <span class="built_in">setmetatable</span>(&#123;&#125;, &#123;</div><div class="line">        __index = <span class="function"><span class="keyword">function</span><span class="params">(t, name)</span></span></div><div class="line">            <span class="keyword">local</span> value = class[name]</div><div class="line">            <span class="keyword">return</span> value ~= <span class="keyword">nil</span> <span class="keyword">and</span> value <span class="keyword">or</span> env[name]</div><div class="line">        <span class="keyword">end</span>,</div><div class="line">        __newindex = <span class="function"><span class="keyword">function</span><span class="params">(t, name, value)</span></span></div><div class="line">            class[name] = value</div><div class="line">        <span class="keyword">end</span></div><div class="line">    &#125;)</div><div class="line"></div><div class="line">    <span class="keyword">local</span> <span class="function"><span class="keyword">function</span> <span class="title">senv</span><span class="params">(env)</span></span></div><div class="line">        <span class="keyword">if</span> upv <span class="keyword">then</span></div><div class="line">            <span class="built_in">debug</span>.setupvalue(def, upv, env)</div><div class="line">        <span class="keyword">else</span></div><div class="line">            <span class="built_in">_G</span> = env</div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    senv(_env)</div><div class="line">    env.<span class="built_in">pcall</span>(def, env.<span class="built_in">table</span>.<span class="built_in">unpack</span>(parents))</div><div class="line">    senv(env)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="built_in">setmetatable</span>(&#123;&#125;, &#123;</div><div class="line">        __ipairs = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></div><div class="line">            <span class="keyword">return</span> <span class="built_in">ipairs</span>(class)</div><div class="line">        <span class="keyword">end</span>,</div><div class="line">        __pairs = <span class="function"><span class="keyword">function</span><span class="params">()</span></span></div><div class="line">            <span class="keyword">return</span> <span class="built_in">pairs</span>(class)</div><div class="line">        <span class="keyword">end</span>,</div><div class="line">        __index = <span class="function"><span class="keyword">function</span><span class="params">(t, name)</span></span></div><div class="line">            <span class="keyword">return</span> class[name]</div><div class="line">        <span class="keyword">end</span>,</div><div class="line">        __index_new = <span class="function"><span class="keyword">function</span><span class="params">(t, name, value)</span></span></div><div class="line">            class[name] = value</div><div class="line">        <span class="keyword">end</span>,</div><div class="line">        __call = <span class="function"><span class="keyword">function</span><span class="params">(...)</span></span></div><div class="line">            <span class="keyword">local</span> this = &#123;&#125;</div><div class="line">            <span class="keyword">for</span> k, v <span class="keyword">in</span> <span class="built_in">pairs</span>(class) <span class="keyword">do</span></div><div class="line">                this[k] = <span class="built_in">type</span>(v) == <span class="string">'function'</span> <span class="keyword">and</span> wraps(this, v) <span class="keyword">or</span> v</div><div class="line">            <span class="keyword">end</span></div><div class="line">            this.__class = class</div><div class="line">            this.__init(...)</div><div class="line"></div><div class="line">            <span class="keyword">return</span> <span class="built_in">setmetatable</span>(this, this)</div><div class="line">        <span class="keyword">end</span></div><div class="line">    &#125;)</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="comment">--Example:</span></div><div class="line">global = <span class="keyword">true</span></div><div class="line">Inherit = class(<span class="function"><span class="keyword">function</span><span class="params">()</span></span></div><div class="line">    this_is_a_property_of_Inherit = <span class="keyword">true</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> __init<span class="params">()</span></span></div><div class="line">        <span class="built_in">print</span>(<span class="string">'Inherit().__init()'</span>)</div><div class="line">        this.init = <span class="keyword">true</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> __call<span class="params">()</span></span></div><div class="line">        <span class="built_in">print</span>(<span class="string">'Yay! You\'re calling for me :) init:'</span>, this.init, <span class="string">'\n'</span>)</div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span>)</div><div class="line"></div><div class="line">Example = class(<span class="function"><span class="keyword">function</span><span class="params">(Inherit)</span></span></div><div class="line">    property = <span class="string">"Class property"</span></div><div class="line">    <span class="built_in">print</span>(<span class="string">'Inherited property:'</span>, this_is_a_property_of_Inherit)</div><div class="line">    <span class="built_in">print</span>(<span class="string">'Global variable:   '</span>, global, <span class="string">'\n'</span>)</div><div class="line">    <span class="function"><span class="keyword">function</span> __init<span class="params">()</span></span></div><div class="line">        <span class="built_in">print</span>(<span class="string">'Example().__init()'</span>)</div><div class="line">        super().__init()</div><div class="line">        <span class="built_in">print</span>(<span class="string">'this.init:'</span>, this.init)</div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">(...)</span></span></div><div class="line">        <span class="built_in">print</span>(..., this.__init, <span class="string">'\n'</span>)</div><div class="line">    <span class="keyword">end</span></div><div class="line"><span class="keyword">end</span>)</div><div class="line"></div><div class="line">example = Example()</div><div class="line">example.test(<span class="string">'__init:'</span>)</div><div class="line"><span class="comment">--example()</span></div><div class="line"><span class="comment">--</span></div><div class="line"><span class="comment">----example.property = 'I\'m a property of instance "example"'</span></div><div class="line"><span class="comment">--print('example.property', example.property)</span></div><div class="line"><span class="comment">--print('Example.property', Example.property)</span></div></pre></td></tr></table></figure>
+<p><a href="http://lua-users.org/wiki/SimpleLuaClasses" target="_blank" rel="external">SimpleLuaClasses</a><br>这个实现方式很特殊，不是那么直白的使用 metatable 去实现，而是通过 debug API 实现的。熟悉 lua 的朋友可能看得出来这个类似与 setfenv，因为只有 lua 5.1 才有 setfenv 和 getfenv，这个是 lua5.3 上的实现。关于 5.3 上的实现可以参考</p>
+<p><a href="https://leafo.net/guides/setfenv-in-lua52-and-above.html" target="_blank" rel="external">https://leafo.net/guides/setfenv-in-lua52-and-above.html</a></p>
+<h3 id="三、云风实现的Lua面向对象"><a href="#三、云风实现的Lua面向对象" class="headerlink" title="三、云风实现的Lua面向对象"></a>三、云风实现的Lua面向对象</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">local</span> _class=&#123;&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">class</span><span class="params">(super)</span></span></div><div class="line">    <span class="keyword">local</span> class_type=&#123;&#125;</div><div class="line">    class_type.ctor=<span class="keyword">false</span></div><div class="line">    class_type.super=super</div><div class="line">    class_type.new=<span class="function"><span class="keyword">function</span><span class="params">(...)</span></span></div><div class="line">            <span class="keyword">local</span> obj=&#123;&#125;</div><div class="line">            <span class="keyword">do</span></div><div class="line">                <span class="keyword">local</span> create</div><div class="line">                create = <span class="function"><span class="keyword">function</span><span class="params">(c,...)</span></span></div><div class="line">                    <span class="keyword">if</span> c.super <span class="keyword">then</span></div><div class="line">                        create(c.super,...)</div><div class="line">                    <span class="keyword">end</span></div><div class="line">                    <span class="keyword">if</span> c.ctor <span class="keyword">then</span></div><div class="line">                        c.ctor(obj,...)</div><div class="line">                    <span class="keyword">end</span></div><div class="line">                <span class="keyword">end</span></div><div class="line"></div><div class="line">                create(class_type,...)</div><div class="line">            <span class="keyword">end</span></div><div class="line">            <span class="built_in">setmetatable</span>(obj,&#123; __index=_class[class_type] &#125;)</div><div class="line">            <span class="keyword">return</span> obj</div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">local</span> vtbl=&#123;&#125;</div><div class="line">    _class[class_type]=vtbl</div><div class="line"></div><div class="line">    <span class="built_in">setmetatable</span>(class_type,&#123;__newindex=</div><div class="line">        <span class="function"><span class="keyword">function</span><span class="params">(t,k,v)</span></span></div><div class="line">            vtbl[k]=v</div><div class="line">        <span class="keyword">end</span></div><div class="line">    &#125;)</div><div class="line"></div><div class="line">    <span class="keyword">if</span> super <span class="keyword">then</span></div><div class="line">        <span class="built_in">setmetatable</span>(vtbl,&#123;__index=</div><div class="line">            <span class="function"><span class="keyword">function</span><span class="params">(t,k)</span></span></div><div class="line">                <span class="keyword">local</span> ret=_class[super][k]</div><div class="line">                vtbl[k]=ret</div><div class="line">                <span class="keyword">return</span> ret</div><div class="line">            <span class="keyword">end</span></div><div class="line">        &#125;)</div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> class_type</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>以上是基本的 class 定义的语法，完全兼容 lua 的编程习惯。增加了一个叫做 ctor 的词，作为构造函数的名字。<br><a href="https://blog.codingnow.com/cloud/LuaOO" target="_blank" rel="external">https://blog.codingnow.com/cloud/LuaOO</a></p>
+<h3 id="四、cocos2dx-lua-中的-class-实现"><a href="#四、cocos2dx-lua-中的-class-实现" class="headerlink" title="四、cocos2dx-lua 中的 class 实现"></a>四、cocos2dx-lua 中的 class 实现</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">class</span><span class="params">(classname, super)</span></span></div><div class="line">    <span class="keyword">local</span> superType = <span class="built_in">type</span>(super)</div><div class="line">    <span class="keyword">local</span> cls</div><div class="line"></div><div class="line">    <span class="keyword">if</span> superType ~= <span class="string">"function"</span> <span class="keyword">and</span> superType ~= <span class="string">"table"</span> <span class="keyword">then</span></div><div class="line">        superType = <span class="keyword">nil</span></div><div class="line">        super = <span class="keyword">nil</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> superType == <span class="string">"function"</span> <span class="keyword">or</span> (super <span class="keyword">and</span> super.__ctype == <span class="number">1</span>) <span class="keyword">then</span></div><div class="line">        <span class="comment">-- inherited from native C++ Object</span></div><div class="line">        cls = &#123;&#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> superType == <span class="string">"table"</span> <span class="keyword">then</span></div><div class="line">            <span class="comment">-- copy fields from super</span></div><div class="line">            <span class="keyword">for</span> k,v <span class="keyword">in</span> <span class="built_in">pairs</span>(super) <span class="keyword">do</span> cls[k] = v <span class="keyword">end</span></div><div class="line">            cls.__create = super.__create</div><div class="line">            cls.super    = super</div><div class="line">        <span class="keyword">else</span></div><div class="line">            cls.__create = super</div><div class="line">            cls.ctor = <span class="function"><span class="keyword">function</span><span class="params">()</span></span> <span class="keyword">end</span></div><div class="line">        <span class="keyword">end</span></div><div class="line"></div><div class="line">        cls.__cname = classname</div><div class="line">        cls.__ctype = <span class="number">1</span></div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">cls.new</span><span class="params">(...)</span></span></div><div class="line">            <span class="keyword">local</span> instance = cls.__create(...)</div><div class="line">            <span class="comment">-- copy fields from class to native object</span></div><div class="line">            <span class="keyword">for</span> k,v <span class="keyword">in</span> <span class="built_in">pairs</span>(cls) <span class="keyword">do</span> instance[k] = v <span class="keyword">end</span></div><div class="line">            instance.class = cls</div><div class="line">            instance:ctor(...)</div><div class="line">            <span class="keyword">return</span> instance</div><div class="line">        <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="comment">-- inherited from Lua Object</span></div><div class="line">        <span class="keyword">if</span> super <span class="keyword">then</span></div><div class="line">            cls = &#123;&#125;</div><div class="line">            <span class="built_in">setmetatable</span>(cls, &#123;__index = super&#125;)</div><div class="line">            cls.super = super</div><div class="line">        <span class="keyword">else</span></div><div class="line">            cls = &#123;ctor = <span class="function"><span class="keyword">function</span><span class="params">()</span></span> <span class="keyword">end</span>&#125;</div><div class="line">        <span class="keyword">end</span></div><div class="line"></div><div class="line">        cls.__cname = classname</div><div class="line">        cls.__ctype = <span class="number">2</span> <span class="comment">-- lua</span></div><div class="line">        cls.__index = cls</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">cls.new</span><span class="params">(...)</span></span></div><div class="line">            <span class="keyword">local</span> instance = <span class="built_in">setmetatable</span>(&#123;&#125;, cls)</div><div class="line">            instance.class = cls</div><div class="line">            instance:ctor(...)</div><div class="line">            <span class="keyword">return</span> instance</div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> cls</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p><a href="https://github.com/chukong/quick-cocos2d-x/blob/master/framework/functions.lua" target="_blank" rel="external">来源于chukong的quick-cocos2d-x</a></p>
+<h3 id="五、xlua-framework-中的-class-实现"><a href="#五、xlua-framework-中的-class-实现" class="headerlink" title="五、xlua-framework 中的 class 实现"></a>五、xlua-framework 中的 class 实现</h3><figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div></pre></td><td class="code"><pre><div class="line">-<span class="string">[[</span></div><div class="line">-- added by wsh @ 2017-11-30</div><div class="line">-- Lua面向对象设计</div><div class="line">--]]</div><div class="line"></div><div class="line"><span class="comment">--保存类类型的虚表</span></div><div class="line"><span class="keyword">local</span> _class = &#123;&#125;</div><div class="line"></div><div class="line"><span class="comment">-- added by wsh @ 2017-12-09</span></div><div class="line"><span class="comment">-- 自定义类型</span></div><div class="line">ClassType = &#123;</div><div class="line">    class = <span class="number">1</span>,</div><div class="line">    instance = <span class="number">2</span>,</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">BaseClass</span><span class="params">(classname, super)</span></span></div><div class="line">    <span class="built_in">assert</span>(<span class="built_in">type</span>(classname) == <span class="string">"string"</span> <span class="keyword">and</span> #classname &gt; <span class="number">0</span>)</div><div class="line">    <span class="comment">-- 生成一个类类型</span></div><div class="line">    <span class="keyword">local</span> class_type = &#123;&#125;</div><div class="line"></div><div class="line">    <span class="comment">-- 在创建对象的时候自动调用</span></div><div class="line">    class_type.__init = <span class="keyword">false</span></div><div class="line">    class_type.__delete = <span class="keyword">false</span></div><div class="line">    class_type.__cname = classname</div><div class="line">    class_type.__ctype = ClassType.class</div><div class="line"></div><div class="line">    class_type.super = super</div><div class="line">    class_type.New = <span class="function"><span class="keyword">function</span><span class="params">(...)</span></span></div><div class="line">        <span class="comment">-- 生成一个类对象</span></div><div class="line">        <span class="keyword">local</span> obj = &#123;&#125;</div><div class="line">        obj._class_type = class_type</div><div class="line">        obj.__ctype = ClassType.instance</div><div class="line"></div><div class="line">        <span class="comment">-- 在初始化之前注册基类方法</span></div><div class="line">        <span class="built_in">setmetatable</span>(obj, &#123;</div><div class="line">            __index = _class[class_type],</div><div class="line">        &#125;)</div><div class="line">        <span class="comment">-- 调用初始化方法</span></div><div class="line">        <span class="keyword">do</span></div><div class="line">            <span class="keyword">local</span> create</div><div class="line">            create = <span class="function"><span class="keyword">function</span><span class="params">(c, ...)</span></span></div><div class="line">                <span class="keyword">if</span> c.super <span class="keyword">then</span></div><div class="line">                    create(c.super, ...)</div><div class="line">                <span class="keyword">end</span></div><div class="line">                <span class="keyword">if</span> c.__init <span class="keyword">then</span></div><div class="line">                    c.__init(obj, ...)</div><div class="line">                <span class="keyword">end</span></div><div class="line">            <span class="keyword">end</span></div><div class="line"></div><div class="line">            create(class_type, ...)</div><div class="line">        <span class="keyword">end</span></div><div class="line"></div><div class="line">        <span class="comment">-- 注册一个delete方法</span></div><div class="line">        obj.Delete = <span class="function"><span class="keyword">function</span><span class="params">(self)</span></span></div><div class="line">            <span class="keyword">local</span> now_super = self._class_type</div><div class="line">            <span class="keyword">while</span> now_super ~= <span class="keyword">nil</span> <span class="keyword">do</span>    </div><div class="line">                <span class="keyword">if</span> now_super.__delete <span class="keyword">then</span></div><div class="line">                    now_super.__delete(self)</div><div class="line">                <span class="keyword">end</span></div><div class="line">                now_super = now_super.super</div><div class="line">            <span class="keyword">end</span></div><div class="line">        <span class="keyword">end</span></div><div class="line"></div><div class="line">        <span class="keyword">return</span> obj</div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="keyword">local</span> vtbl = &#123;&#125;</div><div class="line">    _class[class_type] = vtbl</div><div class="line"></div><div class="line">    <span class="built_in">setmetatable</span>(class_type, &#123;</div><div class="line">        __newindex = <span class="function"><span class="keyword">function</span><span class="params">(t,k,v)</span></span></div><div class="line">            vtbl[k] = v</div><div class="line">        <span class="keyword">end</span></div><div class="line">        ,</div><div class="line">        <span class="comment">--For call parent method</span></div><div class="line">        __index = vtbl,</div><div class="line">    &#125;)</div><div class="line"></div><div class="line">    <span class="keyword">if</span> super <span class="keyword">then</span></div><div class="line">        <span class="built_in">setmetatable</span>(vtbl, &#123;</div><div class="line">            __index = <span class="function"><span class="keyword">function</span><span class="params">(t,k)</span></span></div><div class="line">                <span class="keyword">local</span> ret = _class[super][k]</div><div class="line">                <span class="comment">--do not do accept, make hot update work right!</span></div><div class="line">                <span class="comment">--vtbl[k] = ret</span></div><div class="line">                <span class="keyword">return</span> ret</div><div class="line">            <span class="keyword">end</span></div><div class="line">        &#125;)</div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> class_type</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p><a href="https://github.com/smilehao/xlua-framework/" target="_blank" rel="external">xlua-framework</a><br>xlua-framework/Assets/LuaScripts/Framework/Common/BaseClass.lua</p>
+<h3 id="六、2种实现方式的总结"><a href="#六、2种实现方式的总结" class="headerlink" title="六、2种实现方式的总结"></a>六、2种实现方式的总结</h3><ul>
+<li>1、使用metatable的__index域实现，实现的时候需要利用的lua语言的一些特性才可以实现<ul>
+<li>优点：<ul>
+<li>1、由于子类的很多数据和方法都是共用了父类的，用到父类的数据和方法的时候，只是在使用的时候才直接调用父类的方法和数据，这样可以减少程序内存的消耗，更主要的是，父类在运行期的修改是会影响到子类的；</li>
+<li>2、充分利用了lua语言的特性，父类的方法和数据的访问是解析器来做的，所以效率上的开销还是比较小的；</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>1、如果父类中有一个数据是一个引用的时候(如table)的时候，就会出现在一个子类中操作这个table会改变其他子类的情况，造数据的不一致，所以应该尽量避免这种类的创建，如果有这样的需求的话，就需要对inherit和new函数进行一些特殊的操作，简单来说就是加一个init函数，将所有这类的数据都显示的创建一下。</li>
+<li>2、由于每次取操作都需要在metatable中取，所以，每次就会增加一层继承，就增加一个函数调用的开销，虽然是由解析器来做的，但是如果层次多了的话，还</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>2、使用table拷贝的方式实现，实现的时候利用的lua的技术为：<ul>
+<li>优点：<ul>
+<li>1、父类中的数据是全部拷贝到子类中的，所以，不存在数据不一致的情况；</li>
+<li>2、所有的函数调用和数据调用都是直接调用每个实例的，不需要到父类中查找；</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>1、全部数据的copy，在创建的时候就会增加一个table copy的过程，影响效率；</li>
+<li>2、全部数据和方法都是在创建的时候拷贝一份的，会增加很多的内存消耗，而且如果在运行期改变了父类，并不能改变子类；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="七、最后的总结"><a href="#七、最后的总结" class="headerlink" title="七、最后的总结"></a>七、最后的总结</h3><p>结合这两种方式的有缺点，从一个面向对象的角度来说，第一种方式更加适合实现面向对象的特性，第二种方式对面向对象的模拟就牵强一些（缺点2），但是从使用的角度来说，因为在访问数据和方法速度上，第二种方式还是有优势的，所以，在具体的使用的时候，可以灵活一下使用，将两者结合一下。</p>
+<p>比如说，对于客户端这边来说，类在开始创建好了以后就一般不需要修改了，而且子类一般都是需要父类的所有的方法和数据的，所有我们就可以使用第二种方式，而生成对象实例的时候，对象的实例一般都不会调用类的所有的方法，而且用完了这个实例，就会销毁的，所以，我们这里就可以采用第一种方式。</p>
+<ul>
+<li><p>基于以上的想法进行改进，这样用于作为所有界面的基类</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">class</span><span class="params">(classname,super)</span></span></div><div class="line">    <span class="keyword">local</span> superType = <span class="built_in">type</span>(super)</div><div class="line">    <span class="keyword">local</span> cls</div><div class="line">    <span class="keyword">if</span> superType ~= <span class="string">"function"</span> <span class="keyword">and</span> superType ~= <span class="string">"table"</span> <span class="keyword">then</span></div><div class="line">        superType  = <span class="keyword">nil</span></div><div class="line">        super = <span class="keyword">nil</span></div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> superType == <span class="string">"function"</span> <span class="keyword">or</span> (super <span class="keyword">and</span> super.__ctype == <span class="number">1</span>) <span class="keyword">then</span></div><div class="line">        cls = &#123;&#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> superType == <span class="string">"table"</span>  <span class="keyword">then</span></div><div class="line">            <span class="keyword">for</span> k,v <span class="keyword">in</span> <span class="built_in">pairs</span>(super) <span class="keyword">do</span> cls[k] = v <span class="keyword">end</span></div><div class="line">            cls.__create = super.__create</div><div class="line">            cls.super = super</div><div class="line">        <span class="keyword">else</span></div><div class="line">            cls.__create = super</div><div class="line">        <span class="keyword">end</span></div><div class="line"></div><div class="line">        cls.ctor = <span class="function"><span class="keyword">function</span><span class="params">(...)</span></span> <span class="keyword">end</span></div><div class="line">        cls.__cname = classname</div><div class="line">        cls.__ctype = <span class="number">1</span></div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">cls.New</span><span class="params">(...)</span></span></div><div class="line">            <span class="keyword">local</span>  ins = cls.__create(...)</div><div class="line">            <span class="keyword">for</span> k,v <span class="keyword">in</span> <span class="built_in">pairs</span>(cls) <span class="keyword">do</span> ins[k] = v <span class="keyword">end</span></div><div class="line">            ins.class = cls</div><div class="line">            ins:ctor(...)</div><div class="line">            <span class="keyword">return</span> ins</div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="keyword">if</span> super <span class="keyword">then</span></div><div class="line">            cls = clone(super) <span class="comment">--与cocos2dx-lua 中的 class 实现不同之处</span></div><div class="line">            cls.super = super</div><div class="line">        <span class="keyword">else</span></div><div class="line">            cls = &#123;ctor = <span class="function"><span class="keyword">function</span><span class="params">(...)</span></span> <span class="keyword">end</span>&#125;</div><div class="line">        <span class="keyword">end</span></div><div class="line">        cls.__cname = classname</div><div class="line">        cls.__ctype = <span class="number">2</span><span class="comment">-- luatable</span></div><div class="line">        cls.__index = cls</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">function</span> <span class="title">cls.New</span><span class="params">(...)</span></span></div><div class="line">            <span class="keyword">local</span> ins = <span class="built_in">setmetatable</span>(&#123;&#125;,cls)</div><div class="line">            ins.class = cls</div><div class="line">            ins:ctor(...)</div><div class="line">            <span class="keyword">return</span> ins</div><div class="line">        <span class="keyword">end</span></div><div class="line">    <span class="keyword">end</span></div><div class="line">    <span class="keyword">return</span> cls</div></pre></td></tr></table></figure>
+</li>
+<li><p>所有单例的实现就用第五种的实现</p>
+<h3 id="附"><a href="#附" class="headerlink" title="附"></a>附</h3></li>
+<li>感谢这篇文章的作者<a href="https://www.zhihu.com/people/koake-43/posts" target="_blank" rel="external">Lua class 的几种实现</a>，不然我这篇文章可能要拖一段时间</li>
+<li><a href="http://www.lua.org/pil/16.html" target="_blank" rel="external">http://www.lua.org/pil/16.html</a></li>
+<li><a href="https://blog.csdn.net/cashchin/article/details/1827950" target="_blank" rel="external">lua实现面向对象的特性</a></li>
+<li>感谢Misaka Mikoto[<a href="https://www.zhihu.com/people/jasonfeeling]在Lua上解答了我很多问题，给予方向上的指点" target="_blank" rel="external">https://www.zhihu.com/people/jasonfeeling]在Lua上解答了我很多问题，给予方向上的指点</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2020/10/25/Lua的OOP实现/">Lua的OOP实现</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
+        <p><span>发布时间:</span>2020-10-25, 23:11:42</p>
+        <p><span>最后更新:</span>2021-09-13, 20:25:09</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2020/10/25/Lua的OOP实现/" title="Lua的OOP实现">http://zhutaorun.win/2020/10/25/Lua的OOP实现/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutaorun.win/2020/10/25/Lua的OOP实现/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2020/11/29/Lua的多重继承实现/">
+                    Lua的多重继承实现
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2020/09/26/Lua的metatable和Lua的面向对象实现/">
+                    Lua的metatable和Lua的面向对象实现
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、实现OOP"><span class="toc-number">1.</span> <span class="toc-text">一、实现OOP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、lua-的作者推荐了一种方案来实现-OO"><span class="toc-number">2.</span> <span class="toc-text">二、lua 的作者推荐了一种方案来实现 OO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、云风实现的Lua面向对象"><span class="toc-number">3.</span> <span class="toc-text">三、云风实现的Lua面向对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、cocos2dx-lua-中的-class-实现"><span class="toc-number">4.</span> <span class="toc-text">四、cocos2dx-lua 中的 class 实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、xlua-framework-中的-class-实现"><span class="toc-number">5.</span> <span class="toc-text">五、xlua-framework 中的 class 实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六、2种实现方式的总结"><span class="toc-number">6.</span> <span class="toc-text">六、2种实现方式的总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#七、最后的总结"><span class="toc-number">7.</span> <span class="toc-text">七、最后的总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#附"><span class="toc-number">8.</span> <span class="toc-text">附</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Lua的OOP实现　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2020/10/25/Lua的OOP实现/" data-title="Lua的OOP实现" data-url="http://zhutaorun.win/2020/10/25/Lua的OOP实现/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"zhutaorun"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2020/11/29/Lua的多重继承实现/" title="上一篇: Lua的多重继承实现">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2020/09/26/Lua的metatable和Lua的面向对象实现/" title="下一篇: Lua的metatable和Lua的面向对象实现">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/12/15/检测文件变化/">检测文件变化</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/13/Lua热重载/">Lua热重载</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/29/Lua的多重继承实现/">Lua的多重继承实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/25/Lua的OOP实现/">Lua的OOP实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/09/26/Lua的metatable和Lua的面向对象实现/">Lua的metatable和Lua的面向对象实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/09/06/个人最近踩的坑/">个人最近踩的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/30/《Lua程序设计（第四版）》读书笔记/">《Lua程序设计（第四版）》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/10/写Shader的IDE工具合集/">写Shader的IDE工具合集</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/11/最近的复盘-错误小结/">最近的复盘-错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/03/Unity-Apk解包/">Unity-Apk解包</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/01/关于项目优化杂谈/">关于项目优化杂谈</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/07/Unity里实现Hook函数/">Unity里实现Hook函数</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/12/游戏同步/">游戏同步</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/04/关于动画结束的处理/">关于动画结束的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/03/帧同步的逻辑工程维护/">帧同步的逻辑工程维护</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/01/再谈优化/">再谈优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/16/一个神奇的bug/">一个神奇的bug</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/31/模型在UI上显示/">模型在UI上显示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/04/Unity中音效插件/">Unity中音效插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/24/UWA-Day-2018分享/">UWA-Day-2018分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/26/代码质量/">代码质量</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/AssetBundle使用模式/">AssetBundle使用模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/AssetBundle的基本原理/">AssetBundle的基本原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/资源文件夹/">资源文件夹</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/资产，对象和序列化/">资产，对象和序列化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/翻译-资产，资源和AssetBundle/">[翻译]资产，资源和AssetBundle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/01/游戏项目中的美术，策划文档怎么管理/">游戏项目中的美术，策划文档怎么管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/关于游戏测试/">关于游戏测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/资源管理/">资源管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/18/缓存命中/">缓存命中</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/struct-结构体类型的大小计算/">struct 结构体类型的大小计算</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Unity小技巧-清除缓存/">Unity小技巧-清除缓存</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/自动上阵功能开发的小结/">自动上阵功能开发的小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/MVC、MVP和MVVM的图示/">MVC、MVP和MVVM的图示</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/24/【翻译】Unity3D车辆的滑动效果/">【翻译】Unity3D车辆的滑动效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/24/实现轮胎印/">实现轮胎印</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/Shader的纹理/">Shader的纹理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/如何熟悉一个老项目/">如何快速熟悉一个老项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/Unity的内存优化以及在移动平台上的优化/">Unity的内存优化以及在移动平台上的优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/准备入职，写点东西/">准备入职，写点东西</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/Unity资源制作要求/">Unity资源制作要求</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/MMO小地图实现方式/">MMO小地图实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/31/Android端外推送到底有多烦/">Android端外推送到底有多烦</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/Unity推送SDk/">Unity推送SDk</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/查找代码的中文插件/">查找代码的中文插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/功能错误小结/">功能错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/24/《重构-改善既有代码的设计》读书笔记/">《重构-改善既有代码的设计》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/18/C-教程的实践小结/">C++教程的实践小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity-声音资源优化/">Unity 声音资源优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity3D图片大小设置/">Unity3D图片大小设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/">U3D贴图格式 GENERATE MIP MAPS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/20/Android真机调试/">Android真机调试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/25/《从行动开始》读书笔记/">《从行动开始》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/搞定GTD/">搞定GTD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/11/拖延心理学/">拖延心理学</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/游戏改变世界读后感/">《游戏改变世界》读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/04/关于Markdown/">关于Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/25/C++学习记录/">C++学习记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2021 zhutaorun
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="zhutaorun" />
+
+
+
+<meta name="description" content="AssetBundle基本原理版本检查：2017.3 -难度：高级这是涵盖Unity5资产，资源和资源管理系列文章的第四章。
+本章讨论AssetBundles。它介绍了构建AssetBundles的基本系统，以及用于与AssetBundles进行交互的核心API。具体来说，它讨论了AssetBundles本身的加载和卸载以及AssetBundles中特定资产和对象的加载和卸载。
+有关AssetBu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AssetBundle的基本原理">
+<meta property="og:url" content="http://zhutaorun.win/2018/03/20/AssetBundle的基本原理/index.html">
+<meta property="og:site_name" content="zhutaorun's Blog">
+<meta property="og:description" content="AssetBundle基本原理版本检查：2017.3 -难度：高级这是涵盖Unity5资产，资源和资源管理系列文章的第四章。
+本章讨论AssetBundles。它介绍了构建AssetBundles的基本系统，以及用于与AssetBundles进行交互的核心API。具体来说，它讨论了AssetBundles本身的加载和卸载以及AssetBundles中特定资产和对象的加载和卸载。
+有关AssetBu">
+<meta property="og:image" content="https://unity3d.com/sites/default/files/learn/ab1.jpg">
+<meta property="og:updated_time" content="2021-09-13T12:25:11.731Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AssetBundle的基本原理">
+<meta name="twitter:description" content="AssetBundle基本原理版本检查：2017.3 -难度：高级这是涵盖Unity5资产，资源和资源管理系列文章的第四章。
+本章讨论AssetBundles。它介绍了构建AssetBundles的基本系统，以及用于与AssetBundles进行交互的核心API。具体来说，它讨论了AssetBundles本身的加载和卸载以及AssetBundles中特定资产和对象的加载和卸载。
+有关AssetBu">
+<meta name="twitter:image" content="https://unity3d.com/sites/default/files/learn/ab1.jpg">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="zhutaorun&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>AssetBundle的基本原理 | zhutaorun&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?925b283002cdaa5eb0c0a14c5135593c";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">zhutaorun</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">迈入新世界，为了成为有保持乐趣的Unity客户端</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/friends/">友情链接</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="/zhutaorun@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2409097900/" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/zhutaorun" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/zhutaorun" title="知乎"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011611902" title="CSDN"></a>
+                            
+                                <a class="fa 微信" href="/peter-zhutao" title="微信"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua-面向对象编程/">Lua 面向对象编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D/">Unity3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D-优化/">Unity3D 优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D优化/">Unity3D优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3d/">Unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/习惯养成/">习惯养成</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/介绍/">介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思/">工作反思</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思-帧同步/">工作反思 帧同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具类-效率提升/">工具类 效率提升</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/思考/">思考</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拆书帮/">拆书帮</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏测试/">游戏测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算系统/">计算系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.luzexi.com/">技术人生 Jesse</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.cnblogs.com/zhaoqingqing">赵青青的博客</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于游戏开发</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">zhutaorun</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">zhutaorun</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">迈入新世界，为了成为有保持乐趣的Unity客户端</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/friends/">友情链接</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="/zhutaorun@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2409097900/" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/zhutaorun" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/zhutaorun" title="知乎"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011611902" title="CSDN"></a>
+                            
+                                <a class="fa 微信" target="_blank" href="/peter-zhutao" title="微信"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-AssetBundle的基本原理" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/03/20/AssetBundle的基本原理/" class="article-date">
+      <time datetime="2018-03-19T16:42:41.000Z" itemprop="datePublished">2018-03-20</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      AssetBundle的基本原理
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/技术积累-翻译/">技术积累 翻译</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity3d/">Unity3d</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="AssetBundle基本原理"><a href="#AssetBundle基本原理" class="headerlink" title="AssetBundle基本原理"></a>AssetBundle基本原理</h1><h4 id="版本检查：2017-3-难度：高级"><a href="#版本检查：2017-3-难度：高级" class="headerlink" title="版本检查：2017.3 -难度：高级"></a>版本检查：2017.3 -难度：高级</h4><p>这是涵盖Unity5<a href="https://unity3d.com/learn/tutorials/topics/best-practices/guide-asset-bundles-and-resources" target="_blank" rel="external">资产，资源和资源管理系列文章</a>的第四章。</p>
+<p>本章讨论AssetBundles。它介绍了构建AssetBundles的基本系统，以及用于与AssetBundles进行交互的核心API。具体来说，它讨论了AssetBundles本身的加载和卸载以及AssetBundles中特定资产和对象的加载和卸载。</p>
+<p>有关AssetBundles使用的更多模式和最佳实践，请参阅本系列的下一章。<br><a id="more"></a></p>
+<h3 id="3-1-概观"><a href="#3-1-概观" class="headerlink" title="3.1.概观"></a>3.1.概观</h3><p>AssetBundle系统提供了一种方法，用于存储Unity可以索引和序列化的档案格式的一个或多个文件。AssetBundles是Unity的主要工具，用于在安装后交付和更新非代码内容。这允许开发人员提交更小的应用程序包，最大限度地减少运行时内存压力，并有选择地加载为最终用户设备优化的内容。</p>
+<p>了解AssetBundles的工作方式对于为移动设备构建成功的Unity项目至关重要。有关AssetBundle内容的总体说明，请查看<a href="https://docs.unity3d.com/Manual/AssetBundlesIntro.html" target="_blank" rel="external">AssetBundle文档</a>。</p>
+<h3 id="3-2-AssetBundle设计"><a href="#3-2-AssetBundle设计" class="headerlink" title="3.2.AssetBundle设计"></a>3.2.AssetBundle设计</h3><p>总而言之，一个AssetBundle由两部分组成：头部和数据段。</p>
+<p>头部包含有关AssetBundle的信息，例如标识符，压缩类型和清单。清单是一个由对象名称键入的查找表。每个条目都提供一个字节索引，用于指示在AssetBundle的数据段中可以找到给定对象的位置。在大多数平台上，这个查找表被实现为一个平衡搜索树。具体来说，Windows和OSX派生的平台（包括iOS）采用红黑树。因此，构建清单所需的时间将随着AssetBundle内资产数量的增长而线性增加。</p>
+<p>数据段包含通过序列化AssetBundle中的资产生成的原始数据。如果将LZMA指定为压缩方案，则将压缩所有序列化资产的完整字节数组。如果指定LZ4，单独资源的字节将被单独压缩。如果不使用压缩，数据段将保持为原始字节流。</p>
+<p>在Unity 5.3之前，对象无法在AssetBundle中单独压缩。因此，如果指示5.3版本的Unity版本从压缩的AssetBundle中读取一个或多个对象，则Unity必须解压缩整个AssetBundle。通常，Unity会缓存AssetBundle的解压缩副本，以提高同一AssetBundle上后续加载请求的加载性能。</p>
+<h3 id="3-3-加载AssetBundles"><a href="#3-3-加载AssetBundles" class="headerlink" title="3.3.加载AssetBundles"></a>3.3.加载AssetBundles</h3><p>AssetBundles可以通过五个不同的API加载。这五个API的行为取决于两个标准是不同的：</p>
+<ol>
+<li><p>AssetBundle是否是LZMA压缩，LZ4压缩或未压缩</p>
+</li>
+<li><p>AssetBundle正在加载的平台</p>
+</li>
+</ol>
+<p>这些API是：</p>
+<ul>
+<li>AssetBundle.LoadFromMemory（异步可选）</li>
+<li>AssetBundle.LoadFromFile（异步可选）</li>
+<li>AssetBundle.LoadFromStream（异步可选）</li>
+<li>UnityWebRequest的DownloadHandlerAssetBundle</li>
+<li>WWW.LoadFromCacheOrDownload（在Unity 5.6或更早版本上）</li>
+</ul>
+<p>这些API中的AssetBundle引用可以自由混合。也就是说，使用UnityWebRequest加载的AssetBundles与通过AssetBundle.LoadFromFile或AssetBundle.LoadFromMemoryAsync加载的AssetBundles兼容。</p>
+<h4 id="3-3-1-AssetBundle-LoadFromMemory（异步）"><a href="#3-3-1-AssetBundle-LoadFromMemory（异步）" class="headerlink" title="3.3.1 AssetBundle.LoadFromMemory（异步）"></a>3.3.1 AssetBundle.LoadFromMemory（异步）</h4><p><strong>Unity的建议是不要使用这个API。</strong></p>
+<p><a href="https://docs.unity3d.com/ScriptReference/AssetBundle.LoadFromMemoryAsync.html" target="_blank" rel="external">AssetBundle.LoadFromMemoryAsync</a>从托管代码字节数组在C＃中的字节[]）中加载一个AssetBundle它将始终将来自托管代码字节数组的源数据复制到新分配的连续本机内存块中。如果AssetBundle是LZMA压缩的，它将在复制时解压缩AssetBundle。未压缩的和LZ4压缩的AssetBundles将被逐字复制。</p>
+<p>此API消耗的最大内存量至少为AssetBundle的两倍：由API创建的本地内存中的一个副本，以及传递给API的托管字节数组中的一个副本。因此，从通过此API创建的AssetBundle加载的资产将在内存中重复三次：一次位于托管代码字节数组中，一次位于AssetBundle的本机内存副本中，第三次位于GPU或系统内存中用于资产本身。</p>
+<p><em>在Unity 5.3.3之前，这个API被称</em>为<strong>AssetBundle.CreateFromMemory</strong>。它的功能没有改变。</p>
+<h4 id="3-3-2-AssetBundle-LoadFromFile（异步）"><a href="#3-3-2-AssetBundle-LoadFromFile（异步）" class="headerlink" title="3.3.2.AssetBundle.LoadFromFile（异步）"></a>3.3.2.AssetBundle.LoadFromFile（异步）</h4><p><a href="https://docs.unity3d.com/ScriptReference/AssetBundle.LoadFromFile.html" target="_blank" rel="external">AssetBundle.LoadFromFile</a>是一个高效的API，用于从本地存储器（如硬盘或SD卡）加载未压缩或LZ4压缩的AssetBundle。</p>
+<p>在桌面独立，控制台和移动平台上，API只会加载AssetBundle的标题，并将剩余的数据保留在磁盘上。AssetBundle的对象将在加载方法（例如AssetBundle.Load)被调用或InstanceID被解除引用时按需加载在这种情况下不会消耗过量的内存。在Unity编辑器中，API会将整个AssetBundle加载到内存中，就好像从磁盘读取字节并使用AssetBundle.LoadFromMemoryAsync一样。如果在Unity编辑器中对项目进行概要分析，则此API可能导致在AssetBundle加载期间出现内存尖峰。这不应该影响设备性能，并且应该在采取补救措施之前在设备上重新测试这些尖峰。</p>
+<p><em>注意：</em>在Unity 5.3或更早版本的Android设备上，尝试从Streaming Assets路径加载AssetBundles时，此API将失败。Unity 5.4中已解决该问题。有关更多详细信息，请参阅<a href="https://unity3d.com/learn/tutorials/topics/best-practices/asset-bundle-usage-patterns" target="_blank" rel="external">AssetBundle使用模式&gt;</a>章节中的<a href="https://unity3d.com/learn/tutorials/topics/best-practices/asset-bundle-usage-patterns#Shipped_with_Project" target="_blank" rel="external">分发 - 随项目一起提供的</a>部分。</p>
+<p><em>在Unity 5.3之前，这个API被称为AssetBundle.CreateFromFile。其功能尚未更改。</em></p>
+<h4 id="3-3-3-AssetBundleDownloadHandler"><a href="#3-3-3-AssetBundleDownloadHandler" class="headerlink" title="3.3.3.AssetBundleDownloadHandler"></a>3.3.3.AssetBundleDownloadHandler</h4><p>该<a href="http://docs.unity3d.com/ScriptReference/Networking.UnityWebRequest.html" target="_blank" rel="external">UnityWebRequest</a>API允许开发人员指定统一究竟应该如何处理下载的数据，并允许开发者以消除不必要的内存使用情况。使用UnityWebRequest下载AssetBundle的最简单方法是调用。<br>就本指南而言，感兴趣的类是<a href="http://docs.unity3d.com/ScriptReference/Networking.DownloadHandlerAssetBundle.html" target="_blank" rel="external">DownloadHandlerAssetBundle</a>使用工作线程，它会将下载的数据流式传输到固定大小的缓冲区，然后根据下载处理程序的配置方式将缓冲的数据缓冲到临时存储或AssetBundle缓存所有这些操作都以本机代码形式进行，消除了扩展托管堆的风险。此外，该下载处理程序并没有把所有下载的字节的本机代码副本，进一步降低了下载的AssetBundle的内存开销。</p>
+<p>LZMA压缩的AssetBundles将在下载过程中进行解压缩并使用LZ4压缩进行缓存。通过设置<a href="https://docs.unity3d.com/ScriptReference/Caching-compressionEnabled.html" target="_blank" rel="external">Caching.CompressionEnabled</a>可以更改此行为。<br>当下载完成后，<a href="http://docs.unity3d.com/ScriptReference/Networking.DownloadHandlerAssetBundle-assetBundle.html" target="_blank" rel="external">assetBundle</a>下载处理程序的属性提供下载的AssetBundle，仿佛已经呼吁下载AssetBundle。</p>
+<p>如果将缓存信息提供给UnityWebRequest对象，并且所请求的AssetBundle已经存在于Unity的缓存中，则AssetBundle将立即变为可用，并且此API将以与AssetBundle.LoadFromFile相同的方式运行。<br>在Unity 5.6之前，UnityWebRequest系统使用固定的工作线程池和内部作业系统来防止过度的并发下载。线程池的大小不可配置。在Unity 5.6中，这些保护措施已被删除，以适应更多现代硬件，并允许更快地访问HTTP响应代码和标头。</p>
+<h4 id="3-3-4-WWW-LoadFromCacheOrDownload"><a href="#3-3-4-WWW-LoadFromCacheOrDownload" class="headerlink" title="3.3.4.WWW.LoadFromCacheOrDownload"></a>3.3.4.WWW.LoadFromCacheOrDownload</h4><p><em>注意：</em> 从Unity 2017.1开始，<a href="http://docs.unity3d.com/ScriptReference/WWW.LoadFromCacheOrDownload.html" target="_blank" rel="external">WWW.LoadFromCacheOrDownload</a> <em>只是包装UnityWebRequest,因此，使用Unity 2017.1或更高版本的开发人员应迁移到UnityWebRequest。<br><strong>WWW.LoadFromCacheOrDownload</strong>将在未来版本中弃用。</em><br><em>以下信息适用于Unity 5.6或更早版本。</em></p>
+<p><a href="http://docs.unity3d.com/ScriptReference/WWW.LoadFromCacheOrDownload.html" target="_blank" rel="external">WWW.LoadFromCacheOrDownload</a>是一个API，允许从远程服务器和本地存储装载对象。文件可以通过file：// URL从本地存储中加载。如果AssetBundle存在于Unity缓存中，则此API的行为与AssetBundle.LoadFromFile完全相同。</p>
+<p>如果AssetBundle尚未缓存，然后WWW.LoadFromCacheOrDownload将读取其源AssetBundle。如果AssetBundle是压缩的，它将使用工作线程解压缩并写入缓存。否则，它将通过工作线程直接写入缓存。一旦AssetBundle被缓存，WWW.LoadFromCacheOrDownload将从缓存的解压缩的AssetBundle中加载标题信息。然后，API将与使用AssetBundle.LoadFromFile加载的AssetBundle的行为相同该缓存在WWW.LoadFromCacheOrDownload和UnityWebRequest之间共享任何通过一个API下载的AssetBundle也将通过其他API提供。</p>
+<p>虽然数据将通过固定大小的缓冲区解压缩并写入缓存，但WWW对象将在本机内存中保留AssetBundle字节的完整副本。AssetBundle的额外副本保留为支持<a href="http://docs.unity3d.com/ScriptReference/WWW-bytes.html" target="_blank" rel="external">WWW.bytes</a>属性。</p>
+<p>由于在WWW对象中缓存AssetBundle字节的内存开销，AssetBundles应该保持很小 - 最多几兆字节。有关AssetBundle大小的更多讨论，请参阅<a href="https://unity3d.com/learn/tutorials/topics/best-practices/asset-bundle-usage-patterns" target="_blank" rel="external">AssetBundle使用模式</a>章节中的<a href="https://unity3d.com/learn/tutorials/topics/best-practices/asset-bundle-usage-patterns#Asset_Assignment_Strategies" target="_blank" rel="external">资产分配策略</a>部分。</p>
+<p>与UnityWebRequest不同，每次调用此API都会产生一个新的工作线程。因此，在移动设备等内存有限的平台上，每次只能使用此API下载一个AssetBundle，以避免内存高峰。多次调用此API时，请小心创建过多的线程。如果需要下载超过5个AssetBundle，请在脚本代码中创建并管理下载队列，以确保只有少量AssetBundle下载正在同时运行。</p>
+<h3 id="3-3-5-建议"><a href="#3-3-5-建议" class="headerlink" title="3.3.5.建议"></a>3.3.5.建议</h3><p>一般情况下应尽可能使用<a href="https://unity3d.com/learn/tutorials/topics/best-practices/assetbundle-fundamentals?playlist=30089#AssetBundle.LoadFromFile" target="_blank" rel="external">AssetBundle.LoadFromFile</a>。就速度，磁盘使用情况和运行时内存使用情况而言，此API是最高效的。<br>对于必须下载或修补AssetBundles的项目，强烈建议对于使用Unity 5.3或更新版本<a href="https://unity3d.com/learn/tutorials/topics/best-practices/assetbundle-fundamentals?playlist=30089#WWW.LoadFromCacheOrDownload" target="_blank" rel="external">UnityWebRequest</a>,对于使用Unity 5.2或更早，则强烈建议使用<a href="https://unity3d.com/learn/tutorials/topics/best-practices/assetbundle-fundamentals?playlist=30089#AssetBundleDownloadHandler" target="_blank" rel="external">WWW.LoadFromCacheOrDownload</a>。正如下一章<a href="https://unity3d.com/learn/tutorials/topics/best-practices/asset-bundle-usage-patterns#Distribution" target="_blank" rel="external">分发</a>详细描述的那样，可以使用包含在项目安装程序中的Bundle来安装AssetBundle缓存。</p>
+<p>使用UnityWebRequest <em>或</em> WWW.LoadFromCacheOrDownload时，请确保下载器代码在加载AssetBundle后正确调用Dispose。或者，C＃的<a href="https://msdn.microsoft.com/en-us//library/yh598w02.aspx" target="_blank" rel="external">使用</a>语句是确保WWW或UnityWebRequest安全处置的最便捷方式。</p>
+<p>对于需要独特的特定缓存或下载要求的大量工程团队的项目，可以考虑使用自定义下载器。编写自定义下载程序是一项不重要的工程任务，任何自定义下载程序都应与AssetBundle.LoadFromFile兼容 。有关更多详细信息，请参阅下一章<a href="https://unity3d.com/learn/tutorials/topics/best-practices/asset-bundle-usage-patterns#Distribution" target="_blank" rel="external">分发</a>部分。</p>
+<h3 id="3-4-加载资产"><a href="#3-4-加载资产" class="headerlink" title="3.4.加载资产"></a>3.4.加载资产</h3><p>UnityEngine.Objects可以使用三个不同的API从AssetBundles加载，这些API都附加到AssetBundle对象，它们同时具有同步和异步变体：</p>
+<ul>
+<li><p><a href="https://docs.unity3d.com/ScriptReference/AssetBundle.LoadAsset.html" target="_blank" rel="external">LoadAsset</a>(<a href="https://docs.unity3d.com/ScriptReference/AssetBundle.LoadAssetAsync.html" target="_blank" rel="external">LoadAssetAsync</a>)</p>
+</li>
+<li><p><a href="https://docs.unity3d.com/ScriptReference/AssetBundle.LoadAllAssets.html" target="_blank" rel="external">LoadAllAssets</a>(<a href="https://docs.unity3d.com/ScriptReference/AssetBundle.LoadAllAssetsAsync.html" target="_blank" rel="external">LoadAllAssetsAsync</a>)</p>
+</li>
+<li><p><a href="https://docs.unity3d.com/ScriptReference/AssetBundle.LoadAssetWithSubAssets.html" target="_blank" rel="external">LoadAssetWithSubAssets</a>（<a href="https://docs.unity3d.com/ScriptReference/AssetBundle.LoadAssetWithSubAssetsAsync.html" target="_blank" rel="external">LoadAssetWithSubAssetsAsync</a>）<br>这些API的同步版本总是比其异步版本快至少一帧。</p>
+</li>
+</ul>
+<p>异步加载将每帧加载多个对象，直到它们的时间片限制。有关此行为的基本技术原因，请参阅<a href="https://unity3d.com/learn/tutorials/topics/best-practices/assetbundle-fundamentals?playlist=30089#Lowlevel_Loading_Details" target="_blank" rel="external">低级加载详细信息</a>部分。</p>
+<p>LoadAllAssets应该加载多个独立UnityEngine.Objects时使用。只有在需要加载AssetBundle中的大部分或全部对象时才能使用它。与其他两个API相比，LoadAllAssets比多个单独调用LoadAssets稍快。因此，如果要加载的资产数量很大，但需要一次加载不到66％的AssetBundle，请考虑将AssetBundle拆分为多个较小的捆绑包并使用LoadAllAssets。</p>
+<p>加载包含多个嵌入对象的复合资产时，应使用LoadAssetWithSubAssets，例如嵌入动画的FBX模型或嵌入多个精灵的精灵图集。如果需要加载的对象全部来自同一个资产，但与许多其他不相关的对象一起存储在AssetBundle中，则使用此API。</p>
+<p>对于任何其他情况，请使用LoadAsset或LoadAssetAsync。</p>
+<h4 id="3-4-1-低级加载细节"><a href="#3-4-1-低级加载细节" class="headerlink" title="3.4.1.低级加载细节"></a>3.4.1.低级加载细节</h4><p>UnityEngine.Object加载是在主线程之外执行的：从工作线程的存储中读取对象的数据。任何不接触Unity系统的线程敏感部分（脚本，图形）的内容都将在工作线程上进行转换。例如，VBOs将从网格创建，纹理将被解压缩等。</p>
+<p>从Unity 5.3开始，对象加载已经并行化。多个对象在工作线程上被反序列化，处理和集成。当一个对象完成加载时，它的Awake回调将被调用，并且该对象将在下一帧期间可用于Unity Engine的其余部分。</p>
+<p>同步的方法将暂停主线程，直到对象加载完成。他们还会对对象加载进行时间片分割，以便对象集成不会占用超过特定数量的毫秒帧时间。毫秒数由属性Application.backgroundLoadingPriority设置：</p>
+<ul>
+<li><em>ThreadPriority.High</em>:每帧最多50毫秒</li>
+<li><em>ThreadPriority.Normal</em>：每帧最多10毫秒</li>
+<li><em>ThreadPriority.BelowNormal</em>：每帧最多4毫秒</li>
+<li><em>ThreadPriority.Low</em>：每帧最多2毫秒。</li>
+</ul>
+<p>从Unity 5.2开始，多个对象被加载，直到达到对象加载的帧时间限制。假设所有其他因素相同，由于发出异步调用和引擎可用对象之间的最小一帧延迟，资产加载API的异步变体的完成时间总是比可比较的同步版本更长。</p>
+<h4 id="3-4-2AssetBundles依赖关系"><a href="#3-4-2AssetBundles依赖关系" class="headerlink" title="3.4.2AssetBundles依赖关系"></a>3.4.2AssetBundles依赖关系</h4><p>AssetBundles之间的依赖关系使用两个不同的API自动跟踪，具体取决于运行时环境。在Unity编辑器中，可以通过<a href="http://docs.unity3d.com/ScriptReference/AssetDatabase.html" target="_blank" rel="external">AssetDatabase</a>API查询AssetBundle依赖关系可以通过<a href="http://docs.unity3d.com/ScriptReference/AssetImporter.html" target="_blank" rel="external">AssetImporter</a>API访问和更改AssetBundle分配和依赖关系。行时，Unity提供了一个可选的API来加载AssetBundle构建期间通过基于脚本对象的<a href="http://docs.unity3d.com/ScriptReference/AssetBundleManifest.html" target="_blank" rel="external">setBundleManifest</a>API生成的依赖信息。</p>
+<p>当一个或多个父AssetBundle的UnityEngine.Objects引用一个或多个其他AssetBundle的UnityEngine.Objects时，AssetBundle依赖于另一个AssetBundle。有关对象间引用的更多信息，请参阅<a href="https://unity3d.com/learn/tutorials/temas/best-practices/assets-objects-and-serialization" target="_blank" rel="external">资产，对象和序列化</a>文章<a href="https://unity3d.com/learn/tutorials/temas/best-practices/assets-objects-and-serialization#InterObject_References" target="_blank" rel="external">对象间引用</a>部分。</p>
+<p>如该文章的<a href="https://unity3d.com/learn/tutorials/temas/best-practices/assets-objects-and-serialization#Serialization_and_Instances" target="_blank" rel="external">列化和实例</a>部分所述，AssetBundles充当由AssetBundle中包含的每个对象的FileGUID＆LocalID标识的源数据的源。</p>
+<p>因为一个对象在其实例ID被首先取消引用时被加载，并且因为一个对象在加载其AssetBundle时被分配了有效的实例ID，所以AssetBundles加载的顺序并不重要。相反，加载对象本身之前加载包含Object的依赖关系的所有AssetBundles是非常重要的。装载父级AssetBundle时，Unity不会尝试自动加载任何子AssetBundles。</p>
+<p><strong>例：</strong></p>
+<p>假设材料A是指组织B。物料A打包到AssetBundle 1中，而质地B打包到AssetBundle 2中。<br><img src="https://unity3d.com/sites/default/files/learn/ab1.jpg" alt="描述"></p>
+<p>在这种使用情况下，AssetBundle 2必须在从AssetBundle 1中加载材料A之前加载。</p>
+<p><font style="margin: 0px; padding: 0px; box-sizing: border-box; vertical-align: inherit;"><font style="margin: 0px; padding: 0px; box-sizing: border-box; vertical-align: inherit;">这并不意味着必须在AssetBundle 1之前加载AssetBundle 2，或者必须从AssetBundle 2明确加载Texture B。在将Material A从MaterialBundle 1中加载之前加载AssetBundle 2就足够了。</font></font></p>
+<p>但是，在加载AssetBundle 1时，Unity不会自动加载AssetBundle 2。这必须在脚本代码中手动完成。</p>
+<p>有关AssetBundle依赖关系的更多信息，请参阅<a href="https://docs.unity3d.com/Manual/AssetBundles-Dependencies.html" target="_blank" rel="external">手册页</a>。</p>
+<h4 id="3-4-3-AssetBundle清单"><a href="#3-4-3-AssetBundle清单" class="headerlink" title="3.4.3.AssetBundle清单"></a>3.4.3.AssetBundle清单</h4><p>当使用BuildPipeline.BuildAssetBundles执行AssetBundle构建管道时Unity会序列化包含每个AssetBundle的依赖性信息的Object。此数据存储在单独的AssetBundle中，其中包含<a href="http://docs.unity3d.com/ScriptReference/AssetBundleManifest.html" target="_blank" rel="external">AssetBundleManifest</a>类型的单个对象。</p>
+<p>此资产将存储在AssetBundle中，其名称与构建AssetBundles的父目录相同。如果项目将其AssetBundles构建到（projectroot）/ build/Client/文件夹，则包含该清单的AssetBundle将被保存为（projectroot）/build/Client/Client.manifest。</p>
+<p>包含清单的AssetBundle可以像其他任何AssetBundle一样加载，缓存和卸载。</p>
+<p>AssetBundleManifest对象本身提供<a href="http://docs.unity3d.com/ScriptReference/AssetBundleManifest.GetAllAssetBundles.html" target="_blank" rel="external">GetAllAssetBundles</a>API来列出与清单并发构建的所有AssetBundles，以及两种方法来查询特定AssetBundle的依赖关系：</p>
+<ul>
+<li><p><a href="http://docs.unity3d.com/ScriptReference/AssetBundleManifest.GetAllDependencies.html" target="_blank" rel="external">AssetBundleManifest.GetAllDependencies</a>返回AssetBundle的所有分层依赖项，其中包括AssetBundle的直接子项，子项的子项等的依赖项。</p>
+</li>
+<li><p><a href="http://docs.unity3d.com/ScriptReference/AssetBundleManifest.GetDirectDependencies.html" target="_blank" rel="external">AssetBundleManifest.GetDirectDependencies</a>只返回一个AssetBundle的直接子项</p>
+</li>
+</ul>
+<p>请注意，这两个API都分配字符串数组。相应地，它们只应该谨慎使用，而不应该在应用程序生命周期的性能敏感部分中使用。</p>
+<h3 id="3-4-4-建议"><a href="#3-4-4-建议" class="headerlink" title="3.4.4.建议"></a>3.4.4.建议</h3><p>在许多情况下，在玩家进入应用程序的性能关键区域（例如主游戏级别或世界）之前，最好加载尽可能多的所需对象。这在移动平台上尤其重要，因为访问本地存储的速度很慢，而且在播放时加载和卸载对象的内存流失可能会触发垃圾收集器。</p>
+<p>对于必须在应用程序交互时加载和卸载对象的项目，请参阅<a href="https://unity3d.com/learn/tutorials/topics/best-practices/asset-bundle-usage-patterns" target="_blank" rel="external">AssetBundle使用模式</a><a href="https://unity3d.com/learn/tutorials/topics/best-practices/asset-bundle-usage-patterns#Managing_Loaded_Assets" target="_blank" rel="external">管理加载资产</a>部分以获取有关卸载对象和AssetBundles的更多信息。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/03/20/AssetBundle的基本原理/">AssetBundle的基本原理</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
+        <p><span>发布时间:</span>2018-03-20, 00:42:41</p>
+        <p><span>最后更新:</span>2021-09-13, 20:25:11</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/03/20/AssetBundle的基本原理/" title="AssetBundle的基本原理">http://zhutaorun.win/2018/03/20/AssetBundle的基本原理/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutaorun.win/2018/03/20/AssetBundle的基本原理/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2018/03/20/AssetBundle使用模式/">
+                    AssetBundle使用模式
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2018/03/20/资源文件夹/">
+                    资源文件夹
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#AssetBundle基本原理"><span class="toc-number">1.</span> <span class="toc-text">AssetBundle基本原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#版本检查：2017-3-难度：高级"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">版本检查：2017.3 -难度：高级</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-概观"><span class="toc-number">1.0.1.</span> <span class="toc-text">3.1.概观</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-AssetBundle设计"><span class="toc-number">1.0.2.</span> <span class="toc-text">3.2.AssetBundle设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-加载AssetBundles"><span class="toc-number">1.0.3.</span> <span class="toc-text">3.3.加载AssetBundles</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-AssetBundle-LoadFromMemory（异步）"><span class="toc-number">1.0.3.1.</span> <span class="toc-text">3.3.1 AssetBundle.LoadFromMemory（异步）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-AssetBundle-LoadFromFile（异步）"><span class="toc-number">1.0.3.2.</span> <span class="toc-text">3.3.2.AssetBundle.LoadFromFile（异步）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-3-AssetBundleDownloadHandler"><span class="toc-number">1.0.3.3.</span> <span class="toc-text">3.3.3.AssetBundleDownloadHandler</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-4-WWW-LoadFromCacheOrDownload"><span class="toc-number">1.0.3.4.</span> <span class="toc-text">3.3.4.WWW.LoadFromCacheOrDownload</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-5-建议"><span class="toc-number">1.0.4.</span> <span class="toc-text">3.3.5.建议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-加载资产"><span class="toc-number">1.0.5.</span> <span class="toc-text">3.4.加载资产</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1-低级加载细节"><span class="toc-number">1.0.5.1.</span> <span class="toc-text">3.4.1.低级加载细节</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2AssetBundles依赖关系"><span class="toc-number">1.0.5.2.</span> <span class="toc-text">3.4.2AssetBundles依赖关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-3-AssetBundle清单"><span class="toc-number">1.0.5.3.</span> <span class="toc-text">3.4.3.AssetBundle清单</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-4-建议"><span class="toc-number">1.0.6.</span> <span class="toc-text">3.4.4.建议</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"AssetBundle的基本原理　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2018/03/20/AssetBundle的基本原理/" data-title="AssetBundle的基本原理" data-url="http://zhutaorun.win/2018/03/20/AssetBundle的基本原理/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"zhutaorun"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/03/20/AssetBundle使用模式/" title="上一篇: AssetBundle使用模式">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2018/03/20/资源文件夹/" title="下一篇: 资源文件夹">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/12/15/检测文件变化/">检测文件变化</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/13/Lua热重载/">Lua热重载</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/29/Lua的多重继承实现/">Lua的多重继承实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/25/Lua的OOP实现/">Lua的OOP实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/09/26/Lua的metatable和Lua的面向对象实现/">Lua的metatable和Lua的面向对象实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/09/06/个人最近踩的坑/">个人最近踩的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/30/《Lua程序设计（第四版）》读书笔记/">《Lua程序设计（第四版）》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/10/写Shader的IDE工具合集/">写Shader的IDE工具合集</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/11/最近的复盘-错误小结/">最近的复盘-错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/03/Unity-Apk解包/">Unity-Apk解包</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/01/关于项目优化杂谈/">关于项目优化杂谈</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/07/Unity里实现Hook函数/">Unity里实现Hook函数</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/12/游戏同步/">游戏同步</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/04/关于动画结束的处理/">关于动画结束的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/03/帧同步的逻辑工程维护/">帧同步的逻辑工程维护</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/01/再谈优化/">再谈优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/16/一个神奇的bug/">一个神奇的bug</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/31/模型在UI上显示/">模型在UI上显示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/04/Unity中音效插件/">Unity中音效插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/24/UWA-Day-2018分享/">UWA-Day-2018分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/26/代码质量/">代码质量</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/AssetBundle使用模式/">AssetBundle使用模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/AssetBundle的基本原理/">AssetBundle的基本原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/资源文件夹/">资源文件夹</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/资产，对象和序列化/">资产，对象和序列化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/翻译-资产，资源和AssetBundle/">[翻译]资产，资源和AssetBundle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/01/游戏项目中的美术，策划文档怎么管理/">游戏项目中的美术，策划文档怎么管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/关于游戏测试/">关于游戏测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/资源管理/">资源管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/18/缓存命中/">缓存命中</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/struct-结构体类型的大小计算/">struct 结构体类型的大小计算</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Unity小技巧-清除缓存/">Unity小技巧-清除缓存</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/自动上阵功能开发的小结/">自动上阵功能开发的小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/MVC、MVP和MVVM的图示/">MVC、MVP和MVVM的图示</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/24/【翻译】Unity3D车辆的滑动效果/">【翻译】Unity3D车辆的滑动效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/24/实现轮胎印/">实现轮胎印</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/Shader的纹理/">Shader的纹理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/如何熟悉一个老项目/">如何快速熟悉一个老项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/Unity的内存优化以及在移动平台上的优化/">Unity的内存优化以及在移动平台上的优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/准备入职，写点东西/">准备入职，写点东西</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/Unity资源制作要求/">Unity资源制作要求</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/MMO小地图实现方式/">MMO小地图实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/31/Android端外推送到底有多烦/">Android端外推送到底有多烦</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/Unity推送SDk/">Unity推送SDk</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/查找代码的中文插件/">查找代码的中文插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/功能错误小结/">功能错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/24/《重构-改善既有代码的设计》读书笔记/">《重构-改善既有代码的设计》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/18/C-教程的实践小结/">C++教程的实践小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity-声音资源优化/">Unity 声音资源优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity3D图片大小设置/">Unity3D图片大小设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/">U3D贴图格式 GENERATE MIP MAPS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/20/Android真机调试/">Android真机调试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/25/《从行动开始》读书笔记/">《从行动开始》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/搞定GTD/">搞定GTD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/11/拖延心理学/">拖延心理学</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/游戏改变世界读后感/">《游戏改变世界》读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/04/关于Markdown/">关于Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/25/C++学习记录/">C++学习记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2021 zhutaorun
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

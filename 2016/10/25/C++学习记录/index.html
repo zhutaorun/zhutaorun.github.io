@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="zhutaorun" />
+
+
+
+<meta name="description" content="为什么要学习C++
+因为大学没C++
+面试上要求精通C++
+shader学习也是要求有C++，图形渲染
+引擎的底层问题，不学C++没办法看懂
+未来如果需要学习UE4,减少切换时间
+
+怎么学习
+知乎上关注了C++
+其次购买了《C++ Primer（第五版）》,2015年11月时候购入的
+看一些学习的免费课程
+
+C++知识点（不定期更新）
+一 对象实例化
+从栈实例化对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++学习记录">
+<meta property="og:url" content="http://zhutaorun.win/2016/10/25/C++学习记录/index.html">
+<meta property="og:site_name" content="zhutaorun's Blog">
+<meta property="og:description" content="为什么要学习C++
+因为大学没C++
+面试上要求精通C++
+shader学习也是要求有C++，图形渲染
+引擎的底层问题，不学C++没办法看懂
+未来如果需要学习UE4,减少切换时间
+
+怎么学习
+知乎上关注了C++
+其次购买了《C++ Primer（第五版）》,2015年11月时候购入的
+看一些学习的免费课程
+
+C++知识点（不定期更新）
+一 对象实例化
+从栈实例化对象">
+<meta property="og:updated_time" content="2021-09-13T12:25:11.685Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++学习记录">
+<meta name="twitter:description" content="为什么要学习C++
+因为大学没C++
+面试上要求精通C++
+shader学习也是要求有C++，图形渲染
+引擎的底层问题，不学C++没办法看懂
+未来如果需要学习UE4,减少切换时间
+
+怎么学习
+知乎上关注了C++
+其次购买了《C++ Primer（第五版）》,2015年11月时候购入的
+看一些学习的免费课程
+
+C++知识点（不定期更新）
+一 对象实例化
+从栈实例化对象">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="zhutaorun&#39;s Blog" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>C++学习记录 | zhutaorun&#39;s Blog</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?925b283002cdaa5eb0c0a14c5135593c";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">zhutaorun</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">迈入新世界，为了成为有保持乐趣的Unity客户端</p>
+        
+
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/friends/">友情链接</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="/zhutaorun@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="http://weibo.com/u/2409097900/" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" href="https://github.com/zhutaorun" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" href="https://www.zhihu.com/people/zhutaorun" title="知乎"></a>
+                            
+                                <a class="fa CSDN" href="https://blog.csdn.net/u011611902" title="CSDN"></a>
+                            
+                                <a class="fa 微信" href="/peter-zhutao" title="微信"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/">Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua-面向对象编程/">Lua 面向对象编程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D/">Unity3D</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D-优化/">Unity3D 优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3D优化/">Unity3D优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity3d/">Unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unity3d/">unity3d</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/习惯养成/">习惯养成</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/介绍/">介绍</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思/">工作反思</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工作反思-帧同步/">工作反思 帧同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具/">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/工具类-效率提升/">工具类 效率提升</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/思考/">思考</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拆书帮/">拆书帮</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/游戏测试/">游戏测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/计算系统/">计算系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/读书笔记/">读书笔记</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://www.luzexi.com/">技术人生 Jesse</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://www.cnblogs.com/zhaoqingqing">赵青青的博客</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于游戏开发</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">zhutaorun</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">zhutaorun</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">迈入新世界，为了成为有保持乐趣的Unity客户端</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/friends/">友情链接</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="/zhutaorun@gmail.com" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="http://weibo.com/u/2409097900/" title="新浪微博"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="https://github.com/zhutaorun" title="GitHub"></a>
+                            
+                                <a class="fa 知乎" target="_blank" href="https://www.zhihu.com/people/zhutaorun" title="知乎"></a>
+                            
+                                <a class="fa CSDN" target="_blank" href="https://blog.csdn.net/u011611902" title="CSDN"></a>
+                            
+                                <a class="fa 微信" target="_blank" href="/peter-zhutao" title="微信"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap"><article id="post-C++学习记录" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/10/25/C++学习记录/" class="article-date">
+      <time datetime="2016-10-25T12:43:36.000Z" itemprop="datePublished">2016-10-25</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      C++学习记录
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/新知识学习/">新知识学习</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h4 id="为什么要学习C"><a href="#为什么要学习C" class="headerlink" title="为什么要学习C++"></a>为什么要学习C++</h4><ul>
+<li>因为大学没C++</li>
+<li>面试上要求精通C++</li>
+<li>shader学习也是要求有C++，图形渲染</li>
+<li>引擎的底层问题，不学C++没办法看懂</li>
+<li>未来如果需要学习UE4,减少切换时间</li>
+</ul>
+<h4 id="怎么学习"><a href="#怎么学习" class="headerlink" title="怎么学习"></a>怎么学习</h4><ul>
+<li>知乎上关注了C++</li>
+<li>其次购买了《C++ Primer（第五版）》,2015年11月时候购入的</li>
+<li>看一些学习的免费课程</li>
+</ul>
+<h4 id="C-知识点（不定期更新）"><a href="#C-知识点（不定期更新）" class="headerlink" title="C++知识点（不定期更新）"></a>C++知识点（不定期更新）</h4><blockquote>
+<h2 id="一-对象实例化"><a href="#一-对象实例化" class="headerlink" title="一 对象实例化"></a>一 对象实例化</h2><ul>
+<li>从栈实例化对象<a id="more"></a>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> TV</div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">  <span class="keyword">char</span> name[<span class="number">20</span>];</div><div class="line">  <span class="keyword">int</span> type;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">changeVol</span><span class="params">()</span></span>;</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">power</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">  TV tv;</div><div class="line">  TV tv[<span class="number">20</span>];</div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>从堆实例化对象</li>
+</ul>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> TV</div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">  <span class="keyword">char</span> name[<span class="number">20</span>];</div><div class="line">  <span class="keyword">int</span> type;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">changeVol</span><span class="params">()</span></span>;</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">power</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">  TV *p = <span class="keyword">new</span> TV();</div><div class="line">  TV *q = <span class="keyword">new</span> TV[<span class="number">20</span>];</div><div class="line">  <span class="comment">//todo</span></div><div class="line">  <span class="keyword">delete</span> p;</div><div class="line">  <span class="keyword">delete</span> []q;</div><div class="line">  <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<h2 id="二-初始化string对象的方式"><a href="#二-初始化string对象的方式" class="headerlink" title="二 初始化string对象的方式"></a>二 初始化string对象的方式</h2></blockquote>
+<table>
+<thead>
+<tr>
+<th>初始化string对象的方式</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>string s1;</td>
+<td>s1为空串</td>
+</tr>
+<tr>
+<td>string s2(“ABC”);</td>
+<td>用字符串字面值初始化S2</td>
+</tr>
+<tr>
+<td>string s3(s2);</td>
+<td>将s3初始化为s2的一个副本</td>
+</tr>
+<tr>
+<td>string s4(n,’c’);</td>
+<td>将s4初始化为字符’c’的n个副本</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>string的常用操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>s.empty()</td>
+<td>若s为空串，则返回true，否则返回false</td>
+</tr>
+<tr>
+<td>s.size()</td>
+<td>返回s的字符个数</td>
+</tr>
+<tr>
+<td>s[n]</td>
+<td>返回s中的位置为n的字符，位置从0开始</td>
+</tr>
+<tr>
+<td>s1+s2</td>
+<td>将两个串连接成新串，返回新生成的串</td>
+</tr>
+<tr>
+<td>s1=s2</td>
+<td>将s1的内容替换为s2的副本</td>
+</tr>
+<tr>
+<td>v1==v2</td>
+<td>判断相等，相等返回true,否则返回false</td>
+</tr>
+<tr>
+<td>v1!=v2</td>
+<td>判断不等。不等返回true,否则返回false</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h2 id="三-类内定义与内联函数"><a href="#三-类内定义与内联函数" class="headerlink" title="三 类内定义与内联函数"></a>三 类内定义与内联函数</h2><ul>
+<li>内联函数 关键字：inline<br>类内定义的函数计算机首先作为内联函数去编译，类内定义的函数复杂时才作为普通函数去编译</li>
+<li>类外定义<br>同文件类外定义：函数名写在类内，具体实现写在类外，并且在一个文件中。（游击队）<br>分文件类外定义：需要定义一个头文件，头文件名和类名建议一致。在其他文件中使用此类时，需要加上头文件。（正规军）</li>
+</ul>
+<h2 id="四-对象结构"><a href="#四-对象结构" class="headerlink" title="四 对象结构"></a>四 对象结构</h2><ul>
+<li><h2 id="内存分区"><a href="#内存分区" class="headerlink" title="内存分区"></a>内存分区</h2><h6 id="栈区：int-x-0-int-p-null"><a href="#栈区：int-x-0-int-p-null" class="headerlink" title="栈区：int x=0;int *p= null;"></a>栈区：int x=0;int *p= null;</h6><h6 id="堆区：int-p-new-int-20"><a href="#堆区：int-p-new-int-20" class="headerlink" title="堆区：int *p = new int[20];"></a>堆区：int *p = new int[20];</h6><h6 id="全局区：存储全局变量及静态变量"><a href="#全局区：存储全局变量及静态变量" class="headerlink" title="全局区：存储全局变量及静态变量"></a>全局区：存储全局变量及静态变量</h6><h6 id="常量区：string-str-“hello”"><a href="#常量区：string-str-“hello”" class="headerlink" title="常量区：string str = “hello”;"></a>常量区：string str = “hello”;</h6><h6 id="代码区：存储逻辑代码的二进制"><a href="#代码区：存储逻辑代码的二进制" class="headerlink" title="代码区：存储逻辑代码的二进制"></a>代码区：存储逻辑代码的二进制</h6></li>
+<li><h2 id="对象初始化：一是有且仅有一次，二是根据条件初始化"><a href="#对象初始化：一是有且仅有一次，二是根据条件初始化" class="headerlink" title="对象初始化：一是有且仅有一次，二是根据条件初始化"></a>对象初始化：一是有且仅有一次，二是根据条件初始化</h2></li>
+<li><h2 id="构造函数的规则和特点"><a href="#构造函数的规则和特点" class="headerlink" title="构造函数的规则和特点"></a>构造函数的规则和特点</h2><h6 id="构造函数在对象实例化时被自动调用"><a href="#构造函数在对象实例化时被自动调用" class="headerlink" title="构造函数在对象实例化时被自动调用"></a>构造函数在对象实例化时被自动调用</h6><h6 id="构造函数与类同名"><a href="#构造函数与类同名" class="headerlink" title="构造函数与类同名"></a>构造函数与类同名</h6><h6 id="构造函数没有返回值"><a href="#构造函数没有返回值" class="headerlink" title="构造函数没有返回值"></a>构造函数没有返回值</h6><h6 id="构造函数可以有多个重载形式"><a href="#构造函数可以有多个重载形式" class="headerlink" title="构造函数可以有多个重载形式"></a>构造函数可以有多个重载形式</h6><h6 id="实例化对象时仅用到了一个构造函数"><a href="#实例化对象时仅用到了一个构造函数" class="headerlink" title="实例化对象时仅用到了一个构造函数"></a>实例化对象时仅用到了一个构造函数</h6><h6 id="当用户没有定义构造函数时，编译器自动生成一个构造函数-（非常重要）"><a href="#当用户没有定义构造函数时，编译器自动生成一个构造函数-（非常重要）" class="headerlink" title="当用户没有定义构造函数时，编译器自动生成一个构造函数 （非常重要）"></a>当用户没有定义构造函数时，编译器自动生成一个构造函数 （<em>非常重要</em>）</h6></li>
+<li><h2 id="默认构造函数-没有参数的构造函数"><a href="#默认构造函数-没有参数的构造函数" class="headerlink" title="默认构造函数:没有参数的构造函数"></a>默认构造函数:没有参数的构造函数</h2></li>
+<li><h2 id="初始化列表特性"><a href="#初始化列表特性" class="headerlink" title="初始化列表特性"></a>初始化列表特性</h2><h6 id="初始化列表先于构造函数执行"><a href="#初始化列表先于构造函数执行" class="headerlink" title="初始化列表先于构造函数执行"></a>初始化列表先于构造函数执行</h6><h6 id="初始化列表只能用于构造函数"><a href="#初始化列表只能用于构造函数" class="headerlink" title="初始化列表只能用于构造函数"></a>初始化列表只能用于构造函数</h6><h6 id="初始化列表可以同时初始化多个数据成员"><a href="#初始化列表可以同时初始化多个数据成员" class="headerlink" title="初始化列表可以同时初始化多个数据成员"></a>初始化列表可以同时初始化多个数据成员</h6></li>
+<li><h2 id="拷贝构造函数"><a href="#拷贝构造函数" class="headerlink" title="拷贝构造函数"></a>拷贝构造函数</h2><h6 id="如果没有自定义的拷贝构造函数则系统自动生成一个默认的拷贝构造函数"><a href="#如果没有自定义的拷贝构造函数则系统自动生成一个默认的拷贝构造函数" class="headerlink" title="如果没有自定义的拷贝构造函数则系统自动生成一个默认的拷贝构造函数"></a>如果没有自定义的拷贝构造函数则系统自动生成一个默认的拷贝构造函数</h6><h6 id="当采用直接初始化或复制初始化实例化对象时系统自动调用拷贝构造函数"><a href="#当采用直接初始化或复制初始化实例化对象时系统自动调用拷贝构造函数" class="headerlink" title="当采用直接初始化或复制初始化实例化对象时系统自动调用拷贝构造函数"></a>当采用直接初始化或复制初始化实例化对象时系统自动调用拷贝构造函数</h6></li>
+<li><h2 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h2><h6 id="如果没有自定义的析构函数则系统自动生成"><a href="#如果没有自定义的析构函数则系统自动生成" class="headerlink" title="如果没有自定义的析构函数则系统自动生成"></a>如果没有自定义的析构函数则系统自动生成</h6><h6 id="析构函数在对象销毁时自动调用"><a href="#析构函数在对象销毁时自动调用" class="headerlink" title="析构函数在对象销毁时自动调用"></a>析构函数在对象销毁时自动调用</h6><h6 id="析构函数没有返回值，没有参数也不能重载"><a href="#析构函数没有返回值，没有参数也不能重载" class="headerlink" title="析构函数没有返回值，没有参数也不能重载"></a>析构函数没有返回值，没有参数也不能重载</h6></li>
+<li><h2 id="对象的生命历程"><a href="#对象的生命历程" class="headerlink" title="对象的生命历程"></a>对象的生命历程</h2>申请内存-&gt;初始化列表-&gt;构造函数-&gt;参与运算-》析构函数-&gt;释放内存</li>
+</ul>
+<h2 id="五-const"><a href="#五-const" class="headerlink" title="五 const"></a>五 const</h2><ul>
+<li><h2 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h2></li>
+</ul>
+<h2 id="六-函数"><a href="#六-函数" class="headerlink" title="六 函数"></a>六 函数</h2><h6 id="函数参数默认值值"><a href="#函数参数默认值值" class="headerlink" title="函数参数默认值值"></a>函数参数默认值值</h6><h6 id="函数重载：在相同作用域内用同一函数名定义的多个函数参数个数和参数类型不同"><a href="#函数重载：在相同作用域内用同一函数名定义的多个函数参数个数和参数类型不同" class="headerlink" title="函数重载：在相同作用域内用同一函数名定义的多个函数参数个数和参数类型不同"></a>函数重载：在相同作用域内用同一函数名定义的多个函数参数个数和参数类型不同</h6><h6 id="内容总结"><a href="#内容总结" class="headerlink" title="内容总结"></a>内容总结</h6><table>
+<thead>
+<tr>
+<th>内容总结</th>
+<th>—-</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>函数参数默认值</td>
+<td>实参覆盖默认值</td>
+</tr>
+<tr>
+<td>函数重载</td>
+<td>名称相同参数可辨</td>
+</tr>
+<tr>
+<td>内联函数</td>
+<td>inline 效率高 有条件</td>
+</tr>
+</tbody>
+</table>
+<h2 id="七内存管理"><a href="#七内存管理" class="headerlink" title="七内存管理"></a>七内存管理</h2><h6 id="内存的本质是资源"><a href="#内存的本质是资源" class="headerlink" title="内存的本质是资源"></a>内存的本质是资源</h6><h6 id="操作系统掌管内存资源"><a href="#操作系统掌管内存资源" class="headerlink" title="操作系统掌管内存资源"></a>操作系统掌管内存资源</h6><h6 id="我们能做申请-归还"><a href="#我们能做申请-归还" class="headerlink" title="我们能做申请/归还"></a>我们能做申请/归还</h6><h6 id="申请-归还内存资源就是内存管理"><a href="#申请-归还内存资源就是内存管理" class="headerlink" title="申请/归还内存资源就是内存管理"></a>申请/归还内存资源就是内存管理</h6><h6 id="申请内存-new-释放内存（delete）"><a href="#申请内存-new-释放内存（delete）" class="headerlink" title="申请内存 (new) 释放内存（delete）"></a>申请内存 (new) 释放内存（delete）</h6><h6 id="申请内存需要判断是否成功，释放内存需要设空指针"><a href="#申请内存需要判断是否成功，释放内存需要设空指针" class="headerlink" title="申请内存需要判断是否成功，释放内存需要设空指针"></a>申请内存需要判断是否成功，释放内存需要设空指针</h6><h6 id="new与delete-配套使用"><a href="#new与delete-配套使用" class="headerlink" title="new与delete 配套使用"></a>new与delete 配套使用</h6><h2 id="八对象数组"><a href="#八对象数组" class="headerlink" title="八对象数组"></a>八对象数组</h2><h2 id="深拷贝与浅拷贝"><a href="#深拷贝与浅拷贝" class="headerlink" title="深拷贝与浅拷贝"></a>深拷贝与浅拷贝</h2><h6 id="当数据成员中含有指针时，浅拷贝会使两个对象的成员指针指向相同的内存地址"><a href="#当数据成员中含有指针时，浅拷贝会使两个对象的成员指针指向相同的内存地址" class="headerlink" title="当数据成员中含有指针时，浅拷贝会使两个对象的成员指针指向相同的内存地址"></a>当数据成员中含有指针时，浅拷贝会使两个对象的成员指针指向相同的内存地址</h6><h5 id="深拷贝不是简单的值拷贝，而是将指针成员指向的内存数据也进行拷贝"><a href="#深拷贝不是简单的值拷贝，而是将指针成员指向的内存数据也进行拷贝" class="headerlink" title="深拷贝不是简单的值拷贝，而是将指针成员指向的内存数据也进行拷贝"></a>深拷贝不是简单的值拷贝，而是将指针成员指向的内存数据也进行拷贝</h5><h2 id="对象指针"><a href="#对象指针" class="headerlink" title="对象指针"></a>对象指针</h2><h6 id="this指针"><a href="#this指针" class="headerlink" title="this指针"></a>this指针</h6><h6 id="this指针也是指针类型，所以在32位编译器下也占用4个基本的内存单元，即sizeof-this-的结果为4。"><a href="#this指针也是指针类型，所以在32位编译器下也占用4个基本的内存单元，即sizeof-this-的结果为4。" class="headerlink" title="this指针也是指针类型，所以在32位编译器下也占用4个基本的内存单元，即sizeof(this)的结果为4。"></a>this指针也是指针类型，所以在32位编译器下也占用4个基本的内存单元，即sizeof(this)的结果为4。</h6><h6 id="当成员函数的参数或临时变量与数据成员同名时，可以使用this指针区分同名的数据成员。"><a href="#当成员函数的参数或临时变量与数据成员同名时，可以使用this指针区分同名的数据成员。" class="headerlink" title="当成员函数的参数或临时变量与数据成员同名时，可以使用this指针区分同名的数据成员。"></a>当成员函数的参数或临时变量与数据成员同名时，可以使用this指针区分同名的数据成员。</h6><h6 id="this指针无需用户定义，是编译器自动产生的。"><a href="#this指针无需用户定义，是编译器自动产生的。" class="headerlink" title="this指针无需用户定义，是编译器自动产生的。"></a>this指针无需用户定义，是编译器自动产生的。</h6><h2 id="常成员函数（const）"><a href="#常成员函数（const）" class="headerlink" title="常成员函数（const）"></a>常成员函数（const）</h2><h6 id="常成员函数的本质是内部使用常this指针。"><a href="#常成员函数的本质是内部使用常this指针。" class="headerlink" title="常成员函数的本质是内部使用常this指针。"></a>常成员函数的本质是内部使用常this指针。</h6><h6 id="常成员函数内使用数据成员时，不能改变数据成员的值。"><a href="#常成员函数内使用数据成员时，不能改变数据成员的值。" class="headerlink" title="常成员函数内使用数据成员时，不能改变数据成员的值。"></a>常成员函数内使用数据成员时，不能改变数据成员的值。</h6><h6 id="常成员函数内不能调用普通的成员函数。"><a href="#常成员函数内不能调用普通的成员函数。" class="headerlink" title="常成员函数内不能调用普通的成员函数。"></a>常成员函数内不能调用普通的成员函数。</h6></blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="keyword">class</span> Coordinate</div><div class="line">&#123;</div><div class="line"></div><div class="line"><span class="keyword">public</span>:</div><div class="line">	Coordinate(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</div><div class="line">	&#123;</div><div class="line">		<span class="comment">// 设置X,Y的坐标</span></div><div class="line">		m_iX = x;</div><div class="line">        m_iY = y;</div><div class="line">	&#125;</div><div class="line">    <span class="comment">// 实现常成员函数</span></div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">printInfo</span><span class="params">()</span> <span class="keyword">const</span></span></div><div class="line">	&#123;</div><div class="line">	    <span class="built_in">cout</span>&lt;&lt;<span class="string">"("</span>&lt;&lt;m_iX&lt;&lt;<span class="string">","</span>&lt;&lt;m_iY&lt;&lt;<span class="string">")"</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">	&#125;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="keyword">int</span> m_iX;</div><div class="line">	<span class="keyword">int</span> m_iY;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="function"><span class="keyword">const</span> Coordinate <span class="title">coor</span><span class="params">(<span class="number">3</span>, <span class="number">5</span>)</span></span>;</div><div class="line"></div><div class="line">	<span class="comment">// 创建常指针p</span></div><div class="line">	<span class="keyword">const</span> Coordinate *p= &amp;coor;</div><div class="line">    <span class="comment">// 创建常引用c</span></div><div class="line">    <span class="keyword">const</span> Coordinate &amp;c = coor;</div><div class="line"></div><div class="line">	coor.printInfo();</div><div class="line">	p-&gt;printInfo();</div><div class="line">	c.printInfo();  </div><div class="line"></div><div class="line">	<span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<h2 id="九继承"><a href="#九继承" class="headerlink" title="九继承"></a>九继承</h2><h6 id="公有继承（class-A-public-B），保护继承-class-A-protected-B-，私有继承-class-A-private-B"><a href="#公有继承（class-A-public-B），保护继承-class-A-protected-B-，私有继承-class-A-private-B" class="headerlink" title="公有继承（class A:public B），保护继承(class A:protected B)，私有继承(class A:private B)"></a>公有继承（class A:public B），保护继承(class A:protected B)，私有继承(class A:private B)</h6></blockquote>
+<table>
+<thead>
+<tr>
+<th>基类成员访问属性</th>
+<th>继承方式</th>
+<th>派生类成员访问属性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>private成员</td>
+<td>public</td>
+<td>无法访问</td>
+</tr>
+<tr>
+<td>protected成员</td>
+<td>public</td>
+<td>protected</td>
+</tr>
+<tr>
+<td>public成员</td>
+<td>public</td>
+<td>public</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>基类成员访问属性</th>
+<th>继承方式</th>
+<th>派生类成员访问属性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>private成员</td>
+<td>protected</td>
+<td>无法访问</td>
+</tr>
+<tr>
+<td>protected成员</td>
+<td>protected</td>
+<td>protected</td>
+</tr>
+<tr>
+<td>public成员</td>
+<td>protected</td>
+<td>protected</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>基类成员访问属性</th>
+<th>继承方式</th>
+<th>派生类成员访问属性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>private成员</td>
+<td>private</td>
+<td>无法访问</td>
+</tr>
+<tr>
+<td>protected成员</td>
+<td>private</td>
+<td>private</td>
+</tr>
+<tr>
+<td>public成员</td>
+<td>private</td>
+<td>private</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h2 id="十继承中的特殊关系"><a href="#十继承中的特殊关系" class="headerlink" title="十继承中的特殊关系"></a>十继承中的特殊关系</h2><ul>
+<li><h2 id="父子关系-成员同名-隐藏"><a href="#父子关系-成员同名-隐藏" class="headerlink" title="父子关系 成员同名 隐藏"></a>父子关系 成员同名 隐藏</h2></li>
+<li><h2 id="is-a"><a href="#is-a" class="headerlink" title="is-a"></a>is-a</h2></li>
+</ul>
+<h2 id="多继承和多重继承"><a href="#多继承和多重继承" class="headerlink" title="多继承和多重继承"></a>多继承和多重继承</h2><p><em>## 人类&lt;-士兵类&lt;-步兵类 -&gt;多重继承
+</em>## 一个子类有多个父类，或者一个派生类有多个基类-&gt;多继承</p>
+<h2 id="虚继承"><a href="#虚继承" class="headerlink" title="虚继承"></a>虚继承</h2><ul>
+<li><h2 id="关键字-virtual"><a href="#关键字-virtual" class="headerlink" title="关键字:virtual"></a>关键字:virtual</h2><h3 id="A-lt-B-lt-D-A-lt-C-lt-D-又称菱形继承"><a href="#A-lt-B-lt-D-A-lt-C-lt-D-又称菱形继承" class="headerlink" title="A&lt;-B&lt;-D,A&lt;-C&lt;-D,又称菱形继承"></a>A&lt;-B&lt;-D,A&lt;-C&lt;-D,又称菱形继承</h3></li>
+</ul>
+<h2 id="十一多态"><a href="#十一多态" class="headerlink" title="十一多态"></a>十一多态</h2><ul>
+<li><h2 id="普通虚函数与虚析构函数"><a href="#普通虚函数与虚析构函数" class="headerlink" title="普通虚函数与虚析构函数"></a>普通虚函数与虚析构函数</h2><h4 id="Virtual使用限制"><a href="#Virtual使用限制" class="headerlink" title="Virtual使用限制"></a>Virtual使用限制</h4><h4 id="普通函数不能是虚函数"><a href="#普通函数不能是虚函数" class="headerlink" title="普通函数不能是虚函数"></a>普通函数不能是虚函数</h4></li>
+</ul>
+</blockquote>
+<h4 id="静态成员函数不能是虚函数"><a href="#静态成员函数不能是虚函数" class="headerlink" title="静态成员函数不能是虚函数"></a>静态成员函数不能是虚函数</h4><h4 id="内联函数不能为虚函数"><a href="#内联函数不能为虚函数" class="headerlink" title="内联函数不能为虚函数"></a>内联函数不能为虚函数</h4><h4 id="构造函数不能是虚函数"><a href="#构造函数不能是虚函数" class="headerlink" title="构造函数不能是虚函数"></a>构造函数不能是虚函数</h4><h4 id="在C-中多态的实现是通过虚函数表实现的"><a href="#在C-中多态的实现是通过虚函数表实现的" class="headerlink" title="在C++中多态的实现是通过虚函数表实现的"></a>在C++中多态的实现是通过虚函数表实现的</h4><h4 id="每个类只有一份虚函数表，所有该类的对象共用同一张虚函数表"><a href="#每个类只有一份虚函数表，所有该类的对象共用同一张虚函数表" class="headerlink" title="每个类只有一份虚函数表，所有该类的对象共用同一张虚函数表"></a>每个类只有一份虚函数表，所有该类的对象共用同一张虚函数表</h4><h4 id="两张虚函数表中的函数指针可能指向同一个函数。"><a href="#两张虚函数表中的函数指针可能指向同一个函数。" class="headerlink" title="两张虚函数表中的函数指针可能指向同一个函数。"></a>两张虚函数表中的函数指针可能指向同一个函数。</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Shape</div><div class="line">&#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line"><span class="function"><span class="keyword">virtual</span> <span class="keyword">double</span> <span class="title">calcArea</span><span class="params">()</span>    <span class="comment">//虚函数</span></span></div><div class="line">&#123;<span class="keyword">return</span> <span class="number">0</span>;&#125;</div><div class="line"><span class="function"><span class="keyword">virtual</span> <span class="keyword">double</span> <span class="title">calcPerimeter</span><span class="params">()</span></span>=<span class="number">0</span>; <span class="comment">//纯虚函数</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li><h2 id="纯虚函数和抽象类"><a href="#纯虚函数和抽象类" class="headerlink" title="纯虚函数和抽象类"></a>纯虚函数和抽象类</h2><h4 id="抽象类无法实例化对象"><a href="#抽象类无法实例化对象" class="headerlink" title="抽象类无法实例化对象"></a>抽象类无法实例化对象</h4></li>
+<li><h2 id="纯虚函数：抽象类与接口类"><a href="#纯虚函数：抽象类与接口类" class="headerlink" title="纯虚函数：抽象类与接口类"></a>纯虚函数：抽象类与接口类</h2><h4 id="仅含有纯虚函数的类称为接口类"><a href="#仅含有纯虚函数的类称为接口类" class="headerlink" title="仅含有纯虚函数的类称为接口类"></a>仅含有纯虚函数的类称为接口类</h4><h4 id="成员函数都是纯虚函数。"><a href="#成员函数都是纯虚函数。" class="headerlink" title="成员函数都是纯虚函数。"></a>成员函数都是纯虚函数。</h4><h4 id="接口类更多的表达一种能力或协议"><a href="#接口类更多的表达一种能力或协议" class="headerlink" title="接口类更多的表达一种能力或协议"></a>接口类更多的表达一种能力或协议</h4></li>
+<li><h2 id="RTTI-运行时类似识别"><a href="#RTTI-运行时类似识别" class="headerlink" title="RTTI 运行时类似识别"></a><strong>RTTI</strong> 运行时类似识别</h2><h4 id="typeid-lt-——-gt-dynamic-cast"><a href="#typeid-lt-——-gt-dynamic-cast" class="headerlink" title="typeid&lt;——-&gt;dynamic_cast"></a>typeid&lt;——-&gt;dynamic_cast</h4><h4 id="dynamic-cast注意事项："><a href="#dynamic-cast注意事项：" class="headerlink" title="dynamic_cast注意事项："></a>dynamic_cast注意事项：</h4><h4 id="只能应用于指针和引用的转换"><a href="#只能应用于指针和引用的转换" class="headerlink" title="只能应用于指针和引用的转换"></a>只能应用于指针和引用的转换</h4><h4 id="要转换的类型中必须包含虚函数"><a href="#要转换的类型中必须包含虚函数" class="headerlink" title="要转换的类型中必须包含虚函数"></a>要转换的类型中必须包含虚函数</h4><h4 id="转换成功返回子类的地址，失败返回NULL"><a href="#转换成功返回子类的地址，失败返回NULL" class="headerlink" title="转换成功返回子类的地址，失败返回NULL"></a>转换成功返回子类的地址，失败返回NULL</h4><h4 id="typeid-注意事项："><a href="#typeid-注意事项：" class="headerlink" title="typeid 注意事项："></a>typeid 注意事项：</h4><h4 id="type-id-返回一个type-info对象的引用"><a href="#type-id-返回一个type-info对象的引用" class="headerlink" title="type_id 返回一个type_info对象的引用"></a>type_id 返回一个type_info对象的引用</h4><h4 id="如果想通过基类的指针获得派生类的数据类型，基类必须带有虚函数"><a href="#如果想通过基类的指针获得派生类的数据类型，基类必须带有虚函数" class="headerlink" title="如果想通过基类的指针获得派生类的数据类型，基类必须带有虚函数"></a>如果想通过基类的指针获得派生类的数据类型，基类必须带有虚函数</h4><h4 id="只能获取对象的实际类型"><a href="#只能获取对象的实际类型" class="headerlink" title="只能获取对象的实际类型"></a>只能获取对象的实际类型</h4></li>
+</ul>
+</blockquote>
+<h4 id="继承关系不是RTTI的充分条件，只是必要条件，所以存在继承关系的类不一定可以用RTTI技术"><a href="#继承关系不是RTTI的充分条件，只是必要条件，所以存在继承关系的类不一定可以用RTTI技术" class="headerlink" title="继承关系不是RTTI的充分条件，只是必要条件，所以存在继承关系的类不一定可以用RTTI技术"></a>继承关系不是RTTI的充分条件，只是必要条件，所以存在继承关系的类不一定可以用RTTI技术</h4><h4 id="运行时类型别必须建立在虚函数的基础上，否则无需RTTI技术"><a href="#运行时类型别必须建立在虚函数的基础上，否则无需RTTI技术" class="headerlink" title="运行时类型别必须建立在虚函数的基础上，否则无需RTTI技术"></a>运行时类型别必须建立在虚函数的基础上，否则无需RTTI技术</h4><h4 id="RTTI技术可以通过父类指针识别其所指向对象的真实数据类型"><a href="#RTTI技术可以通过父类指针识别其所指向对象的真实数据类型" class="headerlink" title="RTTI技术可以通过父类指针识别其所指向对象的真实数据类型"></a>RTTI技术可以通过父类指针识别其所指向对象的真实数据类型</h4><blockquote>
+<ul>
+<li><h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><h4 id="关键字："><a href="#关键字：" class="headerlink" title="关键字："></a>关键字：</h4><h4 id="try…-catch…-throw"><a href="#try…-catch…-throw" class="headerlink" title="try….catch…    throw"></a>try….catch…    throw</h4><h4 id="基本思想：主逻辑与异常处理分离"><a href="#基本思想：主逻辑与异常处理分离" class="headerlink" title="基本思想：主逻辑与异常处理分离"></a>基本思想：主逻辑与异常处理分离</h4><h4 id="try与cath是一对多的关系"><a href="#try与cath是一对多的关系" class="headerlink" title="try与cath是一对多的关系"></a>try与cath是一对多的关系</h4><h4 id="常见的异常"><a href="#常见的异常" class="headerlink" title="常见的异常"></a>常见的异常</h4><h4 id="数组下标越界"><a href="#数组下标越界" class="headerlink" title="数组下标越界"></a>数组下标越界</h4><h4 id="除数为0"><a href="#除数为0" class="headerlink" title="除数为0"></a>除数为0</h4><h4 id="内存不足"><a href="#内存不足" class="headerlink" title="内存不足"></a>内存不足</h4></li>
+<li><p>##隐藏与覆盖，什么叫覆盖，覆盖与隐藏之间的关系</p>
+</li>
+<li><h2 id="早绑定和晚绑定"><a href="#早绑定和晚绑定" class="headerlink" title="早绑定和晚绑定"></a>早绑定和晚绑定</h2><h4 id="概念：指相同对象收到不同消息或者不同对象收到相同消息产生不同的动作"><a href="#概念：指相同对象收到不同消息或者不同对象收到相同消息产生不同的动作" class="headerlink" title="概念：指相同对象收到不同消息或者不同对象收到相同消息产生不同的动作"></a>概念：指相同对象收到不同消息或者不同对象收到相同消息产生不同的动作</h4><h4 id="静态多态（早绑定），编译之前到底使用什么函数，函数被编译进去了"><a href="#静态多态（早绑定），编译之前到底使用什么函数，函数被编译进去了" class="headerlink" title="静态多态（早绑定），编译之前到底使用什么函数，函数被编译进去了"></a>静态多态（早绑定），编译之前到底使用什么函数，函数被编译进去了</h4><h4 id="动态多态（玩绑定）"><a href="#动态多态（玩绑定）" class="headerlink" title="动态多态（玩绑定）"></a>动态多态（玩绑定）</h4><h2 id="十一友元函数和友元类"><a href="#十一友元函数和友元类" class="headerlink" title="十一友元函数和友元类"></a>十一友元函数和友元类</h2></li>
+<li><h2 id="友元函数和友元类"><a href="#友元函数和友元类" class="headerlink" title="友元函数和友元类"></a>友元函数和友元类</h2><h4 id="关键字：friend"><a href="#关键字：friend" class="headerlink" title="关键字：friend"></a>关键字：friend</h4><h4 id="友元全局函数"><a href="#友元全局函数" class="headerlink" title="友元全局函数"></a>友元全局函数</h4><h4 id="友元成员函数"><a href="#友元成员函数" class="headerlink" title="友元成员函数"></a>友元成员函数</h4></li>
+<li><h2 id="关于友元的注意事项"><a href="#关于友元的注意事项" class="headerlink" title="关于友元的注意事项"></a>关于友元的注意事项</h2><h4 id="友元关系不可传递"><a href="#友元关系不可传递" class="headerlink" title="友元关系不可传递"></a>友元关系不可传递</h4><h4 id="友元关系的单向性"><a href="#友元关系的单向性" class="headerlink" title="友元关系的单向性"></a>友元关系的单向性</h4><h4 id="友元声明的形式及数量不受限制"><a href="#友元声明的形式及数量不受限制" class="headerlink" title="友元声明的形式及数量不受限制"></a>友元声明的形式及数量不受限制</h4><strong> 友元只是封装的补充 </strong></li>
+<li><h2 id="静态函数"><a href="#静态函数" class="headerlink" title="静态函数"></a>静态函数</h2><h4 id="定义静态成员函数和静态数据成员都需要static关键字。"><a href="#定义静态成员函数和静态数据成员都需要static关键字。" class="headerlink" title="定义静态成员函数和静态数据成员都需要static关键字。"></a>定义静态成员函数和静态数据成员都需要static关键字。</h4><h4 id="公有静态成员函数可以被类直接调用。"><a href="#公有静态成员函数可以被类直接调用。" class="headerlink" title="公有静态成员函数可以被类直接调用。"></a>公有静态成员函数可以被类直接调用。</h4><h4 id="静态数据成员不能在构造函数初始化，必须单独初始化。"><a href="#静态数据成员不能在构造函数初始化，必须单独初始化。" class="headerlink" title="静态数据成员不能在构造函数初始化，必须单独初始化。"></a>静态数据成员不能在构造函数初始化，必须单独初始化。</h4><h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><h4 id="静态数据成员必须单独初始化"><a href="#静态数据成员必须单独初始化" class="headerlink" title="静态数据成员必须单独初始化"></a>静态数据成员必须单独初始化</h4><h4 id="静态成员函数不能调用非静态成员函数和非静态数据成员"><a href="#静态成员函数不能调用非静态成员函数和非静态数据成员" class="headerlink" title="静态成员函数不能调用非静态成员函数和非静态数据成员"></a>静态成员函数不能调用非静态成员函数和非静态数据成员</h4><h4 id="静态数据成员只有一份，且不依赖对象而存在"><a href="#静态数据成员只有一份，且不依赖对象而存在" class="headerlink" title="静态数据成员只有一份，且不依赖对象而存在"></a>静态数据成员只有一份，且不依赖对象而存在</h4>*## 运算符重载<h4 id="本质是函数重载"><a href="#本质是函数重载" class="headerlink" title="本质是函数重载"></a>本质是函数重载</h4><h3 id="一元运算符重载"><a href="#一元运算符重载" class="headerlink" title="一元运算符重载"></a>一元运算符重载</h3><h4 id="（负号）的重载：友元函数重载，成员函数的重载"><a href="#（负号）的重载：友元函数重载，成员函数的重载" class="headerlink" title="-（负号）的重载：友元函数重载，成员函数的重载"></a>-（负号）的重载：友元函数重载，成员函数的重载</h4><h4 id="符号的重载：前置-符号重载-Coordinate-amp-operator-，后置-符号重载-Coordinate-operator-int"><a href="#符号的重载：前置-符号重载-Coordinate-amp-operator-，后置-符号重载-Coordinate-operator-int" class="headerlink" title="++符号的重载：前置++符号重载[Coordinate&amp; operator++()]，后置++符号重载[Coordinate operator++(int)]"></a>++符号的重载：前置++符号重载[Coordinate&amp; operator++()]，后置++符号重载[Coordinate operator++(int)]</h4><h3 id="二元运算符"><a href="#二元运算符" class="headerlink" title="二元运算符"></a>二元运算符</h3><h4 id="号：成员函数重载，友元函数重载"><a href="#号：成员函数重载，友元函数重载" class="headerlink" title="+号：成员函数重载，友元函数重载"></a>+号：成员函数重载，友元函数重载</h4><h4 id="lt-lt-不可用成员函数重载，只可用友元函数"><a href="#lt-lt-不可用成员函数重载，只可用友元函数" class="headerlink" title="&lt;&lt; 不可用成员函数重载，只可用友元函数"></a>&lt;&lt; 不可用成员函数重载，只可用友元函数</h4><h3 id="模版函数，模版类"><a href="#模版函数，模版类" class="headerlink" title="模版函数，模版类"></a>模版函数，模版类</h3><h4 id="关键字：template-typename-class"><a href="#关键字：template-typename-class" class="headerlink" title="关键字：template typename class"></a>关键字：template typename class</h4></li>
+</ul>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">display</span><span class="params">(T a)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">template</span> &lt; <span class="keyword">typename</span> T, <span class="keyword">class</span> S&gt;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">display</span><span class="params">(T t, S s)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="built_in">cout</span> &lt;&lt; t &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">	<span class="built_in">cout</span> &lt;&lt; s &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>特别提醒：模版代码不能分离编译<br>模版类</p>
+<h3 id="STL-C-标注模版库"><a href="#STL-C-标注模版库" class="headerlink" title="STL:C++标注模版库"></a>STL:C++标注模版库</h3><h4 id="STL-Standard-Template-Lib"><a href="#STL-Standard-Template-Lib" class="headerlink" title="STL:Standard Template Lib"></a>STL:Standard Template Lib</h4><h4 id="vector-向量的本质：对数组的封装"><a href="#vector-向量的本质：对数组的封装" class="headerlink" title="vector 向量的本质：对数组的封装"></a>vector 向量的本质：对数组的封装</h4><table>
+<thead>
+<tr>
+<th>初始化Vector对象的方式</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>vector<t> v1;</t></td>
+<td>vector保存类型为T的对象。默认构造函数v1为空</td>
+</tr>
+<tr>
+<td>vector<t> v2(v1);</t></td>
+<td>v2是v1的一个副本</td>
+</tr>
+<tr>
+<td>vector<t> v3(n,i);</t></td>
+<td>v3包含n个值为i的元素</td>
+</tr>
+<tr>
+<td>vector<t> v4(n);</t></td>
+<td>v4包含有初始化元素的n个副本</td>
+</tr>
+</tbody>
+</table>
+<h4 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h4><h4 id="迭代器相当于指针"><a href="#迭代器相当于指针" class="headerlink" title="迭代器相当于指针"></a>迭代器相当于指针</h4><h4 id="值，指针，内存地址，使用区别"><a href="#值，指针，内存地址，使用区别" class="headerlink" title="值，指针，内存地址，使用区别"></a>值，指针，内存地址，使用区别</h4>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/10/25/C++学习记录/">C++学习记录</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">zhutaorun</a></p>
+        <p><span>发布时间:</span>2016-10-25, 20:43:36</p>
+        <p><span>最后更新:</span>2021-09-13, 20:25:11</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/10/25/C++学习记录/" title="C++学习记录">http://zhutaorun.win/2016/10/25/C++学习记录/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://zhutaorun.win/2016/10/25/C++学习记录/　　作者: zhutaorun" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/12/04/关于Markdown/">
+                    关于Markdown
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/10/02/二分法/">
+                    二分法
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#为什么要学习C"><span class="toc-number">1.</span> <span class="toc-text">为什么要学习C++</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#怎么学习"><span class="toc-number">2.</span> <span class="toc-text">怎么学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#C-知识点（不定期更新）"><span class="toc-number">3.</span> <span class="toc-text">C++知识点（不定期更新）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一-对象实例化"><span class="toc-number"></span> <span class="toc-text">一 对象实例化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-初始化string对象的方式"><span class="toc-number"></span> <span class="toc-text">二 初始化string对象的方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三-类内定义与内联函数"><span class="toc-number"></span> <span class="toc-text">三 类内定义与内联函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四-对象结构"><span class="toc-number"></span> <span class="toc-text">四 对象结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内存分区"><span class="toc-number"></span> <span class="toc-text">内存分区</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#栈区：int-x-0-int-p-null"><span class="toc-number">0.0.1.</span> <span class="toc-text">栈区：int x=0;int *p= null;</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#堆区：int-p-new-int-20"><span class="toc-number">0.0.2.</span> <span class="toc-text">堆区：int *p = new int[20];</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#全局区：存储全局变量及静态变量"><span class="toc-number">0.0.3.</span> <span class="toc-text">全局区：存储全局变量及静态变量</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#常量区：string-str-“hello”"><span class="toc-number">0.0.4.</span> <span class="toc-text">常量区：string str = “hello”;</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#代码区：存储逻辑代码的二进制"><span class="toc-number">0.0.5.</span> <span class="toc-text">代码区：存储逻辑代码的二进制</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象初始化：一是有且仅有一次，二是根据条件初始化"><span class="toc-number"></span> <span class="toc-text">对象初始化：一是有且仅有一次，二是根据条件初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造函数的规则和特点"><span class="toc-number"></span> <span class="toc-text">构造函数的规则和特点</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#构造函数在对象实例化时被自动调用"><span class="toc-number">0.0.1.</span> <span class="toc-text">构造函数在对象实例化时被自动调用</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#构造函数与类同名"><span class="toc-number">0.0.2.</span> <span class="toc-text">构造函数与类同名</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#构造函数没有返回值"><span class="toc-number">0.0.3.</span> <span class="toc-text">构造函数没有返回值</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#构造函数可以有多个重载形式"><span class="toc-number">0.0.4.</span> <span class="toc-text">构造函数可以有多个重载形式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#实例化对象时仅用到了一个构造函数"><span class="toc-number">0.0.5.</span> <span class="toc-text">实例化对象时仅用到了一个构造函数</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#当用户没有定义构造函数时，编译器自动生成一个构造函数-（非常重要）"><span class="toc-number">0.0.6.</span> <span class="toc-text">当用户没有定义构造函数时，编译器自动生成一个构造函数 （非常重要）</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#默认构造函数-没有参数的构造函数"><span class="toc-number"></span> <span class="toc-text">默认构造函数:没有参数的构造函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化列表特性"><span class="toc-number"></span> <span class="toc-text">初始化列表特性</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#初始化列表先于构造函数执行"><span class="toc-number">0.0.1.</span> <span class="toc-text">初始化列表先于构造函数执行</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#初始化列表只能用于构造函数"><span class="toc-number">0.0.2.</span> <span class="toc-text">初始化列表只能用于构造函数</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#初始化列表可以同时初始化多个数据成员"><span class="toc-number">0.0.3.</span> <span class="toc-text">初始化列表可以同时初始化多个数据成员</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拷贝构造函数"><span class="toc-number"></span> <span class="toc-text">拷贝构造函数</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#如果没有自定义的拷贝构造函数则系统自动生成一个默认的拷贝构造函数"><span class="toc-number">0.0.1.</span> <span class="toc-text">如果没有自定义的拷贝构造函数则系统自动生成一个默认的拷贝构造函数</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#当采用直接初始化或复制初始化实例化对象时系统自动调用拷贝构造函数"><span class="toc-number">0.0.2.</span> <span class="toc-text">当采用直接初始化或复制初始化实例化对象时系统自动调用拷贝构造函数</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#析构函数"><span class="toc-number"></span> <span class="toc-text">析构函数</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#如果没有自定义的析构函数则系统自动生成"><span class="toc-number">0.0.1.</span> <span class="toc-text">如果没有自定义的析构函数则系统自动生成</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#析构函数在对象销毁时自动调用"><span class="toc-number">0.0.2.</span> <span class="toc-text">析构函数在对象销毁时自动调用</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#析构函数没有返回值，没有参数也不能重载"><span class="toc-number">0.0.3.</span> <span class="toc-text">析构函数没有返回值，没有参数也不能重载</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象的生命历程"><span class="toc-number"></span> <span class="toc-text">对象的生命历程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五-const"><span class="toc-number"></span> <span class="toc-text">五 const</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#难点"><span class="toc-number"></span> <span class="toc-text">难点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六-函数"><span class="toc-number"></span> <span class="toc-text">六 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#函数参数默认值值"><span class="toc-number">0.0.1.</span> <span class="toc-text">函数参数默认值值</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#函数重载：在相同作用域内用同一函数名定义的多个函数参数个数和参数类型不同"><span class="toc-number">0.0.2.</span> <span class="toc-text">函数重载：在相同作用域内用同一函数名定义的多个函数参数个数和参数类型不同</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#内容总结"><span class="toc-number">0.0.3.</span> <span class="toc-text">内容总结</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#七内存管理"><span class="toc-number"></span> <span class="toc-text">七内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#内存的本质是资源"><span class="toc-number">0.0.1.</span> <span class="toc-text">内存的本质是资源</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#操作系统掌管内存资源"><span class="toc-number">0.0.2.</span> <span class="toc-text">操作系统掌管内存资源</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#我们能做申请-归还"><span class="toc-number">0.0.3.</span> <span class="toc-text">我们能做申请/归还</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#申请-归还内存资源就是内存管理"><span class="toc-number">0.0.4.</span> <span class="toc-text">申请/归还内存资源就是内存管理</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#申请内存-new-释放内存（delete）"><span class="toc-number">0.0.5.</span> <span class="toc-text">申请内存 (new) 释放内存（delete）</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#申请内存需要判断是否成功，释放内存需要设空指针"><span class="toc-number">0.0.6.</span> <span class="toc-text">申请内存需要判断是否成功，释放内存需要设空指针</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#new与delete-配套使用"><span class="toc-number">0.0.7.</span> <span class="toc-text">new与delete 配套使用</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#八对象数组"><span class="toc-number"></span> <span class="toc-text">八对象数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#深拷贝与浅拷贝"><span class="toc-number"></span> <span class="toc-text">深拷贝与浅拷贝</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#当数据成员中含有指针时，浅拷贝会使两个对象的成员指针指向相同的内存地址"><span class="toc-number">0.0.1.</span> <span class="toc-text">当数据成员中含有指针时，浅拷贝会使两个对象的成员指针指向相同的内存地址</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#深拷贝不是简单的值拷贝，而是将指针成员指向的内存数据也进行拷贝"><span class="toc-number">0.1.</span> <span class="toc-text">深拷贝不是简单的值拷贝，而是将指针成员指向的内存数据也进行拷贝</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象指针"><span class="toc-number"></span> <span class="toc-text">对象指针</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#this指针"><span class="toc-number">0.0.1.</span> <span class="toc-text">this指针</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#this指针也是指针类型，所以在32位编译器下也占用4个基本的内存单元，即sizeof-this-的结果为4。"><span class="toc-number">0.0.2.</span> <span class="toc-text">this指针也是指针类型，所以在32位编译器下也占用4个基本的内存单元，即sizeof(this)的结果为4。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#当成员函数的参数或临时变量与数据成员同名时，可以使用this指针区分同名的数据成员。"><span class="toc-number">0.0.3.</span> <span class="toc-text">当成员函数的参数或临时变量与数据成员同名时，可以使用this指针区分同名的数据成员。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#this指针无需用户定义，是编译器自动产生的。"><span class="toc-number">0.0.4.</span> <span class="toc-text">this指针无需用户定义，是编译器自动产生的。</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常成员函数（const）"><span class="toc-number"></span> <span class="toc-text">常成员函数（const）</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#常成员函数的本质是内部使用常this指针。"><span class="toc-number">0.0.1.</span> <span class="toc-text">常成员函数的本质是内部使用常this指针。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#常成员函数内使用数据成员时，不能改变数据成员的值。"><span class="toc-number">0.0.2.</span> <span class="toc-text">常成员函数内使用数据成员时，不能改变数据成员的值。</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#常成员函数内不能调用普通的成员函数。"><span class="toc-number">0.0.3.</span> <span class="toc-text">常成员函数内不能调用普通的成员函数。</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#九继承"><span class="toc-number"></span> <span class="toc-text">九继承</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#公有继承（class-A-public-B），保护继承-class-A-protected-B-，私有继承-class-A-private-B"><span class="toc-number">0.0.1.</span> <span class="toc-text">公有继承（class A:public B），保护继承(class A:protected B)，私有继承(class A:private B)</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#十继承中的特殊关系"><span class="toc-number"></span> <span class="toc-text">十继承中的特殊关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#父子关系-成员同名-隐藏"><span class="toc-number"></span> <span class="toc-text">父子关系 成员同名 隐藏</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#is-a"><span class="toc-number"></span> <span class="toc-text">is-a</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多继承和多重继承"><span class="toc-number"></span> <span class="toc-text">多继承和多重继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#虚继承"><span class="toc-number"></span> <span class="toc-text">虚继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关键字-virtual"><span class="toc-number"></span> <span class="toc-text">关键字:virtual</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#A-lt-B-lt-D-A-lt-C-lt-D-又称菱形继承"><span class="toc-number"></span> <span class="toc-text">A<-B<-D,A<-C<-D,又称菱形继承</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#十一多态"><span class="toc-number"></span> <span class="toc-text">十一多态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#普通虚函数与虚析构函数"><span class="toc-number"></span> <span class="toc-text">普通虚函数与虚析构函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Virtual使用限制"><span class="toc-number">1.</span> <span class="toc-text">Virtual使用限制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#普通函数不能是虚函数"><span class="toc-number">2.</span> <span class="toc-text">普通函数不能是虚函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#静态成员函数不能是虚函数"><span class="toc-number">3.</span> <span class="toc-text">静态成员函数不能是虚函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内联函数不能为虚函数"><span class="toc-number">4.</span> <span class="toc-text">内联函数不能为虚函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#构造函数不能是虚函数"><span class="toc-number">5.</span> <span class="toc-text">构造函数不能是虚函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在C-中多态的实现是通过虚函数表实现的"><span class="toc-number">6.</span> <span class="toc-text">在C++中多态的实现是通过虚函数表实现的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#每个类只有一份虚函数表，所有该类的对象共用同一张虚函数表"><span class="toc-number">7.</span> <span class="toc-text">每个类只有一份虚函数表，所有该类的对象共用同一张虚函数表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#两张虚函数表中的函数指针可能指向同一个函数。"><span class="toc-number">8.</span> <span class="toc-text">两张虚函数表中的函数指针可能指向同一个函数。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#纯虚函数和抽象类"><span class="toc-number"></span> <span class="toc-text">纯虚函数和抽象类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#抽象类无法实例化对象"><span class="toc-number">1.</span> <span class="toc-text">抽象类无法实例化对象</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#纯虚函数：抽象类与接口类"><span class="toc-number"></span> <span class="toc-text">纯虚函数：抽象类与接口类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#仅含有纯虚函数的类称为接口类"><span class="toc-number">1.</span> <span class="toc-text">仅含有纯虚函数的类称为接口类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#成员函数都是纯虚函数。"><span class="toc-number">2.</span> <span class="toc-text">成员函数都是纯虚函数。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#接口类更多的表达一种能力或协议"><span class="toc-number">3.</span> <span class="toc-text">接口类更多的表达一种能力或协议</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RTTI-运行时类似识别"><span class="toc-number"></span> <span class="toc-text">RTTI 运行时类似识别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#typeid-lt-——-gt-dynamic-cast"><span class="toc-number">1.</span> <span class="toc-text">typeid<——->dynamic_cast</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#dynamic-cast注意事项："><span class="toc-number">2.</span> <span class="toc-text">dynamic_cast注意事项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#只能应用于指针和引用的转换"><span class="toc-number">3.</span> <span class="toc-text">只能应用于指针和引用的转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#要转换的类型中必须包含虚函数"><span class="toc-number">4.</span> <span class="toc-text">要转换的类型中必须包含虚函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#转换成功返回子类的地址，失败返回NULL"><span class="toc-number">5.</span> <span class="toc-text">转换成功返回子类的地址，失败返回NULL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#typeid-注意事项："><span class="toc-number">6.</span> <span class="toc-text">typeid 注意事项：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#type-id-返回一个type-info对象的引用"><span class="toc-number">7.</span> <span class="toc-text">type_id 返回一个type_info对象的引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如果想通过基类的指针获得派生类的数据类型，基类必须带有虚函数"><span class="toc-number">8.</span> <span class="toc-text">如果想通过基类的指针获得派生类的数据类型，基类必须带有虚函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#只能获取对象的实际类型"><span class="toc-number">9.</span> <span class="toc-text">只能获取对象的实际类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#继承关系不是RTTI的充分条件，只是必要条件，所以存在继承关系的类不一定可以用RTTI技术"><span class="toc-number">10.</span> <span class="toc-text">继承关系不是RTTI的充分条件，只是必要条件，所以存在继承关系的类不一定可以用RTTI技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行时类型别必须建立在虚函数的基础上，否则无需RTTI技术"><span class="toc-number">11.</span> <span class="toc-text">运行时类型别必须建立在虚函数的基础上，否则无需RTTI技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RTTI技术可以通过父类指针识别其所指向对象的真实数据类型"><span class="toc-number">12.</span> <span class="toc-text">RTTI技术可以通过父类指针识别其所指向对象的真实数据类型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异常处理"><span class="toc-number"></span> <span class="toc-text">异常处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#关键字："><span class="toc-number">1.</span> <span class="toc-text">关键字：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#try…-catch…-throw"><span class="toc-number">2.</span> <span class="toc-text">try….catch…    throw</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#基本思想：主逻辑与异常处理分离"><span class="toc-number">3.</span> <span class="toc-text">基本思想：主逻辑与异常处理分离</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#try与cath是一对多的关系"><span class="toc-number">4.</span> <span class="toc-text">try与cath是一对多的关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#常见的异常"><span class="toc-number">5.</span> <span class="toc-text">常见的异常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数组下标越界"><span class="toc-number">6.</span> <span class="toc-text">数组下标越界</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#除数为0"><span class="toc-number">7.</span> <span class="toc-text">除数为0</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内存不足"><span class="toc-number">8.</span> <span class="toc-text">内存不足</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#早绑定和晚绑定"><span class="toc-number"></span> <span class="toc-text">早绑定和晚绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#概念：指相同对象收到不同消息或者不同对象收到相同消息产生不同的动作"><span class="toc-number">1.</span> <span class="toc-text">概念：指相同对象收到不同消息或者不同对象收到相同消息产生不同的动作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#静态多态（早绑定），编译之前到底使用什么函数，函数被编译进去了"><span class="toc-number">2.</span> <span class="toc-text">静态多态（早绑定），编译之前到底使用什么函数，函数被编译进去了</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#动态多态（玩绑定）"><span class="toc-number">3.</span> <span class="toc-text">动态多态（玩绑定）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#十一友元函数和友元类"><span class="toc-number"></span> <span class="toc-text">十一友元函数和友元类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#友元函数和友元类"><span class="toc-number"></span> <span class="toc-text">友元函数和友元类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#关键字：friend"><span class="toc-number">1.</span> <span class="toc-text">关键字：friend</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#友元全局函数"><span class="toc-number">2.</span> <span class="toc-text">友元全局函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#友元成员函数"><span class="toc-number">3.</span> <span class="toc-text">友元成员函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于友元的注意事项"><span class="toc-number"></span> <span class="toc-text">关于友元的注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#友元关系不可传递"><span class="toc-number">1.</span> <span class="toc-text">友元关系不可传递</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#友元关系的单向性"><span class="toc-number">2.</span> <span class="toc-text">友元关系的单向性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#友元声明的形式及数量不受限制"><span class="toc-number">3.</span> <span class="toc-text">友元声明的形式及数量不受限制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#静态函数"><span class="toc-number"></span> <span class="toc-text">静态函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#定义静态成员函数和静态数据成员都需要static关键字。"><span class="toc-number">1.</span> <span class="toc-text">定义静态成员函数和静态数据成员都需要static关键字。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#公有静态成员函数可以被类直接调用。"><span class="toc-number">2.</span> <span class="toc-text">公有静态成员函数可以被类直接调用。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#静态数据成员不能在构造函数初始化，必须单独初始化。"><span class="toc-number">3.</span> <span class="toc-text">静态数据成员不能在构造函数初始化，必须单独初始化。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注意事项"><span class="toc-number">4.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#静态数据成员必须单独初始化"><span class="toc-number">5.</span> <span class="toc-text">静态数据成员必须单独初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#静态成员函数不能调用非静态成员函数和非静态数据成员"><span class="toc-number">6.</span> <span class="toc-text">静态成员函数不能调用非静态成员函数和非静态数据成员</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#静态数据成员只有一份，且不依赖对象而存在"><span class="toc-number">7.</span> <span class="toc-text">静态数据成员只有一份，且不依赖对象而存在</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#本质是函数重载"><span class="toc-number">8.</span> <span class="toc-text">本质是函数重载</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一元运算符重载"><span class="toc-number"></span> <span class="toc-text">一元运算符重载</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（负号）的重载：友元函数重载，成员函数的重载"><span class="toc-number">1.</span> <span class="toc-text">-（负号）的重载：友元函数重载，成员函数的重载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#符号的重载：前置-符号重载-Coordinate-amp-operator-，后置-符号重载-Coordinate-operator-int"><span class="toc-number">2.</span> <span class="toc-text">++符号的重载：前置++符号重载[Coordinate& operator++()]，后置++符号重载[Coordinate operator++(int)]</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二元运算符"><span class="toc-number"></span> <span class="toc-text">二元运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#号：成员函数重载，友元函数重载"><span class="toc-number">1.</span> <span class="toc-text">+号：成员函数重载，友元函数重载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lt-lt-不可用成员函数重载，只可用友元函数"><span class="toc-number">2.</span> <span class="toc-text"><< 不可用成员函数重载，只可用友元函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模版函数，模版类"><span class="toc-number"></span> <span class="toc-text">模版函数，模版类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#关键字：template-typename-class"><span class="toc-number">1.</span> <span class="toc-text">关键字：template typename class</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#STL-C-标注模版库"><span class="toc-number"></span> <span class="toc-text">STL:C++标注模版库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#STL-Standard-Template-Lib"><span class="toc-number">1.</span> <span class="toc-text">STL:Standard Template Lib</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vector-向量的本质：对数组的封装"><span class="toc-number">2.</span> <span class="toc-text">vector 向量的本质：对数组的封装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#链表"><span class="toc-number">3.</span> <span class="toc-text">链表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#迭代器相当于指针"><span class="toc-number">4.</span> <span class="toc-text">迭代器相当于指针</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#值，指针，内存地址，使用区别"><span class="toc-number">5.</span> <span class="toc-text">值，指针，内存地址，使用区别</span></a></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"C++学习记录　| zhutaorun's Blog　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <div id="comment-box" ></div>
+    <div class="ds-thread" id="ds-thread" data-thread-key="2016/10/25/C++学习记录/" data-title="C++学习记录" data-url="http://zhutaorun.win/2016/10/25/C++学习记录/"></div>
+    <script>
+        var duoshuoQuery = {short_name:"zhutaorun"};
+        var loadComment = function(){
+            var d = document, s = d.createElement('script');
+            s.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            s.async = true; s.charset = 'UTF-8';
+            (d.head || d.body).appendChild(s);
+        }
+
+        
+    </script>
+    
+    <script> loadComment(); </script>
+
+</div>
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2016/12/04/关于Markdown/" title="上一篇: 关于Markdown">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2016/10/02/二分法/" title="下一篇: 二分法">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/12/15/检测文件变化/">检测文件变化</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/13/Lua热重载/">Lua热重载</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/11/29/Lua的多重继承实现/">Lua的多重继承实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/10/25/Lua的OOP实现/">Lua的OOP实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/09/26/Lua的metatable和Lua的面向对象实现/">Lua的metatable和Lua的面向对象实现</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/09/06/个人最近踩的坑/">个人最近踩的坑</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/30/《Lua程序设计（第四版）》读书笔记/">《Lua程序设计（第四版）》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/10/写Shader的IDE工具合集/">写Shader的IDE工具合集</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/04/11/最近的复盘-错误小结/">最近的复盘-错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/03/Unity-Apk解包/">Unity-Apk解包</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/01/关于项目优化杂谈/">关于项目优化杂谈</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/07/Unity里实现Hook函数/">Unity里实现Hook函数</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/12/游戏同步/">游戏同步</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/04/关于动画结束的处理/">关于动画结束的处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/03/帧同步的逻辑工程维护/">帧同步的逻辑工程维护</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/01/再谈优化/">再谈优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/16/一个神奇的bug/">一个神奇的bug</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/31/模型在UI上显示/">模型在UI上显示</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/05/04/Unity中音效插件/">Unity中音效插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/04/24/UWA-Day-2018分享/">UWA-Day-2018分享</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/26/代码质量/">代码质量</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/AssetBundle使用模式/">AssetBundle使用模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/AssetBundle的基本原理/">AssetBundle的基本原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/资源文件夹/">资源文件夹</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/资产，对象和序列化/">资产，对象和序列化</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/03/20/翻译-资产，资源和AssetBundle/">[翻译]资产，资源和AssetBundle</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/02/01/游戏项目中的美术，策划文档怎么管理/">游戏项目中的美术，策划文档怎么管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/关于游戏测试/">关于游戏测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/01/31/资源管理/">资源管理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/18/缓存命中/">缓存命中</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/struct-结构体类型的大小计算/">struct 结构体类型的大小计算</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Unity小技巧-清除缓存/">Unity小技巧-清除缓存</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/自动上阵功能开发的小结/">自动上阵功能开发的小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/MVC、MVP和MVVM的图示/">MVC、MVP和MVVM的图示</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/24/【翻译】Unity3D车辆的滑动效果/">【翻译】Unity3D车辆的滑动效果</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/24/实现轮胎印/">实现轮胎印</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/Shader的纹理/">Shader的纹理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/31/如何熟悉一个老项目/">如何快速熟悉一个老项目</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/Unity的内存优化以及在移动平台上的优化/">Unity的内存优化以及在移动平台上的优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/30/准备入职，写点东西/">准备入职，写点东西</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/Unity资源制作要求/">Unity资源制作要求</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/30/MMO小地图实现方式/">MMO小地图实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/31/Android端外推送到底有多烦/">Android端外推送到底有多烦</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/Unity推送SDk/">Unity推送SDk</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/查找代码的中文插件/">查找代码的中文插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/30/功能错误小结/">功能错误小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/24/《重构-改善既有代码的设计》读书笔记/">《重构-改善既有代码的设计》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/03/18/C-教程的实践小结/">C++教程的实践小结</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity-声音资源优化/">Unity 声音资源优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Unity3D图片大小设置/">Unity3D图片大小设置</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/24/U3D贴图格式-GENERATE-MIP-MAPS/">U3D贴图格式 GENERATE MIP MAPS</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/01/20/Android真机调试/">Android真机调试</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/25/《从行动开始》读书笔记/">《从行动开始》读书笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/19/Unity3Dy各个平台动态读取外部文件解析/">Unity3Dy各个平台动态读取外部文件解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/16/搞定GTD/">搞定GTD</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/11/拖延心理学/">拖延心理学</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/08/游戏改变世界读后感/">《游戏改变世界》读后感</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/04/关于Markdown/">关于Markdown</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/25/C++学习记录/">C++学习记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/二分法/">二分法</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/10/02/适配器模式/">适配器模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/09/24/我是谁/">我是谁</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2014-2021 zhutaorun
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+
+
+
+
+    <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
